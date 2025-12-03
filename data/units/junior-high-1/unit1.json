@@ -1,0 +1,3129 @@
+{
+  "id": "unit1",
+  "title": "Unit 1",
+  "description": "中学1年レベルの基礎文法",
+  "grade": "junior-high-1",
+  "unitNumber": 1,
+  "parts": [
+    {
+      "id": "unit1-p1",
+      "partNumber": 1,
+      "title": "be動詞（am / is / are：肯定・否定・疑問・短縮）",
+      "description": "be動詞の基本形と使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p1-s1",
+          "jp": "私は学生です。",
+          "en": "I am a student.",
+          "tags": [
+            "be動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p1-s2",
+          "jp": "彼はサッカーが好きではありません。",
+          "en": "He is not fond of soccer.",
+          "tags": [
+            "be動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p1-s3",
+          "jp": "あなたは日本人ですか？",
+          "en": "Are you Japanese?",
+          "tags": [
+            "be動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p1-s4",
+          "jp": "彼女は友達です。",
+          "en": "She is a friend.",
+          "tags": [
+            "be動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p1-s5",
+          "jp": "それはおいしくありません。",
+          "en": "It is not delicious.",
+          "tags": [
+            "be動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p1-s6",
+          "jp": "私たちは公園にいます。",
+          "en": "We are at the park.",
+          "tags": [
+            "be動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p1-s7",
+          "jp": "彼らは忙しくありません。",
+          "en": "They are not busy.",
+          "tags": [
+            "be動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p1-s8",
+          "jp": "これは私の本ですか？",
+          "en": "Is this my book?",
+          "tags": [
+            "be動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p1-s9",
+          "jp": "私の犬はとてもかわいいです。",
+          "en": "My dog is very cute.",
+          "tags": [
+            "be動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p1-s10",
+          "jp": "あなたたちは学校にいますか？",
+          "en": "Are you at school?",
+          "tags": [
+            "be動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p2",
+      "partNumber": 2,
+      "title": "this / that",
+      "description": "this / thatの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p2-s1",
+          "jp": "これは私の本です。",
+          "en": "This is my book.",
+          "tags": [
+            "this / that"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p2-s2",
+          "jp": "あれはあなたのペンですか？",
+          "en": "Is that your pen?",
+          "tags": [
+            "this / that"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p2-s3",
+          "jp": "これはおいしい食べ物です。",
+          "en": "This is delicious food.",
+          "tags": [
+            "this / that"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p2-s4",
+          "jp": "あれは私の友達です。",
+          "en": "That is my friend.",
+          "tags": [
+            "this / that"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p2-s5",
+          "jp": "これは私の好きな歌です。",
+          "en": "This is my favorite song.",
+          "tags": [
+            "this / that"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p2-s6",
+          "jp": "あれは学校の建物です。",
+          "en": "That is the school building.",
+          "tags": [
+            "this / that"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p2-s7",
+          "jp": "これは新しい靴ですか？",
+          "en": "Is this a new pair of shoes?",
+          "tags": [
+            "this / that"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p2-s8",
+          "jp": "あれは古い映画です。",
+          "en": "That is an old movie.",
+          "tags": [
+            "this / that"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p2-s9",
+          "jp": "これは私の家族の写真です。",
+          "en": "This is a photo of my family.",
+          "tags": [
+            "this / that"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p2-s10",
+          "jp": "あれは彼の自転車です。",
+          "en": "That is his bicycle.",
+          "tags": [
+            "this / that"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p3",
+      "partNumber": 3,
+      "title": "these / those",
+      "description": "these / thoseの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p3-s1",
+          "jp": "これらの本は面白いです。",
+          "en": "These books are interesting.",
+          "tags": [
+            "these / those"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p3-s2",
+          "jp": "あの犬はとてもかわいいです。",
+          "en": "Those dogs are very cute.",
+          "tags": [
+            "these / those"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p3-s3",
+          "jp": "これらのりんごは新鮮です。",
+          "en": "These apples are fresh.",
+          "tags": [
+            "these / those"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p3-s4",
+          "jp": "あの山は高いです。",
+          "en": "Those mountains are tall.",
+          "tags": [
+            "these / those"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p3-s5",
+          "jp": "これらの写真は私の家族です。",
+          "en": "These photos are of my family.",
+          "tags": [
+            "these / those"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p3-s6",
+          "jp": "あの車は速いです。",
+          "en": "Those cars are fast.",
+          "tags": [
+            "these / those"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p3-s7",
+          "jp": "これらの花は美しいです。",
+          "en": "These flowers are beautiful.",
+          "tags": [
+            "these / those"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p3-s8",
+          "jp": "あの学校は大きいです。",
+          "en": "Those schools are big.",
+          "tags": [
+            "these / those"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p3-s9",
+          "jp": "これらの問題は簡単です。",
+          "en": "These problems are easy.",
+          "tags": [
+            "these / those"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p3-s10",
+          "jp": "あの映画は面白かったです。",
+          "en": "Those movies were interesting.",
+          "tags": [
+            "these / those"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p4",
+      "partNumber": 4,
+      "title": "What is (are) 〜 ?",
+      "description": "What is (are) 〜 ?の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p4-s1",
+          "jp": "彼女は誰ですか？",
+          "en": "What is she?",
+          "tags": [
+            "What is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p4-s2",
+          "jp": "これは私の本です。",
+          "en": "What is this?",
+          "tags": [
+            "What is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p4-s3",
+          "jp": "あなたの趣味は何ですか？",
+          "en": "What are your hobbies?",
+          "tags": [
+            "What is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p4-s4",
+          "jp": "それは何のためですか？",
+          "en": "What is it for?",
+          "tags": [
+            "What is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p4-s5",
+          "jp": "この食べ物は何ですか？",
+          "en": "What is this food?",
+          "tags": [
+            "What is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p4-s6",
+          "jp": "彼の名前は何ですか？",
+          "en": "What is his name?",
+          "tags": [
+            "What is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p4-s7",
+          "jp": "あなたの好きな映画は何ですか？",
+          "en": "What is your favorite movie?",
+          "tags": [
+            "What is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p4-s8",
+          "jp": "私たちの学校はどこにありますか？",
+          "en": "What is our school?",
+          "tags": [
+            "What is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p4-s9",
+          "jp": "それは何時に始まりますか？",
+          "en": "What time does it start?",
+          "tags": [
+            "What is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p4-s10",
+          "jp": "このゲームはどんな内容ですか？",
+          "en": "What is this game about?",
+          "tags": [
+            "What is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p5",
+      "partNumber": 5,
+      "title": "人称代名詞の主格",
+      "description": "人称代名詞の主格の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p5-s1",
+          "jp": "私は学生です。",
+          "en": "I am a student.",
+          "tags": [
+            "人称代名詞の主格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p5-s2",
+          "jp": "彼はサッカーが好きです。",
+          "en": "He likes soccer.",
+          "tags": [
+            "人称代名詞の主格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p5-s3",
+          "jp": "彼女は毎日本を読みます。",
+          "en": "She reads a book every day.",
+          "tags": [
+            "人称代名詞の主格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p5-s4",
+          "jp": "私たちは公園に行きます。",
+          "en": "We go to the park.",
+          "tags": [
+            "人称代名詞の主格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p5-s5",
+          "jp": "あなたは日本語を勉強していますか？",
+          "en": "Are you studying Japanese?",
+          "tags": [
+            "人称代名詞の主格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p5-s6",
+          "jp": "彼らは友達です。",
+          "en": "They are friends.",
+          "tags": [
+            "人称代名詞の主格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p5-s7",
+          "jp": "私は音楽を聞くのが好きです。",
+          "en": "I like listening to music.",
+          "tags": [
+            "人称代名詞の主格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p5-s8",
+          "jp": "彼女は毎朝ジョギングします。",
+          "en": "She jogs every morning.",
+          "tags": [
+            "人称代名詞の主格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p5-s9",
+          "jp": "私たちは映画を見ます。",
+          "en": "We watch a movie.",
+          "tags": [
+            "人称代名詞の主格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p5-s10",
+          "jp": "あなたはどのスポーツが得意ですか？",
+          "en": "What sport are you good at?",
+          "tags": [
+            "人称代名詞の主格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p6",
+      "partNumber": 6,
+      "title": "人称代名詞の所有格",
+      "description": "人称代名詞の所有格の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p6-s1",
+          "jp": "彼の本は面白いです。",
+          "en": "His book is interesting.",
+          "tags": [
+            "人称代名詞の所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p6-s2",
+          "jp": "私たちの教室は新しいです。",
+          "en": "Our classroom is new.",
+          "tags": [
+            "人称代名詞の所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p6-s3",
+          "jp": "彼女の犬はとても可愛いです。",
+          "en": "Her dog is very cute.",
+          "tags": [
+            "人称代名詞の所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p6-s4",
+          "jp": "あなたのカバンはどこですか？",
+          "en": "Where is your bag?",
+          "tags": [
+            "人称代名詞の所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p6-s5",
+          "jp": "彼のサッカーボールは大きいです。",
+          "en": "His soccer ball is big.",
+          "tags": [
+            "人称代名詞の所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p6-s6",
+          "jp": "私の友達は日本人です。",
+          "en": "My friend is Japanese.",
+          "tags": [
+            "人称代名詞の所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p6-s7",
+          "jp": "彼女の家族は仲が良いです。",
+          "en": "Her family is close.",
+          "tags": [
+            "人称代名詞の所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p6-s8",
+          "jp": "あなたたちのチームは強いです。",
+          "en": "Your team is strong.",
+          "tags": [
+            "人称代名詞の所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p6-s9",
+          "jp": "私の趣味は絵を描くことです。",
+          "en": "My hobby is drawing.",
+          "tags": [
+            "人称代名詞の所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p6-s10",
+          "jp": "彼の自転車は速いです。",
+          "en": "His bicycle is fast.",
+          "tags": [
+            "人称代名詞の所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p7",
+      "partNumber": 7,
+      "title": "Who is (are) 〜 ?",
+      "description": "Who is (are) 〜 ?の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p7-s1",
+          "jp": "あれは誰ですか？",
+          "en": "Who is that?",
+          "tags": [
+            "Who is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p7-s2",
+          "jp": "あなたの友達は誰ですか？",
+          "en": "Who is your friend?",
+          "tags": [
+            "Who is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p7-s3",
+          "jp": "彼女は誰ですか？",
+          "en": "Who is she?",
+          "tags": [
+            "Who is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p7-s4",
+          "jp": "その人たちは誰ですか？",
+          "en": "Who are those people?",
+          "tags": [
+            "Who is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p7-s5",
+          "jp": "先生は誰ですか？",
+          "en": "Who is the teacher?",
+          "tags": [
+            "Who is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p7-s6",
+          "jp": "あなたの好きな歌手は誰ですか？",
+          "en": "Who is your favorite singer?",
+          "tags": [
+            "Who is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p7-s7",
+          "jp": "彼の兄弟は誰ですか？",
+          "en": "Who is his brother?",
+          "tags": [
+            "Who is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p7-s8",
+          "jp": "私たちの新しいクラスメートは誰ですか？",
+          "en": "Who is our new classmate?",
+          "tags": [
+            "Who is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p7-s9",
+          "jp": "その映画の監督は誰ですか？",
+          "en": "Who is the director of that movie?",
+          "tags": [
+            "Who is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p7-s10",
+          "jp": "あなたの趣味を教えてくれる人は誰ですか？",
+          "en": "Who is the person who tells you about your hobbies?",
+          "tags": [
+            "Who is (are) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p8",
+      "partNumber": 8,
+      "title": "一般動詞",
+      "description": "一般動詞の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p8-s1",
+          "jp": "私は毎朝ジョギングをします。",
+          "en": "I jog every morning.",
+          "tags": [
+            "一般動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p8-s2",
+          "jp": "彼はサッカーが大好きです。",
+          "en": "He loves soccer.",
+          "tags": [
+            "一般動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p8-s3",
+          "jp": "私たちは週末に映画を見ます。",
+          "en": "We watch a movie on the weekend.",
+          "tags": [
+            "一般動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p8-s4",
+          "jp": "彼女は毎日英語を勉強します。",
+          "en": "She studies English every day.",
+          "tags": [
+            "一般動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p8-s5",
+          "jp": "あなたはどのように音楽を聴きますか？",
+          "en": "How do you listen to music?",
+          "tags": [
+            "一般動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p8-s6",
+          "jp": "兄は毎晩本を読みます。",
+          "en": "My brother reads a book every night.",
+          "tags": [
+            "一般動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p8-s7",
+          "jp": "私たちは夏に旅行をします。",
+          "en": "We travel in the summer.",
+          "tags": [
+            "一般動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p8-s8",
+          "jp": "彼は毎週水曜日にピアノを弾きます。",
+          "en": "He plays the piano every Wednesday.",
+          "tags": [
+            "一般動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p8-s9",
+          "jp": "私は友達と一緒に遊びます。",
+          "en": "I play with my friends.",
+          "tags": [
+            "一般動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p8-s10",
+          "jp": "あなたは昼ごはんに何を食べますか？",
+          "en": "What do you eat for lunch?",
+          "tags": [
+            "一般動詞"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p9",
+      "partNumber": 9,
+      "title": "how many (much) 〜",
+      "description": "how many (much) 〜の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p9-s1",
+          "jp": "このリンゴはいくつありますか？",
+          "en": "How many apples are there?",
+          "tags": [
+            "how many (much) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p9-s2",
+          "jp": "あなたはお金をどれくらい持っていますか？",
+          "en": "How much money do you have?",
+          "tags": [
+            "how many (much) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p9-s3",
+          "jp": "クラスには生徒が何人いますか？",
+          "en": "How many students are in the class?",
+          "tags": [
+            "how many (much) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p9-s4",
+          "jp": "この本はどれくらいの重さですか？",
+          "en": "How much does this book weigh?",
+          "tags": [
+            "how many (much) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p9-s5",
+          "jp": "あなたの家には犬が何匹いますか？",
+          "en": "How many dogs do you have at home?",
+          "tags": [
+            "how many (much) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p9-s6",
+          "jp": "毎日どれくらい水を飲みますか？",
+          "en": "How much water do you drink every day?",
+          "tags": [
+            "how many (much) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p9-s7",
+          "jp": "パーティーには人が何人来ますか？",
+          "en": "How many people will come to the party?",
+          "tags": [
+            "how many (much) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p9-s8",
+          "jp": "そのシャツはいくらですか？",
+          "en": "How much is that shirt?",
+          "tags": [
+            "how many (much) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p9-s9",
+          "jp": "あなたの家の近くに公園は何個ありますか？",
+          "en": "How many parks are near your house?",
+          "tags": [
+            "how many (much) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p9-s10",
+          "jp": "このケーキはどれくらい甘いですか？",
+          "en": "How much sugar is in this cake?",
+          "tags": [
+            "how many (much) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p10",
+      "partNumber": 10,
+      "title": "人称代名詞の目的格",
+      "description": "人称代名詞の目的格の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p10-s1",
+          "jp": "彼は私を助けてくれます。",
+          "en": "He helps me.",
+          "tags": [
+            "人称代名詞の目的格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p10-s2",
+          "jp": "彼女が私たちを見ている。",
+          "en": "She is looking at us.",
+          "tags": [
+            "人称代名詞の目的格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p10-s3",
+          "jp": "彼は君に本を貸しました。",
+          "en": "He lent you a book.",
+          "tags": [
+            "人称代名詞の目的格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p10-s4",
+          "jp": "私たちは彼を待っています。",
+          "en": "We are waiting for him.",
+          "tags": [
+            "人称代名詞の目的格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p10-s5",
+          "jp": "あなたは彼女に電話をかけますか？",
+          "en": "Do you call her?",
+          "tags": [
+            "人称代名詞の目的格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p10-s6",
+          "jp": "私の友達が彼らを知っています。",
+          "en": "My friend knows them.",
+          "tags": [
+            "人称代名詞の目的格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p10-s7",
+          "jp": "彼は私を好きです。",
+          "en": "He likes me.",
+          "tags": [
+            "人称代名詞の目的格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p10-s8",
+          "jp": "私は君に手紙を書きます。",
+          "en": "I will write you a letter.",
+          "tags": [
+            "人称代名詞の目的格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p10-s9",
+          "jp": "彼女は私たちにプレゼントをくれました。",
+          "en": "She gave us a present.",
+          "tags": [
+            "人称代名詞の目的格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p10-s10",
+          "jp": "私たちはあなたに会いたいです。",
+          "en": "We want to see you.",
+          "tags": [
+            "人称代名詞の目的格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p11",
+      "partNumber": 11,
+      "title": "人称代名詞の独立所有格",
+      "description": "人称代名詞の独立所有格の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p11-s1",
+          "jp": "これは彼の本です。",
+          "en": "This is his book.",
+          "tags": [
+            "人称代名詞の独立所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p11-s2",
+          "jp": "あれは私のペンです。",
+          "en": "That is my pen.",
+          "tags": [
+            "人称代名詞の独立所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p11-s3",
+          "jp": "彼女の犬はとても可愛いです。",
+          "en": "Her dog is very cute.",
+          "tags": [
+            "人称代名詞の独立所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p11-s4",
+          "jp": "私たちの家は大きいです。",
+          "en": "Our house is big.",
+          "tags": [
+            "人称代名詞の独立所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p11-s5",
+          "jp": "君のカバンはどこにあるの？",
+          "en": "Where is your bag?",
+          "tags": [
+            "人称代名詞の独立所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p11-s6",
+          "jp": "彼の友達はサッカーが上手です。",
+          "en": "His friend is good at soccer.",
+          "tags": [
+            "人称代名詞の独立所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p11-s7",
+          "jp": "彼女の趣味は絵を描くことです。",
+          "en": "Her hobby is painting.",
+          "tags": [
+            "人称代名詞の独立所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p11-s8",
+          "jp": "私たちの学校は新しいです。",
+          "en": "Our school is new.",
+          "tags": [
+            "人称代名詞の独立所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p11-s9",
+          "jp": "君の兄は面白いです。",
+          "en": "Your brother is funny.",
+          "tags": [
+            "人称代名詞の独立所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p11-s10",
+          "jp": "あの猫は彼女のです。",
+          "en": "That cat is hers.",
+          "tags": [
+            "人称代名詞の独立所有格"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit1-p12",
+      "partNumber": 12,
+      "title": "命令文 / Let's 〜",
+      "description": "命令文 / Let's 〜の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p12-s1",
+          "jp": "公園に行こう。",
+          "en": "Let's go to the park.",
+          "tags": [
+            "命令文 / Let's 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p12-s2",
+          "jp": "一緒に宿題をしよう。",
+          "en": "Let's do our homework together.",
+          "tags": [
+            "命令文 / Let's 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p12-s3",
+          "jp": "映画を見に行こう。",
+          "en": "Let's go see a movie.",
+          "tags": [
+            "命令文 / Let's 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p12-s4",
+          "jp": "新しいレストランを試してみよう。",
+          "en": "Let's try the new restaurant.",
+          "tags": [
+            "命令文 / Let's 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p12-s5",
+          "jp": "友達を呼ぼう。",
+          "en": "Let's invite our friends.",
+          "tags": [
+            "命令文 / Let's 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p12-s6",
+          "jp": "音楽を聴こう。",
+          "en": "Let's listen to some music.",
+          "tags": [
+            "命令文 / Let's 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p12-s7",
+          "jp": "サッカーをしよう。",
+          "en": "Let's play soccer.",
+          "tags": [
+            "命令文 / Let's 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p12-s8",
+          "jp": "本を読もう。",
+          "en": "Let's read a book.",
+          "tags": [
+            "命令文 / Let's 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p12-s9",
+          "jp": "パーティーを開こう。",
+          "en": "Let's have a party.",
+          "tags": [
+            "命令文 / Let's 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p12-s10",
+          "jp": "買い物に行こう。",
+          "en": "Let's go shopping.",
+          "tags": [
+            "命令文 / Let's 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p13",
+      "partNumber": 13,
+      "title": "whose",
+      "description": "whoseの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p13-s1",
+          "jp": "これは私の友達の本です。彼の名前はマイケルです。",
+          "en": "This is my friend's book. Whose name is Michael?",
+          "tags": [
+            "whose"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p13-s2",
+          "jp": "その犬は誰のですか？",
+          "en": "Whose dog is that?",
+          "tags": [
+            "whose"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p13-s3",
+          "jp": "彼女のペンはどれですか？",
+          "en": "Which pen is hers? Whose pen is it?",
+          "tags": [
+            "whose"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p13-s4",
+          "jp": "このカバンは彼のものですか？",
+          "en": "Is this bag his? Whose bag is this?",
+          "tags": [
+            "whose"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p13-s5",
+          "jp": "あの人は誰ですか？彼の手紙を見ました。",
+          "en": "Who is that person? I saw his letter. Whose letter was it?",
+          "tags": [
+            "whose"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p13-s6",
+          "jp": "この車はあなたのですか？",
+          "en": "Is this car yours? Whose car is this?",
+          "tags": [
+            "whose"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p13-s7",
+          "jp": "このお菓子は誰が作りましたか？",
+          "en": "Who made these sweets? Whose sweets are these?",
+          "tags": [
+            "whose"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p13-s8",
+          "jp": "彼は誰の電話ですか？",
+          "en": "Whose phone is he using?",
+          "tags": [
+            "whose"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p13-s9",
+          "jp": "この写真は私の祖父のです。",
+          "en": "This photo is my grandfather's. Whose photo is it?",
+          "tags": [
+            "whose"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p13-s10",
+          "jp": "このゲームは彼女のですか？",
+          "en": "Is this game hers? Whose game is it?",
+          "tags": [
+            "whose"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit1-p14",
+      "partNumber": 14,
+      "title": "where",
+      "description": "whereの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p14-s1",
+          "jp": "あなたはどこにいますか？",
+          "en": "Where are you?",
+          "tags": [
+            "where"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p14-s2",
+          "jp": "彼はどこに行きましたか？",
+          "en": "Where did he go?",
+          "tags": [
+            "where"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p14-s3",
+          "jp": "私の本はどこですか？",
+          "en": "Where is my book?",
+          "tags": [
+            "where"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p14-s4",
+          "jp": "彼女はどこに住んでいますか？",
+          "en": "Where does she live?",
+          "tags": [
+            "where"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p14-s5",
+          "jp": "私たちはどこで会いましょうか？",
+          "en": "Where shall we meet?",
+          "tags": [
+            "where"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p14-s6",
+          "jp": "彼らはどこで遊んでいますか？",
+          "en": "Where are they playing?",
+          "tags": [
+            "where"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p14-s7",
+          "jp": "その駅はどこですか？",
+          "en": "Where is that station?",
+          "tags": [
+            "where"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p14-s8",
+          "jp": "このレストランはどこにありますか？",
+          "en": "Where is this restaurant?",
+          "tags": [
+            "where"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p14-s9",
+          "jp": "彼の家はどこですか？",
+          "en": "Where is his house?",
+          "tags": [
+            "where"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p14-s10",
+          "jp": "あなたの友達はどこにいますか？",
+          "en": "Where is your friend?",
+          "tags": [
+            "where"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p15",
+      "partNumber": 15,
+      "title": "when",
+      "description": "whenの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p15-s1",
+          "jp": "私が家に帰るとき、いつも音楽を聞きます。",
+          "en": "I listen to music when I go home.",
+          "tags": [
+            "when"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p15-s2",
+          "jp": "彼女は学校に行くとき、友達と話します。",
+          "en": "She talks with her friends when she goes to school.",
+          "tags": [
+            "when"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p15-s3",
+          "jp": "私たちは公園で遊ぶとき、サッカーをします。",
+          "en": "We play soccer when we are at the park.",
+          "tags": [
+            "when"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p15-s4",
+          "jp": "彼は毎朝ジョギングをする時に、音楽を聴きます。",
+          "en": "He listens to music when he goes jogging every morning.",
+          "tags": [
+            "when"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p15-s5",
+          "jp": "私が宿題を終えるとき、テレビを見ます。",
+          "en": "I watch TV when I finish my homework.",
+          "tags": [
+            "when"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p15-s6",
+          "jp": "母が料理をする時、私は手伝います。",
+          "en": "I help my mom when she cooks.",
+          "tags": [
+            "when"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p15-s7",
+          "jp": "友達と遊ぶ時、私はいつも楽しいです。",
+          "en": "I always have fun when I play with my friends.",
+          "tags": [
+            "when"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p15-s8",
+          "jp": "彼女は外で遊ぶとき、犬を連れて行きます。",
+          "en": "She takes her dog when she plays outside.",
+          "tags": [
+            "when"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p15-s9",
+          "jp": "私が本を読む時、静かにします。",
+          "en": "I stay quiet when I read a book.",
+          "tags": [
+            "when"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p15-s10",
+          "jp": "学校が終わるとき、私はすぐに帰ります。",
+          "en": "I go home right away when school ends.",
+          "tags": [
+            "when"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p16",
+      "partNumber": 16,
+      "title": "which",
+      "description": "whichの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p16-s1",
+          "jp": "これは私の好きな本です。",
+          "en": "This is the book which I like.",
+          "tags": [
+            "which"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p16-s2",
+          "jp": "彼女はその映画を見ました。",
+          "en": "She watched the movie which was exciting.",
+          "tags": [
+            "which"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p16-s3",
+          "jp": "私はその公園で遊びます。",
+          "en": "I play in the park which is near my house.",
+          "tags": [
+            "which"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p16-s4",
+          "jp": "アイスクリームは私の好きなデザートです。",
+          "en": "Ice cream is the dessert which I love.",
+          "tags": [
+            "which"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p16-s5",
+          "jp": "彼は私たちのクラスのリーダーです。",
+          "en": "He is the leader which our class chose.",
+          "tags": [
+            "which"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p16-s6",
+          "jp": "彼女は会議の準備をしました。",
+          "en": "She prepared for the meeting which is tomorrow.",
+          "tags": [
+            "which"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p16-s7",
+          "jp": "これは私の猫です。",
+          "en": "This is the cat which I adopted.",
+          "tags": [
+            "which"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p16-s8",
+          "jp": "彼は私に手紙をくれました。",
+          "en": "He gave me the letter which was very nice.",
+          "tags": [
+            "which"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p16-s9",
+          "jp": "私たちはその試験を受けます。",
+          "en": "We will take the test which is next week.",
+          "tags": [
+            "which"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p16-s10",
+          "jp": "彼女は私の友達です。",
+          "en": "She is the friend which I met at school.",
+          "tags": [
+            "which"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit1-p17",
+      "partNumber": 17,
+      "title": "it",
+      "description": "itの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p17-s1",
+          "jp": "今日はいい天気です。",
+          "en": "It is a nice day today.",
+          "tags": [
+            "it"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p17-s2",
+          "jp": "この本はとても面白いです。",
+          "en": "It is a very interesting book.",
+          "tags": [
+            "it"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p17-s3",
+          "jp": "明日は私の誕生日です。",
+          "en": "It is my birthday tomorrow.",
+          "tags": [
+            "it"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p17-s4",
+          "jp": "今、映画を見ています。",
+          "en": "It is a good time to watch a movie.",
+          "tags": [
+            "it"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p17-s5",
+          "jp": "この問題は簡単です。",
+          "en": "It is an easy question.",
+          "tags": [
+            "it"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p17-s6",
+          "jp": "外は寒いです。",
+          "en": "It is cold outside.",
+          "tags": [
+            "it"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p17-s7",
+          "jp": "ここは静かです。",
+          "en": "It is quiet here.",
+          "tags": [
+            "it"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p17-s8",
+          "jp": "その犬はとてもかわいいです。",
+          "en": "It is a very cute dog.",
+          "tags": [
+            "it"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p17-s9",
+          "jp": "宿題は難しかったです。",
+          "en": "It was a difficult homework.",
+          "tags": [
+            "it"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p17-s10",
+          "jp": "この映画は面白いと思います。",
+          "en": "I think it is an interesting movie.",
+          "tags": [
+            "it"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p18",
+      "partNumber": 18,
+      "title": "What time 〜 ?",
+      "description": "What time 〜 ?の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p18-s1",
+          "jp": "何時に学校に行きますか？",
+          "en": "What time do you go to school?",
+          "tags": [
+            "What time 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p18-s2",
+          "jp": "何時に昼ごはんを食べますか？",
+          "en": "What time do you have lunch?",
+          "tags": [
+            "What time 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p18-s3",
+          "jp": "何時に友達と会いますか？",
+          "en": "What time do you meet your friends?",
+          "tags": [
+            "What time 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p18-s4",
+          "jp": "何時にサッカーの練習がありますか？",
+          "en": "What time is the soccer practice?",
+          "tags": [
+            "What time 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p18-s5",
+          "jp": "何時に家に帰りますか？",
+          "en": "What time do you come home?",
+          "tags": [
+            "What time 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p18-s6",
+          "jp": "何時に宿題を始めますか？",
+          "en": "What time do you start your homework?",
+          "tags": [
+            "What time 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p18-s7",
+          "jp": "何時にテレビを見る予定ですか？",
+          "en": "What time do you plan to watch TV?",
+          "tags": [
+            "What time 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p18-s8",
+          "jp": "何時に寝ますか？",
+          "en": "What time do you go to bed?",
+          "tags": [
+            "What time 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p18-s9",
+          "jp": "何時に友達と遊びますか？",
+          "en": "What time do you play with your friends?",
+          "tags": [
+            "What time 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p18-s10",
+          "jp": "何時にバスが出ますか？",
+          "en": "What time does the bus leave?",
+          "tags": [
+            "What time 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p19",
+      "partNumber": 19,
+      "title": "how",
+      "description": "howの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p19-s1",
+          "jp": "あなたはどう思いますか？",
+          "en": "How do you think?",
+          "tags": [
+            "how"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p19-s2",
+          "jp": "この問題はどう解決しますか？",
+          "en": "How do we solve this problem?",
+          "tags": [
+            "how"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p19-s3",
+          "jp": "彼女はどうしてそんなに早く走れるの？",
+          "en": "How can she run so fast?",
+          "tags": [
+            "how"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p19-s4",
+          "jp": "明日はどうやって行きますか？",
+          "en": "How will you get there tomorrow?",
+          "tags": [
+            "how"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p19-s5",
+          "jp": "この料理はどうやって作りますか？",
+          "en": "How do you make this dish?",
+          "tags": [
+            "how"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p19-s6",
+          "jp": "あなたはどうやって英語を勉強していますか？",
+          "en": "How are you studying English?",
+          "tags": [
+            "how"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p19-s7",
+          "jp": "彼はどうやってその本を見つけたの？",
+          "en": "How did he find that book?",
+          "tags": [
+            "how"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p19-s8",
+          "jp": "私たちはどうやって問題に取り組むべきですか？",
+          "en": "How should we tackle the issue?",
+          "tags": [
+            "how"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p19-s9",
+          "jp": "その映画はどうだった？",
+          "en": "How was the movie?",
+          "tags": [
+            "how"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p19-s10",
+          "jp": "あなたはどうやって友達を作りますか？",
+          "en": "How do you make friends?",
+          "tags": [
+            "how"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p20",
+      "partNumber": 20,
+      "title": "How old (tall) 〜 ?",
+      "description": "How old (tall) 〜 ?の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p20-s1",
+          "jp": "あなたは何歳ですか？",
+          "en": "How old are you?",
+          "tags": [
+            "How old (tall) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p20-s2",
+          "jp": "彼はどれくらい背が高いですか？",
+          "en": "How tall is he?",
+          "tags": [
+            "How old (tall) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p20-s3",
+          "jp": "彼女は何歳ですか？",
+          "en": "How old is she?",
+          "tags": [
+            "How old (tall) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p20-s4",
+          "jp": "この木はどれくらいの高さですか？",
+          "en": "How tall is this tree?",
+          "tags": [
+            "How old (tall) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p20-s5",
+          "jp": "あなたの犬は何歳ですか？",
+          "en": "How old is your dog?",
+          "tags": [
+            "How old (tall) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p20-s6",
+          "jp": "その建物はどれくらい高いですか？",
+          "en": "How tall is that building?",
+          "tags": [
+            "How old (tall) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p20-s7",
+          "jp": "彼の妹は何歳ですか？",
+          "en": "How old is his sister?",
+          "tags": [
+            "How old (tall) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p20-s8",
+          "jp": "私の友達はどれくらい背が高いですか？",
+          "en": "How tall is my friend?",
+          "tags": [
+            "How old (tall) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p20-s9",
+          "jp": "このペンは何年使っていますか？",
+          "en": "How old is this pen?",
+          "tags": [
+            "How old (tall) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p20-s10",
+          "jp": "あなたの猫はどれくらいの高さですか？",
+          "en": "How tall is your cat?",
+          "tags": [
+            "How old (tall) 〜 ?"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p21",
+      "partNumber": 21,
+      "title": "疑問詞主語の who",
+      "description": "疑問詞主語の whoの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p21-s1",
+          "jp": "誰があなたの友達ですか？",
+          "en": "Who is your friend?",
+          "tags": [
+            "疑問詞主語の who"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p21-s2",
+          "jp": "誰がこの本を書きましたか？",
+          "en": "Who wrote this book?",
+          "tags": [
+            "疑問詞主語の who"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p21-s3",
+          "jp": "誰がサッカーをするのが好きですか？",
+          "en": "Who likes to play soccer?",
+          "tags": [
+            "疑問詞主語の who"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p21-s4",
+          "jp": "誰があなたの先生ですか？",
+          "en": "Who is your teacher?",
+          "tags": [
+            "疑問詞主語の who"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p21-s5",
+          "jp": "誰がこの映画を見ましたか？",
+          "en": "Who watched this movie?",
+          "tags": [
+            "疑問詞主語の who"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p21-s6",
+          "jp": "誰が一番早く走りますか？",
+          "en": "Who runs the fastest?",
+          "tags": [
+            "疑問詞主語の who"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p21-s7",
+          "jp": "誰が朝ごはんを作りますか？",
+          "en": "Who makes breakfast?",
+          "tags": [
+            "疑問詞主語の who"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p21-s8",
+          "jp": "誰が誕生日パーティーを開きますか？",
+          "en": "Who is having a birthday party?",
+          "tags": [
+            "疑問詞主語の who"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p21-s9",
+          "jp": "誰があなたの家にいますか？",
+          "en": "Who is at your house?",
+          "tags": [
+            "疑問詞主語の who"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p21-s10",
+          "jp": "誰がこの問題を解けますか？",
+          "en": "Who can solve this problem?",
+          "tags": [
+            "疑問詞主語の who"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit1-p22",
+      "partNumber": 22,
+      "title": "can",
+      "description": "canの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p22-s1",
+          "jp": "私は泳ぐことができます。",
+          "en": "I can swim.",
+          "tags": [
+            "can"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p22-s2",
+          "jp": "彼女は英語を話すことができます。",
+          "en": "She can speak English.",
+          "tags": [
+            "can"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p22-s3",
+          "jp": "私たちはサッカーをすることができます。",
+          "en": "We can play soccer.",
+          "tags": [
+            "can"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p22-s4",
+          "jp": "あなたはこの問題を解くことができますか？",
+          "en": "Can you solve this problem?",
+          "tags": [
+            "can"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p22-s5",
+          "jp": "彼はピアノを弾くことができます。",
+          "en": "He can play the piano.",
+          "tags": [
+            "can"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p22-s6",
+          "jp": "私の兄は料理をすることができます。",
+          "en": "My brother can cook.",
+          "tags": [
+            "can"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p22-s7",
+          "jp": "私たちは明日、映画を見ることができます。",
+          "en": "We can watch a movie tomorrow.",
+          "tags": [
+            "can"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p22-s8",
+          "jp": "君は日本の文化について知っていますか？",
+          "en": "Can you tell me about Japanese culture?",
+          "tags": [
+            "can"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p22-s9",
+          "jp": "彼女はダンスを踊ることができます。",
+          "en": "She can dance.",
+          "tags": [
+            "can"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p22-s10",
+          "jp": "私はこの本を読むことができます。",
+          "en": "I can read this book.",
+          "tags": [
+            "can"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p23",
+      "partNumber": 23,
+      "title": "現在進行形",
+      "description": "現在進行形の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p23-s1",
+          "jp": "私は今、宿題をしています。",
+          "en": "I am doing my homework now.",
+          "tags": [
+            "現在進行形"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p23-s2",
+          "jp": "彼女は友達と電話で話しています。",
+          "en": "She is talking on the phone with her friend.",
+          "tags": [
+            "現在進行形"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p23-s3",
+          "jp": "彼らは公園で遊んでいます。",
+          "en": "They are playing in the park.",
+          "tags": [
+            "現在進行形"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p23-s4",
+          "jp": "私たちは夕食を作っています。",
+          "en": "We are making dinner.",
+          "tags": [
+            "現在進行形"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p23-s5",
+          "jp": "あなたは今、何を聞いていますか？",
+          "en": "What are you listening to now?",
+          "tags": [
+            "現在進行形"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p23-s6",
+          "jp": "彼はサッカーをしています。",
+          "en": "He is playing soccer.",
+          "tags": [
+            "現在進行形"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p23-s7",
+          "jp": "私は毎朝ジョギングをしています。",
+          "en": "I am jogging every morning.",
+          "tags": [
+            "現在進行形"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p23-s8",
+          "jp": "彼女は新しい本を読んでいます。",
+          "en": "She is reading a new book.",
+          "tags": [
+            "現在進行形"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p23-s9",
+          "jp": "私たちは映画を見ています。",
+          "en": "We are watching a movie.",
+          "tags": [
+            "現在進行形"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p23-s10",
+          "jp": "彼らは音楽を作っています。",
+          "en": "They are making music.",
+          "tags": [
+            "現在進行形"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit1-p24",
+      "partNumber": 24,
+      "title": "There is (are) 〜",
+      "description": "There is (are) 〜の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit1-p24-s1",
+          "jp": "教室に生徒がいます。",
+          "en": "There are students in the classroom.",
+          "tags": [
+            "There is (are) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p24-s2",
+          "jp": "公園に犬がいます。",
+          "en": "There is a dog in the park.",
+          "tags": [
+            "There is (are) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p24-s3",
+          "jp": "家の中に古い本があります。",
+          "en": "There are old books in the house.",
+          "tags": [
+            "There is (are) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p24-s4",
+          "jp": "机の上にペンがあります。",
+          "en": "There is a pen on the desk.",
+          "tags": [
+            "There is (are) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p24-s5",
+          "jp": "カフェに多くの人がいます。",
+          "en": "There are many people in the café.",
+          "tags": [
+            "There is (are) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p24-s6",
+          "jp": "公園に木があります。",
+          "en": "There is a tree in the park.",
+          "tags": [
+            "There is (are) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p24-s7",
+          "jp": "冷蔵庫の中に牛乳があります。",
+          "en": "There is milk in the refrigerator.",
+          "tags": [
+            "There is (are) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p24-s8",
+          "jp": "教室に黒板があります。",
+          "en": "There is a blackboard in the classroom.",
+          "tags": [
+            "There is (are) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p24-s9",
+          "jp": "家の外に花が咲いています。",
+          "en": "There are flowers blooming outside the house.",
+          "tags": [
+            "There is (are) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit1-p24-s10",
+          "jp": "道に車がたくさんあります。",
+          "en": "There are many cars on the road.",
+          "tags": [
+            "There is (are) 〜"
+          ],
+          "level": "A1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    }
+  ]
+}

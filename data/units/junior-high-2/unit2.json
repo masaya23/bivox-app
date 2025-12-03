@@ -1,0 +1,4429 @@
+{
+  "id": "unit2",
+  "title": "Unit 2",
+  "description": "中学2年レベルの文法",
+  "grade": "junior-high-2",
+  "unitNumber": 2,
+  "parts": [
+    {
+      "id": "unit2-p1",
+      "partNumber": 1,
+      "title": "過去形",
+      "description": "過去形の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p1-s1",
+          "jp": "私は昨日、映画を見ました。",
+          "en": "I watched a movie yesterday.",
+          "tags": [
+            "過去形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p1-s2",
+          "jp": "彼は先週、友達とサッカーをしました。",
+          "en": "He played soccer with his friends last week.",
+          "tags": [
+            "過去形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p1-s3",
+          "jp": "私たちは先月、旅行に行きました。",
+          "en": "We went on a trip last month.",
+          "tags": [
+            "過去形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p1-s4",
+          "jp": "彼女は朝ごはんを食べませんでした。",
+          "en": "She didn't eat breakfast.",
+          "tags": [
+            "過去形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p1-s5",
+          "jp": "あなたはその本を読みましたか？",
+          "en": "Did you read that book?",
+          "tags": [
+            "過去形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p1-s6",
+          "jp": "彼らは昨夜、パーティーを開きました。",
+          "en": "They had a party last night.",
+          "tags": [
+            "過去形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p1-s7",
+          "jp": "私は昨日、宿題を終えました。",
+          "en": "I finished my homework yesterday.",
+          "tags": [
+            "過去形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p1-s8",
+          "jp": "私の母は先週、料理教室に行きました。",
+          "en": "My mother went to a cooking class last week.",
+          "tags": [
+            "過去形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p1-s9",
+          "jp": "彼はその歌を歌いました。",
+          "en": "He sang that song.",
+          "tags": [
+            "過去形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p1-s10",
+          "jp": "私たちは先月、動物園に行きました。",
+          "en": "We visited the zoo last month.",
+          "tags": [
+            "過去形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p2",
+      "partNumber": 2,
+      "title": "過去進行形",
+      "description": "過去進行形の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p2-s1",
+          "jp": "私は昨日の夜、テレビを見ていました。",
+          "en": "I was watching TV last night.",
+          "tags": [
+            "過去進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p2-s2",
+          "jp": "彼女は学校で友達と話していました。",
+          "en": "She was talking with her friends at school.",
+          "tags": [
+            "過去進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p2-s3",
+          "jp": "私たちは公園で遊んでいました。",
+          "en": "We were playing in the park.",
+          "tags": [
+            "過去進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p2-s4",
+          "jp": "彼は音楽を聴いていました。",
+          "en": "He was listening to music.",
+          "tags": [
+            "過去進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p2-s5",
+          "jp": "彼らは家で宿題をしていました。",
+          "en": "They were doing homework at home.",
+          "tags": [
+            "過去進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p2-s6",
+          "jp": "私は本を読んでいました。",
+          "en": "I was reading a book.",
+          "tags": [
+            "過去進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p2-s7",
+          "jp": "彼女は料理をしていました。",
+          "en": "She was cooking.",
+          "tags": [
+            "過去進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p2-s8",
+          "jp": "私たちはお祭りを楽しんでいました。",
+          "en": "We were enjoying the festival.",
+          "tags": [
+            "過去進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p2-s9",
+          "jp": "彼は友達とサッカーをしていました。",
+          "en": "He was playing soccer with his friends.",
+          "tags": [
+            "過去進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p2-s10",
+          "jp": "私たちは映画を見ていました。",
+          "en": "We were watching a movie.",
+          "tags": [
+            "過去進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p3",
+      "partNumber": 3,
+      "title": "when 節",
+      "description": "when 節の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p3-s1",
+          "jp": "私は公園に行くときに友達に会います。",
+          "en": "I meet my friends when I go to the park.",
+          "tags": [
+            "when 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p3-s2",
+          "jp": "彼女は勉強するときに音楽を聴きます。",
+          "en": "She listens to music when she studies.",
+          "tags": [
+            "when 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p3-s3",
+          "jp": "私たちは夏休みに旅行に行きます。",
+          "en": "We go on a trip when summer vacation starts.",
+          "tags": [
+            "when 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p3-s4",
+          "jp": "彼は朝食を食べるときにテレビを見ます。",
+          "en": "He watches TV when he eats breakfast.",
+          "tags": [
+            "when 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p3-s5",
+          "jp": "私が家に帰るとき、母が夕食を作っています。",
+          "en": "My mom is cooking dinner when I get home.",
+          "tags": [
+            "when 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p3-s6",
+          "jp": "あなたは宿題をする時に静かにしなければなりません。",
+          "en": "You must be quiet when you do your homework.",
+          "tags": [
+            "when 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p3-s7",
+          "jp": "彼女は友達と遊ぶときに笑っています。",
+          "en": "She laughs when she plays with her friends.",
+          "tags": [
+            "when 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p3-s8",
+          "jp": "私たちは映画を見るときにポップコーンを食べます。",
+          "en": "We eat popcorn when we watch a movie.",
+          "tags": [
+            "when 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p3-s9",
+          "jp": "彼が試験を受けるとき、緊張しています。",
+          "en": "He feels nervous when he takes the exam.",
+          "tags": [
+            "when 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p3-s10",
+          "jp": "私は雨が降るときに傘を持っています。",
+          "en": "I carry an umbrella when it rains.",
+          "tags": [
+            "when 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p4",
+      "partNumber": 4,
+      "title": "一般動詞の SVC",
+      "description": "一般動詞の SVCの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p4-s1",
+          "jp": "彼は学生です。",
+          "en": "He is a student.",
+          "tags": [
+            "一般動詞の SVC"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p4-s2",
+          "jp": "彼女は医者です。",
+          "en": "She is a doctor.",
+          "tags": [
+            "一般動詞の SVC"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p4-s3",
+          "jp": "私たちは友達です。",
+          "en": "We are friends.",
+          "tags": [
+            "一般動詞の SVC"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p4-s4",
+          "jp": "彼の趣味は音楽です。",
+          "en": "His hobby is music.",
+          "tags": [
+            "一般動詞の SVC"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p4-s5",
+          "jp": "あなたの犬は大きいです。",
+          "en": "Your dog is big.",
+          "tags": [
+            "一般動詞の SVC"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p4-s6",
+          "jp": "この本は面白いです。",
+          "en": "This book is interesting.",
+          "tags": [
+            "一般動詞の SVC"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p4-s7",
+          "jp": "その映画は新しいです。",
+          "en": "That movie is new.",
+          "tags": [
+            "一般動詞の SVC"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p4-s8",
+          "jp": "私の父は先生です。",
+          "en": "My father is a teacher.",
+          "tags": [
+            "一般動詞の SVC"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p4-s9",
+          "jp": "私の妹は中学生です。",
+          "en": "My sister is a junior high school student.",
+          "tags": [
+            "一般動詞の SVC"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p4-s10",
+          "jp": "この問題は簡単です。",
+          "en": "This problem is easy.",
+          "tags": [
+            "一般動詞の SVC"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p5",
+      "partNumber": 5,
+      "title": "SVO + to (for)",
+      "description": "SVO + to (for)の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p5-s1",
+          "jp": "私は友達に手紙を書きます。",
+          "en": "I write a letter to my friend.",
+          "tags": [
+            "SVO + to (for)"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p5-s2",
+          "jp": "彼女は先生に質問をします。",
+          "en": "She asks a question to the teacher.",
+          "tags": [
+            "SVO + to (for)"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p5-s3",
+          "jp": "彼は妹に本を貸します。",
+          "en": "He lends a book to his sister.",
+          "tags": [
+            "SVO + to (for)"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p5-s4",
+          "jp": "私たちは旅行会社に電話をかけます。",
+          "en": "We call the travel agency.",
+          "tags": [
+            "SVO + to (for)"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p5-s5",
+          "jp": "あなたは母にプレゼントを買いますか？",
+          "en": "Do you buy a gift for your mother?",
+          "tags": [
+            "SVO + to (for)"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p5-s6",
+          "jp": "彼らは子供たちにお菓子をあげます。",
+          "en": "They give sweets to the children.",
+          "tags": [
+            "SVO + to (for)"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p5-s7",
+          "jp": "私の父は兄に車を見せます。",
+          "en": "My father shows the car to my brother.",
+          "tags": [
+            "SVO + to (for)"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p5-s8",
+          "jp": "彼女は友達にゲームを紹介します。",
+          "en": "She introduces a game to her friend.",
+          "tags": [
+            "SVO + to (for)"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p5-s9",
+          "jp": "先生は私たちに宿題を出します。",
+          "en": "The teacher gives us homework.",
+          "tags": [
+            "SVO + to (for)"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p5-s10",
+          "jp": "私は彼にサッカーを教えます。",
+          "en": "I teach him soccer.",
+          "tags": [
+            "SVO + to (for)"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p6",
+      "partNumber": 6,
+      "title": "SVOO",
+      "description": "SVOOの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p6-s1",
+          "jp": "彼は友達に本を貸した。",
+          "en": "He lent a book to his friend.",
+          "tags": [
+            "SVOO"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p6-s2",
+          "jp": "彼女は妹にお菓子をくれた。",
+          "en": "She gave a snack to her sister.",
+          "tags": [
+            "SVOO"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p6-s3",
+          "jp": "私は母に手紙を書いた。",
+          "en": "I wrote a letter to my mother.",
+          "tags": [
+            "SVOO"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p6-s4",
+          "jp": "先生は生徒に質問をした。",
+          "en": "The teacher asked a question to the student.",
+          "tags": [
+            "SVOO"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p6-s5",
+          "jp": "彼らは私にプレゼントを持ってきた。",
+          "en": "They brought a present for me.",
+          "tags": [
+            "SVOO"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p6-s6",
+          "jp": "友達は私に映画のチケットをくれた。",
+          "en": "My friend gave me a movie ticket.",
+          "tags": [
+            "SVOO"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p6-s7",
+          "jp": "彼女は犬に餌を与えた。",
+          "en": "She gave food to her dog.",
+          "tags": [
+            "SVOO"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p6-s8",
+          "jp": "私は父に新しいゲームを見せた。",
+          "en": "I showed a new game to my father.",
+          "tags": [
+            "SVOO"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p6-s9",
+          "jp": "彼は先生に本を返した。",
+          "en": "He returned a book to the teacher.",
+          "tags": [
+            "SVOO"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p6-s10",
+          "jp": "私たちは彼女にサプライズパーティーを計画した。",
+          "en": "We planned a surprise party for her.",
+          "tags": [
+            "SVOO"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p7",
+      "partNumber": 7,
+      "title": "will（単純未来）",
+      "description": "will（単純未来）の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p7-s1",
+          "jp": "私は明日学校に行きます。",
+          "en": "I will go to school tomorrow.",
+          "tags": [
+            "will（単純未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p7-s2",
+          "jp": "彼は来週サッカーをします。",
+          "en": "He will play soccer next week.",
+          "tags": [
+            "will（単純未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p7-s3",
+          "jp": "私たちは今夜映画を見ます。",
+          "en": "We will watch a movie tonight.",
+          "tags": [
+            "will（単純未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p7-s4",
+          "jp": "彼女は明日友達と遊びます。",
+          "en": "She will hang out with her friends tomorrow.",
+          "tags": [
+            "will（単純未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p7-s5",
+          "jp": "あなたは来月テストを受けますか？",
+          "en": "Will you take the test next month?",
+          "tags": [
+            "will（単純未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p7-s6",
+          "jp": "私の家族は夏に旅行に行きます。",
+          "en": "My family will travel in the summer.",
+          "tags": [
+            "will（単純未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p7-s7",
+          "jp": "彼らは今週末パーティーを開きます。",
+          "en": "They will have a party this weekend.",
+          "tags": [
+            "will（単純未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p7-s8",
+          "jp": "私は来年新しい自転車を買います。",
+          "en": "I will buy a new bicycle next year.",
+          "tags": [
+            "will（単純未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p7-s9",
+          "jp": "彼は次の休みに本を読みます。",
+          "en": "He will read a book during the next holiday.",
+          "tags": [
+            "will（単純未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p7-s10",
+          "jp": "あなたは明日の午後に勉強しますか？",
+          "en": "Will you study tomorrow afternoon?",
+          "tags": [
+            "will（単純未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p8",
+      "partNumber": 8,
+      "title": "will（意志未来）",
+      "description": "will（意志未来）の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p8-s1",
+          "jp": "私は明日、友達と映画を見に行きます。",
+          "en": "I will go to the movies with my friends tomorrow.",
+          "tags": [
+            "will（意志未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p8-s2",
+          "jp": "彼女は来週、テストのために勉強します。",
+          "en": "She will study for the test next week.",
+          "tags": [
+            "will（意志未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p8-s3",
+          "jp": "私たちは今晩、家族の夕食を作ります。",
+          "en": "We will make dinner for the family tonight.",
+          "tags": [
+            "will（意志未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p8-s4",
+          "jp": "明日の朝、私はジョギングをします。",
+          "en": "I will go jogging tomorrow morning.",
+          "tags": [
+            "will（意志未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p8-s5",
+          "jp": "彼は来月、旅行に行く予定です。",
+          "en": "He will go on a trip next month.",
+          "tags": [
+            "will（意志未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p8-s6",
+          "jp": "あなたは週末にサッカーをしますか？",
+          "en": "Will you play soccer this weekend?",
+          "tags": [
+            "will（意志未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p8-s7",
+          "jp": "私たちは来年、英語をもっと勉強します。",
+          "en": "We will study more English next year.",
+          "tags": [
+            "will（意志未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p8-s8",
+          "jp": "彼女は明日のパーティーに参加します。",
+          "en": "She will attend the party tomorrow.",
+          "tags": [
+            "will（意志未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p8-s9",
+          "jp": "私は来週、この本を返します。",
+          "en": "I will return this book next week.",
+          "tags": [
+            "will（意志未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p8-s10",
+          "jp": "彼らは次の試合で勝つでしょう。",
+          "en": "They will win the next game.",
+          "tags": [
+            "will（意志未来）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p9",
+      "partNumber": 9,
+      "title": "will（依頼）/ shall（申し出・誘い）",
+      "description": "will（依頼）/ shall（申し出・誘い）の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p9-s1",
+          "jp": "手伝ってくれますか？",
+          "en": "Will you help me?",
+          "tags": [
+            "will（依頼）/ shall（申し出・誘い）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p9-s2",
+          "jp": "一緒に映画を見に行きませんか？",
+          "en": "Shall we go to the movies together?",
+          "tags": [
+            "will（依頼）/ shall（申し出・誘い）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p9-s3",
+          "jp": "明日、テストの準備を手伝ってもらえますか？",
+          "en": "Will you help me prepare for the test tomorrow?",
+          "tags": [
+            "will（依頼）/ shall（申し出・誘い）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p9-s4",
+          "jp": "夕食を一緒に食べませんか？",
+          "en": "Shall we have dinner together?",
+          "tags": [
+            "will（依頼）/ shall（申し出・誘い）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p9-s5",
+          "jp": "私の宿題を見てくれますか？",
+          "en": "Will you look at my homework?",
+          "tags": [
+            "will（依頼）/ shall（申し出・誘い）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p9-s6",
+          "jp": "公園に散歩しに行きませんか？",
+          "en": "Shall we go for a walk in the park?",
+          "tags": [
+            "will（依頼）/ shall（申し出・誘い）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p9-s7",
+          "jp": "この問題を解いてくれますか？",
+          "en": "Will you solve this problem for me?",
+          "tags": [
+            "will（依頼）/ shall（申し出・誘い）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p9-s8",
+          "jp": "週末に遊びに来ませんか？",
+          "en": "Shall we hang out this weekend?",
+          "tags": [
+            "will（依頼）/ shall（申し出・誘い）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p9-s9",
+          "jp": "私の本を借りてもいいですか？",
+          "en": "Will you let me borrow your book?",
+          "tags": [
+            "will（依頼）/ shall（申し出・誘い）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p9-s10",
+          "jp": "一緒に勉強しませんか？",
+          "en": "Shall we study together?",
+          "tags": [
+            "will（依頼）/ shall（申し出・誘い）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p10",
+      "partNumber": 10,
+      "title": "be going to",
+      "description": "be going toの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p10-s1",
+          "jp": "明日、映画を見に行くつもりです。",
+          "en": "I am going to watch a movie tomorrow.",
+          "tags": [
+            "be going to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p10-s2",
+          "jp": "週末に友達と遊ぶ予定です。",
+          "en": "I am going to hang out with my friends on the weekend.",
+          "tags": [
+            "be going to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p10-s3",
+          "jp": "来週のテストに向けて勉強します。",
+          "en": "I am going to study for the test next week.",
+          "tags": [
+            "be going to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p10-s4",
+          "jp": "明日のパーティーに参加します。",
+          "en": "I am going to attend the party tomorrow.",
+          "tags": [
+            "be going to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p10-s5",
+          "jp": "今晩、家族と夕食を食べるつもりです。",
+          "en": "I am going to have dinner with my family tonight.",
+          "tags": [
+            "be going to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p10-s6",
+          "jp": "来月、日本へ旅行する予定です。",
+          "en": "I am going to travel to Japan next month.",
+          "tags": [
+            "be going to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p10-s7",
+          "jp": "午後に友達に会うつもりです。",
+          "en": "I am going to meet my friend in the afternoon.",
+          "tags": [
+            "be going to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p10-s8",
+          "jp": "この週末に本を読む予定です。",
+          "en": "I am going to read a book this weekend.",
+          "tags": [
+            "be going to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p10-s9",
+          "jp": "明日、運動をするつもりです。",
+          "en": "I am going to exercise tomorrow.",
+          "tags": [
+            "be going to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p10-s10",
+          "jp": "学校のイベントに参加するつもりです。",
+          "en": "I am going to participate in the school event.",
+          "tags": [
+            "be going to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p11",
+      "partNumber": 11,
+      "title": "must / may",
+      "description": "must / mayの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p11-s1",
+          "jp": "あなたは宿題をしなければなりません。",
+          "en": "You must do your homework.",
+          "tags": [
+            "must / may"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p11-s2",
+          "jp": "彼女は明日、テストを受けなければなりません。",
+          "en": "She must take the test tomorrow.",
+          "tags": [
+            "must / may"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p11-s3",
+          "jp": "私たちは早く学校に行かなければなりません。",
+          "en": "We must go to school early.",
+          "tags": [
+            "must / may"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p11-s4",
+          "jp": "君は彼に手伝ってもらうかもしれません。",
+          "en": "You may ask him for help.",
+          "tags": [
+            "must / may"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p11-s5",
+          "jp": "彼らは映画を見に行くかもしれません。",
+          "en": "They may go to see a movie.",
+          "tags": [
+            "must / may"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p11-s6",
+          "jp": "私たちは明日の天気が良いかもしれません。",
+          "en": "It may be good weather tomorrow.",
+          "tags": [
+            "must / may"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p11-s7",
+          "jp": "あなたはこの本を読む必要があります。",
+          "en": "You must read this book.",
+          "tags": [
+            "must / may"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p11-s8",
+          "jp": "彼女はサッカーをする必要があるかもしれません。",
+          "en": "She may need to play soccer.",
+          "tags": [
+            "must / may"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p11-s9",
+          "jp": "私たちはこのイベントに参加しなければなりません。",
+          "en": "We must attend this event.",
+          "tags": [
+            "must / may"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p11-s10",
+          "jp": "君は試験の準備をするかもしれません。",
+          "en": "You may prepare for the exam.",
+          "tags": [
+            "must / may"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p12",
+      "partNumber": 12,
+      "title": "have to",
+      "description": "have toの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p12-s1",
+          "jp": "私は毎日宿題をしなければならない。",
+          "en": "I have to do my homework every day.",
+          "tags": [
+            "have to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p12-s2",
+          "jp": "彼女は明日、友達と会わなければならない。",
+          "en": "She has to meet her friends tomorrow.",
+          "tags": [
+            "have to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p12-s3",
+          "jp": "私たちは週末に掃除をしなければならない。",
+          "en": "We have to clean the house on the weekend.",
+          "tags": [
+            "have to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p12-s4",
+          "jp": "あなたは今、勉強しなければならない。",
+          "en": "You have to study now.",
+          "tags": [
+            "have to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p12-s5",
+          "jp": "彼はサッカーの練習に行かなければならない。",
+          "en": "He has to go to soccer practice.",
+          "tags": [
+            "have to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p12-s6",
+          "jp": "私の母は買い物に行かなければならない。",
+          "en": "My mother has to go shopping.",
+          "tags": [
+            "have to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p12-s7",
+          "jp": "私たちは明日、早く起きなければならない。",
+          "en": "We have to get up early tomorrow.",
+          "tags": [
+            "have to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p12-s8",
+          "jp": "あなたはプレゼンテーションの準備をしなければならない。",
+          "en": "You have to prepare for your presentation.",
+          "tags": [
+            "have to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p12-s9",
+          "jp": "彼女は英語のテストを受けなければならない。",
+          "en": "She has to take the English test.",
+          "tags": [
+            "have to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p12-s10",
+          "jp": "私たちはこの問題を解決しなければならない。",
+          "en": "We have to solve this problem.",
+          "tags": [
+            "have to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p13",
+      "partNumber": 13,
+      "title": "be able to",
+      "description": "be able toの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p13-s1",
+          "jp": "私はサッカーをすることができる。",
+          "en": "I am able to play soccer.",
+          "tags": [
+            "be able to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p13-s2",
+          "jp": "彼女はピアノを弾くことができる。",
+          "en": "She is able to play the piano.",
+          "tags": [
+            "be able to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p13-s3",
+          "jp": "私たちは英語を話すことができる。",
+          "en": "We are able to speak English.",
+          "tags": [
+            "be able to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p13-s4",
+          "jp": "彼は宿題を終えることができた。",
+          "en": "He was able to finish his homework.",
+          "tags": [
+            "be able to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p13-s5",
+          "jp": "あなたはその本を読むことができる。",
+          "en": "You are able to read that book.",
+          "tags": [
+            "be able to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p13-s6",
+          "jp": "彼らは映画を見に行くことができる。",
+          "en": "They are able to go to the movies.",
+          "tags": [
+            "be able to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p13-s7",
+          "jp": "私の母は料理をすることができる。",
+          "en": "My mother is able to cook.",
+          "tags": [
+            "be able to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p13-s8",
+          "jp": "私たちは明日、テストを受けることができる。",
+          "en": "We will be able to take the test tomorrow.",
+          "tags": [
+            "be able to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p13-s9",
+          "jp": "君はこの問題を解くことができるか？",
+          "en": "Are you able to solve this problem?",
+          "tags": [
+            "be able to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p13-s10",
+          "jp": "彼女は新しいスポーツを始めることができる。",
+          "en": "She is able to start a new sport.",
+          "tags": [
+            "be able to"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p14",
+      "partNumber": 14,
+      "title": "感嘆文",
+      "description": "感嘆文の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p14-s1",
+          "jp": "なんて美しい花でしょう！",
+          "en": "What a beautiful flower!",
+          "tags": [
+            "感嘆文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p14-s2",
+          "jp": "なんて面白い本なんだ！",
+          "en": "What an interesting book!",
+          "tags": [
+            "感嘆文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p14-s3",
+          "jp": "なんて素晴らしい景色なんだ！",
+          "en": "What a wonderful view!",
+          "tags": [
+            "感嘆文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p14-s4",
+          "jp": "なんておいしいケーキなの！",
+          "en": "What a delicious cake!",
+          "tags": [
+            "感嘆文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p14-s5",
+          "jp": "なんて早い車なんだ！",
+          "en": "What a fast car!",
+          "tags": [
+            "感嘆文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p14-s6",
+          "jp": "なんて親切な友達なんだ！",
+          "en": "What a kind friend!",
+          "tags": [
+            "感嘆文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p14-s7",
+          "jp": "なんて楽しいパーティーだったの！",
+          "en": "What a fun party it was!",
+          "tags": [
+            "感嘆文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p14-s8",
+          "jp": "なんてきれいな音楽なんだ！",
+          "en": "What a beautiful music!",
+          "tags": [
+            "感嘆文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p14-s9",
+          "jp": "なんて素晴らしい映画だろう！",
+          "en": "What a great movie!",
+          "tags": [
+            "感嘆文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p14-s10",
+          "jp": "なんて良い天気なんだ！",
+          "en": "What a nice weather!",
+          "tags": [
+            "感嘆文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p15",
+      "partNumber": 15,
+      "title": "不定詞 — 名詞的用法",
+      "description": "不定詞 — 名詞的用法の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p15-s1",
+          "jp": "勉強することは大切です。",
+          "en": "It is important to study.",
+          "tags": [
+            "不定詞 — 名詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p15-s2",
+          "jp": "彼女は旅行するのが好きです。",
+          "en": "She likes to travel.",
+          "tags": [
+            "不定詞 — 名詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p15-s3",
+          "jp": "友達に会うのは楽しいです。",
+          "en": "It is fun to meet friends.",
+          "tags": [
+            "不定詞 — 名詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p15-s4",
+          "jp": "サッカーをするのは面白いです。",
+          "en": "It is interesting to play soccer.",
+          "tags": [
+            "不定詞 — 名詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p15-s5",
+          "jp": "毎朝早く起きることは難しいです。",
+          "en": "It is difficult to wake up early every morning.",
+          "tags": [
+            "不定詞 — 名詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p15-s6",
+          "jp": "音楽を聞くことはリラックスできます。",
+          "en": "It is relaxing to listen to music.",
+          "tags": [
+            "不定詞 — 名詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p15-s7",
+          "jp": "本を読むことは知識を増やします。",
+          "en": "It helps to read books.",
+          "tags": [
+            "不定詞 — 名詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p15-s8",
+          "jp": "新しいことを学ぶのは楽しいです。",
+          "en": "It is enjoyable to learn new things.",
+          "tags": [
+            "不定詞 — 名詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p15-s9",
+          "jp": "友達と遊ぶのが好きです。",
+          "en": "I like to play with my friends.",
+          "tags": [
+            "不定詞 — 名詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p15-s10",
+          "jp": "料理をすることはクリエイティブです。",
+          "en": "It is creative to cook.",
+          "tags": [
+            "不定詞 — 名詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p16",
+      "partNumber": 16,
+      "title": "不定詞 — 副詞的用法（目的）",
+      "description": "不定詞 — 副詞的用法（目的）の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p16-s1",
+          "jp": "宿題を終わらせるために、図書館に行きます。",
+          "en": "I will go to the library to finish my homework.",
+          "tags": [
+            "不定詞 — 副詞的用法（目的）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p16-s2",
+          "jp": "友達に会うために、駅に向かっています。",
+          "en": "I am heading to the station to meet my friend.",
+          "tags": [
+            "不定詞 — 副詞的用法（目的）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p16-s3",
+          "jp": "英語を勉強するために、毎日1時間だけ勉強します。",
+          "en": "I study for one hour every day to learn English.",
+          "tags": [
+            "不定詞 — 副詞的用法（目的）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p16-s4",
+          "jp": "バスケットボールを上手くなるために、練習しています。",
+          "en": "I practice to get better at basketball.",
+          "tags": [
+            "不定詞 — 副詞的用法（目的）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p16-s5",
+          "jp": "健康になるために、毎朝ジョギングをしています。",
+          "en": "I jog every morning to stay healthy.",
+          "tags": [
+            "不定詞 — 副詞的用法（目的）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p16-s6",
+          "jp": "旅行するために、貯金をしています。",
+          "en": "I save money to travel.",
+          "tags": [
+            "不定詞 — 副詞的用法（目的）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p16-s7",
+          "jp": "親に手伝うために、家の掃除をします。",
+          "en": "I clean the house to help my parents.",
+          "tags": [
+            "不定詞 — 副詞的用法（目的）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p16-s8",
+          "jp": "試験に合格するために、一生懸命勉強しています。",
+          "en": "I study hard to pass the exam.",
+          "tags": [
+            "不定詞 — 副詞的用法（目的）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p16-s9",
+          "jp": "新しい友達を作るために、クラブに参加しました。",
+          "en": "I joined a club to make new friends.",
+          "tags": [
+            "不定詞 — 副詞的用法（目的）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p16-s10",
+          "jp": "美味しい料理を作るために、料理教室に通っています。",
+          "en": "I attend a cooking class to make delicious meals.",
+          "tags": [
+            "不定詞 — 副詞的用法（目的）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p17",
+      "partNumber": 17,
+      "title": "不定詞 — 副詞的用法（感情の原因）",
+      "description": "不定詞 — 副詞的用法（感情の原因）の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p17-s1",
+          "jp": "彼女は友達に会うために嬉しいです。",
+          "en": "She is happy to meet her friend.",
+          "tags": [
+            "不定詞 — 副詞的用法（感情の原因）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p17-s2",
+          "jp": "私はテストに合格するために一生懸命勉強しました。",
+          "en": "I studied hard to pass the test.",
+          "tags": [
+            "不定詞 — 副詞的用法（感情の原因）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p17-s3",
+          "jp": "彼はサッカーの試合に参加するのが楽しみです。",
+          "en": "He is excited to play in the soccer match.",
+          "tags": [
+            "不定詞 — 副詞的用法（感情の原因）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p17-s4",
+          "jp": "私たちは旅行するためにお金を貯めています。",
+          "en": "We are saving money to travel.",
+          "tags": [
+            "不定詞 — 副詞的用法（感情の原因）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p17-s5",
+          "jp": "彼女は新しい本を読むために図書館に行きました。",
+          "en": "She went to the library to read a new book.",
+          "tags": [
+            "不定詞 — 副詞的用法（感情の原因）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p17-s6",
+          "jp": "私は友達に手伝ってもらうために電話しました。",
+          "en": "I called my friend to ask for help.",
+          "tags": [
+            "不定詞 — 副詞的用法（感情の原因）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p17-s7",
+          "jp": "あなたは早起きするために目覚ましをセットしましたか？",
+          "en": "Did you set your alarm to wake up early?",
+          "tags": [
+            "不定詞 — 副詞的用法（感情の原因）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p17-s8",
+          "jp": "彼は音楽を聴くためにイヤフォンをつけています。",
+          "en": "He is wearing headphones to listen to music.",
+          "tags": [
+            "不定詞 — 副詞的用法（感情の原因）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p17-s9",
+          "jp": "私たちは映画を見るためにチケットを買いました。",
+          "en": "We bought tickets to see the movie.",
+          "tags": [
+            "不定詞 — 副詞的用法（感情の原因）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p17-s10",
+          "jp": "彼女は家族と過ごすために帰省しました。",
+          "en": "She went home to spend time with her family.",
+          "tags": [
+            "不定詞 — 副詞的用法（感情の原因）"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p18",
+      "partNumber": 18,
+      "title": "不定詞 — 形容詞的用法",
+      "description": "不定詞 — 形容詞的用法の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p18-s1",
+          "jp": "彼はパーティーに行くために準備をしています。",
+          "en": "He is getting ready to go to the party.",
+          "tags": [
+            "不定詞 — 形容詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p18-s2",
+          "jp": "私たちはその映画を見るためにチケットを買いました。",
+          "en": "We bought tickets to watch the movie.",
+          "tags": [
+            "不定詞 — 形容詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p18-s3",
+          "jp": "彼女は新しいことを学ぶために学校に通っています。",
+          "en": "She goes to school to learn new things.",
+          "tags": [
+            "不定詞 — 形容詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p18-s4",
+          "jp": "私は友達と遊ぶために公園に行きます。",
+          "en": "I go to the park to play with my friends.",
+          "tags": [
+            "不定詞 — 形容詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p18-s5",
+          "jp": "彼は良い成績を取るために勉強しています。",
+          "en": "He studies hard to get good grades.",
+          "tags": [
+            "不定詞 — 形容詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p18-s6",
+          "jp": "私は英語を話すために毎日練習します。",
+          "en": "I practice every day to speak English.",
+          "tags": [
+            "不定詞 — 形容詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p18-s7",
+          "jp": "彼女は本を読むために図書館に行きました。",
+          "en": "She went to the library to read books.",
+          "tags": [
+            "不定詞 — 形容詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p18-s8",
+          "jp": "私たちは旅行するためにお金を貯めています。",
+          "en": "We are saving money to travel.",
+          "tags": [
+            "不定詞 — 形容詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p18-s9",
+          "jp": "彼はサッカーをするために早く起きました。",
+          "en": "He woke up early to play soccer.",
+          "tags": [
+            "不定詞 — 形容詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p18-s10",
+          "jp": "私は料理を学ぶためにクラスに参加しました。",
+          "en": "I joined a class to learn how to cook.",
+          "tags": [
+            "不定詞 — 形容詞的用法"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p19",
+      "partNumber": 19,
+      "title": "動名詞",
+      "description": "動名詞の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p19-s1",
+          "jp": "私は毎日走ることが好きです。",
+          "en": "I like running every day.",
+          "tags": [
+            "動名詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p19-s2",
+          "jp": "彼女は映画を見るのが楽しみです。",
+          "en": "She enjoys watching movies.",
+          "tags": [
+            "動名詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p19-s3",
+          "jp": "友達と遊ぶことは楽しいです。",
+          "en": "Playing with my friends is fun.",
+          "tags": [
+            "動名詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p19-s4",
+          "jp": "彼はサッカーをするのが得意です。",
+          "en": "He is good at playing soccer.",
+          "tags": [
+            "動名詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p19-s5",
+          "jp": "私たちは日本語を勉強することが大切です。",
+          "en": "Studying Japanese is important for us.",
+          "tags": [
+            "動名詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p19-s6",
+          "jp": "音楽を聴くのはリラックスします。",
+          "en": "Listening to music helps me relax.",
+          "tags": [
+            "動名詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p19-s7",
+          "jp": "彼女は料理するのが好きです。",
+          "en": "She loves cooking.",
+          "tags": [
+            "動名詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p19-s8",
+          "jp": "これから宿題を終わらせるつもりです。",
+          "en": "I plan on finishing my homework.",
+          "tags": [
+            "動名詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p19-s9",
+          "jp": "本を読むことは私の趣味です。",
+          "en": "Reading books is my hobby.",
+          "tags": [
+            "動名詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p19-s10",
+          "jp": "旅行するのはとても楽しいです。",
+          "en": "Traveling is very enjoyable.",
+          "tags": [
+            "動名詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p20",
+      "partNumber": 20,
+      "title": "原級比較",
+      "description": "原級比較の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p20-s1",
+          "jp": "このりんごはそのりんごより大きい。",
+          "en": "This apple is bigger than that apple.",
+          "tags": [
+            "原級比較"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p20-s2",
+          "jp": "彼は私より速く走る。",
+          "en": "He runs faster than I do.",
+          "tags": [
+            "原級比較"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p20-s3",
+          "jp": "この公園はあの公園より静かだ。",
+          "en": "This park is quieter than that park.",
+          "tags": [
+            "原級比較"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p20-s4",
+          "jp": "彼女の本は私の本より面白い。",
+          "en": "Her book is more interesting than my book.",
+          "tags": [
+            "原級比較"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p20-s5",
+          "jp": "今日は昨日より寒い。",
+          "en": "Today is colder than yesterday.",
+          "tags": [
+            "原級比較"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p20-s6",
+          "jp": "このテストは前のテストより簡単だ。",
+          "en": "This test is easier than the last test.",
+          "tags": [
+            "原級比較"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p20-s7",
+          "jp": "その映画はあの映画より長い。",
+          "en": "That movie is longer than that other movie.",
+          "tags": [
+            "原級比較"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p20-s8",
+          "jp": "彼のカメラは私のカメラより高い。",
+          "en": "His camera is more expensive than my camera.",
+          "tags": [
+            "原級比較"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p20-s9",
+          "jp": "この歌はあの歌より人気がある。",
+          "en": "This song is more popular than that song.",
+          "tags": [
+            "原級比較"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p20-s10",
+          "jp": "彼女は私よりも多くの友達がいる。",
+          "en": "She has more friends than I do.",
+          "tags": [
+            "原級比較"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p21",
+      "partNumber": 21,
+      "title": "比較級 — er 形",
+      "description": "比較級 — er 形の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p21-s1",
+          "jp": "彼は私より背が高い。",
+          "en": "He is taller than me.",
+          "tags": [
+            "比較級 — er 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p21-s2",
+          "jp": "この本はあの本より面白い。",
+          "en": "This book is more interesting than that one.",
+          "tags": [
+            "比較級 — er 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p21-s3",
+          "jp": "今日は昨日より暑い。",
+          "en": "Today is hotter than yesterday.",
+          "tags": [
+            "比較級 — er 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p21-s4",
+          "jp": "彼女は私の友達の中で一番優しい。",
+          "en": "She is the kindest among my friends.",
+          "tags": [
+            "比較級 — er 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p21-s5",
+          "jp": "この映画は前の映画より良かった。",
+          "en": "This movie was better than the last one.",
+          "tags": [
+            "比較級 — er 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p21-s6",
+          "jp": "彼のサッカーは私のサッカーより上手だ。",
+          "en": "His soccer is better than mine.",
+          "tags": [
+            "比較級 — er 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p21-s7",
+          "jp": "この問題はあの問題より簡単だ。",
+          "en": "This problem is easier than that one.",
+          "tags": [
+            "比較級 — er 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p21-s8",
+          "jp": "冬は夏より寒い。",
+          "en": "Winter is colder than summer.",
+          "tags": [
+            "比較級 — er 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p21-s9",
+          "jp": "彼の英語は私の英語より流暢だ。",
+          "en": "His English is more fluent than mine.",
+          "tags": [
+            "比較級 — er 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p21-s10",
+          "jp": "これは私の持っている中で一番高い。",
+          "en": "This is the highest one I have.",
+          "tags": [
+            "比較級 — er 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p22",
+      "partNumber": 22,
+      "title": "最上級 — est 形",
+      "description": "最上級 — est 形の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p22-s1",
+          "jp": "彼はクラスで一番背が高いです。",
+          "en": "He is the tallest in the class.",
+          "tags": [
+            "最上級 — est 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p22-s2",
+          "jp": "この本は私が読んだ中で一番面白いです。",
+          "en": "This book is the most interesting I have ever read.",
+          "tags": [
+            "最上級 — est 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p22-s3",
+          "jp": "私の犬は世界で一番かわいいです。",
+          "en": "My dog is the cutest in the world.",
+          "tags": [
+            "最上級 — est 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p22-s4",
+          "jp": "彼女は学校で一番勉強ができる生徒です。",
+          "en": "She is the brightest student in school.",
+          "tags": [
+            "最上級 — est 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p22-s5",
+          "jp": "今月はこの映画が一番人気です。",
+          "en": "This movie is the most popular this month.",
+          "tags": [
+            "最上級 — est 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p22-s6",
+          "jp": "彼の歌は私が聞いた中で一番素晴らしいです。",
+          "en": "His song is the best I have ever heard.",
+          "tags": [
+            "最上級 — est 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p22-s7",
+          "jp": "私たちのチームは大会で一番強いです。",
+          "en": "Our team is the strongest in the tournament.",
+          "tags": [
+            "最上級 — est 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p22-s8",
+          "jp": "このレストランは街で一番美味しいです。",
+          "en": "This restaurant is the tastiest in town.",
+          "tags": [
+            "最上級 — est 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p22-s9",
+          "jp": "今日は今年で一番寒い日です。",
+          "en": "Today is the coldest day of the year.",
+          "tags": [
+            "最上級 — est 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p22-s10",
+          "jp": "彼女はクラスで一番速く走ることができます。",
+          "en": "She can run the fastest in the class.",
+          "tags": [
+            "最上級 — est 形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p23",
+      "partNumber": 23,
+      "title": "比較級 — more",
+      "description": "比較級 — moreの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p23-s1",
+          "jp": "この本はあの本よりも面白いです。",
+          "en": "This book is more interesting than that book.",
+          "tags": [
+            "比較級 — more"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p23-s2",
+          "jp": "彼女は私よりも背が高いです。",
+          "en": "She is more tall than me.",
+          "tags": [
+            "比較級 — more"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p23-s3",
+          "jp": "この課題は前の課題よりも難しいです。",
+          "en": "This task is more difficult than the last one.",
+          "tags": [
+            "比較級 — more"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p23-s4",
+          "jp": "今日は昨日よりも寒いです。",
+          "en": "Today is more cold than yesterday.",
+          "tags": [
+            "比較級 — more"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p23-s5",
+          "jp": "この映画はその映画よりも楽しいです。",
+          "en": "This movie is more fun than that movie.",
+          "tags": [
+            "比較級 — more"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p23-s6",
+          "jp": "このケーキはあのケーキよりも甘いです。",
+          "en": "This cake is more sweet than that cake.",
+          "tags": [
+            "比較級 — more"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p23-s7",
+          "jp": "彼は私よりも早く走ります。",
+          "en": "He runs more quickly than I do.",
+          "tags": [
+            "比較級 — more"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p23-s8",
+          "jp": "このテストは前のテストよりも簡単です。",
+          "en": "This test is more easy than the previous test.",
+          "tags": [
+            "比較級 — more"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p23-s9",
+          "jp": "彼女の歌は私の歌よりも美しいです。",
+          "en": "Her song is more beautiful than my song.",
+          "tags": [
+            "比較級 — more"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p23-s10",
+          "jp": "今日は昨日よりも忙しいです。",
+          "en": "Today is more busy than yesterday.",
+          "tags": [
+            "比較級 — more"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p24",
+      "partNumber": 24,
+      "title": "最上級 — most",
+      "description": "最上級 — mostの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p24-s1",
+          "jp": "これは私が今まで見た中で最も美しい景色です。",
+          "en": "This is the most beautiful view I have ever seen.",
+          "tags": [
+            "最上級 — most"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p24-s2",
+          "jp": "彼は私のクラスで最も優秀な学生です。",
+          "en": "He is the most outstanding student in my class.",
+          "tags": [
+            "最上級 — most"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p24-s3",
+          "jp": "今日は今週の中で最も暑い日です。",
+          "en": "Today is the hottest day of the week.",
+          "tags": [
+            "最上級 — most"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p24-s4",
+          "jp": "この本は私が読んだ中で最も面白いです。",
+          "en": "This book is the most interesting one I have read.",
+          "tags": [
+            "最上級 — most"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p24-s5",
+          "jp": "彼女はチームで最も速いランナーです。",
+          "en": "She is the fastest runner in the team.",
+          "tags": [
+            "最上級 — most"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p24-s6",
+          "jp": "これは私の家で最も古い家具です。",
+          "en": "This is the oldest piece of furniture in my house.",
+          "tags": [
+            "最上級 — most"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p24-s7",
+          "jp": "あなたのペンは私が持っている中で最も色が鮮やかです。",
+          "en": "Your pen is the most colorful one I have.",
+          "tags": [
+            "最上級 — most"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p24-s8",
+          "jp": "この問題は私が解いた中で最も難しいです。",
+          "en": "This problem is the hardest one I have solved.",
+          "tags": [
+            "最上級 — most"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p24-s9",
+          "jp": "彼の歌は私が聴いた中で最も感動的です。",
+          "en": "His song is the most touching one I have heard.",
+          "tags": [
+            "最上級 — most"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p24-s10",
+          "jp": "私の犬は彼の犬の中で最も大きいです。",
+          "en": "My dog is the biggest one among his dogs.",
+          "tags": [
+            "最上級 — most"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p25",
+      "partNumber": 25,
+      "title": "比較級 — 副詞",
+      "description": "比較級 — 副詞の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p25-s1",
+          "jp": "彼は私より速く走ります。",
+          "en": "He runs faster than me.",
+          "tags": [
+            "比較級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p25-s2",
+          "jp": "この問題は前の問題より簡単です。",
+          "en": "This question is easier than the last one.",
+          "tags": [
+            "比較級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p25-s3",
+          "jp": "彼女は私より上手に歌います。",
+          "en": "She sings better than I do.",
+          "tags": [
+            "比較級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p25-s4",
+          "jp": "この映画はあの映画より面白いです。",
+          "en": "This movie is more interesting than that one.",
+          "tags": [
+            "比較級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p25-s5",
+          "jp": "彼は昨日より早く起きました。",
+          "en": "He woke up earlier than yesterday.",
+          "tags": [
+            "比較級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p25-s6",
+          "jp": "私の犬は彼の犬より大きいです。",
+          "en": "My dog is bigger than his dog.",
+          "tags": [
+            "比較級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p25-s7",
+          "jp": "この本はその本より厚いです。",
+          "en": "This book is thicker than that one.",
+          "tags": [
+            "比較級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p25-s8",
+          "jp": "彼女は私の妹より優れたテニスプレーヤーです。",
+          "en": "She is a better tennis player than my sister.",
+          "tags": [
+            "比較級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p25-s9",
+          "jp": "私は昨日より長く勉強しました。",
+          "en": "I studied longer than yesterday.",
+          "tags": [
+            "比較級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p25-s10",
+          "jp": "この部屋はあの部屋より明るいです。",
+          "en": "This room is brighter than that room.",
+          "tags": [
+            "比較級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p26",
+      "partNumber": 26,
+      "title": "最上級 — 副詞",
+      "description": "最上級 — 副詞の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p26-s1",
+          "jp": "彼はクラスで最も速く走ることができる。",
+          "en": "He can run the fastest in the class.",
+          "tags": [
+            "最上級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p26-s2",
+          "jp": "このレストランの食べ物は街で最もおいしい。",
+          "en": "The food in this restaurant is the best in town.",
+          "tags": [
+            "最上級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p26-s3",
+          "jp": "彼女は学校で最も優れた学生の一人だ。",
+          "en": "She is one of the best students at school.",
+          "tags": [
+            "最上級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p26-s4",
+          "jp": "これは私たちが今まで見た中で最も面白い映画だ。",
+          "en": "This is the most interesting movie we have ever seen.",
+          "tags": [
+            "最上級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p26-s5",
+          "jp": "この本は図書館で最も人気がある。",
+          "en": "This book is the most popular in the library.",
+          "tags": [
+            "最上級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p26-s6",
+          "jp": "彼はサッカーのプレーヤーの中で最も早くボールを蹴る。",
+          "en": "He kicks the ball the fastest among the soccer players.",
+          "tags": [
+            "最上級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p26-s7",
+          "jp": "この問題はテストで最も難しかった。",
+          "en": "This question was the hardest on the test.",
+          "tags": [
+            "最上級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p26-s8",
+          "jp": "彼女は私の友達の中で最も親切だ。",
+          "en": "She is the kindest among my friends.",
+          "tags": [
+            "最上級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p26-s9",
+          "jp": "このパソコンは店で最も高い。",
+          "en": "This computer is the most expensive in the store.",
+          "tags": [
+            "最上級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p26-s10",
+          "jp": "今日は今年で最も暑い日だ。",
+          "en": "Today is the hottest day of the year.",
+          "tags": [
+            "最上級 — 副詞"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p27",
+      "partNumber": 27,
+      "title": "比較級、最上級を使った疑問詞の文",
+      "description": "比較級、最上級を使った疑問詞の文の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p27-s1",
+          "jp": "どの果物が一番甘いですか？",
+          "en": "Which fruit is the sweetest?",
+          "tags": [
+            "比較級、最上級を使った疑問詞の文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p27-s2",
+          "jp": "誰が一番背が高いですか？",
+          "en": "Who is the tallest?",
+          "tags": [
+            "比較級、最上級を使った疑問詞の文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p27-s3",
+          "jp": "この映画はあの映画より面白いですか？",
+          "en": "Is this movie more interesting than that one?",
+          "tags": [
+            "比較級、最上級を使った疑問詞の文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p27-s4",
+          "jp": "どの犬が一番速く走りますか？",
+          "en": "Which dog runs the fastest?",
+          "tags": [
+            "比較級、最上級を使った疑問詞の文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p27-s5",
+          "jp": "あなたは誰が一番歌が上手だと思いますか？",
+          "en": "Who do you think sings the best?",
+          "tags": [
+            "比較級、最上級を使った疑問詞の文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p27-s6",
+          "jp": "この本はあの本より難しいですか？",
+          "en": "Is this book harder than that one?",
+          "tags": [
+            "比較級、最上級を使った疑問詞の文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p27-s7",
+          "jp": "誰が一番早く宿題を終えましたか？",
+          "en": "Who finished the homework the fastest?",
+          "tags": [
+            "比較級、最上級を使った疑問詞の文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p27-s8",
+          "jp": "このレストランはどのレストランより美味しいですか？",
+          "en": "Is this restaurant better than any other restaurant?",
+          "tags": [
+            "比較級、最上級を使った疑問詞の文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p27-s9",
+          "jp": "どの季節が一番好きですか？",
+          "en": "Which season do you like the most?",
+          "tags": [
+            "比較級、最上級を使った疑問詞の文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p27-s10",
+          "jp": "この問題はあの問題より簡単ですか？",
+          "en": "Is this problem easier than that one?",
+          "tags": [
+            "比較級、最上級を使った疑問詞の文"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p28",
+      "partNumber": 28,
+      "title": "現在完了 — 継続",
+      "description": "現在完了 — 継続の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p28-s1",
+          "jp": "私はここに3年間住んでいます。",
+          "en": "I have lived here for three years.",
+          "tags": [
+            "現在完了 — 継続"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p28-s2",
+          "jp": "彼は学校で5年間友達です。",
+          "en": "He has been my friend at school for five years.",
+          "tags": [
+            "現在完了 — 継続"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p28-s3",
+          "jp": "私たちはこの本をずっと読んでいます。",
+          "en": "We have been reading this book for a long time.",
+          "tags": [
+            "現在完了 — 継続"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p28-s4",
+          "jp": "彼女はその犬を飼ってから2ヶ月です。",
+          "en": "She has had that dog for two months.",
+          "tags": [
+            "現在完了 — 継続"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p28-s5",
+          "jp": "あなたはこの映画を見てからずっと話しています。",
+          "en": "You have been talking about this movie since you saw it.",
+          "tags": [
+            "現在完了 — 継続"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p28-s6",
+          "jp": "私の父はこの車を10年間使っています。",
+          "en": "My father has been using this car for ten years.",
+          "tags": [
+            "現在完了 — 継続"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p28-s7",
+          "jp": "彼らはサッカーを一緒にしてからずっと楽しんでいます。",
+          "en": "They have been enjoying playing soccer together since then.",
+          "tags": [
+            "現在完了 — 継続"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p28-s8",
+          "jp": "私は英語を3年間勉強しています。",
+          "en": "I have been studying English for three years.",
+          "tags": [
+            "現在完了 — 継続"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p28-s9",
+          "jp": "彼は毎週末にサイクリングをしています。",
+          "en": "He has been cycling every weekend.",
+          "tags": [
+            "現在完了 — 継続"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p28-s10",
+          "jp": "私たちはこの公園で遊んでからずっと楽しいです。",
+          "en": "We have been having fun since we started playing in this park.",
+          "tags": [
+            "現在完了 — 継続"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p29",
+      "partNumber": 29,
+      "title": "現在完了 — 完了",
+      "description": "現在完了 — 完了の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p29-s1",
+          "jp": "私は宿題を終えました。",
+          "en": "I have finished my homework.",
+          "tags": [
+            "現在完了 — 完了"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p29-s2",
+          "jp": "彼はサッカーを3年間してきました。",
+          "en": "He has played soccer for three years.",
+          "tags": [
+            "現在完了 — 完了"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p29-s3",
+          "jp": "私たちはその映画を見たことがあります。",
+          "en": "We have seen that movie.",
+          "tags": [
+            "現在完了 — 完了"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p29-s4",
+          "jp": "彼女は新しい携帯電話を買いました。",
+          "en": "She has bought a new mobile phone.",
+          "tags": [
+            "現在完了 — 完了"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p29-s5",
+          "jp": "私は英語の本を3冊読みました。",
+          "en": "I have read three English books.",
+          "tags": [
+            "現在完了 — 完了"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p29-s6",
+          "jp": "彼は毎朝ジョギングをしています。",
+          "en": "He has been jogging every morning.",
+          "tags": [
+            "現在完了 — 完了"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p29-s7",
+          "jp": "あなたはもう昼食を食べましたか？",
+          "en": "Have you eaten lunch yet?",
+          "tags": [
+            "現在完了 — 完了"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p29-s8",
+          "jp": "私たちはその歌を聞いたことがあります。",
+          "en": "We have heard that song.",
+          "tags": [
+            "現在完了 — 完了"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p29-s9",
+          "jp": "彼女は日本に行ったことがあります。",
+          "en": "She has been to Japan.",
+          "tags": [
+            "現在完了 — 完了"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p29-s10",
+          "jp": "私はこの問題を解決しました。",
+          "en": "I have solved this problem.",
+          "tags": [
+            "現在完了 — 完了"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p30",
+      "partNumber": 30,
+      "title": "現在完了 — 経験",
+      "description": "現在完了 — 経験の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p30-s1",
+          "jp": "私は日本に行ったことがあります。",
+          "en": "I have been to Japan.",
+          "tags": [
+            "現在完了 — 経験"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p30-s2",
+          "jp": "彼女は英語の本を読んだことがあります。",
+          "en": "She has read an English book.",
+          "tags": [
+            "現在完了 — 経験"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p30-s3",
+          "jp": "私たちはその映画を見たことがあります。",
+          "en": "We have seen that movie.",
+          "tags": [
+            "現在完了 — 経験"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p30-s4",
+          "jp": "彼はサッカーをしたことがありますか？",
+          "en": "Has he ever played soccer?",
+          "tags": [
+            "現在完了 — 経験"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p30-s5",
+          "jp": "あなたはアメリカに住んだことがありますか？",
+          "en": "Have you ever lived in America?",
+          "tags": [
+            "現在完了 — 経験"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p30-s6",
+          "jp": "私はこの料理を食べたことがありません。",
+          "en": "I have never eaten this dish.",
+          "tags": [
+            "現在完了 — 経験"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p30-s7",
+          "jp": "彼女は旅行に行ったことがあります。",
+          "en": "She has gone on a trip.",
+          "tags": [
+            "現在完了 — 経験"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p30-s8",
+          "jp": "私たちはその歌を歌ったことがあります。",
+          "en": "We have sung that song.",
+          "tags": [
+            "現在完了 — 経験"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p30-s9",
+          "jp": "あなたはそのゲームをプレイしたことがありますか？",
+          "en": "Have you ever played that game?",
+          "tags": [
+            "現在完了 — 経験"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p30-s10",
+          "jp": "彼は私に手紙を書いたことがあります。",
+          "en": "He has written me a letter.",
+          "tags": [
+            "現在完了 — 経験"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit2-p31",
+      "partNumber": 31,
+      "title": "現在完了進行形",
+      "description": "現在完了進行形の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p31-s1",
+          "jp": "私はずっと本を読んでいます。",
+          "en": "I have been reading a book.",
+          "tags": [
+            "現在完了進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p31-s2",
+          "jp": "彼女は最近ずっとピアノを練習しています。",
+          "en": "She has been practicing the piano recently.",
+          "tags": [
+            "現在完了進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p31-s3",
+          "jp": "私たちは3時間サッカーをしています。",
+          "en": "We have been playing soccer for three hours.",
+          "tags": [
+            "現在完了進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p31-s4",
+          "jp": "彼は今朝からずっと宿題をしています。",
+          "en": "He has been doing his homework since this morning.",
+          "tags": [
+            "現在完了進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p31-s5",
+          "jp": "君はずっと英語を勉強していますか？",
+          "en": "Have you been studying English for a long time?",
+          "tags": [
+            "現在完了進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p31-s6",
+          "jp": "彼らはここにずっと待っています。",
+          "en": "They have been waiting here for a long time.",
+          "tags": [
+            "現在完了進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p31-s7",
+          "jp": "私の家族は最近ずっと映画を見ています。",
+          "en": "My family has been watching movies lately.",
+          "tags": [
+            "現在完了進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p31-s8",
+          "jp": "あなたはずっとこのプロジェクトに取り組んでいますか？",
+          "en": "Have you been working on this project?",
+          "tags": [
+            "現在完了進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p31-s9",
+          "jp": "私たちは以前からずっと友達です。",
+          "en": "We have been friends for a long time.",
+          "tags": [
+            "現在完了進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p31-s10",
+          "jp": "彼女はこの町にずっと住んでいます。",
+          "en": "She has been living in this town for years.",
+          "tags": [
+            "現在完了進行形"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "C",
+      "weight": 1
+    },
+    {
+      "id": "unit2-p32",
+      "partNumber": 32,
+      "title": "that 節",
+      "description": "that 節の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p32-s1",
+          "jp": "彼女が明日来ると言った。",
+          "en": "She said that she will come tomorrow.",
+          "tags": [
+            "that 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p32-s2",
+          "jp": "私は彼が先生だと思う。",
+          "en": "I think that he is a teacher.",
+          "tags": [
+            "that 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p32-s3",
+          "jp": "彼は本を読んでいると言った。",
+          "en": "He said that he is reading a book.",
+          "tags": [
+            "that 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p32-s4",
+          "jp": "私たちは雨が降ると思う。",
+          "en": "We think that it will rain.",
+          "tags": [
+            "that 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p32-s5",
+          "jp": "彼女は歌が好きだと言った。",
+          "en": "She said that she likes music.",
+          "tags": [
+            "that 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p32-s6",
+          "jp": "彼はテストに合格したと言った。",
+          "en": "He said that he passed the test.",
+          "tags": [
+            "that 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p32-s7",
+          "jp": "私はそれが本当だと思う。",
+          "en": "I believe that it is true.",
+          "tags": [
+            "that 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p32-s8",
+          "jp": "友達は映画が面白いと言った。",
+          "en": "My friend said that the movie is interesting.",
+          "tags": [
+            "that 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p32-s9",
+          "jp": "お母さんは夕飯ができたと言った。",
+          "en": "My mother said that dinner is ready.",
+          "tags": [
+            "that 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p32-s10",
+          "jp": "先生は宿題を出すと言った。",
+          "en": "The teacher said that he will give homework.",
+          "tags": [
+            "that 節"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit2-p33",
+      "partNumber": 33,
+      "title": "受身 — 1",
+      "description": "受身 — 1の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p33-s1",
+          "jp": "その本は毎年読まれます。",
+          "en": "The book is read every year.",
+          "tags": [
+            "受身 — 1"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p33-s2",
+          "jp": "この絵は彼によって描かれました。",
+          "en": "This picture was painted by him.",
+          "tags": [
+            "受身 — 1"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p33-s3",
+          "jp": "宿題は教師によってチェックされます。",
+          "en": "The homework is checked by the teacher.",
+          "tags": [
+            "受身 — 1"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p33-s4",
+          "jp": "その映画は大ヒットしました。",
+          "en": "The movie was a big hit.",
+          "tags": [
+            "受身 — 1"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p33-s5",
+          "jp": "このケーキは特別に作られました。",
+          "en": "This cake was made specially.",
+          "tags": [
+            "受身 — 1"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p33-s6",
+          "jp": "私たちのサッカーチームは賞を受けました。",
+          "en": "Our soccer team was awarded a prize.",
+          "tags": [
+            "受身 — 1"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p33-s7",
+          "jp": "新しい公園は来月オープンします。",
+          "en": "The new park will be opened next month.",
+          "tags": [
+            "受身 — 1"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p33-s8",
+          "jp": "その歌はすぐに人気になりました。",
+          "en": "The song became popular quickly.",
+          "tags": [
+            "受身 — 1"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p33-s9",
+          "jp": "この部屋は毎日掃除されます。",
+          "en": "This room is cleaned every day.",
+          "tags": [
+            "受身 — 1"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p33-s10",
+          "jp": "そのプレゼンテーションは成功しました。",
+          "en": "The presentation was successful.",
+          "tags": [
+            "受身 — 1"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "C",
+      "weight": 1
+    },
+    {
+      "id": "unit2-p34",
+      "partNumber": 34,
+      "title": "受身 — 2",
+      "description": "受身 — 2の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit2-p34-s1",
+          "jp": "私の本は友達に読まれました。",
+          "en": "My book was read by my friend.",
+          "tags": [
+            "受身 — 2"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p34-s2",
+          "jp": "その映画はたくさんの人に見られました。",
+          "en": "The movie was seen by many people.",
+          "tags": [
+            "受身 — 2"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p34-s3",
+          "jp": "この問題は先生によって説明されました。",
+          "en": "This problem was explained by the teacher.",
+          "tags": [
+            "受身 — 2"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p34-s4",
+          "jp": "その歌は彼によって歌われました。",
+          "en": "The song was sung by him.",
+          "tags": [
+            "受身 — 2"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p34-s5",
+          "jp": "私の宿題は母に手伝われました。",
+          "en": "My homework was helped by my mom.",
+          "tags": [
+            "受身 — 2"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p34-s6",
+          "jp": "そのニュースはすぐに広まりました。",
+          "en": "The news was spread quickly.",
+          "tags": [
+            "受身 — 2"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p34-s7",
+          "jp": "この絵は有名なアーティストに描かれました。",
+          "en": "This painting was drawn by a famous artist.",
+          "tags": [
+            "受身 — 2"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p34-s8",
+          "jp": "そのイベントは来週開催されます。",
+          "en": "The event will be held next week.",
+          "tags": [
+            "受身 — 2"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p34-s9",
+          "jp": "私の提案は受け入れられました。",
+          "en": "My suggestion was accepted.",
+          "tags": [
+            "受身 — 2"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit2-p34-s10",
+          "jp": "そのお菓子は子供たちに食べられました。",
+          "en": "The snacks were eaten by the children.",
+          "tags": [
+            "受身 — 2"
+          ],
+          "level": "A2",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "C",
+      "weight": 1
+    }
+  ]
+}

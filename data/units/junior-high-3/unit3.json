@@ -1,0 +1,2869 @@
+{
+  "id": "unit3",
+  "title": "Unit 3",
+  "description": "中学3年レベルの文法",
+  "grade": "junior-high-3",
+  "unitNumber": 3,
+  "parts": [
+    {
+      "id": "unit3-p1",
+      "partNumber": 1,
+      "title": "従属節を導く接続詞 — 1",
+      "description": "従属節を導く接続詞 — 1の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p1-s1",
+          "jp": "友達が来るまで待っててください。",
+          "en": "Please wait until my friend arrives.",
+          "tags": [
+            "従属節を導く接続詞 — 1"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p1-s2",
+          "jp": "彼女は映画を見ている間、泣いていました。",
+          "en": "She cried while she was watching the movie.",
+          "tags": [
+            "従属節を導く接続詞 — 1"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p1-s3",
+          "jp": "宿題を終えたら、遊びに行こう。",
+          "en": "Let's go play after I finish my homework.",
+          "tags": [
+            "従属節を導く接続詞 — 1"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p1-s4",
+          "jp": "私が学校に着く前に、雨が降り始めました。",
+          "en": "It started to rain before I arrived at school.",
+          "tags": [
+            "従属節を導く接続詞 — 1"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p1-s5",
+          "jp": "彼はサッカーをするのが好きだから、毎週練習します。",
+          "en": "He practices every week because he likes playing soccer.",
+          "tags": [
+            "従属節を導く接続詞 — 1"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p1-s6",
+          "jp": "彼女は音楽を聴きながら勉強します。",
+          "en": "She studies while listening to music.",
+          "tags": [
+            "従属節を導く接続詞 — 1"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p1-s7",
+          "jp": "私が家に帰ると、母が夕食を作っていました。",
+          "en": "When I got home, my mom was cooking dinner.",
+          "tags": [
+            "従属節を導く接続詞 — 1"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p1-s8",
+          "jp": "私たちは会議が始まるまで待っています。",
+          "en": "We will wait until the meeting starts.",
+          "tags": [
+            "従属節を導く接続詞 — 1"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p1-s9",
+          "jp": "彼が歌っているとき、みんな拍手しました。",
+          "en": "Everyone clapped while he was singing.",
+          "tags": [
+            "従属節を導く接続詞 — 1"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p1-s10",
+          "jp": "彼女は新しい本を読むために図書館に行きます。",
+          "en": "She goes to the library so that she can read a new book.",
+          "tags": [
+            "従属節を導く接続詞 — 1"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit3-p2",
+      "partNumber": 2,
+      "title": "従属節を導く接続詞 — 2",
+      "description": "従属節を導く接続詞 — 2の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p2-s1",
+          "jp": "彼はサッカーをするために公園に行きます。",
+          "en": "He goes to the park to play soccer.",
+          "tags": [
+            "従属節を導く接続詞 — 2"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p2-s2",
+          "jp": "私が学校に着くと、雨が降り始めました。",
+          "en": "It started to rain when I arrived at school.",
+          "tags": [
+            "従属節を導く接続詞 — 2"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p2-s3",
+          "jp": "彼女は本を読むとき、静かにします。",
+          "en": "She is quiet when she reads a book.",
+          "tags": [
+            "従属節を導く接続詞 — 2"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p2-s4",
+          "jp": "私たちは映画を見る前に夕食を食べました。",
+          "en": "We had dinner before we watched the movie.",
+          "tags": [
+            "従属節を導く接続詞 — 2"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p2-s5",
+          "jp": "彼が宿題を終えたとき、私はテレビを見ていました。",
+          "en": "I was watching TV when he finished his homework.",
+          "tags": [
+            "従属節を導く接続詞 — 2"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p2-s6",
+          "jp": "彼女は友達と遊ぶために学校に行きます。",
+          "en": "She goes to school to play with her friends.",
+          "tags": [
+            "従属節を導く接続詞 — 2"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p2-s7",
+          "jp": "私が寝る準備をすると、母が呼びました。",
+          "en": "My mom called me when I was getting ready for bed.",
+          "tags": [
+            "従属節を導く接続詞 — 2"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p2-s8",
+          "jp": "彼はピアノを弾くとき、とても楽しそうです。",
+          "en": "He looks very happy when he plays the piano.",
+          "tags": [
+            "従属節を導く接続詞 — 2"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p2-s9",
+          "jp": "私たちは家に帰る前に買い物をしました。",
+          "en": "We went shopping before we went home.",
+          "tags": [
+            "従属節を導く接続詞 — 2"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p2-s10",
+          "jp": "彼女が笑うと、皆が楽しくなります。",
+          "en": "Everyone feels happy when she laughs.",
+          "tags": [
+            "従属節を導く接続詞 — 2"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit3-p3",
+      "partNumber": 3,
+      "title": "間接疑問文",
+      "description": "間接疑問文の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p3-s1",
+          "jp": "彼がどこに行ったのか知っていますか？",
+          "en": "Do you know where he went?",
+          "tags": [
+            "間接疑問文"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p3-s2",
+          "jp": "彼女が何を食べたいか教えてくれますか？",
+          "en": "Can you tell me what she wants to eat?",
+          "tags": [
+            "間接疑問文"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p3-s3",
+          "jp": "私たちがいつ出発するのか分かりますか？",
+          "en": "Do you know when we will leave?",
+          "tags": [
+            "間接疑問文"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p3-s4",
+          "jp": "あなたが好きな映画は何ですか？",
+          "en": "Do you know what your favorite movie is?",
+          "tags": [
+            "間接疑問文"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p3-s5",
+          "jp": "先生が何を教えてくれるのか楽しみです。",
+          "en": "I am excited to know what the teacher will teach us.",
+          "tags": [
+            "間接疑問文"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p3-s6",
+          "jp": "彼がどのスポーツが好きか知っていますか？",
+          "en": "Do you know what sport he likes?",
+          "tags": [
+            "間接疑問文"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p3-s7",
+          "jp": "彼女がどこで働いているか教えてくれますか？",
+          "en": "Can you tell me where she works?",
+          "tags": [
+            "間接疑問文"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p3-s8",
+          "jp": "私たちがどのくらい勉強する必要があるのか分かりますか？",
+          "en": "Do you know how long we need to study?",
+          "tags": [
+            "間接疑問文"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p3-s9",
+          "jp": "彼がどうやって行くのか気になります。",
+          "en": "I wonder how he will get there.",
+          "tags": [
+            "間接疑問文"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p3-s10",
+          "jp": "あなたが好きな音楽は何か教えてくれますか？",
+          "en": "Can you tell me what kind of music you like?",
+          "tags": [
+            "間接疑問文"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p4",
+      "partNumber": 4,
+      "title": "疑問詞 + to 不定詞",
+      "description": "疑問詞 + to 不定詞の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p4-s1",
+          "jp": "彼は何を食べるつもりですか？",
+          "en": "What does he plan to eat?",
+          "tags": [
+            "疑問詞 + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p4-s2",
+          "jp": "あなたはどこに行くつもりですか？",
+          "en": "Where do you want to go?",
+          "tags": [
+            "疑問詞 + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p4-s3",
+          "jp": "彼女はいつ来るつもりですか？",
+          "en": "When does she intend to come?",
+          "tags": [
+            "疑問詞 + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p4-s4",
+          "jp": "私たちは何をすべきですか？",
+          "en": "What should we do?",
+          "tags": [
+            "疑問詞 + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p4-s5",
+          "jp": "君はどのようにそれを学ぶつもりですか？",
+          "en": "How do you plan to learn that?",
+          "tags": [
+            "疑問詞 + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p4-s6",
+          "jp": "彼はなぜそれをするつもりですか？",
+          "en": "Why does he want to do that?",
+          "tags": [
+            "疑問詞 + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p4-s7",
+          "jp": "あなたは誰と行くつもりですか？",
+          "en": "Who are you going to go with?",
+          "tags": [
+            "疑問詞 + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p4-s8",
+          "jp": "私たちはいつ出発するつもりですか？",
+          "en": "When are we going to leave?",
+          "tags": [
+            "疑問詞 + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p4-s9",
+          "jp": "君はどの映画を見るつもりですか？",
+          "en": "Which movie do you want to see?",
+          "tags": [
+            "疑問詞 + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p4-s10",
+          "jp": "彼女は何時に勉強するつもりですか？",
+          "en": "What time does she plan to study?",
+          "tags": [
+            "疑問詞 + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p5",
+      "partNumber": 5,
+      "title": "形式主語の it",
+      "description": "形式主語の itの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p5-s1",
+          "jp": "それをするのは難しい。",
+          "en": "It is difficult to do that.",
+          "tags": [
+            "形式主語の it"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p5-s2",
+          "jp": "今朝、彼女に会うことが大切だ。",
+          "en": "It is important to meet her this morning.",
+          "tags": [
+            "形式主語の it"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p5-s3",
+          "jp": "あなたに会うのはうれしい。",
+          "en": "It is nice to see you.",
+          "tags": [
+            "形式主語の it"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p5-s4",
+          "jp": "宿題を終わらせるのが必要だ。",
+          "en": "It is necessary to finish the homework.",
+          "tags": [
+            "形式主語の it"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p5-s5",
+          "jp": "その映画を見るのは面白い。",
+          "en": "It is interesting to watch that movie.",
+          "tags": [
+            "形式主語の it"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p5-s6",
+          "jp": "彼が来るのを待つのは退屈だ。",
+          "en": "It is boring to wait for him.",
+          "tags": [
+            "形式主語の it"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p5-s7",
+          "jp": "この問題を解くのは簡単だ。",
+          "en": "It is easy to solve this problem.",
+          "tags": [
+            "形式主語の it"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p5-s8",
+          "jp": "パーティーに行くのは楽しみだ。",
+          "en": "It is exciting to go to the party.",
+          "tags": [
+            "形式主語の it"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p5-s9",
+          "jp": "新しい友達を作るのは大切だ。",
+          "en": "It is important to make new friends.",
+          "tags": [
+            "形式主語の it"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p5-s10",
+          "jp": "旅行するのは楽しい。",
+          "en": "It is fun to travel.",
+          "tags": [
+            "形式主語の it"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p6",
+      "partNumber": 6,
+      "title": "SVO + to 不定詞",
+      "description": "SVO + to 不定詞の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p6-s1",
+          "jp": "私は彼に手伝うように頼みました。",
+          "en": "I asked him to help.",
+          "tags": [
+            "SVO + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p6-s2",
+          "jp": "彼女は私に本を読むように言いました。",
+          "en": "She told me to read the book.",
+          "tags": [
+            "SVO + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p6-s3",
+          "jp": "先生は私たちに宿題をするように教えました。",
+          "en": "The teacher taught us to do our homework.",
+          "tags": [
+            "SVO + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p6-s4",
+          "jp": "友達は私にパーティーに来るように誘いました。",
+          "en": "My friend invited me to come to the party.",
+          "tags": [
+            "SVO + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p6-s5",
+          "jp": "母は私に早く寝るように言いました。",
+          "en": "My mother told me to go to bed early.",
+          "tags": [
+            "SVO + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p6-s6",
+          "jp": "彼は私にその映画を見るように勧めました。",
+          "en": "He recommended me to watch the movie.",
+          "tags": [
+            "SVO + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p6-s7",
+          "jp": "私は妹にその歌を歌うように教えました。",
+          "en": "I taught my sister to sing that song.",
+          "tags": [
+            "SVO + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p6-s8",
+          "jp": "彼女は私にこの問題を解くように頼みました。",
+          "en": "She asked me to solve this problem.",
+          "tags": [
+            "SVO + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p6-s9",
+          "jp": "彼は私に明日会うように言いました。",
+          "en": "He told me to meet him tomorrow.",
+          "tags": [
+            "SVO + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p6-s10",
+          "jp": "友達は私にその本を読むように提案しました。",
+          "en": "My friend suggested me to read that book.",
+          "tags": [
+            "SVO + to 不定詞"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p7",
+      "partNumber": 7,
+      "title": "SVOC",
+      "description": "SVOCの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p7-s1",
+          "jp": "彼は私に本を渡した。",
+          "en": "He gave me a book.",
+          "tags": [
+            "SVOC"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p7-s2",
+          "jp": "彼女は友達にプレゼントを買った。",
+          "en": "She bought her friend a gift.",
+          "tags": [
+            "SVOC"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p7-s3",
+          "jp": "先生は私たちに宿題を出した。",
+          "en": "The teacher assigned us homework.",
+          "tags": [
+            "SVOC"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p7-s4",
+          "jp": "彼は彼女に花を贈った。",
+          "en": "He gave her flowers.",
+          "tags": [
+            "SVOC"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p7-s5",
+          "jp": "彼らは私に手紙を書いた。",
+          "en": "They wrote me a letter.",
+          "tags": [
+            "SVOC"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p7-s6",
+          "jp": "私は彼にゲームを教えた。",
+          "en": "I taught him a game.",
+          "tags": [
+            "SVOC"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p7-s7",
+          "jp": "彼女は妹におもちゃを与えた。",
+          "en": "She gave her sister a toy.",
+          "tags": [
+            "SVOC"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p7-s8",
+          "jp": "私たちは友人に映画を紹介した。",
+          "en": "We introduced our friend to a movie.",
+          "tags": [
+            "SVOC"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p7-s9",
+          "jp": "お母さんは私に料理を教えてくれた。",
+          "en": "My mother taught me how to cook.",
+          "tags": [
+            "SVOC"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p7-s10",
+          "jp": "彼は私たちに新しい歌を歌った。",
+          "en": "He sang us a new song.",
+          "tags": [
+            "SVOC"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p8",
+      "partNumber": 8,
+      "title": "現在分詞修飾",
+      "description": "現在分詞修飾の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p8-s1",
+          "jp": "彼女は笑っている友達を見ています。",
+          "en": "She is looking at her friend laughing.",
+          "tags": [
+            "現在分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p8-s2",
+          "jp": "僕は走っている犬を見ました。",
+          "en": "I saw a dog running.",
+          "tags": [
+            "現在分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p8-s3",
+          "jp": "その映画は感動的なストーリーを持っています。",
+          "en": "The movie has a touching story.",
+          "tags": [
+            "現在分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p8-s4",
+          "jp": "彼は勉強している兄を手伝っています。",
+          "en": "He is helping his brother studying.",
+          "tags": [
+            "現在分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p8-s5",
+          "jp": "彼女は歌っている子供たちを見て微笑みました。",
+          "en": "She smiled at the children singing.",
+          "tags": [
+            "現在分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p8-s6",
+          "jp": "私は泳いでいる魚を観察しました。",
+          "en": "I observed the fish swimming.",
+          "tags": [
+            "現在分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p8-s7",
+          "jp": "彼らは遊んでいる子供たちを見守っています。",
+          "en": "They are watching the kids playing.",
+          "tags": [
+            "現在分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p8-s8",
+          "jp": "この本は面白い内容を持っています。",
+          "en": "This book has interesting content.",
+          "tags": [
+            "現在分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p8-s9",
+          "jp": "彼は料理しているお母さんを手伝っています。",
+          "en": "He is helping his mother cooking.",
+          "tags": [
+            "現在分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p8-s10",
+          "jp": "私は読んでいる本に夢中です。",
+          "en": "I am absorbed in the book reading.",
+          "tags": [
+            "現在分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p9",
+      "partNumber": 9,
+      "title": "過去分詞修飾",
+      "description": "過去分詞修飾の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p9-s1",
+          "jp": "彼は昨日、友達に会った。",
+          "en": "He met his friend yesterday.",
+          "tags": [
+            "過去分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p9-s2",
+          "jp": "私は完成した宿題を提出した。",
+          "en": "I submitted the completed homework.",
+          "tags": [
+            "過去分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p9-s3",
+          "jp": "彼女は買ったばかりの靴を履いている。",
+          "en": "She is wearing the shoes she just bought.",
+          "tags": [
+            "過去分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p9-s4",
+          "jp": "その映画は非常に感動的だった。",
+          "en": "The movie was very moving.",
+          "tags": [
+            "過去分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p9-s5",
+          "jp": "彼らは修理された車に乗っている。",
+          "en": "They are riding in the repaired car.",
+          "tags": [
+            "過去分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p9-s6",
+          "jp": "私は見つけた本を読んでいる。",
+          "en": "I am reading the book I found.",
+          "tags": [
+            "過去分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p9-s7",
+          "jp": "彼女は撮影された写真を見せてくれた。",
+          "en": "She showed me the photographed pictures.",
+          "tags": [
+            "過去分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p9-s8",
+          "jp": "私たちは連絡を取った友人に会った。",
+          "en": "We met the friend we contacted.",
+          "tags": [
+            "過去分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p9-s9",
+          "jp": "彼は書かれた記事を読み直した。",
+          "en": "He reread the written article.",
+          "tags": [
+            "過去分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p9-s10",
+          "jp": "彼女は修了したコースを終えた。",
+          "en": "She finished the completed course.",
+          "tags": [
+            "過去分詞修飾"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p10",
+      "partNumber": 10,
+      "title": "関係代名詞・主格（人）",
+      "description": "関係代名詞・主格（人）の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p10-s1",
+          "jp": "彼女は私の友達です。",
+          "en": "She is my friend who helps me.",
+          "tags": [
+            "関係代名詞・主格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p10-s2",
+          "jp": "彼はサッカーが得意な男の子です。",
+          "en": "He is a boy who is good at soccer.",
+          "tags": [
+            "関係代名詞・主格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p10-s3",
+          "jp": "先生は私たちに英語を教えています。",
+          "en": "The teacher is the person who teaches us English.",
+          "tags": [
+            "関係代名詞・主格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p10-s4",
+          "jp": "彼女は歌が上手な女の子です。",
+          "en": "She is a girl who sings well.",
+          "tags": [
+            "関係代名詞・主格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p10-s5",
+          "jp": "彼は毎日ジョギングをする人です。",
+          "en": "He is the person who jogs every day.",
+          "tags": [
+            "関係代名詞・主格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p10-s6",
+          "jp": "彼女は旅行が好きな学生です。",
+          "en": "She is a student who loves to travel.",
+          "tags": [
+            "関係代名詞・主格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p10-s7",
+          "jp": "彼は面白い映画を作る監督です。",
+          "en": "He is a director who makes interesting movies.",
+          "tags": [
+            "関係代名詞・主格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p10-s8",
+          "jp": "彼女は私の妹で、毎日勉強しています。",
+          "en": "She is my sister who studies every day.",
+          "tags": [
+            "関係代名詞・主格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p10-s9",
+          "jp": "彼は音楽に詳しい友達です。",
+          "en": "He is a friend who knows a lot about music.",
+          "tags": [
+            "関係代名詞・主格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p10-s10",
+          "jp": "彼女は本をたくさん読む人です。",
+          "en": "She is a person who reads many books.",
+          "tags": [
+            "関係代名詞・主格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p11",
+      "partNumber": 11,
+      "title": "関係代名詞・主格（人以外）",
+      "description": "関係代名詞・主格（人以外）の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p11-s1",
+          "jp": "これは私が好きな本です。",
+          "en": "This is the book that I like.",
+          "tags": [
+            "関係代名詞・主格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p11-s2",
+          "jp": "あれは私の友達が作ったケーキです。",
+          "en": "That is the cake that my friend made.",
+          "tags": [
+            "関係代名詞・主格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p11-s3",
+          "jp": "これが私たちが見た映画です。",
+          "en": "This is the movie that we watched.",
+          "tags": [
+            "関係代名詞・主格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p11-s4",
+          "jp": "これは私が買った新しいスニーカーです。",
+          "en": "These are the new sneakers that I bought.",
+          "tags": [
+            "関係代名詞・主格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p11-s5",
+          "jp": "それは彼が描いた絵です。",
+          "en": "That is the picture that he painted.",
+          "tags": [
+            "関係代名詞・主格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p11-s6",
+          "jp": "これは私の学校の図書館です。",
+          "en": "This is the library that my school has.",
+          "tags": [
+            "関係代名詞・主格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p11-s7",
+          "jp": "あれは私たちが訪れた美術館です。",
+          "en": "That is the museum that we visited.",
+          "tags": [
+            "関係代名詞・主格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p11-s8",
+          "jp": "これは私が使っているアプリです。",
+          "en": "This is the app that I use.",
+          "tags": [
+            "関係代名詞・主格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p11-s9",
+          "jp": "あれは彼女が選んだドレスです。",
+          "en": "That is the dress that she chose.",
+          "tags": [
+            "関係代名詞・主格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p11-s10",
+          "jp": "これは私が学んでいる英語の歌です。",
+          "en": "This is the English song that I am learning.",
+          "tags": [
+            "関係代名詞・主格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p12",
+      "partNumber": 12,
+      "title": "関係代名詞・所有格 whose と of which",
+      "description": "関係代名詞・所有格 whose と of whichの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p12-s1",
+          "jp": "彼は私の友達です。彼の名前は田中です。",
+          "en": "He is my friend, whose name is Tanaka.",
+          "tags": [
+            "関係代名詞・所有格 whose と of which"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p12-s2",
+          "jp": "これは私が好きな本です。その本は面白いです。",
+          "en": "This is the book I like, which is interesting.",
+          "tags": [
+            "関係代名詞・所有格 whose と of which"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p12-s3",
+          "jp": "彼女は良い先生です。彼女の授業は楽しいです。",
+          "en": "She is a good teacher, whose classes are fun.",
+          "tags": [
+            "関係代名詞・所有格 whose と of which"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p12-s4",
+          "jp": "この映画は私たちが観た映画です。それはとても感動的です。",
+          "en": "This is the movie we watched, which was very moving.",
+          "tags": [
+            "関係代名詞・所有格 whose と of which"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p12-s5",
+          "jp": "彼は新しい自転車を持っています。その自転車は速いです。",
+          "en": "He has a new bicycle, which is fast.",
+          "tags": [
+            "関係代名詞・所有格 whose と of which"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p12-s6",
+          "jp": "彼女は私の妹です。彼女の趣味は絵を描くことです。",
+          "en": "She is my sister, whose hobby is drawing.",
+          "tags": [
+            "関係代名詞・所有格 whose と of which"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p12-s7",
+          "jp": "これは私たちの家です。その家は大きいです。",
+          "en": "This is our house, which is big.",
+          "tags": [
+            "関係代名詞・所有格 whose と of which"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p12-s8",
+          "jp": "彼はとても親切です。彼の助けはいつも必要です。",
+          "en": "He is very kind, whose help I always need.",
+          "tags": [
+            "関係代名詞・所有格 whose と of which"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p12-s9",
+          "jp": "これは彼女のカバンです。そのカバンは赤いです。",
+          "en": "This is her bag, which is red.",
+          "tags": [
+            "関係代名詞・所有格 whose と of which"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p12-s10",
+          "jp": "彼は私の友人です。彼の趣味はサッカーです。",
+          "en": "He is my friend, whose hobby is soccer.",
+          "tags": [
+            "関係代名詞・所有格 whose と of which"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "C",
+      "weight": 1
+    },
+    {
+      "id": "unit3-p13",
+      "partNumber": 13,
+      "title": "関係代名詞・目的格（人）",
+      "description": "関係代名詞・目的格（人）の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p13-s1",
+          "jp": "彼は私の友達です。",
+          "en": "He is my friend who helps me.",
+          "tags": [
+            "関係代名詞・目的格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p13-s2",
+          "jp": "彼女は素晴らしい歌手です。",
+          "en": "She is a great singer who won a prize.",
+          "tags": [
+            "関係代名詞・目的格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p13-s3",
+          "jp": "あの男の子はサッカーが上手です。",
+          "en": "The boy who plays soccer well is my brother.",
+          "tags": [
+            "関係代名詞・目的格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p13-s4",
+          "jp": "私の先生は英語を教えています。",
+          "en": "My teacher is the person who teaches English.",
+          "tags": [
+            "関係代名詞・目的格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p13-s5",
+          "jp": "彼らは私の好きな映画の出演者です。",
+          "en": "They are the actors who are in my favorite movie.",
+          "tags": [
+            "関係代名詞・目的格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p13-s6",
+          "jp": "あのカメラは私が買ったものです。",
+          "en": "That is the camera which I bought last week.",
+          "tags": [
+            "関係代名詞・目的格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p13-s7",
+          "jp": "彼女は私の手伝いをしてくれる人です。",
+          "en": "She is the one who helps me with my homework.",
+          "tags": [
+            "関係代名詞・目的格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p13-s8",
+          "jp": "彼は私の兄です。",
+          "en": "He is my brother who loves to read.",
+          "tags": [
+            "関係代名詞・目的格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p13-s9",
+          "jp": "彼女は私たちのチームのキャプテンです。",
+          "en": "She is the captain who leads our team.",
+          "tags": [
+            "関係代名詞・目的格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p13-s10",
+          "jp": "あの本は私が最近読んだものです。",
+          "en": "That is the book which I read recently.",
+          "tags": [
+            "関係代名詞・目的格（人）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p14",
+      "partNumber": 14,
+      "title": "関係代名詞・目的格（人以外）",
+      "description": "関係代名詞・目的格（人以外）の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p14-s1",
+          "jp": "これは私が好きな映画です。",
+          "en": "This is the movie that I like.",
+          "tags": [
+            "関係代名詞・目的格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p14-s2",
+          "jp": "彼は私が食べたケーキを作りました。",
+          "en": "He made the cake that I ate.",
+          "tags": [
+            "関係代名詞・目的格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p14-s3",
+          "jp": "あれが私が見た絵です。",
+          "en": "That is the picture that I saw.",
+          "tags": [
+            "関係代名詞・目的格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p14-s4",
+          "jp": "彼女は私が買った本を読んでいます。",
+          "en": "She is reading the book that I bought.",
+          "tags": [
+            "関係代名詞・目的格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p14-s5",
+          "jp": "これは私が使う文房具です。",
+          "en": "This is the stationery that I use.",
+          "tags": [
+            "関係代名詞・目的格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p14-s6",
+          "jp": "あのバスは私が乗りたかったものです。",
+          "en": "That bus is the one that I wanted to take.",
+          "tags": [
+            "関係代名詞・目的格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p14-s7",
+          "jp": "これが私が集めているコインです。",
+          "en": "These are the coins that I collect.",
+          "tags": [
+            "関係代名詞・目的格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p14-s8",
+          "jp": "彼は私が遊んだゲームを知っています。",
+          "en": "He knows the game that I played.",
+          "tags": [
+            "関係代名詞・目的格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p14-s9",
+          "jp": "これが私が作ったサラダです。",
+          "en": "This is the salad that I made.",
+          "tags": [
+            "関係代名詞・目的格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p14-s10",
+          "jp": "あの店は私が行ったことのある場所です。",
+          "en": "That store is the place that I have been to.",
+          "tags": [
+            "関係代名詞・目的格（人以外）"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p15",
+      "partNumber": 15,
+      "title": "先行詞を含む関係代名詞 what",
+      "description": "先行詞を含む関係代名詞 whatの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p15-s1",
+          "jp": "私たちが話していることはとても大切です。",
+          "en": "What we are talking about is very important.",
+          "tags": [
+            "先行詞を含む関係代名詞 what"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p15-s2",
+          "jp": "彼女が好きな映画は面白いです。",
+          "en": "What she likes is an interesting movie.",
+          "tags": [
+            "先行詞を含む関係代名詞 what"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p15-s3",
+          "jp": "彼が言ったことは理解できませんでした。",
+          "en": "What he said was hard to understand.",
+          "tags": [
+            "先行詞を含む関係代名詞 what"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p15-s4",
+          "jp": "私が欲しいものは新しい本です。",
+          "en": "What I want is a new book.",
+          "tags": [
+            "先行詞を含む関係代名詞 what"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p15-s5",
+          "jp": "このプロジェクトで私たちが学ぶことは多いです。",
+          "en": "What we learn in this project is a lot.",
+          "tags": [
+            "先行詞を含む関係代名詞 what"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p15-s6",
+          "jp": "彼女が作った料理はとても美味しいです。",
+          "en": "What she cooked is very delicious.",
+          "tags": [
+            "先行詞を含む関係代名詞 what"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p15-s7",
+          "jp": "私たちが行く場所はここです。",
+          "en": "What we are going is here.",
+          "tags": [
+            "先行詞を含む関係代名詞 what"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p15-s8",
+          "jp": "彼が私にくれたアドバイスは役に立ちました。",
+          "en": "What he gave me as advice was helpful.",
+          "tags": [
+            "先行詞を含む関係代名詞 what"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p15-s9",
+          "jp": "私が考えたアイデアはユニークです。",
+          "en": "What I thought of is unique.",
+          "tags": [
+            "先行詞を含む関係代名詞 what"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p15-s10",
+          "jp": "あなたが見たものは本当に素晴らしいです。",
+          "en": "What you saw was really wonderful.",
+          "tags": [
+            "先行詞を含む関係代名詞 what"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p16",
+      "partNumber": 16,
+      "title": "too 〜 to 〜",
+      "description": "too 〜 to 〜の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p16-s1",
+          "jp": "この本は難しすぎて、読めません。",
+          "en": "This book is too difficult to read.",
+          "tags": [
+            "too 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p16-s2",
+          "jp": "今日は暑すぎて、外に出たくない。",
+          "en": "It is too hot to go outside today.",
+          "tags": [
+            "too 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p16-s3",
+          "jp": "彼の説明は分かりにくすぎて、理解できません。",
+          "en": "His explanation is too hard to understand.",
+          "tags": [
+            "too 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p16-s4",
+          "jp": "このケーキは甘すぎて、食べられません。",
+          "en": "This cake is too sweet to eat.",
+          "tags": [
+            "too 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p16-s5",
+          "jp": "その映画は長すぎて、最後まで見られませんでした。",
+          "en": "The movie was too long to watch until the end.",
+          "tags": [
+            "too 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p16-s6",
+          "jp": "私は疲れすぎて、遊びに行けません。",
+          "en": "I am too tired to go out and play.",
+          "tags": [
+            "too 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p16-s7",
+          "jp": "この問題は簡単すぎて、すぐ解けました。",
+          "en": "This problem is too easy to solve quickly.",
+          "tags": [
+            "too 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p16-s8",
+          "jp": "彼女は忙しすぎて、電話に出られません。",
+          "en": "She is too busy to answer the phone.",
+          "tags": [
+            "too 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p16-s9",
+          "jp": "この場所は静かすぎて、話すのが難しいです。",
+          "en": "This place is too quiet to talk.",
+          "tags": [
+            "too 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p16-s10",
+          "jp": "その服は高すぎて、買えません。",
+          "en": "That dress is too expensive to buy.",
+          "tags": [
+            "too 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit3-p17",
+      "partNumber": 17,
+      "title": "enough 〜 to 〜",
+      "description": "enough 〜 to 〜の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p17-s1",
+          "jp": "私は十分な時間があります。",
+          "en": "I have enough time to finish my homework.",
+          "tags": [
+            "enough 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p17-s2",
+          "jp": "彼は十分な勇気を持っています。",
+          "en": "He has enough courage to speak in front of the class.",
+          "tags": [
+            "enough 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p17-s3",
+          "jp": "私たちは十分な食べ物を持っています。",
+          "en": "We have enough food to share with everyone.",
+          "tags": [
+            "enough 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p17-s4",
+          "jp": "彼女は十分な勉強をしています。",
+          "en": "She studies enough to pass the exam.",
+          "tags": [
+            "enough 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p17-s5",
+          "jp": "この本は私にとって十分に面白いです。",
+          "en": "This book is interesting enough to keep me reading.",
+          "tags": [
+            "enough 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p17-s6",
+          "jp": "私の友達は十分な知識を持っています。",
+          "en": "My friend has enough knowledge to help me with math.",
+          "tags": [
+            "enough 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p17-s7",
+          "jp": "この映画は子供たちにとって十分に楽しいです。",
+          "en": "This movie is entertaining enough for the kids.",
+          "tags": [
+            "enough 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p17-s8",
+          "jp": "私たちは十分なお金を集めました。",
+          "en": "We raised enough money to buy the new equipment.",
+          "tags": [
+            "enough 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p17-s9",
+          "jp": "彼は十分な経験を持っています。",
+          "en": "He has enough experience to get the job.",
+          "tags": [
+            "enough 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p17-s10",
+          "jp": "私たちは十分に準備ができています。",
+          "en": "We are prepared enough to present our project.",
+          "tags": [
+            "enough 〜 to 〜"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit3-p18",
+      "partNumber": 18,
+      "title": "so 〜 that ⋯",
+      "description": "so 〜 that ⋯の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p18-s1",
+          "jp": "彼はとても疲れているので、すぐに寝ました。",
+          "en": "He was so tired that he went to bed immediately.",
+          "tags": [
+            "so 〜 that ⋯"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p18-s2",
+          "jp": "このケーキはとても美味しいので、もう一切れ食べたいです。",
+          "en": "This cake is so delicious that I want to eat another piece.",
+          "tags": [
+            "so 〜 that ⋯"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p18-s3",
+          "jp": "天気がとても良いので、ピクニックに行きます。",
+          "en": "The weather is so nice that we will go for a picnic.",
+          "tags": [
+            "so 〜 that ⋯"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p18-s4",
+          "jp": "彼女はとても親切なので、みんなに好かれています。",
+          "en": "She is so kind that everyone likes her.",
+          "tags": [
+            "so 〜 that ⋯"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p18-s5",
+          "jp": "その映画はとても面白いので、もう一度見たいです。",
+          "en": "The movie was so interesting that I want to watch it again.",
+          "tags": [
+            "so 〜 that ⋯"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p18-s6",
+          "jp": "この本はとても難しいので、手伝ってもらえますか？",
+          "en": "This book is so difficult that can you help me?",
+          "tags": [
+            "so 〜 that ⋯"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p18-s7",
+          "jp": "彼はとても速く走るので、すぐにゴールに着きました。",
+          "en": "He runs so fast that he reached the finish line quickly.",
+          "tags": [
+            "so 〜 that ⋯"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p18-s8",
+          "jp": "その問題はとても簡単なので、すぐに解けました。",
+          "en": "The problem was so easy that I solved it right away.",
+          "tags": [
+            "so 〜 that ⋯"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p18-s9",
+          "jp": "私たちはとても楽しかったので、また行きたいです。",
+          "en": "We had so much fun that we want to go again.",
+          "tags": [
+            "so 〜 that ⋯"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p18-s10",
+          "jp": "この部屋はとても寒いので、暖房をつけました。",
+          "en": "This room is so cold that I turned on the heater.",
+          "tags": [
+            "so 〜 that ⋯"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "A",
+      "weight": 3
+    },
+    {
+      "id": "unit3-p19",
+      "partNumber": 19,
+      "title": "原形不定詞・知覚",
+      "description": "原形不定詞・知覚の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p19-s1",
+          "jp": "彼は彼女が歌うのを聞いた。",
+          "en": "He heard her sing.",
+          "tags": [
+            "原形不定詞・知覚"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p19-s2",
+          "jp": "私は彼らが遊ぶのを見た。",
+          "en": "I saw them play.",
+          "tags": [
+            "原形不定詞・知覚"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p19-s3",
+          "jp": "彼女は猫が走るのを見た。",
+          "en": "She watched the cat run.",
+          "tags": [
+            "原形不定詞・知覚"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p19-s4",
+          "jp": "私たちは彼が話すのを聞いた。",
+          "en": "We heard him speak.",
+          "tags": [
+            "原形不定詞・知覚"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p19-s5",
+          "jp": "あなたは彼女が踊るのを見ましたか？",
+          "en": "Did you see her dance?",
+          "tags": [
+            "原形不定詞・知覚"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p19-s6",
+          "jp": "彼は犬が吠えるのを聞いた。",
+          "en": "He listened to the dog bark.",
+          "tags": [
+            "原形不定詞・知覚"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p19-s7",
+          "jp": "私は友達が笑うのを見た。",
+          "en": "I saw my friend laugh.",
+          "tags": [
+            "原形不定詞・知覚"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p19-s8",
+          "jp": "彼女は赤ちゃんが寝るのを見守った。",
+          "en": "She watched the baby sleep.",
+          "tags": [
+            "原形不定詞・知覚"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p19-s9",
+          "jp": "彼らは私が歌うのを楽しんだ。",
+          "en": "They enjoyed me singing.",
+          "tags": [
+            "原形不定詞・知覚"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p19-s10",
+          "jp": "私は彼が料理するのを手伝った。",
+          "en": "I helped him cook.",
+          "tags": [
+            "原形不定詞・知覚"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p20",
+      "partNumber": 20,
+      "title": "原形不定詞・使役",
+      "description": "原形不定詞・使役の使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p20-s1",
+          "jp": "彼は私に宿題をするように言った。",
+          "en": "He told me to do my homework.",
+          "tags": [
+            "原形不定詞・使役"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p20-s2",
+          "jp": "先生は私たちに本を読むように勧めた。",
+          "en": "The teacher advised us to read the book.",
+          "tags": [
+            "原形不定詞・使役"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p20-s3",
+          "jp": "彼女は私に歌を歌わせた。",
+          "en": "She had me sing a song.",
+          "tags": [
+            "原形不定詞・使役"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p20-s4",
+          "jp": "友達は私に映画を見に行くように誘った。",
+          "en": "My friend invited me to go see a movie.",
+          "tags": [
+            "原形不定詞・使役"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p20-s5",
+          "jp": "母は私に掃除を手伝わせた。",
+          "en": "My mom had me help with the cleaning.",
+          "tags": [
+            "原形不定詞・使役"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p20-s6",
+          "jp": "彼は私に新しいゲームを試すように頼んだ。",
+          "en": "He asked me to try the new game.",
+          "tags": [
+            "原形不定詞・使役"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p20-s7",
+          "jp": "妹は私にお菓子を作らせた。",
+          "en": "My sister made me bake some cookies.",
+          "tags": [
+            "原形不定詞・使役"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p20-s8",
+          "jp": "先生は私たちにレポートを提出するように言った。",
+          "en": "The teacher told us to submit the report.",
+          "tags": [
+            "原形不定詞・使役"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p20-s9",
+          "jp": "彼は私にその本を買うように勧めた。",
+          "en": "He recommended me to buy that book.",
+          "tags": [
+            "原形不定詞・使役"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p20-s10",
+          "jp": "父は私に車を運転させてくれた。",
+          "en": "My dad let me drive the car.",
+          "tags": [
+            "原形不定詞・使役"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p21",
+      "partNumber": 21,
+      "title": "関係副詞・where",
+      "description": "関係副詞・whereの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p21-s1",
+          "jp": "私は公園で遊びます。そこは子供たちに人気です。",
+          "en": "I play in the park, where many children like to go.",
+          "tags": [
+            "関係副詞・where"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p21-s2",
+          "jp": "彼女は私の家に来ます。そこは彼女の好きな場所です。",
+          "en": "She comes to my house, where she feels happy.",
+          "tags": [
+            "関係副詞・where"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p21-s3",
+          "jp": "私たちは学校で勉強します。そこは友達と会うところです。",
+          "en": "We study at school, where we meet our friends.",
+          "tags": [
+            "関係副詞・where"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p21-s4",
+          "jp": "彼は映画館で映画を見ます。そこは良い音響があります。",
+          "en": "He watches movies at the cinema, where the sound is great.",
+          "tags": [
+            "関係副詞・where"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p21-s5",
+          "jp": "お母さんは台所で料理をします。そこはいつもいい匂いがします。",
+          "en": "My mother cooks in the kitchen, where it always smells good.",
+          "tags": [
+            "関係副詞・where"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p21-s6",
+          "jp": "私たちはスーパーマーケットで買い物をします。そこはたくさんの食べ物があります。",
+          "en": "We shop at the supermarket, where there is a lot of food.",
+          "tags": [
+            "関係副詞・where"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p21-s7",
+          "jp": "彼は友達の家に遊びに行きます。そこはゲームがたくさんあります。",
+          "en": "He goes to his friend's house, where there are many games.",
+          "tags": [
+            "関係副詞・where"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p21-s8",
+          "jp": "私の姉は大学で勉強しています。そこは新しいことを学ぶ場所です。",
+          "en": "My sister studies at university, where she learns new things.",
+          "tags": [
+            "関係副詞・where"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p21-s9",
+          "jp": "私たちは海で泳ぎます。そこはとても楽しいです。",
+          "en": "We swim at the beach, where it is very fun.",
+          "tags": [
+            "関係副詞・where"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p21-s10",
+          "jp": "彼女は図書館で本を読みます。そこは静かです。",
+          "en": "She reads books in the library, where it is quiet.",
+          "tags": [
+            "関係副詞・where"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    },
+    {
+      "id": "unit3-p22",
+      "partNumber": 22,
+      "title": "関係副詞・when",
+      "description": "関係副詞・whenの使い方を練習",
+      "sentences": [
+        {
+          "id": "unit3-p22-s1",
+          "jp": "私は彼に会ったとき、彼は忙しかった。",
+          "en": "He was busy when I met him.",
+          "tags": [
+            "関係副詞・when"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p22-s2",
+          "jp": "君が来たとき、パーティーは始まった。",
+          "en": "The party started when you arrived.",
+          "tags": [
+            "関係副詞・when"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p22-s3",
+          "jp": "彼女は映画を見ているとき、泣いていた。",
+          "en": "She cried when she watched the movie.",
+          "tags": [
+            "関係副詞・when"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p22-s4",
+          "jp": "私たちが学校に着いたとき、雨が降り始めた。",
+          "en": "It started to rain when we arrived at school.",
+          "tags": [
+            "関係副詞・when"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p22-s5",
+          "jp": "私が本を読んでいたとき、彼が話しかけてきた。",
+          "en": "He spoke to me when I was reading a book.",
+          "tags": [
+            "関係副詞・when"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p22-s6",
+          "jp": "彼が運動をしていたとき、友達が応援した。",
+          "en": "His friends cheered when he was playing sports.",
+          "tags": [
+            "関係副詞・when"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p22-s7",
+          "jp": "兄がゲームをしているとき、私は宿題をしていた。",
+          "en": "I was doing my homework when my brother was playing a game.",
+          "tags": [
+            "関係副詞・when"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p22-s8",
+          "jp": "彼女が電話をかけたとき、私は家にいなかった。",
+          "en": "I was not at home when she made the call.",
+          "tags": [
+            "関係副詞・when"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p22-s9",
+          "jp": "子供たちが遊んでいるとき、私は庭で読書をしていた。",
+          "en": "I was reading in the garden when the children were playing.",
+          "tags": [
+            "関係副詞・when"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        },
+        {
+          "id": "unit3-p22-s10",
+          "jp": "彼が歌っているとき、みんなが拍手した。",
+          "en": "Everyone clapped when he was singing.",
+          "tags": [
+            "関係副詞・when"
+          ],
+          "level": "B1",
+          "nextDue": 0,
+          "correctCount": 0,
+          "incorrectCount": 0
+        }
+      ],
+      "priority": "B",
+      "weight": 2
+    }
+  ]
+}

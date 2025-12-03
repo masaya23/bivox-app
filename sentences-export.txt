@@ -1,0 +1,5263 @@
+# Unit 1 - 中学1年レベルの基礎文法
+# Grade: junior-high-1, Unit Number: 1
+# File: junior-high-1\unit1.json
+
+## Part 1: be動詞（am / is / are：肯定・否定・疑問・短縮）
+## be動詞の基本形と使い方を練習
+## Priority: A
+
+[unit1-p1-s1]
+JP: 私は学生です。
+EN: I am a student.
+Tags: be動詞
+Level: A1
+
+[unit1-p1-s2]
+JP: 彼はサッカーが好きではありません。
+EN: He is not fond of soccer.
+Tags: be動詞
+Level: A1
+
+[unit1-p1-s3]
+JP: あなたは日本人ですか？
+EN: Are you Japanese?
+Tags: be動詞
+Level: A1
+
+[unit1-p1-s4]
+JP: 彼女は友達です。
+EN: She is a friend.
+Tags: be動詞
+Level: A1
+
+[unit1-p1-s5]
+JP: それはおいしくありません。
+EN: It is not delicious.
+Tags: be動詞
+Level: A1
+
+[unit1-p1-s6]
+JP: 私たちは公園にいます。
+EN: We are at the park.
+Tags: be動詞
+Level: A1
+
+[unit1-p1-s7]
+JP: 彼らは忙しくありません。
+EN: They are not busy.
+Tags: be動詞
+Level: A1
+
+[unit1-p1-s8]
+JP: これは私の本ですか？
+EN: Is this my book?
+Tags: be動詞
+Level: A1
+
+[unit1-p1-s9]
+JP: 私の犬はとてもかわいいです。
+EN: My dog is very cute.
+Tags: be動詞
+Level: A1
+
+[unit1-p1-s10]
+JP: あなたたちは学校にいますか？
+EN: Are you at school?
+Tags: be動詞
+Level: A1
+
+
+## Part 2: this / that
+## this / thatの使い方を練習
+## Priority: A
+
+[unit1-p2-s1]
+JP: これは私の本です。
+EN: This is my book.
+Tags: this / that
+Level: A1
+
+[unit1-p2-s2]
+JP: あれはあなたのペンですか？
+EN: Is that your pen?
+Tags: this / that
+Level: A1
+
+[unit1-p2-s3]
+JP: これはおいしい食べ物です。
+EN: This is delicious food.
+Tags: this / that
+Level: A1
+
+[unit1-p2-s4]
+JP: あれは私の友達です。
+EN: That is my friend.
+Tags: this / that
+Level: A1
+
+[unit1-p2-s5]
+JP: これは私の好きな歌です。
+EN: This is my favorite song.
+Tags: this / that
+Level: A1
+
+[unit1-p2-s6]
+JP: あれは学校の建物です。
+EN: That is the school building.
+Tags: this / that
+Level: A1
+
+[unit1-p2-s7]
+JP: これは新しい靴ですか？
+EN: Is this a new pair of shoes?
+Tags: this / that
+Level: A1
+
+[unit1-p2-s8]
+JP: あれは古い映画です。
+EN: That is an old movie.
+Tags: this / that
+Level: A1
+
+[unit1-p2-s9]
+JP: これは私の家族の写真です。
+EN: This is a photo of my family.
+Tags: this / that
+Level: A1
+
+[unit1-p2-s10]
+JP: あれは彼の自転車です。
+EN: That is his bicycle.
+Tags: this / that
+Level: A1
+
+
+## Part 3: these / those
+## these / thoseの使い方を練習
+## Priority: A
+
+[unit1-p3-s1]
+JP: これらの本は面白いです。
+EN: These books are interesting.
+Tags: these / those
+Level: A1
+
+[unit1-p3-s2]
+JP: あの犬はとてもかわいいです。
+EN: Those dogs are very cute.
+Tags: these / those
+Level: A1
+
+[unit1-p3-s3]
+JP: これらのりんごは新鮮です。
+EN: These apples are fresh.
+Tags: these / those
+Level: A1
+
+[unit1-p3-s4]
+JP: あの山は高いです。
+EN: Those mountains are tall.
+Tags: these / those
+Level: A1
+
+[unit1-p3-s5]
+JP: これらの写真は私の家族です。
+EN: These photos are of my family.
+Tags: these / those
+Level: A1
+
+[unit1-p3-s6]
+JP: あの車は速いです。
+EN: Those cars are fast.
+Tags: these / those
+Level: A1
+
+[unit1-p3-s7]
+JP: これらの花は美しいです。
+EN: These flowers are beautiful.
+Tags: these / those
+Level: A1
+
+[unit1-p3-s8]
+JP: あの学校は大きいです。
+EN: Those schools are big.
+Tags: these / those
+Level: A1
+
+[unit1-p3-s9]
+JP: これらの問題は簡単です。
+EN: These problems are easy.
+Tags: these / those
+Level: A1
+
+[unit1-p3-s10]
+JP: あの映画は面白かったです。
+EN: Those movies were interesting.
+Tags: these / those
+Level: A1
+
+
+## Part 4: What is (are) 〜 ?
+## What is (are) 〜 ?の使い方を練習
+## Priority: A
+
+[unit1-p4-s1]
+JP: 彼女は誰ですか？
+EN: What is she?
+Tags: What is (are) 〜 ?
+Level: A1
+
+[unit1-p4-s2]
+JP: これは私の本です。
+EN: What is this?
+Tags: What is (are) 〜 ?
+Level: A1
+
+[unit1-p4-s3]
+JP: あなたの趣味は何ですか？
+EN: What are your hobbies?
+Tags: What is (are) 〜 ?
+Level: A1
+
+[unit1-p4-s4]
+JP: それは何のためですか？
+EN: What is it for?
+Tags: What is (are) 〜 ?
+Level: A1
+
+[unit1-p4-s5]
+JP: この食べ物は何ですか？
+EN: What is this food?
+Tags: What is (are) 〜 ?
+Level: A1
+
+[unit1-p4-s6]
+JP: 彼の名前は何ですか？
+EN: What is his name?
+Tags: What is (are) 〜 ?
+Level: A1
+
+[unit1-p4-s7]
+JP: あなたの好きな映画は何ですか？
+EN: What is your favorite movie?
+Tags: What is (are) 〜 ?
+Level: A1
+
+[unit1-p4-s8]
+JP: 私たちの学校はどこにありますか？
+EN: What is our school?
+Tags: What is (are) 〜 ?
+Level: A1
+
+[unit1-p4-s9]
+JP: それは何時に始まりますか？
+EN: What time does it start?
+Tags: What is (are) 〜 ?
+Level: A1
+
+[unit1-p4-s10]
+JP: このゲームはどんな内容ですか？
+EN: What is this game about?
+Tags: What is (are) 〜 ?
+Level: A1
+
+
+## Part 5: 人称代名詞の主格
+## 人称代名詞の主格の使い方を練習
+## Priority: A
+
+[unit1-p5-s1]
+JP: 私は学生です。
+EN: I am a student.
+Tags: 人称代名詞の主格
+Level: A1
+
+[unit1-p5-s2]
+JP: 彼はサッカーが好きです。
+EN: He likes soccer.
+Tags: 人称代名詞の主格
+Level: A1
+
+[unit1-p5-s3]
+JP: 彼女は毎日本を読みます。
+EN: She reads a book every day.
+Tags: 人称代名詞の主格
+Level: A1
+
+[unit1-p5-s4]
+JP: 私たちは公園に行きます。
+EN: We go to the park.
+Tags: 人称代名詞の主格
+Level: A1
+
+[unit1-p5-s5]
+JP: あなたは日本語を勉強していますか？
+EN: Are you studying Japanese?
+Tags: 人称代名詞の主格
+Level: A1
+
+[unit1-p5-s6]
+JP: 彼らは友達です。
+EN: They are friends.
+Tags: 人称代名詞の主格
+Level: A1
+
+[unit1-p5-s7]
+JP: 私は音楽を聞くのが好きです。
+EN: I like listening to music.
+Tags: 人称代名詞の主格
+Level: A1
+
+[unit1-p5-s8]
+JP: 彼女は毎朝ジョギングします。
+EN: She jogs every morning.
+Tags: 人称代名詞の主格
+Level: A1
+
+[unit1-p5-s9]
+JP: 私たちは映画を見ます。
+EN: We watch a movie.
+Tags: 人称代名詞の主格
+Level: A1
+
+[unit1-p5-s10]
+JP: あなたはどのスポーツが得意ですか？
+EN: What sport are you good at?
+Tags: 人称代名詞の主格
+Level: A1
+
+
+## Part 6: 人称代名詞の所有格
+## 人称代名詞の所有格の使い方を練習
+## Priority: A
+
+[unit1-p6-s1]
+JP: 彼の本は面白いです。
+EN: His book is interesting.
+Tags: 人称代名詞の所有格
+Level: A1
+
+[unit1-p6-s2]
+JP: 私たちの教室は新しいです。
+EN: Our classroom is new.
+Tags: 人称代名詞の所有格
+Level: A1
+
+[unit1-p6-s3]
+JP: 彼女の犬はとても可愛いです。
+EN: Her dog is very cute.
+Tags: 人称代名詞の所有格
+Level: A1
+
+[unit1-p6-s4]
+JP: あなたのカバンはどこですか？
+EN: Where is your bag?
+Tags: 人称代名詞の所有格
+Level: A1
+
+[unit1-p6-s5]
+JP: 彼のサッカーボールは大きいです。
+EN: His soccer ball is big.
+Tags: 人称代名詞の所有格
+Level: A1
+
+[unit1-p6-s6]
+JP: 私の友達は日本人です。
+EN: My friend is Japanese.
+Tags: 人称代名詞の所有格
+Level: A1
+
+[unit1-p6-s7]
+JP: 彼女の家族は仲が良いです。
+EN: Her family is close.
+Tags: 人称代名詞の所有格
+Level: A1
+
+[unit1-p6-s8]
+JP: あなたたちのチームは強いです。
+EN: Your team is strong.
+Tags: 人称代名詞の所有格
+Level: A1
+
+[unit1-p6-s9]
+JP: 私の趣味は絵を描くことです。
+EN: My hobby is drawing.
+Tags: 人称代名詞の所有格
+Level: A1
+
+[unit1-p6-s10]
+JP: 彼の自転車は速いです。
+EN: His bicycle is fast.
+Tags: 人称代名詞の所有格
+Level: A1
+
+
+## Part 7: Who is (are) 〜 ?
+## Who is (are) 〜 ?の使い方を練習
+## Priority: A
+
+[unit1-p7-s1]
+JP: あれは誰ですか？
+EN: Who is that?
+Tags: Who is (are) 〜 ?
+Level: A1
+
+[unit1-p7-s2]
+JP: あなたの友達は誰ですか？
+EN: Who is your friend?
+Tags: Who is (are) 〜 ?
+Level: A1
+
+[unit1-p7-s3]
+JP: 彼女は誰ですか？
+EN: Who is she?
+Tags: Who is (are) 〜 ?
+Level: A1
+
+[unit1-p7-s4]
+JP: その人たちは誰ですか？
+EN: Who are those people?
+Tags: Who is (are) 〜 ?
+Level: A1
+
+[unit1-p7-s5]
+JP: 先生は誰ですか？
+EN: Who is the teacher?
+Tags: Who is (are) 〜 ?
+Level: A1
+
+[unit1-p7-s6]
+JP: あなたの好きな歌手は誰ですか？
+EN: Who is your favorite singer?
+Tags: Who is (are) 〜 ?
+Level: A1
+
+[unit1-p7-s7]
+JP: 彼の兄弟は誰ですか？
+EN: Who is his brother?
+Tags: Who is (are) 〜 ?
+Level: A1
+
+[unit1-p7-s8]
+JP: 私たちの新しいクラスメートは誰ですか？
+EN: Who is our new classmate?
+Tags: Who is (are) 〜 ?
+Level: A1
+
+[unit1-p7-s9]
+JP: その映画の監督は誰ですか？
+EN: Who is the director of that movie?
+Tags: Who is (are) 〜 ?
+Level: A1
+
+[unit1-p7-s10]
+JP: あなたの趣味を教えてくれる人は誰ですか？
+EN: Who is the person who tells you about your hobbies?
+Tags: Who is (are) 〜 ?
+Level: A1
+
+
+## Part 8: 一般動詞
+## 一般動詞の使い方を練習
+## Priority: A
+
+[unit1-p8-s1]
+JP: 私は毎朝ジョギングをします。
+EN: I jog every morning.
+Tags: 一般動詞
+Level: A1
+
+[unit1-p8-s2]
+JP: 彼はサッカーが大好きです。
+EN: He loves soccer.
+Tags: 一般動詞
+Level: A1
+
+[unit1-p8-s3]
+JP: 私たちは週末に映画を見ます。
+EN: We watch a movie on the weekend.
+Tags: 一般動詞
+Level: A1
+
+[unit1-p8-s4]
+JP: 彼女は毎日英語を勉強します。
+EN: She studies English every day.
+Tags: 一般動詞
+Level: A1
+
+[unit1-p8-s5]
+JP: あなたはどのように音楽を聴きますか？
+EN: How do you listen to music?
+Tags: 一般動詞
+Level: A1
+
+[unit1-p8-s6]
+JP: 兄は毎晩本を読みます。
+EN: My brother reads a book every night.
+Tags: 一般動詞
+Level: A1
+
+[unit1-p8-s7]
+JP: 私たちは夏に旅行をします。
+EN: We travel in the summer.
+Tags: 一般動詞
+Level: A1
+
+[unit1-p8-s8]
+JP: 彼は毎週水曜日にピアノを弾きます。
+EN: He plays the piano every Wednesday.
+Tags: 一般動詞
+Level: A1
+
+[unit1-p8-s9]
+JP: 私は友達と一緒に遊びます。
+EN: I play with my friends.
+Tags: 一般動詞
+Level: A1
+
+[unit1-p8-s10]
+JP: あなたは昼ごはんに何を食べますか？
+EN: What do you eat for lunch?
+Tags: 一般動詞
+Level: A1
+
+
+## Part 9: how many (much) 〜
+## how many (much) 〜の使い方を練習
+## Priority: A
+
+[unit1-p9-s1]
+JP: このリンゴはいくつありますか？
+EN: How many apples are there?
+Tags: how many (much) 〜
+Level: A1
+
+[unit1-p9-s2]
+JP: あなたはお金をどれくらい持っていますか？
+EN: How much money do you have?
+Tags: how many (much) 〜
+Level: A1
+
+[unit1-p9-s3]
+JP: クラスには生徒が何人いますか？
+EN: How many students are in the class?
+Tags: how many (much) 〜
+Level: A1
+
+[unit1-p9-s4]
+JP: この本はどれくらいの重さですか？
+EN: How much does this book weigh?
+Tags: how many (much) 〜
+Level: A1
+
+[unit1-p9-s5]
+JP: あなたの家には犬が何匹いますか？
+EN: How many dogs do you have at home?
+Tags: how many (much) 〜
+Level: A1
+
+[unit1-p9-s6]
+JP: 毎日どれくらい水を飲みますか？
+EN: How much water do you drink every day?
+Tags: how many (much) 〜
+Level: A1
+
+[unit1-p9-s7]
+JP: パーティーには人が何人来ますか？
+EN: How many people will come to the party?
+Tags: how many (much) 〜
+Level: A1
+
+[unit1-p9-s8]
+JP: そのシャツはいくらですか？
+EN: How much is that shirt?
+Tags: how many (much) 〜
+Level: A1
+
+[unit1-p9-s9]
+JP: あなたの家の近くに公園は何個ありますか？
+EN: How many parks are near your house?
+Tags: how many (much) 〜
+Level: A1
+
+[unit1-p9-s10]
+JP: このケーキはどれくらい甘いですか？
+EN: How much sugar is in this cake?
+Tags: how many (much) 〜
+Level: A1
+
+
+## Part 10: 人称代名詞の目的格
+## 人称代名詞の目的格の使い方を練習
+## Priority: A
+
+[unit1-p10-s1]
+JP: 彼は私を助けてくれます。
+EN: He helps me.
+Tags: 人称代名詞の目的格
+Level: A1
+
+[unit1-p10-s2]
+JP: 彼女が私たちを見ている。
+EN: She is looking at us.
+Tags: 人称代名詞の目的格
+Level: A1
+
+[unit1-p10-s3]
+JP: 彼は君に本を貸しました。
+EN: He lent you a book.
+Tags: 人称代名詞の目的格
+Level: A1
+
+[unit1-p10-s4]
+JP: 私たちは彼を待っています。
+EN: We are waiting for him.
+Tags: 人称代名詞の目的格
+Level: A1
+
+[unit1-p10-s5]
+JP: あなたは彼女に電話をかけますか？
+EN: Do you call her?
+Tags: 人称代名詞の目的格
+Level: A1
+
+[unit1-p10-s6]
+JP: 私の友達が彼らを知っています。
+EN: My friend knows them.
+Tags: 人称代名詞の目的格
+Level: A1
+
+[unit1-p10-s7]
+JP: 彼は私を好きです。
+EN: He likes me.
+Tags: 人称代名詞の目的格
+Level: A1
+
+[unit1-p10-s8]
+JP: 私は君に手紙を書きます。
+EN: I will write you a letter.
+Tags: 人称代名詞の目的格
+Level: A1
+
+[unit1-p10-s9]
+JP: 彼女は私たちにプレゼントをくれました。
+EN: She gave us a present.
+Tags: 人称代名詞の目的格
+Level: A1
+
+[unit1-p10-s10]
+JP: 私たちはあなたに会いたいです。
+EN: We want to see you.
+Tags: 人称代名詞の目的格
+Level: A1
+
+
+## Part 11: 人称代名詞の独立所有格
+## 人称代名詞の独立所有格の使い方を練習
+## Priority: B
+
+[unit1-p11-s1]
+JP: これは彼の本です。
+EN: This is his book.
+Tags: 人称代名詞の独立所有格
+Level: A1
+
+[unit1-p11-s2]
+JP: あれは私のペンです。
+EN: That is my pen.
+Tags: 人称代名詞の独立所有格
+Level: A1
+
+[unit1-p11-s3]
+JP: 彼女の犬はとても可愛いです。
+EN: Her dog is very cute.
+Tags: 人称代名詞の独立所有格
+Level: A1
+
+[unit1-p11-s4]
+JP: 私たちの家は大きいです。
+EN: Our house is big.
+Tags: 人称代名詞の独立所有格
+Level: A1
+
+[unit1-p11-s5]
+JP: 君のカバンはどこにあるの？
+EN: Where is your bag?
+Tags: 人称代名詞の独立所有格
+Level: A1
+
+[unit1-p11-s6]
+JP: 彼の友達はサッカーが上手です。
+EN: His friend is good at soccer.
+Tags: 人称代名詞の独立所有格
+Level: A1
+
+[unit1-p11-s7]
+JP: 彼女の趣味は絵を描くことです。
+EN: Her hobby is painting.
+Tags: 人称代名詞の独立所有格
+Level: A1
+
+[unit1-p11-s8]
+JP: 私たちの学校は新しいです。
+EN: Our school is new.
+Tags: 人称代名詞の独立所有格
+Level: A1
+
+[unit1-p11-s9]
+JP: 君の兄は面白いです。
+EN: Your brother is funny.
+Tags: 人称代名詞の独立所有格
+Level: A1
+
+[unit1-p11-s10]
+JP: あの猫は彼女のです。
+EN: That cat is hers.
+Tags: 人称代名詞の独立所有格
+Level: A1
+
+
+## Part 12: 命令文 / Let's 〜
+## 命令文 / Let's 〜の使い方を練習
+## Priority: A
+
+[unit1-p12-s1]
+JP: 公園に行こう。
+EN: Let's go to the park.
+Tags: 命令文 / Let's 〜
+Level: A1
+
+[unit1-p12-s2]
+JP: 一緒に宿題をしよう。
+EN: Let's do our homework together.
+Tags: 命令文 / Let's 〜
+Level: A1
+
+[unit1-p12-s3]
+JP: 映画を見に行こう。
+EN: Let's go see a movie.
+Tags: 命令文 / Let's 〜
+Level: A1
+
+[unit1-p12-s4]
+JP: 新しいレストランを試してみよう。
+EN: Let's try the new restaurant.
+Tags: 命令文 / Let's 〜
+Level: A1
+
+[unit1-p12-s5]
+JP: 友達を呼ぼう。
+EN: Let's invite our friends.
+Tags: 命令文 / Let's 〜
+Level: A1
+
+[unit1-p12-s6]
+JP: 音楽を聴こう。
+EN: Let's listen to some music.
+Tags: 命令文 / Let's 〜
+Level: A1
+
+[unit1-p12-s7]
+JP: サッカーをしよう。
+EN: Let's play soccer.
+Tags: 命令文 / Let's 〜
+Level: A1
+
+[unit1-p12-s8]
+JP: 本を読もう。
+EN: Let's read a book.
+Tags: 命令文 / Let's 〜
+Level: A1
+
+[unit1-p12-s9]
+JP: パーティーを開こう。
+EN: Let's have a party.
+Tags: 命令文 / Let's 〜
+Level: A1
+
+[unit1-p12-s10]
+JP: 買い物に行こう。
+EN: Let's go shopping.
+Tags: 命令文 / Let's 〜
+Level: A1
+
+
+## Part 13: whose
+## whoseの使い方を練習
+## Priority: B
+
+[unit1-p13-s1]
+JP: これは私の友達の本です。彼の名前はマイケルです。
+EN: This is my friend's book. Whose name is Michael?
+Tags: whose
+Level: A1
+
+[unit1-p13-s2]
+JP: その犬は誰のですか？
+EN: Whose dog is that?
+Tags: whose
+Level: A1
+
+[unit1-p13-s3]
+JP: 彼女のペンはどれですか？
+EN: Which pen is hers? Whose pen is it?
+Tags: whose
+Level: A1
+
+[unit1-p13-s4]
+JP: このカバンは彼のものですか？
+EN: Is this bag his? Whose bag is this?
+Tags: whose
+Level: A1
+
+[unit1-p13-s5]
+JP: あの人は誰ですか？彼の手紙を見ました。
+EN: Who is that person? I saw his letter. Whose letter was it?
+Tags: whose
+Level: A1
+
+[unit1-p13-s6]
+JP: この車はあなたのですか？
+EN: Is this car yours? Whose car is this?
+Tags: whose
+Level: A1
+
+[unit1-p13-s7]
+JP: このお菓子は誰が作りましたか？
+EN: Who made these sweets? Whose sweets are these?
+Tags: whose
+Level: A1
+
+[unit1-p13-s8]
+JP: 彼は誰の電話ですか？
+EN: Whose phone is he using?
+Tags: whose
+Level: A1
+
+[unit1-p13-s9]
+JP: この写真は私の祖父のです。
+EN: This photo is my grandfather's. Whose photo is it?
+Tags: whose
+Level: A1
+
+[unit1-p13-s10]
+JP: このゲームは彼女のですか？
+EN: Is this game hers? Whose game is it?
+Tags: whose
+Level: A1
+
+
+## Part 14: where
+## whereの使い方を練習
+## Priority: A
+
+[unit1-p14-s1]
+JP: あなたはどこにいますか？
+EN: Where are you?
+Tags: where
+Level: A1
+
+[unit1-p14-s2]
+JP: 彼はどこに行きましたか？
+EN: Where did he go?
+Tags: where
+Level: A1
+
+[unit1-p14-s3]
+JP: 私の本はどこですか？
+EN: Where is my book?
+Tags: where
+Level: A1
+
+[unit1-p14-s4]
+JP: 彼女はどこに住んでいますか？
+EN: Where does she live?
+Tags: where
+Level: A1
+
+[unit1-p14-s5]
+JP: 私たちはどこで会いましょうか？
+EN: Where shall we meet?
+Tags: where
+Level: A1
+
+[unit1-p14-s6]
+JP: 彼らはどこで遊んでいますか？
+EN: Where are they playing?
+Tags: where
+Level: A1
+
+[unit1-p14-s7]
+JP: その駅はどこですか？
+EN: Where is that station?
+Tags: where
+Level: A1
+
+[unit1-p14-s8]
+JP: このレストランはどこにありますか？
+EN: Where is this restaurant?
+Tags: where
+Level: A1
+
+[unit1-p14-s9]
+JP: 彼の家はどこですか？
+EN: Where is his house?
+Tags: where
+Level: A1
+
+[unit1-p14-s10]
+JP: あなたの友達はどこにいますか？
+EN: Where is your friend?
+Tags: where
+Level: A1
+
+
+## Part 15: when
+## whenの使い方を練習
+## Priority: A
+
+[unit1-p15-s1]
+JP: 私が家に帰るとき、いつも音楽を聞きます。
+EN: I listen to music when I go home.
+Tags: when
+Level: A1
+
+[unit1-p15-s2]
+JP: 彼女は学校に行くとき、友達と話します。
+EN: She talks with her friends when she goes to school.
+Tags: when
+Level: A1
+
+[unit1-p15-s3]
+JP: 私たちは公園で遊ぶとき、サッカーをします。
+EN: We play soccer when we are at the park.
+Tags: when
+Level: A1
+
+[unit1-p15-s4]
+JP: 彼は毎朝ジョギングをする時に、音楽を聴きます。
+EN: He listens to music when he goes jogging every morning.
+Tags: when
+Level: A1
+
+[unit1-p15-s5]
+JP: 私が宿題を終えるとき、テレビを見ます。
+EN: I watch TV when I finish my homework.
+Tags: when
+Level: A1
+
+[unit1-p15-s6]
+JP: 母が料理をする時、私は手伝います。
+EN: I help my mom when she cooks.
+Tags: when
+Level: A1
+
+[unit1-p15-s7]
+JP: 友達と遊ぶ時、私はいつも楽しいです。
+EN: I always have fun when I play with my friends.
+Tags: when
+Level: A1
+
+[unit1-p15-s8]
+JP: 彼女は外で遊ぶとき、犬を連れて行きます。
+EN: She takes her dog when she plays outside.
+Tags: when
+Level: A1
+
+[unit1-p15-s9]
+JP: 私が本を読む時、静かにします。
+EN: I stay quiet when I read a book.
+Tags: when
+Level: A1
+
+[unit1-p15-s10]
+JP: 学校が終わるとき、私はすぐに帰ります。
+EN: I go home right away when school ends.
+Tags: when
+Level: A1
+
+
+## Part 16: which
+## whichの使い方を練習
+## Priority: B
+
+[unit1-p16-s1]
+JP: これは私の好きな本です。
+EN: This is the book which I like.
+Tags: which
+Level: A1
+
+[unit1-p16-s2]
+JP: 彼女はその映画を見ました。
+EN: She watched the movie which was exciting.
+Tags: which
+Level: A1
+
+[unit1-p16-s3]
+JP: 私はその公園で遊びます。
+EN: I play in the park which is near my house.
+Tags: which
+Level: A1
+
+[unit1-p16-s4]
+JP: アイスクリームは私の好きなデザートです。
+EN: Ice cream is the dessert which I love.
+Tags: which
+Level: A1
+
+[unit1-p16-s5]
+JP: 彼は私たちのクラスのリーダーです。
+EN: He is the leader which our class chose.
+Tags: which
+Level: A1
+
+[unit1-p16-s6]
+JP: 彼女は会議の準備をしました。
+EN: She prepared for the meeting which is tomorrow.
+Tags: which
+Level: A1
+
+[unit1-p16-s7]
+JP: これは私の猫です。
+EN: This is the cat which I adopted.
+Tags: which
+Level: A1
+
+[unit1-p16-s8]
+JP: 彼は私に手紙をくれました。
+EN: He gave me the letter which was very nice.
+Tags: which
+Level: A1
+
+[unit1-p16-s9]
+JP: 私たちはその試験を受けます。
+EN: We will take the test which is next week.
+Tags: which
+Level: A1
+
+[unit1-p16-s10]
+JP: 彼女は私の友達です。
+EN: She is the friend which I met at school.
+Tags: which
+Level: A1
+
+
+## Part 17: it
+## itの使い方を練習
+## Priority: A
+
+[unit1-p17-s1]
+JP: 今日はいい天気です。
+EN: It is a nice day today.
+Tags: it
+Level: A1
+
+[unit1-p17-s2]
+JP: この本はとても面白いです。
+EN: It is a very interesting book.
+Tags: it
+Level: A1
+
+[unit1-p17-s3]
+JP: 明日は私の誕生日です。
+EN: It is my birthday tomorrow.
+Tags: it
+Level: A1
+
+[unit1-p17-s4]
+JP: 今、映画を見ています。
+EN: It is a good time to watch a movie.
+Tags: it
+Level: A1
+
+[unit1-p17-s5]
+JP: この問題は簡単です。
+EN: It is an easy question.
+Tags: it
+Level: A1
+
+[unit1-p17-s6]
+JP: 外は寒いです。
+EN: It is cold outside.
+Tags: it
+Level: A1
+
+[unit1-p17-s7]
+JP: ここは静かです。
+EN: It is quiet here.
+Tags: it
+Level: A1
+
+[unit1-p17-s8]
+JP: その犬はとてもかわいいです。
+EN: It is a very cute dog.
+Tags: it
+Level: A1
+
+[unit1-p17-s9]
+JP: 宿題は難しかったです。
+EN: It was a difficult homework.
+Tags: it
+Level: A1
+
+[unit1-p17-s10]
+JP: この映画は面白いと思います。
+EN: I think it is an interesting movie.
+Tags: it
+Level: A1
+
+
+## Part 18: What time 〜 ?
+## What time 〜 ?の使い方を練習
+## Priority: A
+
+[unit1-p18-s1]
+JP: 何時に学校に行きますか？
+EN: What time do you go to school?
+Tags: What time 〜 ?
+Level: A1
+
+[unit1-p18-s2]
+JP: 何時に昼ごはんを食べますか？
+EN: What time do you have lunch?
+Tags: What time 〜 ?
+Level: A1
+
+[unit1-p18-s3]
+JP: 何時に友達と会いますか？
+EN: What time do you meet your friends?
+Tags: What time 〜 ?
+Level: A1
+
+[unit1-p18-s4]
+JP: 何時にサッカーの練習がありますか？
+EN: What time is the soccer practice?
+Tags: What time 〜 ?
+Level: A1
+
+[unit1-p18-s5]
+JP: 何時に家に帰りますか？
+EN: What time do you come home?
+Tags: What time 〜 ?
+Level: A1
+
+[unit1-p18-s6]
+JP: 何時に宿題を始めますか？
+EN: What time do you start your homework?
+Tags: What time 〜 ?
+Level: A1
+
+[unit1-p18-s7]
+JP: 何時にテレビを見る予定ですか？
+EN: What time do you plan to watch TV?
+Tags: What time 〜 ?
+Level: A1
+
+[unit1-p18-s8]
+JP: 何時に寝ますか？
+EN: What time do you go to bed?
+Tags: What time 〜 ?
+Level: A1
+
+[unit1-p18-s9]
+JP: 何時に友達と遊びますか？
+EN: What time do you play with your friends?
+Tags: What time 〜 ?
+Level: A1
+
+[unit1-p18-s10]
+JP: 何時にバスが出ますか？
+EN: What time does the bus leave?
+Tags: What time 〜 ?
+Level: A1
+
+
+## Part 19: how
+## howの使い方を練習
+## Priority: A
+
+[unit1-p19-s1]
+JP: あなたはどう思いますか？
+EN: How do you think?
+Tags: how
+Level: A1
+
+[unit1-p19-s2]
+JP: この問題はどう解決しますか？
+EN: How do we solve this problem?
+Tags: how
+Level: A1
+
+[unit1-p19-s3]
+JP: 彼女はどうしてそんなに早く走れるの？
+EN: How can she run so fast?
+Tags: how
+Level: A1
+
+[unit1-p19-s4]
+JP: 明日はどうやって行きますか？
+EN: How will you get there tomorrow?
+Tags: how
+Level: A1
+
+[unit1-p19-s5]
+JP: この料理はどうやって作りますか？
+EN: How do you make this dish?
+Tags: how
+Level: A1
+
+[unit1-p19-s6]
+JP: あなたはどうやって英語を勉強していますか？
+EN: How are you studying English?
+Tags: how
+Level: A1
+
+[unit1-p19-s7]
+JP: 彼はどうやってその本を見つけたの？
+EN: How did he find that book?
+Tags: how
+Level: A1
+
+[unit1-p19-s8]
+JP: 私たちはどうやって問題に取り組むべきですか？
+EN: How should we tackle the issue?
+Tags: how
+Level: A1
+
+[unit1-p19-s9]
+JP: その映画はどうだった？
+EN: How was the movie?
+Tags: how
+Level: A1
+
+[unit1-p19-s10]
+JP: あなたはどうやって友達を作りますか？
+EN: How do you make friends?
+Tags: how
+Level: A1
+
+
+## Part 20: How old (tall) 〜 ?
+## How old (tall) 〜 ?の使い方を練習
+## Priority: A
+
+[unit1-p20-s1]
+JP: あなたは何歳ですか？
+EN: How old are you?
+Tags: How old (tall) 〜 ?
+Level: A1
+
+[unit1-p20-s2]
+JP: 彼はどれくらい背が高いですか？
+EN: How tall is he?
+Tags: How old (tall) 〜 ?
+Level: A1
+
+[unit1-p20-s3]
+JP: 彼女は何歳ですか？
+EN: How old is she?
+Tags: How old (tall) 〜 ?
+Level: A1
+
+[unit1-p20-s4]
+JP: この木はどれくらいの高さですか？
+EN: How tall is this tree?
+Tags: How old (tall) 〜 ?
+Level: A1
+
+[unit1-p20-s5]
+JP: あなたの犬は何歳ですか？
+EN: How old is your dog?
+Tags: How old (tall) 〜 ?
+Level: A1
+
+[unit1-p20-s6]
+JP: その建物はどれくらい高いですか？
+EN: How tall is that building?
+Tags: How old (tall) 〜 ?
+Level: A1
+
+[unit1-p20-s7]
+JP: 彼の妹は何歳ですか？
+EN: How old is his sister?
+Tags: How old (tall) 〜 ?
+Level: A1
+
+[unit1-p20-s8]
+JP: 私の友達はどれくらい背が高いですか？
+EN: How tall is my friend?
+Tags: How old (tall) 〜 ?
+Level: A1
+
+[unit1-p20-s9]
+JP: このペンは何年使っていますか？
+EN: How old is this pen?
+Tags: How old (tall) 〜 ?
+Level: A1
+
+[unit1-p20-s10]
+JP: あなたの猫はどれくらいの高さですか？
+EN: How tall is your cat?
+Tags: How old (tall) 〜 ?
+Level: A1
+
+
+## Part 21: 疑問詞主語の who
+## 疑問詞主語の whoの使い方を練習
+## Priority: B
+
+[unit1-p21-s1]
+JP: 誰があなたの友達ですか？
+EN: Who is your friend?
+Tags: 疑問詞主語の who
+Level: A1
+
+[unit1-p21-s2]
+JP: 誰がこの本を書きましたか？
+EN: Who wrote this book?
+Tags: 疑問詞主語の who
+Level: A1
+
+[unit1-p21-s3]
+JP: 誰がサッカーをするのが好きですか？
+EN: Who likes to play soccer?
+Tags: 疑問詞主語の who
+Level: A1
+
+[unit1-p21-s4]
+JP: 誰があなたの先生ですか？
+EN: Who is your teacher?
+Tags: 疑問詞主語の who
+Level: A1
+
+[unit1-p21-s5]
+JP: 誰がこの映画を見ましたか？
+EN: Who watched this movie?
+Tags: 疑問詞主語の who
+Level: A1
+
+[unit1-p21-s6]
+JP: 誰が一番早く走りますか？
+EN: Who runs the fastest?
+Tags: 疑問詞主語の who
+Level: A1
+
+[unit1-p21-s7]
+JP: 誰が朝ごはんを作りますか？
+EN: Who makes breakfast?
+Tags: 疑問詞主語の who
+Level: A1
+
+[unit1-p21-s8]
+JP: 誰が誕生日パーティーを開きますか？
+EN: Who is having a birthday party?
+Tags: 疑問詞主語の who
+Level: A1
+
+[unit1-p21-s9]
+JP: 誰があなたの家にいますか？
+EN: Who is at your house?
+Tags: 疑問詞主語の who
+Level: A1
+
+[unit1-p21-s10]
+JP: 誰がこの問題を解けますか？
+EN: Who can solve this problem?
+Tags: 疑問詞主語の who
+Level: A1
+
+
+## Part 22: can
+## canの使い方を練習
+## Priority: A
+
+[unit1-p22-s1]
+JP: 私は泳ぐことができます。
+EN: I can swim.
+Tags: can
+Level: A1
+
+[unit1-p22-s2]
+JP: 彼女は英語を話すことができます。
+EN: She can speak English.
+Tags: can
+Level: A1
+
+[unit1-p22-s3]
+JP: 私たちはサッカーをすることができます。
+EN: We can play soccer.
+Tags: can
+Level: A1
+
+[unit1-p22-s4]
+JP: あなたはこの問題を解くことができますか？
+EN: Can you solve this problem?
+Tags: can
+Level: A1
+
+[unit1-p22-s5]
+JP: 彼はピアノを弾くことができます。
+EN: He can play the piano.
+Tags: can
+Level: A1
+
+[unit1-p22-s6]
+JP: 私の兄は料理をすることができます。
+EN: My brother can cook.
+Tags: can
+Level: A1
+
+[unit1-p22-s7]
+JP: 私たちは明日、映画を見ることができます。
+EN: We can watch a movie tomorrow.
+Tags: can
+Level: A1
+
+[unit1-p22-s8]
+JP: 君は日本の文化について知っていますか？
+EN: Can you tell me about Japanese culture?
+Tags: can
+Level: A1
+
+[unit1-p22-s9]
+JP: 彼女はダンスを踊ることができます。
+EN: She can dance.
+Tags: can
+Level: A1
+
+[unit1-p22-s10]
+JP: 私はこの本を読むことができます。
+EN: I can read this book.
+Tags: can
+Level: A1
+
+
+## Part 23: 現在進行形
+## 現在進行形の使い方を練習
+## Priority: A
+
+[unit1-p23-s1]
+JP: 私は今、宿題をしています。
+EN: I am doing my homework now.
+Tags: 現在進行形
+Level: A1
+
+[unit1-p23-s2]
+JP: 彼女は友達と電話で話しています。
+EN: She is talking on the phone with her friend.
+Tags: 現在進行形
+Level: A1
+
+[unit1-p23-s3]
+JP: 彼らは公園で遊んでいます。
+EN: They are playing in the park.
+Tags: 現在進行形
+Level: A1
+
+[unit1-p23-s4]
+JP: 私たちは夕食を作っています。
+EN: We are making dinner.
+Tags: 現在進行形
+Level: A1
+
+[unit1-p23-s5]
+JP: あなたは今、何を聞いていますか？
+EN: What are you listening to now?
+Tags: 現在進行形
+Level: A1
+
+[unit1-p23-s6]
+JP: 彼はサッカーをしています。
+EN: He is playing soccer.
+Tags: 現在進行形
+Level: A1
+
+[unit1-p23-s7]
+JP: 私は毎朝ジョギングをしています。
+EN: I am jogging every morning.
+Tags: 現在進行形
+Level: A1
+
+[unit1-p23-s8]
+JP: 彼女は新しい本を読んでいます。
+EN: She is reading a new book.
+Tags: 現在進行形
+Level: A1
+
+[unit1-p23-s9]
+JP: 私たちは映画を見ています。
+EN: We are watching a movie.
+Tags: 現在進行形
+Level: A1
+
+[unit1-p23-s10]
+JP: 彼らは音楽を作っています。
+EN: They are making music.
+Tags: 現在進行形
+Level: A1
+
+
+## Part 24: There is (are) 〜
+## There is (are) 〜の使い方を練習
+## Priority: A
+
+[unit1-p24-s1]
+JP: 教室に生徒がいます。
+EN: There are students in the classroom.
+Tags: There is (are) 〜
+Level: A1
+
+[unit1-p24-s2]
+JP: 公園に犬がいます。
+EN: There is a dog in the park.
+Tags: There is (are) 〜
+Level: A1
+
+[unit1-p24-s3]
+JP: 家の中に古い本があります。
+EN: There are old books in the house.
+Tags: There is (are) 〜
+Level: A1
+
+[unit1-p24-s4]
+JP: 机の上にペンがあります。
+EN: There is a pen on the desk.
+Tags: There is (are) 〜
+Level: A1
+
+[unit1-p24-s5]
+JP: カフェに多くの人がいます。
+EN: There are many people in the café.
+Tags: There is (are) 〜
+Level: A1
+
+[unit1-p24-s6]
+JP: 公園に木があります。
+EN: There is a tree in the park.
+Tags: There is (are) 〜
+Level: A1
+
+[unit1-p24-s7]
+JP: 冷蔵庫の中に牛乳があります。
+EN: There is milk in the refrigerator.
+Tags: There is (are) 〜
+Level: A1
+
+[unit1-p24-s8]
+JP: 教室に黒板があります。
+EN: There is a blackboard in the classroom.
+Tags: There is (are) 〜
+Level: A1
+
+[unit1-p24-s9]
+JP: 家の外に花が咲いています。
+EN: There are flowers blooming outside the house.
+Tags: There is (are) 〜
+Level: A1
+
+[unit1-p24-s10]
+JP: 道に車がたくさんあります。
+EN: There are many cars on the road.
+Tags: There is (are) 〜
+Level: A1
+
+
+
+================================================================================
+
+# Unit 2 - 一般動詞の基本
+# Grade: junior-high-1, Unit Number: 2
+# File: junior-high-1\unit2.json
+
+## Part 1: 一般動詞（現在形）
+## 一般動詞の基本的な使い方
+## Priority: N/A
+
+[jh1-u2-p1-1]
+JP: 私は毎日走ります。
+EN: I run every day.
+Tags: 一般動詞, 現在形
+Level: A1
+
+[jh1-u2-p1-2]
+JP: 彼は英語を勉強します。
+EN: He studies English.
+Tags: 一般動詞, 三人称単数
+Level: A1
+
+[jh1-u2-p1-3]
+JP: 私たちは音楽を聞きます。
+EN: We listen to music.
+Tags: 一般動詞, 現在形
+Level: A1
+
+[jh1-u2-p1-4]
+JP: 彼女は本を読みます。
+EN: She reads books.
+Tags: 一般動詞, 三人称単数
+Level: A1
+
+[jh1-u2-p1-5]
+JP: あなたはサッカーをしますか？
+EN: Do you play soccer?
+Tags: 一般動詞, 疑問文
+Level: A1
+
+
+
+================================================================================
+
+# Unit 2 - 中学2年レベルの文法
+# Grade: junior-high-2, Unit Number: 2
+# File: junior-high-2\unit2.json
+
+## Part 1: 過去形
+## 過去形の使い方を練習
+## Priority: A
+
+[unit2-p1-s1]
+JP: 私は昨日、映画を見ました。
+EN: I watched a movie yesterday.
+Tags: 過去形
+Level: A2
+
+[unit2-p1-s2]
+JP: 彼は先週、友達とサッカーをしました。
+EN: He played soccer with his friends last week.
+Tags: 過去形
+Level: A2
+
+[unit2-p1-s3]
+JP: 私たちは先月、旅行に行きました。
+EN: We went on a trip last month.
+Tags: 過去形
+Level: A2
+
+[unit2-p1-s4]
+JP: 彼女は朝ごはんを食べませんでした。
+EN: She didn't eat breakfast.
+Tags: 過去形
+Level: A2
+
+[unit2-p1-s5]
+JP: あなたはその本を読みましたか？
+EN: Did you read that book?
+Tags: 過去形
+Level: A2
+
+[unit2-p1-s6]
+JP: 彼らは昨夜、パーティーを開きました。
+EN: They had a party last night.
+Tags: 過去形
+Level: A2
+
+[unit2-p1-s7]
+JP: 私は昨日、宿題を終えました。
+EN: I finished my homework yesterday.
+Tags: 過去形
+Level: A2
+
+[unit2-p1-s8]
+JP: 私の母は先週、料理教室に行きました。
+EN: My mother went to a cooking class last week.
+Tags: 過去形
+Level: A2
+
+[unit2-p1-s9]
+JP: 彼はその歌を歌いました。
+EN: He sang that song.
+Tags: 過去形
+Level: A2
+
+[unit2-p1-s10]
+JP: 私たちは先月、動物園に行きました。
+EN: We visited the zoo last month.
+Tags: 過去形
+Level: A2
+
+
+## Part 2: 過去進行形
+## 過去進行形の使い方を練習
+## Priority: A
+
+[unit2-p2-s1]
+JP: 私は昨日の夜、テレビを見ていました。
+EN: I was watching TV last night.
+Tags: 過去進行形
+Level: A2
+
+[unit2-p2-s2]
+JP: 彼女は学校で友達と話していました。
+EN: She was talking with her friends at school.
+Tags: 過去進行形
+Level: A2
+
+[unit2-p2-s3]
+JP: 私たちは公園で遊んでいました。
+EN: We were playing in the park.
+Tags: 過去進行形
+Level: A2
+
+[unit2-p2-s4]
+JP: 彼は音楽を聴いていました。
+EN: He was listening to music.
+Tags: 過去進行形
+Level: A2
+
+[unit2-p2-s5]
+JP: 彼らは家で宿題をしていました。
+EN: They were doing homework at home.
+Tags: 過去進行形
+Level: A2
+
+[unit2-p2-s6]
+JP: 私は本を読んでいました。
+EN: I was reading a book.
+Tags: 過去進行形
+Level: A2
+
+[unit2-p2-s7]
+JP: 彼女は料理をしていました。
+EN: She was cooking.
+Tags: 過去進行形
+Level: A2
+
+[unit2-p2-s8]
+JP: 私たちはお祭りを楽しんでいました。
+EN: We were enjoying the festival.
+Tags: 過去進行形
+Level: A2
+
+[unit2-p2-s9]
+JP: 彼は友達とサッカーをしていました。
+EN: He was playing soccer with his friends.
+Tags: 過去進行形
+Level: A2
+
+[unit2-p2-s10]
+JP: 私たちは映画を見ていました。
+EN: We were watching a movie.
+Tags: 過去進行形
+Level: A2
+
+
+## Part 3: when 節
+## when 節の使い方を練習
+## Priority: A
+
+[unit2-p3-s1]
+JP: 私は公園に行くときに友達に会います。
+EN: I meet my friends when I go to the park.
+Tags: when 節
+Level: A2
+
+[unit2-p3-s2]
+JP: 彼女は勉強するときに音楽を聴きます。
+EN: She listens to music when she studies.
+Tags: when 節
+Level: A2
+
+[unit2-p3-s3]
+JP: 私たちは夏休みに旅行に行きます。
+EN: We go on a trip when summer vacation starts.
+Tags: when 節
+Level: A2
+
+[unit2-p3-s4]
+JP: 彼は朝食を食べるときにテレビを見ます。
+EN: He watches TV when he eats breakfast.
+Tags: when 節
+Level: A2
+
+[unit2-p3-s5]
+JP: 私が家に帰るとき、母が夕食を作っています。
+EN: My mom is cooking dinner when I get home.
+Tags: when 節
+Level: A2
+
+[unit2-p3-s6]
+JP: あなたは宿題をする時に静かにしなければなりません。
+EN: You must be quiet when you do your homework.
+Tags: when 節
+Level: A2
+
+[unit2-p3-s7]
+JP: 彼女は友達と遊ぶときに笑っています。
+EN: She laughs when she plays with her friends.
+Tags: when 節
+Level: A2
+
+[unit2-p3-s8]
+JP: 私たちは映画を見るときにポップコーンを食べます。
+EN: We eat popcorn when we watch a movie.
+Tags: when 節
+Level: A2
+
+[unit2-p3-s9]
+JP: 彼が試験を受けるとき、緊張しています。
+EN: He feels nervous when he takes the exam.
+Tags: when 節
+Level: A2
+
+[unit2-p3-s10]
+JP: 私は雨が降るときに傘を持っています。
+EN: I carry an umbrella when it rains.
+Tags: when 節
+Level: A2
+
+
+## Part 4: 一般動詞の SVC
+## 一般動詞の SVCの使い方を練習
+## Priority: B
+
+[unit2-p4-s1]
+JP: 彼は学生です。
+EN: He is a student.
+Tags: 一般動詞の SVC
+Level: A2
+
+[unit2-p4-s2]
+JP: 彼女は医者です。
+EN: She is a doctor.
+Tags: 一般動詞の SVC
+Level: A2
+
+[unit2-p4-s3]
+JP: 私たちは友達です。
+EN: We are friends.
+Tags: 一般動詞の SVC
+Level: A2
+
+[unit2-p4-s4]
+JP: 彼の趣味は音楽です。
+EN: His hobby is music.
+Tags: 一般動詞の SVC
+Level: A2
+
+[unit2-p4-s5]
+JP: あなたの犬は大きいです。
+EN: Your dog is big.
+Tags: 一般動詞の SVC
+Level: A2
+
+[unit2-p4-s6]
+JP: この本は面白いです。
+EN: This book is interesting.
+Tags: 一般動詞の SVC
+Level: A2
+
+[unit2-p4-s7]
+JP: その映画は新しいです。
+EN: That movie is new.
+Tags: 一般動詞の SVC
+Level: A2
+
+[unit2-p4-s8]
+JP: 私の父は先生です。
+EN: My father is a teacher.
+Tags: 一般動詞の SVC
+Level: A2
+
+[unit2-p4-s9]
+JP: 私の妹は中学生です。
+EN: My sister is a junior high school student.
+Tags: 一般動詞の SVC
+Level: A2
+
+[unit2-p4-s10]
+JP: この問題は簡単です。
+EN: This problem is easy.
+Tags: 一般動詞の SVC
+Level: A2
+
+
+## Part 5: SVO + to (for)
+## SVO + to (for)の使い方を練習
+## Priority: B
+
+[unit2-p5-s1]
+JP: 私は友達に手紙を書きます。
+EN: I write a letter to my friend.
+Tags: SVO + to (for)
+Level: A2
+
+[unit2-p5-s2]
+JP: 彼女は先生に質問をします。
+EN: She asks a question to the teacher.
+Tags: SVO + to (for)
+Level: A2
+
+[unit2-p5-s3]
+JP: 彼は妹に本を貸します。
+EN: He lends a book to his sister.
+Tags: SVO + to (for)
+Level: A2
+
+[unit2-p5-s4]
+JP: 私たちは旅行会社に電話をかけます。
+EN: We call the travel agency.
+Tags: SVO + to (for)
+Level: A2
+
+[unit2-p5-s5]
+JP: あなたは母にプレゼントを買いますか？
+EN: Do you buy a gift for your mother?
+Tags: SVO + to (for)
+Level: A2
+
+[unit2-p5-s6]
+JP: 彼らは子供たちにお菓子をあげます。
+EN: They give sweets to the children.
+Tags: SVO + to (for)
+Level: A2
+
+[unit2-p5-s7]
+JP: 私の父は兄に車を見せます。
+EN: My father shows the car to my brother.
+Tags: SVO + to (for)
+Level: A2
+
+[unit2-p5-s8]
+JP: 彼女は友達にゲームを紹介します。
+EN: She introduces a game to her friend.
+Tags: SVO + to (for)
+Level: A2
+
+[unit2-p5-s9]
+JP: 先生は私たちに宿題を出します。
+EN: The teacher gives us homework.
+Tags: SVO + to (for)
+Level: A2
+
+[unit2-p5-s10]
+JP: 私は彼にサッカーを教えます。
+EN: I teach him soccer.
+Tags: SVO + to (for)
+Level: A2
+
+
+## Part 6: SVOO
+## SVOOの使い方を練習
+## Priority: B
+
+[unit2-p6-s1]
+JP: 彼は友達に本を貸した。
+EN: He lent a book to his friend.
+Tags: SVOO
+Level: A2
+
+[unit2-p6-s2]
+JP: 彼女は妹にお菓子をくれた。
+EN: She gave a snack to her sister.
+Tags: SVOO
+Level: A2
+
+[unit2-p6-s3]
+JP: 私は母に手紙を書いた。
+EN: I wrote a letter to my mother.
+Tags: SVOO
+Level: A2
+
+[unit2-p6-s4]
+JP: 先生は生徒に質問をした。
+EN: The teacher asked a question to the student.
+Tags: SVOO
+Level: A2
+
+[unit2-p6-s5]
+JP: 彼らは私にプレゼントを持ってきた。
+EN: They brought a present for me.
+Tags: SVOO
+Level: A2
+
+[unit2-p6-s6]
+JP: 友達は私に映画のチケットをくれた。
+EN: My friend gave me a movie ticket.
+Tags: SVOO
+Level: A2
+
+[unit2-p6-s7]
+JP: 彼女は犬に餌を与えた。
+EN: She gave food to her dog.
+Tags: SVOO
+Level: A2
+
+[unit2-p6-s8]
+JP: 私は父に新しいゲームを見せた。
+EN: I showed a new game to my father.
+Tags: SVOO
+Level: A2
+
+[unit2-p6-s9]
+JP: 彼は先生に本を返した。
+EN: He returned a book to the teacher.
+Tags: SVOO
+Level: A2
+
+[unit2-p6-s10]
+JP: 私たちは彼女にサプライズパーティーを計画した。
+EN: We planned a surprise party for her.
+Tags: SVOO
+Level: A2
+
+
+## Part 7: will（単純未来）
+## will（単純未来）の使い方を練習
+## Priority: A
+
+[unit2-p7-s1]
+JP: 私は明日学校に行きます。
+EN: I will go to school tomorrow.
+Tags: will（単純未来）
+Level: A2
+
+[unit2-p7-s2]
+JP: 彼は来週サッカーをします。
+EN: He will play soccer next week.
+Tags: will（単純未来）
+Level: A2
+
+[unit2-p7-s3]
+JP: 私たちは今夜映画を見ます。
+EN: We will watch a movie tonight.
+Tags: will（単純未来）
+Level: A2
+
+[unit2-p7-s4]
+JP: 彼女は明日友達と遊びます。
+EN: She will hang out with her friends tomorrow.
+Tags: will（単純未来）
+Level: A2
+
+[unit2-p7-s5]
+JP: あなたは来月テストを受けますか？
+EN: Will you take the test next month?
+Tags: will（単純未来）
+Level: A2
+
+[unit2-p7-s6]
+JP: 私の家族は夏に旅行に行きます。
+EN: My family will travel in the summer.
+Tags: will（単純未来）
+Level: A2
+
+[unit2-p7-s7]
+JP: 彼らは今週末パーティーを開きます。
+EN: They will have a party this weekend.
+Tags: will（単純未来）
+Level: A2
+
+[unit2-p7-s8]
+JP: 私は来年新しい自転車を買います。
+EN: I will buy a new bicycle next year.
+Tags: will（単純未来）
+Level: A2
+
+[unit2-p7-s9]
+JP: 彼は次の休みに本を読みます。
+EN: He will read a book during the next holiday.
+Tags: will（単純未来）
+Level: A2
+
+[unit2-p7-s10]
+JP: あなたは明日の午後に勉強しますか？
+EN: Will you study tomorrow afternoon?
+Tags: will（単純未来）
+Level: A2
+
+
+## Part 8: will（意志未来）
+## will（意志未来）の使い方を練習
+## Priority: A
+
+[unit2-p8-s1]
+JP: 私は明日、友達と映画を見に行きます。
+EN: I will go to the movies with my friends tomorrow.
+Tags: will（意志未来）
+Level: A2
+
+[unit2-p8-s2]
+JP: 彼女は来週、テストのために勉強します。
+EN: She will study for the test next week.
+Tags: will（意志未来）
+Level: A2
+
+[unit2-p8-s3]
+JP: 私たちは今晩、家族の夕食を作ります。
+EN: We will make dinner for the family tonight.
+Tags: will（意志未来）
+Level: A2
+
+[unit2-p8-s4]
+JP: 明日の朝、私はジョギングをします。
+EN: I will go jogging tomorrow morning.
+Tags: will（意志未来）
+Level: A2
+
+[unit2-p8-s5]
+JP: 彼は来月、旅行に行く予定です。
+EN: He will go on a trip next month.
+Tags: will（意志未来）
+Level: A2
+
+[unit2-p8-s6]
+JP: あなたは週末にサッカーをしますか？
+EN: Will you play soccer this weekend?
+Tags: will（意志未来）
+Level: A2
+
+[unit2-p8-s7]
+JP: 私たちは来年、英語をもっと勉強します。
+EN: We will study more English next year.
+Tags: will（意志未来）
+Level: A2
+
+[unit2-p8-s8]
+JP: 彼女は明日のパーティーに参加します。
+EN: She will attend the party tomorrow.
+Tags: will（意志未来）
+Level: A2
+
+[unit2-p8-s9]
+JP: 私は来週、この本を返します。
+EN: I will return this book next week.
+Tags: will（意志未来）
+Level: A2
+
+[unit2-p8-s10]
+JP: 彼らは次の試合で勝つでしょう。
+EN: They will win the next game.
+Tags: will（意志未来）
+Level: A2
+
+
+## Part 9: will（依頼）/ shall（申し出・誘い）
+## will（依頼）/ shall（申し出・誘い）の使い方を練習
+## Priority: B
+
+[unit2-p9-s1]
+JP: 手伝ってくれますか？
+EN: Will you help me?
+Tags: will（依頼）/ shall（申し出・誘い）
+Level: A2
+
+[unit2-p9-s2]
+JP: 一緒に映画を見に行きませんか？
+EN: Shall we go to the movies together?
+Tags: will（依頼）/ shall（申し出・誘い）
+Level: A2
+
+[unit2-p9-s3]
+JP: 明日、テストの準備を手伝ってもらえますか？
+EN: Will you help me prepare for the test tomorrow?
+Tags: will（依頼）/ shall（申し出・誘い）
+Level: A2
+
+[unit2-p9-s4]
+JP: 夕食を一緒に食べませんか？
+EN: Shall we have dinner together?
+Tags: will（依頼）/ shall（申し出・誘い）
+Level: A2
+
+[unit2-p9-s5]
+JP: 私の宿題を見てくれますか？
+EN: Will you look at my homework?
+Tags: will（依頼）/ shall（申し出・誘い）
+Level: A2
+
+[unit2-p9-s6]
+JP: 公園に散歩しに行きませんか？
+EN: Shall we go for a walk in the park?
+Tags: will（依頼）/ shall（申し出・誘い）
+Level: A2
+
+[unit2-p9-s7]
+JP: この問題を解いてくれますか？
+EN: Will you solve this problem for me?
+Tags: will（依頼）/ shall（申し出・誘い）
+Level: A2
+
+[unit2-p9-s8]
+JP: 週末に遊びに来ませんか？
+EN: Shall we hang out this weekend?
+Tags: will（依頼）/ shall（申し出・誘い）
+Level: A2
+
+[unit2-p9-s9]
+JP: 私の本を借りてもいいですか？
+EN: Will you let me borrow your book?
+Tags: will（依頼）/ shall（申し出・誘い）
+Level: A2
+
+[unit2-p9-s10]
+JP: 一緒に勉強しませんか？
+EN: Shall we study together?
+Tags: will（依頼）/ shall（申し出・誘い）
+Level: A2
+
+
+## Part 10: be going to
+## be going toの使い方を練習
+## Priority: A
+
+[unit2-p10-s1]
+JP: 明日、映画を見に行くつもりです。
+EN: I am going to watch a movie tomorrow.
+Tags: be going to
+Level: A2
+
+[unit2-p10-s2]
+JP: 週末に友達と遊ぶ予定です。
+EN: I am going to hang out with my friends on the weekend.
+Tags: be going to
+Level: A2
+
+[unit2-p10-s3]
+JP: 来週のテストに向けて勉強します。
+EN: I am going to study for the test next week.
+Tags: be going to
+Level: A2
+
+[unit2-p10-s4]
+JP: 明日のパーティーに参加します。
+EN: I am going to attend the party tomorrow.
+Tags: be going to
+Level: A2
+
+[unit2-p10-s5]
+JP: 今晩、家族と夕食を食べるつもりです。
+EN: I am going to have dinner with my family tonight.
+Tags: be going to
+Level: A2
+
+[unit2-p10-s6]
+JP: 来月、日本へ旅行する予定です。
+EN: I am going to travel to Japan next month.
+Tags: be going to
+Level: A2
+
+[unit2-p10-s7]
+JP: 午後に友達に会うつもりです。
+EN: I am going to meet my friend in the afternoon.
+Tags: be going to
+Level: A2
+
+[unit2-p10-s8]
+JP: この週末に本を読む予定です。
+EN: I am going to read a book this weekend.
+Tags: be going to
+Level: A2
+
+[unit2-p10-s9]
+JP: 明日、運動をするつもりです。
+EN: I am going to exercise tomorrow.
+Tags: be going to
+Level: A2
+
+[unit2-p10-s10]
+JP: 学校のイベントに参加するつもりです。
+EN: I am going to participate in the school event.
+Tags: be going to
+Level: A2
+
+
+## Part 11: must / may
+## must / mayの使い方を練習
+## Priority: A
+
+[unit2-p11-s1]
+JP: あなたは宿題をしなければなりません。
+EN: You must do your homework.
+Tags: must / may
+Level: A2
+
+[unit2-p11-s2]
+JP: 彼女は明日、テストを受けなければなりません。
+EN: She must take the test tomorrow.
+Tags: must / may
+Level: A2
+
+[unit2-p11-s3]
+JP: 私たちは早く学校に行かなければなりません。
+EN: We must go to school early.
+Tags: must / may
+Level: A2
+
+[unit2-p11-s4]
+JP: 君は彼に手伝ってもらうかもしれません。
+EN: You may ask him for help.
+Tags: must / may
+Level: A2
+
+[unit2-p11-s5]
+JP: 彼らは映画を見に行くかもしれません。
+EN: They may go to see a movie.
+Tags: must / may
+Level: A2
+
+[unit2-p11-s6]
+JP: 私たちは明日の天気が良いかもしれません。
+EN: It may be good weather tomorrow.
+Tags: must / may
+Level: A2
+
+[unit2-p11-s7]
+JP: あなたはこの本を読む必要があります。
+EN: You must read this book.
+Tags: must / may
+Level: A2
+
+[unit2-p11-s8]
+JP: 彼女はサッカーをする必要があるかもしれません。
+EN: She may need to play soccer.
+Tags: must / may
+Level: A2
+
+[unit2-p11-s9]
+JP: 私たちはこのイベントに参加しなければなりません。
+EN: We must attend this event.
+Tags: must / may
+Level: A2
+
+[unit2-p11-s10]
+JP: 君は試験の準備をするかもしれません。
+EN: You may prepare for the exam.
+Tags: must / may
+Level: A2
+
+
+## Part 12: have to
+## have toの使い方を練習
+## Priority: A
+
+[unit2-p12-s1]
+JP: 私は毎日宿題をしなければならない。
+EN: I have to do my homework every day.
+Tags: have to
+Level: A2
+
+[unit2-p12-s2]
+JP: 彼女は明日、友達と会わなければならない。
+EN: She has to meet her friends tomorrow.
+Tags: have to
+Level: A2
+
+[unit2-p12-s3]
+JP: 私たちは週末に掃除をしなければならない。
+EN: We have to clean the house on the weekend.
+Tags: have to
+Level: A2
+
+[unit2-p12-s4]
+JP: あなたは今、勉強しなければならない。
+EN: You have to study now.
+Tags: have to
+Level: A2
+
+[unit2-p12-s5]
+JP: 彼はサッカーの練習に行かなければならない。
+EN: He has to go to soccer practice.
+Tags: have to
+Level: A2
+
+[unit2-p12-s6]
+JP: 私の母は買い物に行かなければならない。
+EN: My mother has to go shopping.
+Tags: have to
+Level: A2
+
+[unit2-p12-s7]
+JP: 私たちは明日、早く起きなければならない。
+EN: We have to get up early tomorrow.
+Tags: have to
+Level: A2
+
+[unit2-p12-s8]
+JP: あなたはプレゼンテーションの準備をしなければならない。
+EN: You have to prepare for your presentation.
+Tags: have to
+Level: A2
+
+[unit2-p12-s9]
+JP: 彼女は英語のテストを受けなければならない。
+EN: She has to take the English test.
+Tags: have to
+Level: A2
+
+[unit2-p12-s10]
+JP: 私たちはこの問題を解決しなければならない。
+EN: We have to solve this problem.
+Tags: have to
+Level: A2
+
+
+## Part 13: be able to
+## be able toの使い方を練習
+## Priority: B
+
+[unit2-p13-s1]
+JP: 私はサッカーをすることができる。
+EN: I am able to play soccer.
+Tags: be able to
+Level: A2
+
+[unit2-p13-s2]
+JP: 彼女はピアノを弾くことができる。
+EN: She is able to play the piano.
+Tags: be able to
+Level: A2
+
+[unit2-p13-s3]
+JP: 私たちは英語を話すことができる。
+EN: We are able to speak English.
+Tags: be able to
+Level: A2
+
+[unit2-p13-s4]
+JP: 彼は宿題を終えることができた。
+EN: He was able to finish his homework.
+Tags: be able to
+Level: A2
+
+[unit2-p13-s5]
+JP: あなたはその本を読むことができる。
+EN: You are able to read that book.
+Tags: be able to
+Level: A2
+
+[unit2-p13-s6]
+JP: 彼らは映画を見に行くことができる。
+EN: They are able to go to the movies.
+Tags: be able to
+Level: A2
+
+[unit2-p13-s7]
+JP: 私の母は料理をすることができる。
+EN: My mother is able to cook.
+Tags: be able to
+Level: A2
+
+[unit2-p13-s8]
+JP: 私たちは明日、テストを受けることができる。
+EN: We will be able to take the test tomorrow.
+Tags: be able to
+Level: A2
+
+[unit2-p13-s9]
+JP: 君はこの問題を解くことができるか？
+EN: Are you able to solve this problem?
+Tags: be able to
+Level: A2
+
+[unit2-p13-s10]
+JP: 彼女は新しいスポーツを始めることができる。
+EN: She is able to start a new sport.
+Tags: be able to
+Level: A2
+
+
+## Part 14: 感嘆文
+## 感嘆文の使い方を練習
+## Priority: B
+
+[unit2-p14-s1]
+JP: なんて美しい花でしょう！
+EN: What a beautiful flower!
+Tags: 感嘆文
+Level: A2
+
+[unit2-p14-s2]
+JP: なんて面白い本なんだ！
+EN: What an interesting book!
+Tags: 感嘆文
+Level: A2
+
+[unit2-p14-s3]
+JP: なんて素晴らしい景色なんだ！
+EN: What a wonderful view!
+Tags: 感嘆文
+Level: A2
+
+[unit2-p14-s4]
+JP: なんておいしいケーキなの！
+EN: What a delicious cake!
+Tags: 感嘆文
+Level: A2
+
+[unit2-p14-s5]
+JP: なんて早い車なんだ！
+EN: What a fast car!
+Tags: 感嘆文
+Level: A2
+
+[unit2-p14-s6]
+JP: なんて親切な友達なんだ！
+EN: What a kind friend!
+Tags: 感嘆文
+Level: A2
+
+[unit2-p14-s7]
+JP: なんて楽しいパーティーだったの！
+EN: What a fun party it was!
+Tags: 感嘆文
+Level: A2
+
+[unit2-p14-s8]
+JP: なんてきれいな音楽なんだ！
+EN: What a beautiful music!
+Tags: 感嘆文
+Level: A2
+
+[unit2-p14-s9]
+JP: なんて素晴らしい映画だろう！
+EN: What a great movie!
+Tags: 感嘆文
+Level: A2
+
+[unit2-p14-s10]
+JP: なんて良い天気なんだ！
+EN: What a nice weather!
+Tags: 感嘆文
+Level: A2
+
+
+## Part 15: 不定詞 — 名詞的用法
+## 不定詞 — 名詞的用法の使い方を練習
+## Priority: B
+
+[unit2-p15-s1]
+JP: 勉強することは大切です。
+EN: It is important to study.
+Tags: 不定詞 — 名詞的用法
+Level: A2
+
+[unit2-p15-s2]
+JP: 彼女は旅行するのが好きです。
+EN: She likes to travel.
+Tags: 不定詞 — 名詞的用法
+Level: A2
+
+[unit2-p15-s3]
+JP: 友達に会うのは楽しいです。
+EN: It is fun to meet friends.
+Tags: 不定詞 — 名詞的用法
+Level: A2
+
+[unit2-p15-s4]
+JP: サッカーをするのは面白いです。
+EN: It is interesting to play soccer.
+Tags: 不定詞 — 名詞的用法
+Level: A2
+
+[unit2-p15-s5]
+JP: 毎朝早く起きることは難しいです。
+EN: It is difficult to wake up early every morning.
+Tags: 不定詞 — 名詞的用法
+Level: A2
+
+[unit2-p15-s6]
+JP: 音楽を聞くことはリラックスできます。
+EN: It is relaxing to listen to music.
+Tags: 不定詞 — 名詞的用法
+Level: A2
+
+[unit2-p15-s7]
+JP: 本を読むことは知識を増やします。
+EN: It helps to read books.
+Tags: 不定詞 — 名詞的用法
+Level: A2
+
+[unit2-p15-s8]
+JP: 新しいことを学ぶのは楽しいです。
+EN: It is enjoyable to learn new things.
+Tags: 不定詞 — 名詞的用法
+Level: A2
+
+[unit2-p15-s9]
+JP: 友達と遊ぶのが好きです。
+EN: I like to play with my friends.
+Tags: 不定詞 — 名詞的用法
+Level: A2
+
+[unit2-p15-s10]
+JP: 料理をすることはクリエイティブです。
+EN: It is creative to cook.
+Tags: 不定詞 — 名詞的用法
+Level: A2
+
+
+## Part 16: 不定詞 — 副詞的用法（目的）
+## 不定詞 — 副詞的用法（目的）の使い方を練習
+## Priority: A
+
+[unit2-p16-s1]
+JP: 宿題を終わらせるために、図書館に行きます。
+EN: I will go to the library to finish my homework.
+Tags: 不定詞 — 副詞的用法（目的）
+Level: A2
+
+[unit2-p16-s2]
+JP: 友達に会うために、駅に向かっています。
+EN: I am heading to the station to meet my friend.
+Tags: 不定詞 — 副詞的用法（目的）
+Level: A2
+
+[unit2-p16-s3]
+JP: 英語を勉強するために、毎日1時間だけ勉強します。
+EN: I study for one hour every day to learn English.
+Tags: 不定詞 — 副詞的用法（目的）
+Level: A2
+
+[unit2-p16-s4]
+JP: バスケットボールを上手くなるために、練習しています。
+EN: I practice to get better at basketball.
+Tags: 不定詞 — 副詞的用法（目的）
+Level: A2
+
+[unit2-p16-s5]
+JP: 健康になるために、毎朝ジョギングをしています。
+EN: I jog every morning to stay healthy.
+Tags: 不定詞 — 副詞的用法（目的）
+Level: A2
+
+[unit2-p16-s6]
+JP: 旅行するために、貯金をしています。
+EN: I save money to travel.
+Tags: 不定詞 — 副詞的用法（目的）
+Level: A2
+
+[unit2-p16-s7]
+JP: 親に手伝うために、家の掃除をします。
+EN: I clean the house to help my parents.
+Tags: 不定詞 — 副詞的用法（目的）
+Level: A2
+
+[unit2-p16-s8]
+JP: 試験に合格するために、一生懸命勉強しています。
+EN: I study hard to pass the exam.
+Tags: 不定詞 — 副詞的用法（目的）
+Level: A2
+
+[unit2-p16-s9]
+JP: 新しい友達を作るために、クラブに参加しました。
+EN: I joined a club to make new friends.
+Tags: 不定詞 — 副詞的用法（目的）
+Level: A2
+
+[unit2-p16-s10]
+JP: 美味しい料理を作るために、料理教室に通っています。
+EN: I attend a cooking class to make delicious meals.
+Tags: 不定詞 — 副詞的用法（目的）
+Level: A2
+
+
+## Part 17: 不定詞 — 副詞的用法（感情の原因）
+## 不定詞 — 副詞的用法（感情の原因）の使い方を練習
+## Priority: B
+
+[unit2-p17-s1]
+JP: 彼女は友達に会うために嬉しいです。
+EN: She is happy to meet her friend.
+Tags: 不定詞 — 副詞的用法（感情の原因）
+Level: A2
+
+[unit2-p17-s2]
+JP: 私はテストに合格するために一生懸命勉強しました。
+EN: I studied hard to pass the test.
+Tags: 不定詞 — 副詞的用法（感情の原因）
+Level: A2
+
+[unit2-p17-s3]
+JP: 彼はサッカーの試合に参加するのが楽しみです。
+EN: He is excited to play in the soccer match.
+Tags: 不定詞 — 副詞的用法（感情の原因）
+Level: A2
+
+[unit2-p17-s4]
+JP: 私たちは旅行するためにお金を貯めています。
+EN: We are saving money to travel.
+Tags: 不定詞 — 副詞的用法（感情の原因）
+Level: A2
+
+[unit2-p17-s5]
+JP: 彼女は新しい本を読むために図書館に行きました。
+EN: She went to the library to read a new book.
+Tags: 不定詞 — 副詞的用法（感情の原因）
+Level: A2
+
+[unit2-p17-s6]
+JP: 私は友達に手伝ってもらうために電話しました。
+EN: I called my friend to ask for help.
+Tags: 不定詞 — 副詞的用法（感情の原因）
+Level: A2
+
+[unit2-p17-s7]
+JP: あなたは早起きするために目覚ましをセットしましたか？
+EN: Did you set your alarm to wake up early?
+Tags: 不定詞 — 副詞的用法（感情の原因）
+Level: A2
+
+[unit2-p17-s8]
+JP: 彼は音楽を聴くためにイヤフォンをつけています。
+EN: He is wearing headphones to listen to music.
+Tags: 不定詞 — 副詞的用法（感情の原因）
+Level: A2
+
+[unit2-p17-s9]
+JP: 私たちは映画を見るためにチケットを買いました。
+EN: We bought tickets to see the movie.
+Tags: 不定詞 — 副詞的用法（感情の原因）
+Level: A2
+
+[unit2-p17-s10]
+JP: 彼女は家族と過ごすために帰省しました。
+EN: She went home to spend time with her family.
+Tags: 不定詞 — 副詞的用法（感情の原因）
+Level: A2
+
+
+## Part 18: 不定詞 — 形容詞的用法
+## 不定詞 — 形容詞的用法の使い方を練習
+## Priority: B
+
+[unit2-p18-s1]
+JP: 彼はパーティーに行くために準備をしています。
+EN: He is getting ready to go to the party.
+Tags: 不定詞 — 形容詞的用法
+Level: A2
+
+[unit2-p18-s2]
+JP: 私たちはその映画を見るためにチケットを買いました。
+EN: We bought tickets to watch the movie.
+Tags: 不定詞 — 形容詞的用法
+Level: A2
+
+[unit2-p18-s3]
+JP: 彼女は新しいことを学ぶために学校に通っています。
+EN: She goes to school to learn new things.
+Tags: 不定詞 — 形容詞的用法
+Level: A2
+
+[unit2-p18-s4]
+JP: 私は友達と遊ぶために公園に行きます。
+EN: I go to the park to play with my friends.
+Tags: 不定詞 — 形容詞的用法
+Level: A2
+
+[unit2-p18-s5]
+JP: 彼は良い成績を取るために勉強しています。
+EN: He studies hard to get good grades.
+Tags: 不定詞 — 形容詞的用法
+Level: A2
+
+[unit2-p18-s6]
+JP: 私は英語を話すために毎日練習します。
+EN: I practice every day to speak English.
+Tags: 不定詞 — 形容詞的用法
+Level: A2
+
+[unit2-p18-s7]
+JP: 彼女は本を読むために図書館に行きました。
+EN: She went to the library to read books.
+Tags: 不定詞 — 形容詞的用法
+Level: A2
+
+[unit2-p18-s8]
+JP: 私たちは旅行するためにお金を貯めています。
+EN: We are saving money to travel.
+Tags: 不定詞 — 形容詞的用法
+Level: A2
+
+[unit2-p18-s9]
+JP: 彼はサッカーをするために早く起きました。
+EN: He woke up early to play soccer.
+Tags: 不定詞 — 形容詞的用法
+Level: A2
+
+[unit2-p18-s10]
+JP: 私は料理を学ぶためにクラスに参加しました。
+EN: I joined a class to learn how to cook.
+Tags: 不定詞 — 形容詞的用法
+Level: A2
+
+
+## Part 19: 動名詞
+## 動名詞の使い方を練習
+## Priority: A
+
+[unit2-p19-s1]
+JP: 私は毎日走ることが好きです。
+EN: I like running every day.
+Tags: 動名詞
+Level: A2
+
+[unit2-p19-s2]
+JP: 彼女は映画を見るのが楽しみです。
+EN: She enjoys watching movies.
+Tags: 動名詞
+Level: A2
+
+[unit2-p19-s3]
+JP: 友達と遊ぶことは楽しいです。
+EN: Playing with my friends is fun.
+Tags: 動名詞
+Level: A2
+
+[unit2-p19-s4]
+JP: 彼はサッカーをするのが得意です。
+EN: He is good at playing soccer.
+Tags: 動名詞
+Level: A2
+
+[unit2-p19-s5]
+JP: 私たちは日本語を勉強することが大切です。
+EN: Studying Japanese is important for us.
+Tags: 動名詞
+Level: A2
+
+[unit2-p19-s6]
+JP: 音楽を聴くのはリラックスします。
+EN: Listening to music helps me relax.
+Tags: 動名詞
+Level: A2
+
+[unit2-p19-s7]
+JP: 彼女は料理するのが好きです。
+EN: She loves cooking.
+Tags: 動名詞
+Level: A2
+
+[unit2-p19-s8]
+JP: これから宿題を終わらせるつもりです。
+EN: I plan on finishing my homework.
+Tags: 動名詞
+Level: A2
+
+[unit2-p19-s9]
+JP: 本を読むことは私の趣味です。
+EN: Reading books is my hobby.
+Tags: 動名詞
+Level: A2
+
+[unit2-p19-s10]
+JP: 旅行するのはとても楽しいです。
+EN: Traveling is very enjoyable.
+Tags: 動名詞
+Level: A2
+
+
+## Part 20: 原級比較
+## 原級比較の使い方を練習
+## Priority: A
+
+[unit2-p20-s1]
+JP: このりんごはそのりんごより大きい。
+EN: This apple is bigger than that apple.
+Tags: 原級比較
+Level: A2
+
+[unit2-p20-s2]
+JP: 彼は私より速く走る。
+EN: He runs faster than I do.
+Tags: 原級比較
+Level: A2
+
+[unit2-p20-s3]
+JP: この公園はあの公園より静かだ。
+EN: This park is quieter than that park.
+Tags: 原級比較
+Level: A2
+
+[unit2-p20-s4]
+JP: 彼女の本は私の本より面白い。
+EN: Her book is more interesting than my book.
+Tags: 原級比較
+Level: A2
+
+[unit2-p20-s5]
+JP: 今日は昨日より寒い。
+EN: Today is colder than yesterday.
+Tags: 原級比較
+Level: A2
+
+[unit2-p20-s6]
+JP: このテストは前のテストより簡単だ。
+EN: This test is easier than the last test.
+Tags: 原級比較
+Level: A2
+
+[unit2-p20-s7]
+JP: その映画はあの映画より長い。
+EN: That movie is longer than that other movie.
+Tags: 原級比較
+Level: A2
+
+[unit2-p20-s8]
+JP: 彼のカメラは私のカメラより高い。
+EN: His camera is more expensive than my camera.
+Tags: 原級比較
+Level: A2
+
+[unit2-p20-s9]
+JP: この歌はあの歌より人気がある。
+EN: This song is more popular than that song.
+Tags: 原級比較
+Level: A2
+
+[unit2-p20-s10]
+JP: 彼女は私よりも多くの友達がいる。
+EN: She has more friends than I do.
+Tags: 原級比較
+Level: A2
+
+
+## Part 21: 比較級 — er 形
+## 比較級 — er 形の使い方を練習
+## Priority: A
+
+[unit2-p21-s1]
+JP: 彼は私より背が高い。
+EN: He is taller than me.
+Tags: 比較級 — er 形
+Level: A2
+
+[unit2-p21-s2]
+JP: この本はあの本より面白い。
+EN: This book is more interesting than that one.
+Tags: 比較級 — er 形
+Level: A2
+
+[unit2-p21-s3]
+JP: 今日は昨日より暑い。
+EN: Today is hotter than yesterday.
+Tags: 比較級 — er 形
+Level: A2
+
+[unit2-p21-s4]
+JP: 彼女は私の友達の中で一番優しい。
+EN: She is the kindest among my friends.
+Tags: 比較級 — er 形
+Level: A2
+
+[unit2-p21-s5]
+JP: この映画は前の映画より良かった。
+EN: This movie was better than the last one.
+Tags: 比較級 — er 形
+Level: A2
+
+[unit2-p21-s6]
+JP: 彼のサッカーは私のサッカーより上手だ。
+EN: His soccer is better than mine.
+Tags: 比較級 — er 形
+Level: A2
+
+[unit2-p21-s7]
+JP: この問題はあの問題より簡単だ。
+EN: This problem is easier than that one.
+Tags: 比較級 — er 形
+Level: A2
+
+[unit2-p21-s8]
+JP: 冬は夏より寒い。
+EN: Winter is colder than summer.
+Tags: 比較級 — er 形
+Level: A2
+
+[unit2-p21-s9]
+JP: 彼の英語は私の英語より流暢だ。
+EN: His English is more fluent than mine.
+Tags: 比較級 — er 形
+Level: A2
+
+[unit2-p21-s10]
+JP: これは私の持っている中で一番高い。
+EN: This is the highest one I have.
+Tags: 比較級 — er 形
+Level: A2
+
+
+## Part 22: 最上級 — est 形
+## 最上級 — est 形の使い方を練習
+## Priority: A
+
+[unit2-p22-s1]
+JP: 彼はクラスで一番背が高いです。
+EN: He is the tallest in the class.
+Tags: 最上級 — est 形
+Level: A2
+
+[unit2-p22-s2]
+JP: この本は私が読んだ中で一番面白いです。
+EN: This book is the most interesting I have ever read.
+Tags: 最上級 — est 形
+Level: A2
+
+[unit2-p22-s3]
+JP: 私の犬は世界で一番かわいいです。
+EN: My dog is the cutest in the world.
+Tags: 最上級 — est 形
+Level: A2
+
+[unit2-p22-s4]
+JP: 彼女は学校で一番勉強ができる生徒です。
+EN: She is the brightest student in school.
+Tags: 最上級 — est 形
+Level: A2
+
+[unit2-p22-s5]
+JP: 今月はこの映画が一番人気です。
+EN: This movie is the most popular this month.
+Tags: 最上級 — est 形
+Level: A2
+
+[unit2-p22-s6]
+JP: 彼の歌は私が聞いた中で一番素晴らしいです。
+EN: His song is the best I have ever heard.
+Tags: 最上級 — est 形
+Level: A2
+
+[unit2-p22-s7]
+JP: 私たちのチームは大会で一番強いです。
+EN: Our team is the strongest in the tournament.
+Tags: 最上級 — est 形
+Level: A2
+
+[unit2-p22-s8]
+JP: このレストランは街で一番美味しいです。
+EN: This restaurant is the tastiest in town.
+Tags: 最上級 — est 形
+Level: A2
+
+[unit2-p22-s9]
+JP: 今日は今年で一番寒い日です。
+EN: Today is the coldest day of the year.
+Tags: 最上級 — est 形
+Level: A2
+
+[unit2-p22-s10]
+JP: 彼女はクラスで一番速く走ることができます。
+EN: She can run the fastest in the class.
+Tags: 最上級 — est 形
+Level: A2
+
+
+## Part 23: 比較級 — more
+## 比較級 — moreの使い方を練習
+## Priority: A
+
+[unit2-p23-s1]
+JP: この本はあの本よりも面白いです。
+EN: This book is more interesting than that book.
+Tags: 比較級 — more
+Level: A2
+
+[unit2-p23-s2]
+JP: 彼女は私よりも背が高いです。
+EN: She is more tall than me.
+Tags: 比較級 — more
+Level: A2
+
+[unit2-p23-s3]
+JP: この課題は前の課題よりも難しいです。
+EN: This task is more difficult than the last one.
+Tags: 比較級 — more
+Level: A2
+
+[unit2-p23-s4]
+JP: 今日は昨日よりも寒いです。
+EN: Today is more cold than yesterday.
+Tags: 比較級 — more
+Level: A2
+
+[unit2-p23-s5]
+JP: この映画はその映画よりも楽しいです。
+EN: This movie is more fun than that movie.
+Tags: 比較級 — more
+Level: A2
+
+[unit2-p23-s6]
+JP: このケーキはあのケーキよりも甘いです。
+EN: This cake is more sweet than that cake.
+Tags: 比較級 — more
+Level: A2
+
+[unit2-p23-s7]
+JP: 彼は私よりも早く走ります。
+EN: He runs more quickly than I do.
+Tags: 比較級 — more
+Level: A2
+
+[unit2-p23-s8]
+JP: このテストは前のテストよりも簡単です。
+EN: This test is more easy than the previous test.
+Tags: 比較級 — more
+Level: A2
+
+[unit2-p23-s9]
+JP: 彼女の歌は私の歌よりも美しいです。
+EN: Her song is more beautiful than my song.
+Tags: 比較級 — more
+Level: A2
+
+[unit2-p23-s10]
+JP: 今日は昨日よりも忙しいです。
+EN: Today is more busy than yesterday.
+Tags: 比較級 — more
+Level: A2
+
+
+## Part 24: 最上級 — most
+## 最上級 — mostの使い方を練習
+## Priority: A
+
+[unit2-p24-s1]
+JP: これは私が今まで見た中で最も美しい景色です。
+EN: This is the most beautiful view I have ever seen.
+Tags: 最上級 — most
+Level: A2
+
+[unit2-p24-s2]
+JP: 彼は私のクラスで最も優秀な学生です。
+EN: He is the most outstanding student in my class.
+Tags: 最上級 — most
+Level: A2
+
+[unit2-p24-s3]
+JP: 今日は今週の中で最も暑い日です。
+EN: Today is the hottest day of the week.
+Tags: 最上級 — most
+Level: A2
+
+[unit2-p24-s4]
+JP: この本は私が読んだ中で最も面白いです。
+EN: This book is the most interesting one I have read.
+Tags: 最上級 — most
+Level: A2
+
+[unit2-p24-s5]
+JP: 彼女はチームで最も速いランナーです。
+EN: She is the fastest runner in the team.
+Tags: 最上級 — most
+Level: A2
+
+[unit2-p24-s6]
+JP: これは私の家で最も古い家具です。
+EN: This is the oldest piece of furniture in my house.
+Tags: 最上級 — most
+Level: A2
+
+[unit2-p24-s7]
+JP: あなたのペンは私が持っている中で最も色が鮮やかです。
+EN: Your pen is the most colorful one I have.
+Tags: 最上級 — most
+Level: A2
+
+[unit2-p24-s8]
+JP: この問題は私が解いた中で最も難しいです。
+EN: This problem is the hardest one I have solved.
+Tags: 最上級 — most
+Level: A2
+
+[unit2-p24-s9]
+JP: 彼の歌は私が聴いた中で最も感動的です。
+EN: His song is the most touching one I have heard.
+Tags: 最上級 — most
+Level: A2
+
+[unit2-p24-s10]
+JP: 私の犬は彼の犬の中で最も大きいです。
+EN: My dog is the biggest one among his dogs.
+Tags: 最上級 — most
+Level: A2
+
+
+## Part 25: 比較級 — 副詞
+## 比較級 — 副詞の使い方を練習
+## Priority: A
+
+[unit2-p25-s1]
+JP: 彼は私より速く走ります。
+EN: He runs faster than me.
+Tags: 比較級 — 副詞
+Level: A2
+
+[unit2-p25-s2]
+JP: この問題は前の問題より簡単です。
+EN: This question is easier than the last one.
+Tags: 比較級 — 副詞
+Level: A2
+
+[unit2-p25-s3]
+JP: 彼女は私より上手に歌います。
+EN: She sings better than I do.
+Tags: 比較級 — 副詞
+Level: A2
+
+[unit2-p25-s4]
+JP: この映画はあの映画より面白いです。
+EN: This movie is more interesting than that one.
+Tags: 比較級 — 副詞
+Level: A2
+
+[unit2-p25-s5]
+JP: 彼は昨日より早く起きました。
+EN: He woke up earlier than yesterday.
+Tags: 比較級 — 副詞
+Level: A2
+
+[unit2-p25-s6]
+JP: 私の犬は彼の犬より大きいです。
+EN: My dog is bigger than his dog.
+Tags: 比較級 — 副詞
+Level: A2
+
+[unit2-p25-s7]
+JP: この本はその本より厚いです。
+EN: This book is thicker than that one.
+Tags: 比較級 — 副詞
+Level: A2
+
+[unit2-p25-s8]
+JP: 彼女は私の妹より優れたテニスプレーヤーです。
+EN: She is a better tennis player than my sister.
+Tags: 比較級 — 副詞
+Level: A2
+
+[unit2-p25-s9]
+JP: 私は昨日より長く勉強しました。
+EN: I studied longer than yesterday.
+Tags: 比較級 — 副詞
+Level: A2
+
+[unit2-p25-s10]
+JP: この部屋はあの部屋より明るいです。
+EN: This room is brighter than that room.
+Tags: 比較級 — 副詞
+Level: A2
+
+
+## Part 26: 最上級 — 副詞
+## 最上級 — 副詞の使い方を練習
+## Priority: A
+
+[unit2-p26-s1]
+JP: 彼はクラスで最も速く走ることができる。
+EN: He can run the fastest in the class.
+Tags: 最上級 — 副詞
+Level: A2
+
+[unit2-p26-s2]
+JP: このレストランの食べ物は街で最もおいしい。
+EN: The food in this restaurant is the best in town.
+Tags: 最上級 — 副詞
+Level: A2
+
+[unit2-p26-s3]
+JP: 彼女は学校で最も優れた学生の一人だ。
+EN: She is one of the best students at school.
+Tags: 最上級 — 副詞
+Level: A2
+
+[unit2-p26-s4]
+JP: これは私たちが今まで見た中で最も面白い映画だ。
+EN: This is the most interesting movie we have ever seen.
+Tags: 最上級 — 副詞
+Level: A2
+
+[unit2-p26-s5]
+JP: この本は図書館で最も人気がある。
+EN: This book is the most popular in the library.
+Tags: 最上級 — 副詞
+Level: A2
+
+[unit2-p26-s6]
+JP: 彼はサッカーのプレーヤーの中で最も早くボールを蹴る。
+EN: He kicks the ball the fastest among the soccer players.
+Tags: 最上級 — 副詞
+Level: A2
+
+[unit2-p26-s7]
+JP: この問題はテストで最も難しかった。
+EN: This question was the hardest on the test.
+Tags: 最上級 — 副詞
+Level: A2
+
+[unit2-p26-s8]
+JP: 彼女は私の友達の中で最も親切だ。
+EN: She is the kindest among my friends.
+Tags: 最上級 — 副詞
+Level: A2
+
+[unit2-p26-s9]
+JP: このパソコンは店で最も高い。
+EN: This computer is the most expensive in the store.
+Tags: 最上級 — 副詞
+Level: A2
+
+[unit2-p26-s10]
+JP: 今日は今年で最も暑い日だ。
+EN: Today is the hottest day of the year.
+Tags: 最上級 — 副詞
+Level: A2
+
+
+## Part 27: 比較級、最上級を使った疑問詞の文
+## 比較級、最上級を使った疑問詞の文の使い方を練習
+## Priority: A
+
+[unit2-p27-s1]
+JP: どの果物が一番甘いですか？
+EN: Which fruit is the sweetest?
+Tags: 比較級、最上級を使った疑問詞の文
+Level: A2
+
+[unit2-p27-s2]
+JP: 誰が一番背が高いですか？
+EN: Who is the tallest?
+Tags: 比較級、最上級を使った疑問詞の文
+Level: A2
+
+[unit2-p27-s3]
+JP: この映画はあの映画より面白いですか？
+EN: Is this movie more interesting than that one?
+Tags: 比較級、最上級を使った疑問詞の文
+Level: A2
+
+[unit2-p27-s4]
+JP: どの犬が一番速く走りますか？
+EN: Which dog runs the fastest?
+Tags: 比較級、最上級を使った疑問詞の文
+Level: A2
+
+[unit2-p27-s5]
+JP: あなたは誰が一番歌が上手だと思いますか？
+EN: Who do you think sings the best?
+Tags: 比較級、最上級を使った疑問詞の文
+Level: A2
+
+[unit2-p27-s6]
+JP: この本はあの本より難しいですか？
+EN: Is this book harder than that one?
+Tags: 比較級、最上級を使った疑問詞の文
+Level: A2
+
+[unit2-p27-s7]
+JP: 誰が一番早く宿題を終えましたか？
+EN: Who finished the homework the fastest?
+Tags: 比較級、最上級を使った疑問詞の文
+Level: A2
+
+[unit2-p27-s8]
+JP: このレストランはどのレストランより美味しいですか？
+EN: Is this restaurant better than any other restaurant?
+Tags: 比較級、最上級を使った疑問詞の文
+Level: A2
+
+[unit2-p27-s9]
+JP: どの季節が一番好きですか？
+EN: Which season do you like the most?
+Tags: 比較級、最上級を使った疑問詞の文
+Level: A2
+
+[unit2-p27-s10]
+JP: この問題はあの問題より簡単ですか？
+EN: Is this problem easier than that one?
+Tags: 比較級、最上級を使った疑問詞の文
+Level: A2
+
+
+## Part 28: 現在完了 — 継続
+## 現在完了 — 継続の使い方を練習
+## Priority: B
+
+[unit2-p28-s1]
+JP: 私はここに3年間住んでいます。
+EN: I have lived here for three years.
+Tags: 現在完了 — 継続
+Level: A2
+
+[unit2-p28-s2]
+JP: 彼は学校で5年間友達です。
+EN: He has been my friend at school for five years.
+Tags: 現在完了 — 継続
+Level: A2
+
+[unit2-p28-s3]
+JP: 私たちはこの本をずっと読んでいます。
+EN: We have been reading this book for a long time.
+Tags: 現在完了 — 継続
+Level: A2
+
+[unit2-p28-s4]
+JP: 彼女はその犬を飼ってから2ヶ月です。
+EN: She has had that dog for two months.
+Tags: 現在完了 — 継続
+Level: A2
+
+[unit2-p28-s5]
+JP: あなたはこの映画を見てからずっと話しています。
+EN: You have been talking about this movie since you saw it.
+Tags: 現在完了 — 継続
+Level: A2
+
+[unit2-p28-s6]
+JP: 私の父はこの車を10年間使っています。
+EN: My father has been using this car for ten years.
+Tags: 現在完了 — 継続
+Level: A2
+
+[unit2-p28-s7]
+JP: 彼らはサッカーを一緒にしてからずっと楽しんでいます。
+EN: They have been enjoying playing soccer together since then.
+Tags: 現在完了 — 継続
+Level: A2
+
+[unit2-p28-s8]
+JP: 私は英語を3年間勉強しています。
+EN: I have been studying English for three years.
+Tags: 現在完了 — 継続
+Level: A2
+
+[unit2-p28-s9]
+JP: 彼は毎週末にサイクリングをしています。
+EN: He has been cycling every weekend.
+Tags: 現在完了 — 継続
+Level: A2
+
+[unit2-p28-s10]
+JP: 私たちはこの公園で遊んでからずっと楽しいです。
+EN: We have been having fun since we started playing in this park.
+Tags: 現在完了 — 継続
+Level: A2
+
+
+## Part 29: 現在完了 — 完了
+## 現在完了 — 完了の使い方を練習
+## Priority: B
+
+[unit2-p29-s1]
+JP: 私は宿題を終えました。
+EN: I have finished my homework.
+Tags: 現在完了 — 完了
+Level: A2
+
+[unit2-p29-s2]
+JP: 彼はサッカーを3年間してきました。
+EN: He has played soccer for three years.
+Tags: 現在完了 — 完了
+Level: A2
+
+[unit2-p29-s3]
+JP: 私たちはその映画を見たことがあります。
+EN: We have seen that movie.
+Tags: 現在完了 — 完了
+Level: A2
+
+[unit2-p29-s4]
+JP: 彼女は新しい携帯電話を買いました。
+EN: She has bought a new mobile phone.
+Tags: 現在完了 — 完了
+Level: A2
+
+[unit2-p29-s5]
+JP: 私は英語の本を3冊読みました。
+EN: I have read three English books.
+Tags: 現在完了 — 完了
+Level: A2
+
+[unit2-p29-s6]
+JP: 彼は毎朝ジョギングをしています。
+EN: He has been jogging every morning.
+Tags: 現在完了 — 完了
+Level: A2
+
+[unit2-p29-s7]
+JP: あなたはもう昼食を食べましたか？
+EN: Have you eaten lunch yet?
+Tags: 現在完了 — 完了
+Level: A2
+
+[unit2-p29-s8]
+JP: 私たちはその歌を聞いたことがあります。
+EN: We have heard that song.
+Tags: 現在完了 — 完了
+Level: A2
+
+[unit2-p29-s9]
+JP: 彼女は日本に行ったことがあります。
+EN: She has been to Japan.
+Tags: 現在完了 — 完了
+Level: A2
+
+[unit2-p29-s10]
+JP: 私はこの問題を解決しました。
+EN: I have solved this problem.
+Tags: 現在完了 — 完了
+Level: A2
+
+
+## Part 30: 現在完了 — 経験
+## 現在完了 — 経験の使い方を練習
+## Priority: B
+
+[unit2-p30-s1]
+JP: 私は日本に行ったことがあります。
+EN: I have been to Japan.
+Tags: 現在完了 — 経験
+Level: A2
+
+[unit2-p30-s2]
+JP: 彼女は英語の本を読んだことがあります。
+EN: She has read an English book.
+Tags: 現在完了 — 経験
+Level: A2
+
+[unit2-p30-s3]
+JP: 私たちはその映画を見たことがあります。
+EN: We have seen that movie.
+Tags: 現在完了 — 経験
+Level: A2
+
+[unit2-p30-s4]
+JP: 彼はサッカーをしたことがありますか？
+EN: Has he ever played soccer?
+Tags: 現在完了 — 経験
+Level: A2
+
+[unit2-p30-s5]
+JP: あなたはアメリカに住んだことがありますか？
+EN: Have you ever lived in America?
+Tags: 現在完了 — 経験
+Level: A2
+
+[unit2-p30-s6]
+JP: 私はこの料理を食べたことがありません。
+EN: I have never eaten this dish.
+Tags: 現在完了 — 経験
+Level: A2
+
+[unit2-p30-s7]
+JP: 彼女は旅行に行ったことがあります。
+EN: She has gone on a trip.
+Tags: 現在完了 — 経験
+Level: A2
+
+[unit2-p30-s8]
+JP: 私たちはその歌を歌ったことがあります。
+EN: We have sung that song.
+Tags: 現在完了 — 経験
+Level: A2
+
+[unit2-p30-s9]
+JP: あなたはそのゲームをプレイしたことがありますか？
+EN: Have you ever played that game?
+Tags: 現在完了 — 経験
+Level: A2
+
+[unit2-p30-s10]
+JP: 彼は私に手紙を書いたことがあります。
+EN: He has written me a letter.
+Tags: 現在完了 — 経験
+Level: A2
+
+
+## Part 31: 現在完了進行形
+## 現在完了進行形の使い方を練習
+## Priority: C
+
+[unit2-p31-s1]
+JP: 私はずっと本を読んでいます。
+EN: I have been reading a book.
+Tags: 現在完了進行形
+Level: A2
+
+[unit2-p31-s2]
+JP: 彼女は最近ずっとピアノを練習しています。
+EN: She has been practicing the piano recently.
+Tags: 現在完了進行形
+Level: A2
+
+[unit2-p31-s3]
+JP: 私たちは3時間サッカーをしています。
+EN: We have been playing soccer for three hours.
+Tags: 現在完了進行形
+Level: A2
+
+[unit2-p31-s4]
+JP: 彼は今朝からずっと宿題をしています。
+EN: He has been doing his homework since this morning.
+Tags: 現在完了進行形
+Level: A2
+
+[unit2-p31-s5]
+JP: 君はずっと英語を勉強していますか？
+EN: Have you been studying English for a long time?
+Tags: 現在完了進行形
+Level: A2
+
+[unit2-p31-s6]
+JP: 彼らはここにずっと待っています。
+EN: They have been waiting here for a long time.
+Tags: 現在完了進行形
+Level: A2
+
+[unit2-p31-s7]
+JP: 私の家族は最近ずっと映画を見ています。
+EN: My family has been watching movies lately.
+Tags: 現在完了進行形
+Level: A2
+
+[unit2-p31-s8]
+JP: あなたはずっとこのプロジェクトに取り組んでいますか？
+EN: Have you been working on this project?
+Tags: 現在完了進行形
+Level: A2
+
+[unit2-p31-s9]
+JP: 私たちは以前からずっと友達です。
+EN: We have been friends for a long time.
+Tags: 現在完了進行形
+Level: A2
+
+[unit2-p31-s10]
+JP: 彼女はこの町にずっと住んでいます。
+EN: She has been living in this town for years.
+Tags: 現在完了進行形
+Level: A2
+
+
+## Part 32: that 節
+## that 節の使い方を練習
+## Priority: A
+
+[unit2-p32-s1]
+JP: 彼女が明日来ると言った。
+EN: She said that she will come tomorrow.
+Tags: that 節
+Level: A2
+
+[unit2-p32-s2]
+JP: 私は彼が先生だと思う。
+EN: I think that he is a teacher.
+Tags: that 節
+Level: A2
+
+[unit2-p32-s3]
+JP: 彼は本を読んでいると言った。
+EN: He said that he is reading a book.
+Tags: that 節
+Level: A2
+
+[unit2-p32-s4]
+JP: 私たちは雨が降ると思う。
+EN: We think that it will rain.
+Tags: that 節
+Level: A2
+
+[unit2-p32-s5]
+JP: 彼女は歌が好きだと言った。
+EN: She said that she likes music.
+Tags: that 節
+Level: A2
+
+[unit2-p32-s6]
+JP: 彼はテストに合格したと言った。
+EN: He said that he passed the test.
+Tags: that 節
+Level: A2
+
+[unit2-p32-s7]
+JP: 私はそれが本当だと思う。
+EN: I believe that it is true.
+Tags: that 節
+Level: A2
+
+[unit2-p32-s8]
+JP: 友達は映画が面白いと言った。
+EN: My friend said that the movie is interesting.
+Tags: that 節
+Level: A2
+
+[unit2-p32-s9]
+JP: お母さんは夕飯ができたと言った。
+EN: My mother said that dinner is ready.
+Tags: that 節
+Level: A2
+
+[unit2-p32-s10]
+JP: 先生は宿題を出すと言った。
+EN: The teacher said that he will give homework.
+Tags: that 節
+Level: A2
+
+
+## Part 33: 受身 — 1
+## 受身 — 1の使い方を練習
+## Priority: C
+
+[unit2-p33-s1]
+JP: その本は毎年読まれます。
+EN: The book is read every year.
+Tags: 受身 — 1
+Level: A2
+
+[unit2-p33-s2]
+JP: この絵は彼によって描かれました。
+EN: This picture was painted by him.
+Tags: 受身 — 1
+Level: A2
+
+[unit2-p33-s3]
+JP: 宿題は教師によってチェックされます。
+EN: The homework is checked by the teacher.
+Tags: 受身 — 1
+Level: A2
+
+[unit2-p33-s4]
+JP: その映画は大ヒットしました。
+EN: The movie was a big hit.
+Tags: 受身 — 1
+Level: A2
+
+[unit2-p33-s5]
+JP: このケーキは特別に作られました。
+EN: This cake was made specially.
+Tags: 受身 — 1
+Level: A2
+
+[unit2-p33-s6]
+JP: 私たちのサッカーチームは賞を受けました。
+EN: Our soccer team was awarded a prize.
+Tags: 受身 — 1
+Level: A2
+
+[unit2-p33-s7]
+JP: 新しい公園は来月オープンします。
+EN: The new park will be opened next month.
+Tags: 受身 — 1
+Level: A2
+
+[unit2-p33-s8]
+JP: その歌はすぐに人気になりました。
+EN: The song became popular quickly.
+Tags: 受身 — 1
+Level: A2
+
+[unit2-p33-s9]
+JP: この部屋は毎日掃除されます。
+EN: This room is cleaned every day.
+Tags: 受身 — 1
+Level: A2
+
+[unit2-p33-s10]
+JP: そのプレゼンテーションは成功しました。
+EN: The presentation was successful.
+Tags: 受身 — 1
+Level: A2
+
+
+## Part 34: 受身 — 2
+## 受身 — 2の使い方を練習
+## Priority: C
+
+[unit2-p34-s1]
+JP: 私の本は友達に読まれました。
+EN: My book was read by my friend.
+Tags: 受身 — 2
+Level: A2
+
+[unit2-p34-s2]
+JP: その映画はたくさんの人に見られました。
+EN: The movie was seen by many people.
+Tags: 受身 — 2
+Level: A2
+
+[unit2-p34-s3]
+JP: この問題は先生によって説明されました。
+EN: This problem was explained by the teacher.
+Tags: 受身 — 2
+Level: A2
+
+[unit2-p34-s4]
+JP: その歌は彼によって歌われました。
+EN: The song was sung by him.
+Tags: 受身 — 2
+Level: A2
+
+[unit2-p34-s5]
+JP: 私の宿題は母に手伝われました。
+EN: My homework was helped by my mom.
+Tags: 受身 — 2
+Level: A2
+
+[unit2-p34-s6]
+JP: そのニュースはすぐに広まりました。
+EN: The news was spread quickly.
+Tags: 受身 — 2
+Level: A2
+
+[unit2-p34-s7]
+JP: この絵は有名なアーティストに描かれました。
+EN: This painting was drawn by a famous artist.
+Tags: 受身 — 2
+Level: A2
+
+[unit2-p34-s8]
+JP: そのイベントは来週開催されます。
+EN: The event will be held next week.
+Tags: 受身 — 2
+Level: A2
+
+[unit2-p34-s9]
+JP: 私の提案は受け入れられました。
+EN: My suggestion was accepted.
+Tags: 受身 — 2
+Level: A2
+
+[unit2-p34-s10]
+JP: そのお菓子は子供たちに食べられました。
+EN: The snacks were eaten by the children.
+Tags: 受身 — 2
+Level: A2
+
+
+
+================================================================================
+
+# Unit 3 - 中学3年レベルの文法
+# Grade: junior-high-3, Unit Number: 3
+# File: junior-high-3\unit3.json
+
+## Part 1: 従属節を導く接続詞 — 1
+## 従属節を導く接続詞 — 1の使い方を練習
+## Priority: A
+
+[unit3-p1-s1]
+JP: 友達が来るまで待っててください。
+EN: Please wait until my friend arrives.
+Tags: 従属節を導く接続詞 — 1
+Level: B1
+
+[unit3-p1-s2]
+JP: 彼女は映画を見ている間、泣いていました。
+EN: She cried while she was watching the movie.
+Tags: 従属節を導く接続詞 — 1
+Level: B1
+
+[unit3-p1-s3]
+JP: 宿題を終えたら、遊びに行こう。
+EN: Let's go play after I finish my homework.
+Tags: 従属節を導く接続詞 — 1
+Level: B1
+
+[unit3-p1-s4]
+JP: 私が学校に着く前に、雨が降り始めました。
+EN: It started to rain before I arrived at school.
+Tags: 従属節を導く接続詞 — 1
+Level: B1
+
+[unit3-p1-s5]
+JP: 彼はサッカーをするのが好きだから、毎週練習します。
+EN: He practices every week because he likes playing soccer.
+Tags: 従属節を導く接続詞 — 1
+Level: B1
+
+[unit3-p1-s6]
+JP: 彼女は音楽を聴きながら勉強します。
+EN: She studies while listening to music.
+Tags: 従属節を導く接続詞 — 1
+Level: B1
+
+[unit3-p1-s7]
+JP: 私が家に帰ると、母が夕食を作っていました。
+EN: When I got home, my mom was cooking dinner.
+Tags: 従属節を導く接続詞 — 1
+Level: B1
+
+[unit3-p1-s8]
+JP: 私たちは会議が始まるまで待っています。
+EN: We will wait until the meeting starts.
+Tags: 従属節を導く接続詞 — 1
+Level: B1
+
+[unit3-p1-s9]
+JP: 彼が歌っているとき、みんな拍手しました。
+EN: Everyone clapped while he was singing.
+Tags: 従属節を導く接続詞 — 1
+Level: B1
+
+[unit3-p1-s10]
+JP: 彼女は新しい本を読むために図書館に行きます。
+EN: She goes to the library so that she can read a new book.
+Tags: 従属節を導く接続詞 — 1
+Level: B1
+
+
+## Part 2: 従属節を導く接続詞 — 2
+## 従属節を導く接続詞 — 2の使い方を練習
+## Priority: A
+
+[unit3-p2-s1]
+JP: 彼はサッカーをするために公園に行きます。
+EN: He goes to the park to play soccer.
+Tags: 従属節を導く接続詞 — 2
+Level: B1
+
+[unit3-p2-s2]
+JP: 私が学校に着くと、雨が降り始めました。
+EN: It started to rain when I arrived at school.
+Tags: 従属節を導く接続詞 — 2
+Level: B1
+
+[unit3-p2-s3]
+JP: 彼女は本を読むとき、静かにします。
+EN: She is quiet when she reads a book.
+Tags: 従属節を導く接続詞 — 2
+Level: B1
+
+[unit3-p2-s4]
+JP: 私たちは映画を見る前に夕食を食べました。
+EN: We had dinner before we watched the movie.
+Tags: 従属節を導く接続詞 — 2
+Level: B1
+
+[unit3-p2-s5]
+JP: 彼が宿題を終えたとき、私はテレビを見ていました。
+EN: I was watching TV when he finished his homework.
+Tags: 従属節を導く接続詞 — 2
+Level: B1
+
+[unit3-p2-s6]
+JP: 彼女は友達と遊ぶために学校に行きます。
+EN: She goes to school to play with her friends.
+Tags: 従属節を導く接続詞 — 2
+Level: B1
+
+[unit3-p2-s7]
+JP: 私が寝る準備をすると、母が呼びました。
+EN: My mom called me when I was getting ready for bed.
+Tags: 従属節を導く接続詞 — 2
+Level: B1
+
+[unit3-p2-s8]
+JP: 彼はピアノを弾くとき、とても楽しそうです。
+EN: He looks very happy when he plays the piano.
+Tags: 従属節を導く接続詞 — 2
+Level: B1
+
+[unit3-p2-s9]
+JP: 私たちは家に帰る前に買い物をしました。
+EN: We went shopping before we went home.
+Tags: 従属節を導く接続詞 — 2
+Level: B1
+
+[unit3-p2-s10]
+JP: 彼女が笑うと、皆が楽しくなります。
+EN: Everyone feels happy when she laughs.
+Tags: 従属節を導く接続詞 — 2
+Level: B1
+
+
+## Part 3: 間接疑問文
+## 間接疑問文の使い方を練習
+## Priority: B
+
+[unit3-p3-s1]
+JP: 彼がどこに行ったのか知っていますか？
+EN: Do you know where he went?
+Tags: 間接疑問文
+Level: B1
+
+[unit3-p3-s2]
+JP: 彼女が何を食べたいか教えてくれますか？
+EN: Can you tell me what she wants to eat?
+Tags: 間接疑問文
+Level: B1
+
+[unit3-p3-s3]
+JP: 私たちがいつ出発するのか分かりますか？
+EN: Do you know when we will leave?
+Tags: 間接疑問文
+Level: B1
+
+[unit3-p3-s4]
+JP: あなたが好きな映画は何ですか？
+EN: Do you know what your favorite movie is?
+Tags: 間接疑問文
+Level: B1
+
+[unit3-p3-s5]
+JP: 先生が何を教えてくれるのか楽しみです。
+EN: I am excited to know what the teacher will teach us.
+Tags: 間接疑問文
+Level: B1
+
+[unit3-p3-s6]
+JP: 彼がどのスポーツが好きか知っていますか？
+EN: Do you know what sport he likes?
+Tags: 間接疑問文
+Level: B1
+
+[unit3-p3-s7]
+JP: 彼女がどこで働いているか教えてくれますか？
+EN: Can you tell me where she works?
+Tags: 間接疑問文
+Level: B1
+
+[unit3-p3-s8]
+JP: 私たちがどのくらい勉強する必要があるのか分かりますか？
+EN: Do you know how long we need to study?
+Tags: 間接疑問文
+Level: B1
+
+[unit3-p3-s9]
+JP: 彼がどうやって行くのか気になります。
+EN: I wonder how he will get there.
+Tags: 間接疑問文
+Level: B1
+
+[unit3-p3-s10]
+JP: あなたが好きな音楽は何か教えてくれますか？
+EN: Can you tell me what kind of music you like?
+Tags: 間接疑問文
+Level: B1
+
+
+## Part 4: 疑問詞 + to 不定詞
+## 疑問詞 + to 不定詞の使い方を練習
+## Priority: B
+
+[unit3-p4-s1]
+JP: 彼は何を食べるつもりですか？
+EN: What does he plan to eat?
+Tags: 疑問詞 + to 不定詞
+Level: B1
+
+[unit3-p4-s2]
+JP: あなたはどこに行くつもりですか？
+EN: Where do you want to go?
+Tags: 疑問詞 + to 不定詞
+Level: B1
+
+[unit3-p4-s3]
+JP: 彼女はいつ来るつもりですか？
+EN: When does she intend to come?
+Tags: 疑問詞 + to 不定詞
+Level: B1
+
+[unit3-p4-s4]
+JP: 私たちは何をすべきですか？
+EN: What should we do?
+Tags: 疑問詞 + to 不定詞
+Level: B1
+
+[unit3-p4-s5]
+JP: 君はどのようにそれを学ぶつもりですか？
+EN: How do you plan to learn that?
+Tags: 疑問詞 + to 不定詞
+Level: B1
+
+[unit3-p4-s6]
+JP: 彼はなぜそれをするつもりですか？
+EN: Why does he want to do that?
+Tags: 疑問詞 + to 不定詞
+Level: B1
+
+[unit3-p4-s7]
+JP: あなたは誰と行くつもりですか？
+EN: Who are you going to go with?
+Tags: 疑問詞 + to 不定詞
+Level: B1
+
+[unit3-p4-s8]
+JP: 私たちはいつ出発するつもりですか？
+EN: When are we going to leave?
+Tags: 疑問詞 + to 不定詞
+Level: B1
+
+[unit3-p4-s9]
+JP: 君はどの映画を見るつもりですか？
+EN: Which movie do you want to see?
+Tags: 疑問詞 + to 不定詞
+Level: B1
+
+[unit3-p4-s10]
+JP: 彼女は何時に勉強するつもりですか？
+EN: What time does she plan to study?
+Tags: 疑問詞 + to 不定詞
+Level: B1
+
+
+## Part 5: 形式主語の it
+## 形式主語の itの使い方を練習
+## Priority: B
+
+[unit3-p5-s1]
+JP: それをするのは難しい。
+EN: It is difficult to do that.
+Tags: 形式主語の it
+Level: B1
+
+[unit3-p5-s2]
+JP: 今朝、彼女に会うことが大切だ。
+EN: It is important to meet her this morning.
+Tags: 形式主語の it
+Level: B1
+
+[unit3-p5-s3]
+JP: あなたに会うのはうれしい。
+EN: It is nice to see you.
+Tags: 形式主語の it
+Level: B1
+
+[unit3-p5-s4]
+JP: 宿題を終わらせるのが必要だ。
+EN: It is necessary to finish the homework.
+Tags: 形式主語の it
+Level: B1
+
+[unit3-p5-s5]
+JP: その映画を見るのは面白い。
+EN: It is interesting to watch that movie.
+Tags: 形式主語の it
+Level: B1
+
+[unit3-p5-s6]
+JP: 彼が来るのを待つのは退屈だ。
+EN: It is boring to wait for him.
+Tags: 形式主語の it
+Level: B1
+
+[unit3-p5-s7]
+JP: この問題を解くのは簡単だ。
+EN: It is easy to solve this problem.
+Tags: 形式主語の it
+Level: B1
+
+[unit3-p5-s8]
+JP: パーティーに行くのは楽しみだ。
+EN: It is exciting to go to the party.
+Tags: 形式主語の it
+Level: B1
+
+[unit3-p5-s9]
+JP: 新しい友達を作るのは大切だ。
+EN: It is important to make new friends.
+Tags: 形式主語の it
+Level: B1
+
+[unit3-p5-s10]
+JP: 旅行するのは楽しい。
+EN: It is fun to travel.
+Tags: 形式主語の it
+Level: B1
+
+
+## Part 6: SVO + to 不定詞
+## SVO + to 不定詞の使い方を練習
+## Priority: B
+
+[unit3-p6-s1]
+JP: 私は彼に手伝うように頼みました。
+EN: I asked him to help.
+Tags: SVO + to 不定詞
+Level: B1
+
+[unit3-p6-s2]
+JP: 彼女は私に本を読むように言いました。
+EN: She told me to read the book.
+Tags: SVO + to 不定詞
+Level: B1
+
+[unit3-p6-s3]
+JP: 先生は私たちに宿題をするように教えました。
+EN: The teacher taught us to do our homework.
+Tags: SVO + to 不定詞
+Level: B1
+
+[unit3-p6-s4]
+JP: 友達は私にパーティーに来るように誘いました。
+EN: My friend invited me to come to the party.
+Tags: SVO + to 不定詞
+Level: B1
+
+[unit3-p6-s5]
+JP: 母は私に早く寝るように言いました。
+EN: My mother told me to go to bed early.
+Tags: SVO + to 不定詞
+Level: B1
+
+[unit3-p6-s6]
+JP: 彼は私にその映画を見るように勧めました。
+EN: He recommended me to watch the movie.
+Tags: SVO + to 不定詞
+Level: B1
+
+[unit3-p6-s7]
+JP: 私は妹にその歌を歌うように教えました。
+EN: I taught my sister to sing that song.
+Tags: SVO + to 不定詞
+Level: B1
+
+[unit3-p6-s8]
+JP: 彼女は私にこの問題を解くように頼みました。
+EN: She asked me to solve this problem.
+Tags: SVO + to 不定詞
+Level: B1
+
+[unit3-p6-s9]
+JP: 彼は私に明日会うように言いました。
+EN: He told me to meet him tomorrow.
+Tags: SVO + to 不定詞
+Level: B1
+
+[unit3-p6-s10]
+JP: 友達は私にその本を読むように提案しました。
+EN: My friend suggested me to read that book.
+Tags: SVO + to 不定詞
+Level: B1
+
+
+## Part 7: SVOC
+## SVOCの使い方を練習
+## Priority: B
+
+[unit3-p7-s1]
+JP: 彼は私に本を渡した。
+EN: He gave me a book.
+Tags: SVOC
+Level: B1
+
+[unit3-p7-s2]
+JP: 彼女は友達にプレゼントを買った。
+EN: She bought her friend a gift.
+Tags: SVOC
+Level: B1
+
+[unit3-p7-s3]
+JP: 先生は私たちに宿題を出した。
+EN: The teacher assigned us homework.
+Tags: SVOC
+Level: B1
+
+[unit3-p7-s4]
+JP: 彼は彼女に花を贈った。
+EN: He gave her flowers.
+Tags: SVOC
+Level: B1
+
+[unit3-p7-s5]
+JP: 彼らは私に手紙を書いた。
+EN: They wrote me a letter.
+Tags: SVOC
+Level: B1
+
+[unit3-p7-s6]
+JP: 私は彼にゲームを教えた。
+EN: I taught him a game.
+Tags: SVOC
+Level: B1
+
+[unit3-p7-s7]
+JP: 彼女は妹におもちゃを与えた。
+EN: She gave her sister a toy.
+Tags: SVOC
+Level: B1
+
+[unit3-p7-s8]
+JP: 私たちは友人に映画を紹介した。
+EN: We introduced our friend to a movie.
+Tags: SVOC
+Level: B1
+
+[unit3-p7-s9]
+JP: お母さんは私に料理を教えてくれた。
+EN: My mother taught me how to cook.
+Tags: SVOC
+Level: B1
+
+[unit3-p7-s10]
+JP: 彼は私たちに新しい歌を歌った。
+EN: He sang us a new song.
+Tags: SVOC
+Level: B1
+
+
+## Part 8: 現在分詞修飾
+## 現在分詞修飾の使い方を練習
+## Priority: B
+
+[unit3-p8-s1]
+JP: 彼女は笑っている友達を見ています。
+EN: She is looking at her friend laughing.
+Tags: 現在分詞修飾
+Level: B1
+
+[unit3-p8-s2]
+JP: 僕は走っている犬を見ました。
+EN: I saw a dog running.
+Tags: 現在分詞修飾
+Level: B1
+
+[unit3-p8-s3]
+JP: その映画は感動的なストーリーを持っています。
+EN: The movie has a touching story.
+Tags: 現在分詞修飾
+Level: B1
+
+[unit3-p8-s4]
+JP: 彼は勉強している兄を手伝っています。
+EN: He is helping his brother studying.
+Tags: 現在分詞修飾
+Level: B1
+
+[unit3-p8-s5]
+JP: 彼女は歌っている子供たちを見て微笑みました。
+EN: She smiled at the children singing.
+Tags: 現在分詞修飾
+Level: B1
+
+[unit3-p8-s6]
+JP: 私は泳いでいる魚を観察しました。
+EN: I observed the fish swimming.
+Tags: 現在分詞修飾
+Level: B1
+
+[unit3-p8-s7]
+JP: 彼らは遊んでいる子供たちを見守っています。
+EN: They are watching the kids playing.
+Tags: 現在分詞修飾
+Level: B1
+
+[unit3-p8-s8]
+JP: この本は面白い内容を持っています。
+EN: This book has interesting content.
+Tags: 現在分詞修飾
+Level: B1
+
+[unit3-p8-s9]
+JP: 彼は料理しているお母さんを手伝っています。
+EN: He is helping his mother cooking.
+Tags: 現在分詞修飾
+Level: B1
+
+[unit3-p8-s10]
+JP: 私は読んでいる本に夢中です。
+EN: I am absorbed in the book reading.
+Tags: 現在分詞修飾
+Level: B1
+
+
+## Part 9: 過去分詞修飾
+## 過去分詞修飾の使い方を練習
+## Priority: B
+
+[unit3-p9-s1]
+JP: 彼は昨日、友達に会った。
+EN: He met his friend yesterday.
+Tags: 過去分詞修飾
+Level: B1
+
+[unit3-p9-s2]
+JP: 私は完成した宿題を提出した。
+EN: I submitted the completed homework.
+Tags: 過去分詞修飾
+Level: B1
+
+[unit3-p9-s3]
+JP: 彼女は買ったばかりの靴を履いている。
+EN: She is wearing the shoes she just bought.
+Tags: 過去分詞修飾
+Level: B1
+
+[unit3-p9-s4]
+JP: その映画は非常に感動的だった。
+EN: The movie was very moving.
+Tags: 過去分詞修飾
+Level: B1
+
+[unit3-p9-s5]
+JP: 彼らは修理された車に乗っている。
+EN: They are riding in the repaired car.
+Tags: 過去分詞修飾
+Level: B1
+
+[unit3-p9-s6]
+JP: 私は見つけた本を読んでいる。
+EN: I am reading the book I found.
+Tags: 過去分詞修飾
+Level: B1
+
+[unit3-p9-s7]
+JP: 彼女は撮影された写真を見せてくれた。
+EN: She showed me the photographed pictures.
+Tags: 過去分詞修飾
+Level: B1
+
+[unit3-p9-s8]
+JP: 私たちは連絡を取った友人に会った。
+EN: We met the friend we contacted.
+Tags: 過去分詞修飾
+Level: B1
+
+[unit3-p9-s9]
+JP: 彼は書かれた記事を読み直した。
+EN: He reread the written article.
+Tags: 過去分詞修飾
+Level: B1
+
+[unit3-p9-s10]
+JP: 彼女は修了したコースを終えた。
+EN: She finished the completed course.
+Tags: 過去分詞修飾
+Level: B1
+
+
+## Part 10: 関係代名詞・主格（人）
+## 関係代名詞・主格（人）の使い方を練習
+## Priority: B
+
+[unit3-p10-s1]
+JP: 彼女は私の友達です。
+EN: She is my friend who helps me.
+Tags: 関係代名詞・主格（人）
+Level: B1
+
+[unit3-p10-s2]
+JP: 彼はサッカーが得意な男の子です。
+EN: He is a boy who is good at soccer.
+Tags: 関係代名詞・主格（人）
+Level: B1
+
+[unit3-p10-s3]
+JP: 先生は私たちに英語を教えています。
+EN: The teacher is the person who teaches us English.
+Tags: 関係代名詞・主格（人）
+Level: B1
+
+[unit3-p10-s4]
+JP: 彼女は歌が上手な女の子です。
+EN: She is a girl who sings well.
+Tags: 関係代名詞・主格（人）
+Level: B1
+
+[unit3-p10-s5]
+JP: 彼は毎日ジョギングをする人です。
+EN: He is the person who jogs every day.
+Tags: 関係代名詞・主格（人）
+Level: B1
+
+[unit3-p10-s6]
+JP: 彼女は旅行が好きな学生です。
+EN: She is a student who loves to travel.
+Tags: 関係代名詞・主格（人）
+Level: B1
+
+[unit3-p10-s7]
+JP: 彼は面白い映画を作る監督です。
+EN: He is a director who makes interesting movies.
+Tags: 関係代名詞・主格（人）
+Level: B1
+
+[unit3-p10-s8]
+JP: 彼女は私の妹で、毎日勉強しています。
+EN: She is my sister who studies every day.
+Tags: 関係代名詞・主格（人）
+Level: B1
+
+[unit3-p10-s9]
+JP: 彼は音楽に詳しい友達です。
+EN: He is a friend who knows a lot about music.
+Tags: 関係代名詞・主格（人）
+Level: B1
+
+[unit3-p10-s10]
+JP: 彼女は本をたくさん読む人です。
+EN: She is a person who reads many books.
+Tags: 関係代名詞・主格（人）
+Level: B1
+
+
+## Part 11: 関係代名詞・主格（人以外）
+## 関係代名詞・主格（人以外）の使い方を練習
+## Priority: B
+
+[unit3-p11-s1]
+JP: これは私が好きな本です。
+EN: This is the book that I like.
+Tags: 関係代名詞・主格（人以外）
+Level: B1
+
+[unit3-p11-s2]
+JP: あれは私の友達が作ったケーキです。
+EN: That is the cake that my friend made.
+Tags: 関係代名詞・主格（人以外）
+Level: B1
+
+[unit3-p11-s3]
+JP: これが私たちが見た映画です。
+EN: This is the movie that we watched.
+Tags: 関係代名詞・主格（人以外）
+Level: B1
+
+[unit3-p11-s4]
+JP: これは私が買った新しいスニーカーです。
+EN: These are the new sneakers that I bought.
+Tags: 関係代名詞・主格（人以外）
+Level: B1
+
+[unit3-p11-s5]
+JP: それは彼が描いた絵です。
+EN: That is the picture that he painted.
+Tags: 関係代名詞・主格（人以外）
+Level: B1
+
+[unit3-p11-s6]
+JP: これは私の学校の図書館です。
+EN: This is the library that my school has.
+Tags: 関係代名詞・主格（人以外）
+Level: B1
+
+[unit3-p11-s7]
+JP: あれは私たちが訪れた美術館です。
+EN: That is the museum that we visited.
+Tags: 関係代名詞・主格（人以外）
+Level: B1
+
+[unit3-p11-s8]
+JP: これは私が使っているアプリです。
+EN: This is the app that I use.
+Tags: 関係代名詞・主格（人以外）
+Level: B1
+
+[unit3-p11-s9]
+JP: あれは彼女が選んだドレスです。
+EN: That is the dress that she chose.
+Tags: 関係代名詞・主格（人以外）
+Level: B1
+
+[unit3-p11-s10]
+JP: これは私が学んでいる英語の歌です。
+EN: This is the English song that I am learning.
+Tags: 関係代名詞・主格（人以外）
+Level: B1
+
+
+## Part 12: 関係代名詞・所有格 whose と of which
+## 関係代名詞・所有格 whose と of whichの使い方を練習
+## Priority: C
+
+[unit3-p12-s1]
+JP: 彼は私の友達です。彼の名前は田中です。
+EN: He is my friend, whose name is Tanaka.
+Tags: 関係代名詞・所有格 whose と of which
+Level: B1
+
+[unit3-p12-s2]
+JP: これは私が好きな本です。その本は面白いです。
+EN: This is the book I like, which is interesting.
+Tags: 関係代名詞・所有格 whose と of which
+Level: B1
+
+[unit3-p12-s3]
+JP: 彼女は良い先生です。彼女の授業は楽しいです。
+EN: She is a good teacher, whose classes are fun.
+Tags: 関係代名詞・所有格 whose と of which
+Level: B1
+
+[unit3-p12-s4]
+JP: この映画は私たちが観た映画です。それはとても感動的です。
+EN: This is the movie we watched, which was very moving.
+Tags: 関係代名詞・所有格 whose と of which
+Level: B1
+
+[unit3-p12-s5]
+JP: 彼は新しい自転車を持っています。その自転車は速いです。
+EN: He has a new bicycle, which is fast.
+Tags: 関係代名詞・所有格 whose と of which
+Level: B1
+
+[unit3-p12-s6]
+JP: 彼女は私の妹です。彼女の趣味は絵を描くことです。
+EN: She is my sister, whose hobby is drawing.
+Tags: 関係代名詞・所有格 whose と of which
+Level: B1
+
+[unit3-p12-s7]
+JP: これは私たちの家です。その家は大きいです。
+EN: This is our house, which is big.
+Tags: 関係代名詞・所有格 whose と of which
+Level: B1
+
+[unit3-p12-s8]
+JP: 彼はとても親切です。彼の助けはいつも必要です。
+EN: He is very kind, whose help I always need.
+Tags: 関係代名詞・所有格 whose と of which
+Level: B1
+
+[unit3-p12-s9]
+JP: これは彼女のカバンです。そのカバンは赤いです。
+EN: This is her bag, which is red.
+Tags: 関係代名詞・所有格 whose と of which
+Level: B1
+
+[unit3-p12-s10]
+JP: 彼は私の友人です。彼の趣味はサッカーです。
+EN: He is my friend, whose hobby is soccer.
+Tags: 関係代名詞・所有格 whose と of which
+Level: B1
+
+
+## Part 13: 関係代名詞・目的格（人）
+## 関係代名詞・目的格（人）の使い方を練習
+## Priority: B
+
+[unit3-p13-s1]
+JP: 彼は私の友達です。
+EN: He is my friend who helps me.
+Tags: 関係代名詞・目的格（人）
+Level: B1
+
+[unit3-p13-s2]
+JP: 彼女は素晴らしい歌手です。
+EN: She is a great singer who won a prize.
+Tags: 関係代名詞・目的格（人）
+Level: B1
+
+[unit3-p13-s3]
+JP: あの男の子はサッカーが上手です。
+EN: The boy who plays soccer well is my brother.
+Tags: 関係代名詞・目的格（人）
+Level: B1
+
+[unit3-p13-s4]
+JP: 私の先生は英語を教えています。
+EN: My teacher is the person who teaches English.
+Tags: 関係代名詞・目的格（人）
+Level: B1
+
+[unit3-p13-s5]
+JP: 彼らは私の好きな映画の出演者です。
+EN: They are the actors who are in my favorite movie.
+Tags: 関係代名詞・目的格（人）
+Level: B1
+
+[unit3-p13-s6]
+JP: あのカメラは私が買ったものです。
+EN: That is the camera which I bought last week.
+Tags: 関係代名詞・目的格（人）
+Level: B1
+
+[unit3-p13-s7]
+JP: 彼女は私の手伝いをしてくれる人です。
+EN: She is the one who helps me with my homework.
+Tags: 関係代名詞・目的格（人）
+Level: B1
+
+[unit3-p13-s8]
+JP: 彼は私の兄です。
+EN: He is my brother who loves to read.
+Tags: 関係代名詞・目的格（人）
+Level: B1
+
+[unit3-p13-s9]
+JP: 彼女は私たちのチームのキャプテンです。
+EN: She is the captain who leads our team.
+Tags: 関係代名詞・目的格（人）
+Level: B1
+
+[unit3-p13-s10]
+JP: あの本は私が最近読んだものです。
+EN: That is the book which I read recently.
+Tags: 関係代名詞・目的格（人）
+Level: B1
+
+
+## Part 14: 関係代名詞・目的格（人以外）
+## 関係代名詞・目的格（人以外）の使い方を練習
+## Priority: B
+
+[unit3-p14-s1]
+JP: これは私が好きな映画です。
+EN: This is the movie that I like.
+Tags: 関係代名詞・目的格（人以外）
+Level: B1
+
+[unit3-p14-s2]
+JP: 彼は私が食べたケーキを作りました。
+EN: He made the cake that I ate.
+Tags: 関係代名詞・目的格（人以外）
+Level: B1
+
+[unit3-p14-s3]
+JP: あれが私が見た絵です。
+EN: That is the picture that I saw.
+Tags: 関係代名詞・目的格（人以外）
+Level: B1
+
+[unit3-p14-s4]
+JP: 彼女は私が買った本を読んでいます。
+EN: She is reading the book that I bought.
+Tags: 関係代名詞・目的格（人以外）
+Level: B1
+
+[unit3-p14-s5]
+JP: これは私が使う文房具です。
+EN: This is the stationery that I use.
+Tags: 関係代名詞・目的格（人以外）
+Level: B1
+
+[unit3-p14-s6]
+JP: あのバスは私が乗りたかったものです。
+EN: That bus is the one that I wanted to take.
+Tags: 関係代名詞・目的格（人以外）
+Level: B1
+
+[unit3-p14-s7]
+JP: これが私が集めているコインです。
+EN: These are the coins that I collect.
+Tags: 関係代名詞・目的格（人以外）
+Level: B1
+
+[unit3-p14-s8]
+JP: 彼は私が遊んだゲームを知っています。
+EN: He knows the game that I played.
+Tags: 関係代名詞・目的格（人以外）
+Level: B1
+
+[unit3-p14-s9]
+JP: これが私が作ったサラダです。
+EN: This is the salad that I made.
+Tags: 関係代名詞・目的格（人以外）
+Level: B1
+
+[unit3-p14-s10]
+JP: あの店は私が行ったことのある場所です。
+EN: That store is the place that I have been to.
+Tags: 関係代名詞・目的格（人以外）
+Level: B1
+
+
+## Part 15: 先行詞を含む関係代名詞 what
+## 先行詞を含む関係代名詞 whatの使い方を練習
+## Priority: B
+
+[unit3-p15-s1]
+JP: 私たちが話していることはとても大切です。
+EN: What we are talking about is very important.
+Tags: 先行詞を含む関係代名詞 what
+Level: B1
+
+[unit3-p15-s2]
+JP: 彼女が好きな映画は面白いです。
+EN: What she likes is an interesting movie.
+Tags: 先行詞を含む関係代名詞 what
+Level: B1
+
+[unit3-p15-s3]
+JP: 彼が言ったことは理解できませんでした。
+EN: What he said was hard to understand.
+Tags: 先行詞を含む関係代名詞 what
+Level: B1
+
+[unit3-p15-s4]
+JP: 私が欲しいものは新しい本です。
+EN: What I want is a new book.
+Tags: 先行詞を含む関係代名詞 what
+Level: B1
+
+[unit3-p15-s5]
+JP: このプロジェクトで私たちが学ぶことは多いです。
+EN: What we learn in this project is a lot.
+Tags: 先行詞を含む関係代名詞 what
+Level: B1
+
+[unit3-p15-s6]
+JP: 彼女が作った料理はとても美味しいです。
+EN: What she cooked is very delicious.
+Tags: 先行詞を含む関係代名詞 what
+Level: B1
+
+[unit3-p15-s7]
+JP: 私たちが行く場所はここです。
+EN: What we are going is here.
+Tags: 先行詞を含む関係代名詞 what
+Level: B1
+
+[unit3-p15-s8]
+JP: 彼が私にくれたアドバイスは役に立ちました。
+EN: What he gave me as advice was helpful.
+Tags: 先行詞を含む関係代名詞 what
+Level: B1
+
+[unit3-p15-s9]
+JP: 私が考えたアイデアはユニークです。
+EN: What I thought of is unique.
+Tags: 先行詞を含む関係代名詞 what
+Level: B1
+
+[unit3-p15-s10]
+JP: あなたが見たものは本当に素晴らしいです。
+EN: What you saw was really wonderful.
+Tags: 先行詞を含む関係代名詞 what
+Level: B1
+
+
+## Part 16: too 〜 to 〜
+## too 〜 to 〜の使い方を練習
+## Priority: A
+
+[unit3-p16-s1]
+JP: この本は難しすぎて、読めません。
+EN: This book is too difficult to read.
+Tags: too 〜 to 〜
+Level: B1
+
+[unit3-p16-s2]
+JP: 今日は暑すぎて、外に出たくない。
+EN: It is too hot to go outside today.
+Tags: too 〜 to 〜
+Level: B1
+
+[unit3-p16-s3]
+JP: 彼の説明は分かりにくすぎて、理解できません。
+EN: His explanation is too hard to understand.
+Tags: too 〜 to 〜
+Level: B1
+
+[unit3-p16-s4]
+JP: このケーキは甘すぎて、食べられません。
+EN: This cake is too sweet to eat.
+Tags: too 〜 to 〜
+Level: B1
+
+[unit3-p16-s5]
+JP: その映画は長すぎて、最後まで見られませんでした。
+EN: The movie was too long to watch until the end.
+Tags: too 〜 to 〜
+Level: B1
+
+[unit3-p16-s6]
+JP: 私は疲れすぎて、遊びに行けません。
+EN: I am too tired to go out and play.
+Tags: too 〜 to 〜
+Level: B1
+
+[unit3-p16-s7]
+JP: この問題は簡単すぎて、すぐ解けました。
+EN: This problem is too easy to solve quickly.
+Tags: too 〜 to 〜
+Level: B1
+
+[unit3-p16-s8]
+JP: 彼女は忙しすぎて、電話に出られません。
+EN: She is too busy to answer the phone.
+Tags: too 〜 to 〜
+Level: B1
+
+[unit3-p16-s9]
+JP: この場所は静かすぎて、話すのが難しいです。
+EN: This place is too quiet to talk.
+Tags: too 〜 to 〜
+Level: B1
+
+[unit3-p16-s10]
+JP: その服は高すぎて、買えません。
+EN: That dress is too expensive to buy.
+Tags: too 〜 to 〜
+Level: B1
+
+
+## Part 17: enough 〜 to 〜
+## enough 〜 to 〜の使い方を練習
+## Priority: A
+
+[unit3-p17-s1]
+JP: 私は十分な時間があります。
+EN: I have enough time to finish my homework.
+Tags: enough 〜 to 〜
+Level: B1
+
+[unit3-p17-s2]
+JP: 彼は十分な勇気を持っています。
+EN: He has enough courage to speak in front of the class.
+Tags: enough 〜 to 〜
+Level: B1
+
+[unit3-p17-s3]
+JP: 私たちは十分な食べ物を持っています。
+EN: We have enough food to share with everyone.
+Tags: enough 〜 to 〜
+Level: B1
+
+[unit3-p17-s4]
+JP: 彼女は十分な勉強をしています。
+EN: She studies enough to pass the exam.
+Tags: enough 〜 to 〜
+Level: B1
+
+[unit3-p17-s5]
+JP: この本は私にとって十分に面白いです。
+EN: This book is interesting enough to keep me reading.
+Tags: enough 〜 to 〜
+Level: B1
+
+[unit3-p17-s6]
+JP: 私の友達は十分な知識を持っています。
+EN: My friend has enough knowledge to help me with math.
+Tags: enough 〜 to 〜
+Level: B1
+
+[unit3-p17-s7]
+JP: この映画は子供たちにとって十分に楽しいです。
+EN: This movie is entertaining enough for the kids.
+Tags: enough 〜 to 〜
+Level: B1
+
+[unit3-p17-s8]
+JP: 私たちは十分なお金を集めました。
+EN: We raised enough money to buy the new equipment.
+Tags: enough 〜 to 〜
+Level: B1
+
+[unit3-p17-s9]
+JP: 彼は十分な経験を持っています。
+EN: He has enough experience to get the job.
+Tags: enough 〜 to 〜
+Level: B1
+
+[unit3-p17-s10]
+JP: 私たちは十分に準備ができています。
+EN: We are prepared enough to present our project.
+Tags: enough 〜 to 〜
+Level: B1
+
+
+## Part 18: so 〜 that ⋯
+## so 〜 that ⋯の使い方を練習
+## Priority: A
+
+[unit3-p18-s1]
+JP: 彼はとても疲れているので、すぐに寝ました。
+EN: He was so tired that he went to bed immediately.
+Tags: so 〜 that ⋯
+Level: B1
+
+[unit3-p18-s2]
+JP: このケーキはとても美味しいので、もう一切れ食べたいです。
+EN: This cake is so delicious that I want to eat another piece.
+Tags: so 〜 that ⋯
+Level: B1
+
+[unit3-p18-s3]
+JP: 天気がとても良いので、ピクニックに行きます。
+EN: The weather is so nice that we will go for a picnic.
+Tags: so 〜 that ⋯
+Level: B1
+
+[unit3-p18-s4]
+JP: 彼女はとても親切なので、みんなに好かれています。
+EN: She is so kind that everyone likes her.
+Tags: so 〜 that ⋯
+Level: B1
+
+[unit3-p18-s5]
+JP: その映画はとても面白いので、もう一度見たいです。
+EN: The movie was so interesting that I want to watch it again.
+Tags: so 〜 that ⋯
+Level: B1
+
+[unit3-p18-s6]
+JP: この本はとても難しいので、手伝ってもらえますか？
+EN: This book is so difficult that can you help me?
+Tags: so 〜 that ⋯
+Level: B1
+
+[unit3-p18-s7]
+JP: 彼はとても速く走るので、すぐにゴールに着きました。
+EN: He runs so fast that he reached the finish line quickly.
+Tags: so 〜 that ⋯
+Level: B1
+
+[unit3-p18-s8]
+JP: その問題はとても簡単なので、すぐに解けました。
+EN: The problem was so easy that I solved it right away.
+Tags: so 〜 that ⋯
+Level: B1
+
+[unit3-p18-s9]
+JP: 私たちはとても楽しかったので、また行きたいです。
+EN: We had so much fun that we want to go again.
+Tags: so 〜 that ⋯
+Level: B1
+
+[unit3-p18-s10]
+JP: この部屋はとても寒いので、暖房をつけました。
+EN: This room is so cold that I turned on the heater.
+Tags: so 〜 that ⋯
+Level: B1
+
+
+## Part 19: 原形不定詞・知覚
+## 原形不定詞・知覚の使い方を練習
+## Priority: B
+
+[unit3-p19-s1]
+JP: 彼は彼女が歌うのを聞いた。
+EN: He heard her sing.
+Tags: 原形不定詞・知覚
+Level: B1
+
+[unit3-p19-s2]
+JP: 私は彼らが遊ぶのを見た。
+EN: I saw them play.
+Tags: 原形不定詞・知覚
+Level: B1
+
+[unit3-p19-s3]
+JP: 彼女は猫が走るのを見た。
+EN: She watched the cat run.
+Tags: 原形不定詞・知覚
+Level: B1
+
+[unit3-p19-s4]
+JP: 私たちは彼が話すのを聞いた。
+EN: We heard him speak.
+Tags: 原形不定詞・知覚
+Level: B1
+
+[unit3-p19-s5]
+JP: あなたは彼女が踊るのを見ましたか？
+EN: Did you see her dance?
+Tags: 原形不定詞・知覚
+Level: B1
+
+[unit3-p19-s6]
+JP: 彼は犬が吠えるのを聞いた。
+EN: He listened to the dog bark.
+Tags: 原形不定詞・知覚
+Level: B1
+
+[unit3-p19-s7]
+JP: 私は友達が笑うのを見た。
+EN: I saw my friend laugh.
+Tags: 原形不定詞・知覚
+Level: B1
+
+[unit3-p19-s8]
+JP: 彼女は赤ちゃんが寝るのを見守った。
+EN: She watched the baby sleep.
+Tags: 原形不定詞・知覚
+Level: B1
+
+[unit3-p19-s9]
+JP: 彼らは私が歌うのを楽しんだ。
+EN: They enjoyed me singing.
+Tags: 原形不定詞・知覚
+Level: B1
+
+[unit3-p19-s10]
+JP: 私は彼が料理するのを手伝った。
+EN: I helped him cook.
+Tags: 原形不定詞・知覚
+Level: B1
+
+
+## Part 20: 原形不定詞・使役
+## 原形不定詞・使役の使い方を練習
+## Priority: B
+
+[unit3-p20-s1]
+JP: 彼は私に宿題をするように言った。
+EN: He told me to do my homework.
+Tags: 原形不定詞・使役
+Level: B1
+
+[unit3-p20-s2]
+JP: 先生は私たちに本を読むように勧めた。
+EN: The teacher advised us to read the book.
+Tags: 原形不定詞・使役
+Level: B1
+
+[unit3-p20-s3]
+JP: 彼女は私に歌を歌わせた。
+EN: She had me sing a song.
+Tags: 原形不定詞・使役
+Level: B1
+
+[unit3-p20-s4]
+JP: 友達は私に映画を見に行くように誘った。
+EN: My friend invited me to go see a movie.
+Tags: 原形不定詞・使役
+Level: B1
+
+[unit3-p20-s5]
+JP: 母は私に掃除を手伝わせた。
+EN: My mom had me help with the cleaning.
+Tags: 原形不定詞・使役
+Level: B1
+
+[unit3-p20-s6]
+JP: 彼は私に新しいゲームを試すように頼んだ。
+EN: He asked me to try the new game.
+Tags: 原形不定詞・使役
+Level: B1
+
+[unit3-p20-s7]
+JP: 妹は私にお菓子を作らせた。
+EN: My sister made me bake some cookies.
+Tags: 原形不定詞・使役
+Level: B1
+
+[unit3-p20-s8]
+JP: 先生は私たちにレポートを提出するように言った。
+EN: The teacher told us to submit the report.
+Tags: 原形不定詞・使役
+Level: B1
+
+[unit3-p20-s9]
+JP: 彼は私にその本を買うように勧めた。
+EN: He recommended me to buy that book.
+Tags: 原形不定詞・使役
+Level: B1
+
+[unit3-p20-s10]
+JP: 父は私に車を運転させてくれた。
+EN: My dad let me drive the car.
+Tags: 原形不定詞・使役
+Level: B1
+
+
+## Part 21: 関係副詞・where
+## 関係副詞・whereの使い方を練習
+## Priority: B
+
+[unit3-p21-s1]
+JP: 私は公園で遊びます。そこは子供たちに人気です。
+EN: I play in the park, where many children like to go.
+Tags: 関係副詞・where
+Level: B1
+
+[unit3-p21-s2]
+JP: 彼女は私の家に来ます。そこは彼女の好きな場所です。
+EN: She comes to my house, where she feels happy.
+Tags: 関係副詞・where
+Level: B1
+
+[unit3-p21-s3]
+JP: 私たちは学校で勉強します。そこは友達と会うところです。
+EN: We study at school, where we meet our friends.
+Tags: 関係副詞・where
+Level: B1
+
+[unit3-p21-s4]
+JP: 彼は映画館で映画を見ます。そこは良い音響があります。
+EN: He watches movies at the cinema, where the sound is great.
+Tags: 関係副詞・where
+Level: B1
+
+[unit3-p21-s5]
+JP: お母さんは台所で料理をします。そこはいつもいい匂いがします。
+EN: My mother cooks in the kitchen, where it always smells good.
+Tags: 関係副詞・where
+Level: B1
+
+[unit3-p21-s6]
+JP: 私たちはスーパーマーケットで買い物をします。そこはたくさんの食べ物があります。
+EN: We shop at the supermarket, where there is a lot of food.
+Tags: 関係副詞・where
+Level: B1
+
+[unit3-p21-s7]
+JP: 彼は友達の家に遊びに行きます。そこはゲームがたくさんあります。
+EN: He goes to his friend's house, where there are many games.
+Tags: 関係副詞・where
+Level: B1
+
+[unit3-p21-s8]
+JP: 私の姉は大学で勉強しています。そこは新しいことを学ぶ場所です。
+EN: My sister studies at university, where she learns new things.
+Tags: 関係副詞・where
+Level: B1
+
+[unit3-p21-s9]
+JP: 私たちは海で泳ぎます。そこはとても楽しいです。
+EN: We swim at the beach, where it is very fun.
+Tags: 関係副詞・where
+Level: B1
+
+[unit3-p21-s10]
+JP: 彼女は図書館で本を読みます。そこは静かです。
+EN: She reads books in the library, where it is quiet.
+Tags: 関係副詞・where
+Level: B1
+
+
+## Part 22: 関係副詞・when
+## 関係副詞・whenの使い方を練習
+## Priority: B
+
+[unit3-p22-s1]
+JP: 私は彼に会ったとき、彼は忙しかった。
+EN: He was busy when I met him.
+Tags: 関係副詞・when
+Level: B1
+
+[unit3-p22-s2]
+JP: 君が来たとき、パーティーは始まった。
+EN: The party started when you arrived.
+Tags: 関係副詞・when
+Level: B1
+
+[unit3-p22-s3]
+JP: 彼女は映画を見ているとき、泣いていた。
+EN: She cried when she watched the movie.
+Tags: 関係副詞・when
+Level: B1
+
+[unit3-p22-s4]
+JP: 私たちが学校に着いたとき、雨が降り始めた。
+EN: It started to rain when we arrived at school.
+Tags: 関係副詞・when
+Level: B1
+
+[unit3-p22-s5]
+JP: 私が本を読んでいたとき、彼が話しかけてきた。
+EN: He spoke to me when I was reading a book.
+Tags: 関係副詞・when
+Level: B1
+
+[unit3-p22-s6]
+JP: 彼が運動をしていたとき、友達が応援した。
+EN: His friends cheered when he was playing sports.
+Tags: 関係副詞・when
+Level: B1
+
+[unit3-p22-s7]
+JP: 兄がゲームをしているとき、私は宿題をしていた。
+EN: I was doing my homework when my brother was playing a game.
+Tags: 関係副詞・when
+Level: B1
+
+[unit3-p22-s8]
+JP: 彼女が電話をかけたとき、私は家にいなかった。
+EN: I was not at home when she made the call.
+Tags: 関係副詞・when
+Level: B1
+
+[unit3-p22-s9]
+JP: 子供たちが遊んでいるとき、私は庭で読書をしていた。
+EN: I was reading in the garden when the children were playing.
+Tags: 関係副詞・when
+Level: B1
+
+[unit3-p22-s10]
+JP: 彼が歌っているとき、みんなが拍手した。
+EN: Everyone clapped when he was singing.
+Tags: 関係副詞・when
+Level: B1
+
+
+
+================================================================================
+

@@ -1,65 +1,183 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { getStreakData } from '@/utils/streak';
 
 export default function Home() {
+  const [streakData, setStreakData] = useState<any>(null);
+  const [stats, setStats] = useState<any>(null);
+
+  useEffect(() => {
+    // Streakデータと統計を読み込み
+    setStreakData(getStreakData());
+
+    const statsStr = localStorage.getItem('trainingStats');
+    if (statsStr) {
+      setStats(JSON.parse(statsStr));
+    }
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 flex items-center justify-center p-4">
+      <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+        <div className="text-center mb-8">
+          <div className="relative inline-block mb-6">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 blur-2xl opacity-30 animate-pulse"></div>
+            <h1 className="relative text-5xl md:text-7xl font-black mb-2">
+              <span className="bg-gradient-to-r from-green-500 via-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-lg">
+                瞬間英会話
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent drop-shadow-lg">
+                トレーニング
+              </span>
+            </h1>
+          </div>
+          <p className="text-xl md:text-2xl font-semibold text-gray-700">
+            <span className="inline-block mr-2">💬</span>
+            短い文でスピーキング力アップ
+            <span className="inline-block ml-2">🚀</span>
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Streakカード */}
+        {streakData && streakData.currentStreak > 0 && (
+          <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6 mb-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">
+              🔥 連続学習記録
+            </h3>
+            <div className="grid grid-cols-2 gap-4 text-center">
+              <div>
+                <p className="text-4xl font-black text-orange-600">
+                  {streakData.currentStreak}
+                </p>
+                <p className="text-sm text-gray-600">連続日数</p>
+              </div>
+              <div>
+                <p className="text-4xl font-black text-red-600">
+                  {streakData.longestStreak}
+                </p>
+                <p className="text-sm text-gray-600">最長記録</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 統計カード */}
+        {stats && (
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">
+              📊 学習統計
+            </h3>
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <p className="text-2xl font-black text-blue-600">
+                  {stats.totalSessions}
+                </p>
+                <p className="text-xs text-gray-600">セッション</p>
+              </div>
+              <div>
+                <p className="text-2xl font-black text-purple-600">
+                  {stats.totalQuestions}
+                </p>
+                <p className="text-xs text-gray-600">総問題数</p>
+              </div>
+              <div>
+                <p className="text-2xl font-black text-green-600">
+                  {stats.averageAccuracy}%
+                </p>
+                <p className="text-xs text-gray-600">平均正解率</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="space-y-4 mb-8">
+          <div className="flex items-center gap-4 p-4 bg-green-50 rounded-xl border-2 border-green-200">
+            <div className="text-3xl">✨</div>
+            <div>
+              <h3 className="font-bold text-gray-800">AI生成で無限に学習</h3>
+              <p className="text-sm text-gray-600">
+                毎回新しい例文で飽きずに継続
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-xl border-2 border-blue-200">
+            <div className="text-3xl">🎯</div>
+            <div>
+              <h3 className="font-bold text-gray-800">
+                間隔反復で効率的に記憶
+              </h3>
+              <p className="text-sm text-gray-600">
+                苦手な例文は自動的に多く出題
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 p-4 bg-purple-50 rounded-xl border-2 border-purple-200">
+            <div className="text-3xl">🔊</div>
+            <div>
+              <h3 className="font-bold text-gray-800">音声読み上げ対応</h3>
+              <p className="text-sm text-gray-600">
+                ネイティブ発音で耳も鍛える
+              </p>
+            </div>
+          </div>
         </div>
-      </main>
+
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <Link
+              href="/units"
+              className="block w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xl font-bold rounded-2xl text-center hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105 shadow-lg"
+            >
+              📚 Unit学習
+            </Link>
+            <Link
+              href="/conversation"
+              className="block w-full py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white text-xl font-bold rounded-2xl text-center hover:from-green-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-lg"
+            >
+              🗣️ AIと英会話
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 gap-3">
+            <Link
+              href="/train"
+              className="block w-full py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-lg font-bold rounded-2xl text-center hover:from-orange-600 hover:to-red-600 transition-all transform hover:scale-105 shadow-md"
+            >
+              🎯 例文トレーニング
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            <Link
+              href="/settings"
+              className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
+            >
+              ⚙️ 設定
+            </Link>
+            <Link
+              href="/help"
+              className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
+            >
+              ❓ ヘルプ
+            </Link>
+            <Link
+              href="/test-generate"
+              className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
+            >
+              🧪 テスト
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center text-sm text-gray-500">
+          <p>毎日少しずつ、確実にレベルアップ</p>
+        </div>
+      </div>
     </div>
   );
 }
