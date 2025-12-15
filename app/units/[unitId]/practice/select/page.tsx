@@ -1,17 +1,20 @@
-'use client';
 
-import { use } from 'react';
-import Link from 'next/link';
-import { useSearchParams, useRouter } from 'next/navigation';
+/* eslint-disable @next/next/no-html-link-for-pages */
+
 import { getUnitById } from '@/utils/units';
 
 const QUESTION_COUNTS = [10, 25, 50, 75, 100];
 
-export default function UnitPracticeSelectPage({ params }: { params: Promise<{ unitId: string }> }) {
-  const resolvedParams = use(params);
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const shuffleMode = searchParams.get('shuffle') === 'true';
+export default async function UnitPracticeSelectPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ unitId: string }>;
+  searchParams: Promise<{ shuffle?: string }>;
+}) {
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  const shuffleMode = resolvedSearchParams.shuffle === 'true';
 
   const unit = getUnitById(resolvedParams.unitId);
 
@@ -22,12 +25,9 @@ export default function UnitPracticeSelectPage({ params }: { params: Promise<{ u
           <h1 className="text-2xl font-black text-gray-800 mb-4">
             Unitが見つかりません
           </h1>
-          <Link
-            href="/units"
-            className="text-blue-500 hover:text-blue-700 font-semibold"
-          >
+          <a href="/units" className="text-blue-500 hover:text-blue-700 font-semibold">
             ← Unit一覧に戻る
-          </Link>
+          </a>
         </div>
       </div>
     );
@@ -35,9 +35,8 @@ export default function UnitPracticeSelectPage({ params }: { params: Promise<{ u
 
   const totalSentences = unit.parts.reduce((total, part) => total + part.sentences.length, 0);
 
-  const handleSelectCount = (count: number) => {
-    router.push(`/units/${unit.id}/practice?count=${count}&shuffle=${shuffleMode}`);
-  };
+  const hrefForCount = (count: number) =>
+    `/units/${unit.id}/practice/mode?count=${count}&shuffle=${shuffleMode}`;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 p-4">
@@ -45,17 +44,17 @@ export default function UnitPracticeSelectPage({ params }: { params: Promise<{ u
         {/* ヘッダー */}
         <div className="bg-white rounded-3xl shadow-2xl p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <Link
+            <a
               href={`/units/${unit.id}?shuffle=${shuffleMode}`}
               className="text-gray-600 hover:text-gray-800 font-semibold"
             >
               ← {unit.title}
-            </Link>
+            </a>
           </div>
 
           <div className="text-center">
             <span className="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full">
-              まとめて練習
+              まとめて練習 {shuffleMode ? '(シャッフル)' : '(順番通り)'}
             </span>
             <h1 className="text-2xl font-black text-gray-800 mt-2">
               問題数を選択
@@ -69,13 +68,12 @@ export default function UnitPracticeSelectPage({ params }: { params: Promise<{ u
         {/* 問題数選択カード */}
         <div className="space-y-4">
           {QUESTION_COUNTS.map((count) => (
-            <button
+            <a
               key={count}
-              onClick={() => handleSelectCount(count)}
-              disabled={count > totalSentences}
-              className={`w-full p-6 rounded-2xl shadow-lg transition-all ${
+              href={hrefForCount(count)}
+              className={`block w-full p-6 rounded-2xl shadow-lg transition-all ${
                 count > totalSentences
-                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none'
                   : 'bg-white hover:bg-gradient-to-r hover:from-orange-50 hover:to-red-50 hover:shadow-xl'
               }`}
             >
@@ -94,13 +92,13 @@ export default function UnitPracticeSelectPage({ params }: { params: Promise<{ u
                   <div className="text-4xl">→</div>
                 )}
               </div>
-            </button>
+            </a>
           ))}
 
           {/* すべての問題を練習 */}
-          <button
-            onClick={() => handleSelectCount(totalSentences)}
-            className="w-full p-6 rounded-2xl shadow-lg bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 transition-all"
+          <a
+            href={hrefForCount(totalSentences)}
+            className="block w-full p-6 rounded-2xl shadow-lg bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 transition-all"
           >
             <div className="flex items-center justify-between">
               <div className="text-left">
@@ -111,9 +109,9 @@ export default function UnitPracticeSelectPage({ params }: { params: Promise<{ u
                   全パートのすべての問題を練習
                 </p>
               </div>
-              <div className="text-4xl">🔥</div>
+              <div className="text-4xl">→</div>
             </div>
-          </button>
+          </a>
         </div>
       </div>
     </div>

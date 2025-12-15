@@ -1,8 +1,9 @@
-const CACHE_NAME = 'english-app-v1';
+const CACHE_NAME = 'english-app-v2';
 const urlsToCache = [
-  '/',
-  '/train',
   '/manifest.json',
+  '/favicon.ico',
+  '/icon-192.png',
+  '/icon-512.png',
 ];
 
 // インストール時
@@ -31,6 +32,22 @@ self.addEventListener('activate', (event) => {
 
 // フェッチ時（ネットワーク優先、フォールバックでキャッシュ）
 self.addEventListener('fetch', (event) => {
+  // GET以外はそのまま（POSTのAPIなどを壊さない）
+  if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+
+  // 外部リソースは触らない
+  if (url.origin !== self.location.origin) return;
+
+  // Next.js内部・API・RSCはキャッシュしない（壊れやすい）
+  if (url.pathname.startsWith('/_next/') || url.pathname.startsWith('/api/')) return;
+  if (url.searchParams.has('_rsc')) return;
+
+  // HTMLナビゲーションはキャッシュしない
+  const accept = event.request.headers.get('accept') || '';
+  if (event.request.mode === 'navigate' || accept.includes('text/html')) return;
+
   event.respondWith(
     fetch(event.request)
       .then((response) => {

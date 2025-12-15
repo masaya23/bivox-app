@@ -1,8 +1,37 @@
-'use client';
 
-import Link from 'next/link';
+/* eslint-disable @next/next/no-html-link-for-pages */
 
-export default function TrainModePage() {
+import { getUnitById } from '@/utils/units';
+
+export default async function UnitPracticeModeSelectPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ unitId: string }>;
+  searchParams: Promise<{ count?: string; shuffle?: string }>;
+}) {
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  const count = resolvedSearchParams.count || '10';
+  const shuffleMode = resolvedSearchParams.shuffle === 'true';
+
+  const unit = getUnitById(resolvedParams.unitId);
+
+  if (!unit) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 p-4 flex items-center justify-center">
+        <div className="bg-white rounded-3xl shadow-2xl p-8 text-center">
+          <h1 className="text-2xl font-black text-gray-800 mb-4">
+            Unitが見つかりません
+          </h1>
+          <a href="/units" className="text-blue-500 hover:text-blue-700 font-semibold">
+            ← Unit一覧に戻る
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
       <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 md:p-12">
@@ -12,19 +41,19 @@ export default function TrainModePage() {
             トレーニングモード選択
           </h1>
           <p className="text-lg text-gray-600">
-            あなたに合った学習方法を選んでください
+            {unit.title} - {count}問
           </p>
         </div>
 
         {/* モード選択カード */}
         <div className="space-y-4 mb-8">
           {/* シャドーイングモード */}
-          <Link
-            href="/train/shadowing"
+          <a
+            href={`/units/${unit.id}/practice?count=${count}&shuffle=${shuffleMode}&mode=shadowing`}
             className="block p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl border-2 border-green-200 hover:border-green-400 transition-all transform hover:scale-105"
           >
             <div className="flex items-start gap-4">
-              <div className="text-5xl">👂</div>
+              <div className="text-2xl font-black text-green-700">SH</div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">
                   シャドーイングモード
@@ -49,15 +78,15 @@ export default function TrainModePage() {
               </div>
               <div className="text-gray-400 text-3xl">→</div>
             </div>
-          </Link>
+          </a>
 
           {/* スピーキングモード */}
-          <Link
-            href="/train/speaking"
+          <a
+            href={`/units/${unit.id}/practice?count=${count}&shuffle=${shuffleMode}&mode=speaking`}
             className="block p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 hover:border-purple-400 transition-all transform hover:scale-105"
           >
             <div className="flex items-start gap-4">
-              <div className="text-5xl">🎤</div>
+              <div className="text-2xl font-black text-purple-700">SP</div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">
                   スピーキングモード
@@ -82,16 +111,16 @@ export default function TrainModePage() {
               </div>
               <div className="text-gray-400 text-3xl">→</div>
             </div>
-          </Link>
+          </a>
         </div>
 
         {/* 戻るボタン */}
-        <Link
-          href="/"
+        <a
+          href={`/units/${unit.id}/practice/select?shuffle=${shuffleMode}`}
           className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
         >
-          ← ホームに戻る
-        </Link>
+          ← 問題数選択に戻る
+        </a>
       </div>
     </div>
   );

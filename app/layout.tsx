@@ -34,23 +34,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isProd = process.env.NODE_ENV === 'production';
+
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         {children}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              if ('serviceWorker' in navigator) {
+              (function() {
+                if (!('serviceWorker' in navigator)) return;
+                const IS_PROD = ${isProd ? 'true' : 'false'};
+
+                // 開発中はService WorkerがNext.jsの更新を邪魔しやすいので、既存SWとキャッシュを削除する
+                if (!IS_PROD) {
+                  Promise.all([
+                    navigator.serviceWorker.getRegistrations().then((regs) => Promise.all(regs.map((r) => r.unregister()))),
+                    (self.caches ? caches.keys().then((keys) => Promise.all(keys.map((k) => caches.delete(k)))) : Promise.resolve()),
+                  ]).catch(() => {});
+                  return;
+                }
+
                 window.addEventListener('load', function() {
                   navigator.serviceWorker.register('/sw.js').then(
-                    function(registration) {
+                    function() {
                       console.log('ServiceWorker registration successful');
                     },
                     function(err) {
@@ -58,7 +73,7 @@ export default function RootLayout({
                     }
                   );
                 });
-              }
+              })();
             `,
           }}
         />

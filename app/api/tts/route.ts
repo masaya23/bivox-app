@@ -40,10 +40,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // OpenAI TTS APIで音声生成
+    // OpenAI TTS APIで音声生成（より自然な最新モデルを使用）
     const mp3 = await openai.audio.speech.create({
-      model: 'tts-1',
-      voice: lang === 'ja' ? 'nova' : 'alloy', // 日本語は nova、英語は alloy
+      model: 'gpt-4o-mini-tts',
+      voice: lang === 'ja' ? 'alloy' : 'alloy',
       input: text,
       speed: 1.0,
     });

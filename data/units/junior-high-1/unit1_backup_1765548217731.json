@@ -1,0 +1,2731 @@
+{
+  "id": "unit1",
+  "title": "Unit 1: 基礎文法総合",
+  "description": "be動詞、一般動詞、進行形、助動詞など中学1年の基礎文法を学習します",
+  "grade": "junior-high-1",
+  "unitNumber": 1,
+  "parts": [
+    {
+      "id": "unit1-p1",
+      "partNumber": 1,
+      "title": "Part 1: be動詞（肯定文）",
+      "description": "be動詞の基本的な使い方を学びます",
+      "priority": "A",
+      "sentences": [
+        {
+          "id": "unit1-p1-s1",
+          "jp": "私は学生です。",
+          "en": "I am a student.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p1-s2",
+          "jp": "あなたは親切です。",
+          "en": "You are kind.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p1-s3",
+          "jp": "彼は医者です。",
+          "en": "He is a doctor.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "肯定文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p1-s4",
+          "jp": "彼女は看護師です。",
+          "en": "She is a nurse.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "肯定文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p1-s5",
+          "jp": "それは私のペンです。",
+          "en": "It is my pen.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "肯定文",
+            "所有格"
+          ]
+        },
+        {
+          "id": "unit1-p1-s6",
+          "jp": "私たちは友達です。",
+          "en": "We are friends.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "肯定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p1-s7",
+          "jp": "彼らは生徒です。",
+          "en": "They are students.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "肯定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p1-s8",
+          "jp": "これは私の本です。",
+          "en": "This is my book.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "肯定文",
+            "指示代名詞"
+          ]
+        },
+        {
+          "id": "unit1-p1-s9",
+          "jp": "あれは学校です。",
+          "en": "That is a school.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "肯定文",
+            "指示代名詞"
+          ]
+        },
+        {
+          "id": "unit1-p1-s10",
+          "jp": "今日は暑いです。",
+          "en": "It is hot today.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "肯定文",
+            "天気"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unit1-p2",
+      "title": "Part 2: be動詞（否定文）",
+      "description": "be動詞の否定文を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p2-s1",
+          "jp": "私は学生ではありません。",
+          "en": "I am not a student.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p2-s2",
+          "jp": "あなたは忙しくありません。",
+          "en": "You are not busy.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p2-s3",
+          "jp": "彼は教師ではありません。",
+          "en": "He is not a teacher.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "否定文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p2-s4",
+          "jp": "彼女は日本人ではありません。",
+          "en": "She is not Japanese.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "否定文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p2-s5",
+          "jp": "それは私の犬ではありません。",
+          "en": "It is not my dog.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p2-s6",
+          "jp": "私たちは疲れていません。",
+          "en": "We are not tired.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "否定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p2-s7",
+          "jp": "彼らは兄弟ではありません。",
+          "en": "They are not brothers.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "否定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p2-s8",
+          "jp": "これは新しくありません。",
+          "en": "This is not new.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p2-s9",
+          "jp": "あれは私の車ではありません。",
+          "en": "That is not my car.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p2-s10",
+          "jp": "今日は寒くありません。",
+          "en": "It is not cold today.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "否定文",
+            "天気"
+          ]
+        }
+      ],
+      "partNumber": 2,
+      "priority": "A"
+    },
+    {
+      "id": "unit1-p3",
+      "title": "Part 3: be動詞（疑問文）",
+      "description": "be動詞の疑問文を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p3-s1",
+          "jp": "あなたは学生ですか。",
+          "en": "Are you a student?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p3-s2",
+          "jp": "彼は医者ですか。",
+          "en": "Is he a doctor?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "疑問文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p3-s3",
+          "jp": "彼女は日本人ですか。",
+          "en": "Is she Japanese?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "疑問文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p3-s4",
+          "jp": "これはあなたのペンですか。",
+          "en": "Is this your pen?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "疑問文",
+            "所有格"
+          ]
+        },
+        {
+          "id": "unit1-p3-s5",
+          "jp": "彼らは友達ですか。",
+          "en": "Are they friends?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "疑問文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p3-s6",
+          "jp": "あなたは疲れていますか。",
+          "en": "Are you tired?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p3-s7",
+          "jp": "それは新しいですか。",
+          "en": "Is it new?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p3-s8",
+          "jp": "彼は親切ですか。",
+          "en": "Is he kind?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "疑問文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p3-s9",
+          "jp": "私たちは遅刻していますか。",
+          "en": "Are we late?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "疑問文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p3-s10",
+          "jp": "今日は晴れていますか。",
+          "en": "Is it sunny today?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "疑問文",
+            "天気"
+          ]
+        }
+      ],
+      "partNumber": 3,
+      "priority": "A"
+    },
+    {
+      "id": "unit1-p4",
+      "title": "Part 4: 一般動詞（肯定文）",
+      "description": "一般動詞の基本的な使い方を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p4-s1",
+          "jp": "私はテニスをします。",
+          "en": "I play tennis.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p4-s2",
+          "jp": "あなたは英語を勉強します。",
+          "en": "You study English.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p4-s3",
+          "jp": "彼は毎日走ります。",
+          "en": "He runs every day.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "肯定文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p4-s4",
+          "jp": "彼女は音楽を聴きます。",
+          "en": "She listens to music.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "肯定文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p4-s5",
+          "jp": "私たちはバスケットボールをします。",
+          "en": "We play basketball.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "肯定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p4-s6",
+          "jp": "彼らは公園で遊びます。",
+          "en": "They play in the park.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "肯定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p4-s7",
+          "jp": "私は本を読みます。",
+          "en": "I read books.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p4-s8",
+          "jp": "彼は学校に行きます。",
+          "en": "He goes to school.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "肯定文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p4-s9",
+          "jp": "私たちは朝食を食べます。",
+          "en": "We eat breakfast.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "肯定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p4-s10",
+          "jp": "彼女は毎日泳ぎます。",
+          "en": "She swims every day.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "肯定文",
+            "三人称単数"
+          ]
+        }
+      ],
+      "partNumber": 4,
+      "priority": "A"
+    },
+    {
+      "id": "unit1-p5",
+      "title": "Part 5: 一般動詞（否定文）",
+      "description": "一般動詞の否定文を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p5-s1",
+          "jp": "私はテニスをしません。",
+          "en": "I do not play tennis.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p5-s2",
+          "jp": "あなたは英語を勉強しません。",
+          "en": "You do not study English.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p5-s3",
+          "jp": "彼は走りません。",
+          "en": "He does not run.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "否定文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p5-s4",
+          "jp": "彼女は音楽を聴きません。",
+          "en": "She does not listen to music.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "否定文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p5-s5",
+          "jp": "私たちはサッカーをしません。",
+          "en": "We do not play soccer.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "否定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p5-s6",
+          "jp": "彼らは学校に行きません。",
+          "en": "They do not go to school.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "否定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p5-s7",
+          "jp": "私は肉を食べません。",
+          "en": "I do not eat meat.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p5-s8",
+          "jp": "彼は早く起きません。",
+          "en": "He does not wake up early.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "否定文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p5-s9",
+          "jp": "彼女はテレビを見ません。",
+          "en": "She does not watch TV.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "否定文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p5-s10",
+          "jp": "私たちは料理をしません。",
+          "en": "We do not cook.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "否定文",
+            "複数"
+          ]
+        }
+      ],
+      "partNumber": 5,
+      "priority": "A"
+    },
+    {
+      "id": "unit1-p6",
+      "title": "Part 6: 一般動詞（疑問文）",
+      "description": "一般動詞の疑問文を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p6-s1",
+          "jp": "あなたはテニスをしますか。",
+          "en": "Do you play tennis?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p6-s2",
+          "jp": "彼は英語を勉強しますか。",
+          "en": "Does he study English?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "疑問文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p6-s3",
+          "jp": "彼女は音楽を聴きますか。",
+          "en": "Does she listen to music?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "疑問文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p6-s4",
+          "jp": "彼らは公園で遊びますか。",
+          "en": "Do they play in the park?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "疑問文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p6-s5",
+          "jp": "あなたは本を読みますか。",
+          "en": "Do you read books?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p6-s6",
+          "jp": "彼は学校に行きますか。",
+          "en": "Does he go to school?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "疑問文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p6-s7",
+          "jp": "私たちは朝食を食べますか。",
+          "en": "Do we eat breakfast?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "疑問文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p6-s8",
+          "jp": "彼女は毎日泳ぎますか。",
+          "en": "Does she swim every day?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "疑問文",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p6-s9",
+          "jp": "あなたは料理が好きですか。",
+          "en": "Do you like cooking?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p6-s10",
+          "jp": "彼はピアノを弾きますか。",
+          "en": "Does he play the piano?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "疑問文",
+            "三人称単数"
+          ]
+        }
+      ],
+      "partNumber": 6,
+      "priority": "A"
+    },
+    {
+      "id": "unit1-p7",
+      "title": "Part 7: 現在進行形（肯定文）",
+      "description": "現在進行形の基本を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p7-s1",
+          "jp": "私は今勉強しています。",
+          "en": "I am studying now.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p7-s2",
+          "jp": "あなたは本を読んでいます。",
+          "en": "You are reading a book.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p7-s3",
+          "jp": "彼は走っています。",
+          "en": "He is running.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "肯定文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p7-s4",
+          "jp": "彼女は料理をしています。",
+          "en": "She is cooking.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "肯定文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p7-s5",
+          "jp": "私たちはテニスをしています。",
+          "en": "We are playing tennis.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "肯定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p7-s6",
+          "jp": "彼らは音楽を聴いています。",
+          "en": "They are listening to music.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "肯定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p7-s7",
+          "jp": "私は今食事をしています。",
+          "en": "I am eating now.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p7-s8",
+          "jp": "彼は宿題をしています。",
+          "en": "He is doing homework.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "肯定文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p7-s9",
+          "jp": "彼女はテレビを見ています。",
+          "en": "She is watching TV.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "肯定文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p7-s10",
+          "jp": "私たちは歌を歌っています。",
+          "en": "We are singing a song.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "肯定文",
+            "複数"
+          ]
+        }
+      ],
+      "partNumber": 7,
+      "priority": "A"
+    },
+    {
+      "id": "unit1-p8",
+      "title": "Part 8: 現在進行形（否定文・疑問文）",
+      "description": "現在進行形の否定文と疑問文を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p8-s1",
+          "jp": "私は今勉強していません。",
+          "en": "I am not studying now.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p8-s2",
+          "jp": "彼は走っていません。",
+          "en": "He is not running.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "否定文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p8-s3",
+          "jp": "彼女は料理をしていません。",
+          "en": "She is not cooking.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "否定文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p8-s4",
+          "jp": "私たちはテニスをしていません。",
+          "en": "We are not playing tennis.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "否定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p8-s5",
+          "jp": "彼らは音楽を聴いていません。",
+          "en": "They are not listening to music.",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "否定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p8-s6",
+          "jp": "あなたは今勉強していますか。",
+          "en": "Are you studying now?",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p8-s7",
+          "jp": "彼は走っていますか。",
+          "en": "Is he running?",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "疑問文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p8-s8",
+          "jp": "彼女は料理をしていますか。",
+          "en": "Is she cooking?",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "疑問文",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p8-s9",
+          "jp": "私たちはテニスをしていますか。",
+          "en": "Are we playing tennis?",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "疑問文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p8-s10",
+          "jp": "彼らは音楽を聴いていますか。",
+          "en": "Are they listening to music?",
+          "level": "A1",
+          "tags": [
+            "現在進行形",
+            "疑問文",
+            "複数"
+          ]
+        }
+      ],
+      "partNumber": 8,
+      "priority": "A"
+    },
+    {
+      "id": "unit1-p9",
+      "title": "Part 9: can（肯定文・否定文）",
+      "description": "canの使い方を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p9-s1",
+          "jp": "私は泳ぐことができます。",
+          "en": "I can swim.",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p9-s2",
+          "jp": "あなたは英語を話せます。",
+          "en": "You can speak English.",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p9-s3",
+          "jp": "彼はピアノを弾けます。",
+          "en": "He can play the piano.",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p9-s4",
+          "jp": "彼女は速く走れます。",
+          "en": "She can run fast.",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "肯定文"
+          ]
+        },
+        {
+          "id": "unit1-p9-s5",
+          "jp": "私たちはサッカーができます。",
+          "en": "We can play soccer.",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "肯定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p9-s6",
+          "jp": "私は泳げません。",
+          "en": "I cannot swim.",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p9-s7",
+          "jp": "彼は英語を話せません。",
+          "en": "He cannot speak English.",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p9-s8",
+          "jp": "彼女はピアノを弾けません。",
+          "en": "She cannot play the piano.",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p9-s9",
+          "jp": "私たちは速く走れません。",
+          "en": "We cannot run fast.",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "否定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p9-s10",
+          "jp": "彼らは料理ができません。",
+          "en": "They cannot cook.",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "否定文",
+            "複数"
+          ]
+        }
+      ],
+      "partNumber": 9,
+      "priority": "B"
+    },
+    {
+      "id": "unit1-p10",
+      "title": "Part 10: can（疑問文）",
+      "description": "canの疑問文を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p10-s1",
+          "jp": "あなたは泳げますか。",
+          "en": "Can you swim?",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p10-s2",
+          "jp": "彼は英語を話せますか。",
+          "en": "Can he speak English?",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p10-s3",
+          "jp": "彼女はピアノを弾けますか。",
+          "en": "Can she play the piano?",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p10-s4",
+          "jp": "私たちは速く走れますか。",
+          "en": "Can we run fast?",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "疑問文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p10-s5",
+          "jp": "彼らは料理ができますか。",
+          "en": "Can they cook?",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "疑問文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p10-s6",
+          "jp": "あなたは車を運転できますか。",
+          "en": "Can you drive a car?",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p10-s7",
+          "jp": "彼は自転車に乗れますか。",
+          "en": "Can he ride a bike?",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p10-s8",
+          "jp": "彼女はダンスができますか。",
+          "en": "Can she dance?",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p10-s9",
+          "jp": "私たちはここで待てますか。",
+          "en": "Can we wait here?",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "疑問文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p10-s10",
+          "jp": "彼らは明日来られますか。",
+          "en": "Can they come tomorrow?",
+          "level": "A1",
+          "tags": [
+            "助動詞",
+            "can",
+            "疑問文",
+            "複数"
+          ]
+        }
+      ],
+      "partNumber": 10,
+      "priority": "B"
+    },
+    {
+      "id": "unit1-p11",
+      "title": "Part 11: 過去形（be動詞）",
+      "description": "be動詞の過去形を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p11-s1",
+          "jp": "私は昨日忙しかったです。",
+          "en": "I was busy yesterday.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "過去形"
+          ]
+        },
+        {
+          "id": "unit1-p11-s2",
+          "jp": "あなたは昨日学校にいました。",
+          "en": "You were at school yesterday.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "過去形"
+          ]
+        },
+        {
+          "id": "unit1-p11-s3",
+          "jp": "彼は先週病気でした。",
+          "en": "He was sick last week.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "過去形",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p11-s4",
+          "jp": "彼女は昨日疲れていました。",
+          "en": "She was tired yesterday.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "過去形",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p11-s5",
+          "jp": "私たちは昨日公園にいました。",
+          "en": "We were in the park yesterday.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "過去形",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p11-s6",
+          "jp": "彼らは先週東京にいました。",
+          "en": "They were in Tokyo last week.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "過去形",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p11-s7",
+          "jp": "昨日は暑かったです。",
+          "en": "It was hot yesterday.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "過去形",
+            "天気"
+          ]
+        },
+        {
+          "id": "unit1-p11-s8",
+          "jp": "私は昨日家にいませんでした。",
+          "en": "I was not at home yesterday.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "過去形",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p11-s9",
+          "jp": "彼らは昨日学校にいませんでした。",
+          "en": "They were not at school yesterday.",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "過去形",
+            "否定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p11-s10",
+          "jp": "あなたは昨日忙しかったですか。",
+          "en": "Were you busy yesterday?",
+          "level": "A1",
+          "tags": [
+            "be動詞",
+            "過去形",
+            "疑問文"
+          ]
+        }
+      ],
+      "partNumber": 11,
+      "priority": "B"
+    },
+    {
+      "id": "unit1-p12",
+      "title": "Part 12: 過去形（一般動詞）",
+      "description": "一般動詞の過去形を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p12-s1",
+          "jp": "私は昨日テニスをしました。",
+          "en": "I played tennis yesterday.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "過去形"
+          ]
+        },
+        {
+          "id": "unit1-p12-s2",
+          "jp": "あなたは昨日英語を勉強しました。",
+          "en": "You studied English yesterday.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "過去形"
+          ]
+        },
+        {
+          "id": "unit1-p12-s3",
+          "jp": "彼は昨日走りました。",
+          "en": "He ran yesterday.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "過去形",
+            "不規則動詞"
+          ]
+        },
+        {
+          "id": "unit1-p12-s4",
+          "jp": "彼女は昨日音楽を聴きました。",
+          "en": "She listened to music yesterday.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "過去形"
+          ]
+        },
+        {
+          "id": "unit1-p12-s5",
+          "jp": "私たちは昨日公園で遊びました。",
+          "en": "We played in the park yesterday.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "過去形",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p12-s6",
+          "jp": "彼らは昨日学校に行きました。",
+          "en": "They went to school yesterday.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "過去形",
+            "不規則動詞",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p12-s7",
+          "jp": "私は昨日本を読みました。",
+          "en": "I read a book yesterday.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "過去形",
+            "不規則動詞"
+          ]
+        },
+        {
+          "id": "unit1-p12-s8",
+          "jp": "彼は昨日朝食を食べました。",
+          "en": "He ate breakfast yesterday.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "過去形",
+            "不規則動詞"
+          ]
+        },
+        {
+          "id": "unit1-p12-s9",
+          "jp": "私は昨日テニスをしませんでした。",
+          "en": "I did not play tennis yesterday.",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "過去形",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p12-s10",
+          "jp": "あなたは昨日英語を勉強しましたか。",
+          "en": "Did you study English yesterday?",
+          "level": "A1",
+          "tags": [
+            "一般動詞",
+            "過去形",
+            "疑問文"
+          ]
+        }
+      ],
+      "partNumber": 12,
+      "priority": "B"
+    },
+    {
+      "id": "unit1-p13",
+      "title": "Part 13: 未来表現（be going to）",
+      "description": "be going toを使った未来表現を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p13-s1",
+          "jp": "私は明日テニスをする予定です。",
+          "en": "I am going to play tennis tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "be going to"
+          ]
+        },
+        {
+          "id": "unit1-p13-s2",
+          "jp": "あなたは明日英語を勉強する予定です。",
+          "en": "You are going to study English tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "be going to"
+          ]
+        },
+        {
+          "id": "unit1-p13-s3",
+          "jp": "彼は明日走る予定です。",
+          "en": "He is going to run tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "be going to",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p13-s4",
+          "jp": "彼女は明日音楽を聴く予定です。",
+          "en": "She is going to listen to music tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "be going to",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p13-s5",
+          "jp": "私たちは明日公園で遊ぶ予定です。",
+          "en": "We are going to play in the park tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "be going to",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p13-s6",
+          "jp": "彼らは明日学校に行く予定です。",
+          "en": "They are going to go to school tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "be going to",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p13-s7",
+          "jp": "私は明日買い物をする予定です。",
+          "en": "I am going to go shopping tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "be going to"
+          ]
+        },
+        {
+          "id": "unit1-p13-s8",
+          "jp": "彼は来週旅行する予定です。",
+          "en": "He is going to travel next week.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "be going to",
+            "三人称"
+          ]
+        },
+        {
+          "id": "unit1-p13-s9",
+          "jp": "私は明日テニスをする予定はありません。",
+          "en": "I am not going to play tennis tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "be going to",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p13-s10",
+          "jp": "あなたは明日英語を勉強する予定ですか。",
+          "en": "Are you going to study English tomorrow?",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "be going to",
+            "疑問文"
+          ]
+        }
+      ],
+      "partNumber": 13,
+      "priority": "B"
+    },
+    {
+      "id": "unit1-p14",
+      "title": "Part 14: 未来表現（will）",
+      "description": "willを使った未来表現を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p14-s1",
+          "jp": "私は明日テニスをします。",
+          "en": "I will play tennis tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "will"
+          ]
+        },
+        {
+          "id": "unit1-p14-s2",
+          "jp": "あなたは明日英語を勉強するでしょう。",
+          "en": "You will study English tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "will"
+          ]
+        },
+        {
+          "id": "unit1-p14-s3",
+          "jp": "彼は明日走るでしょう。",
+          "en": "He will run tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "will"
+          ]
+        },
+        {
+          "id": "unit1-p14-s4",
+          "jp": "彼女は明日音楽を聴くでしょう。",
+          "en": "She will listen to music tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "will"
+          ]
+        },
+        {
+          "id": "unit1-p14-s5",
+          "jp": "私たちは明日公園で遊ぶでしょう。",
+          "en": "We will play in the park tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "will",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p14-s6",
+          "jp": "彼らは明日学校に行くでしょう。",
+          "en": "They will go to school tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "will",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p14-s7",
+          "jp": "明日は晴れるでしょう。",
+          "en": "It will be sunny tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "will",
+            "天気"
+          ]
+        },
+        {
+          "id": "unit1-p14-s8",
+          "jp": "私は明日テニスをしないでしょう。",
+          "en": "I will not play tennis tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "will",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p14-s9",
+          "jp": "彼は明日来ないでしょう。",
+          "en": "He will not come tomorrow.",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "will",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p14-s10",
+          "jp": "あなたは明日英語を勉強しますか。",
+          "en": "Will you study English tomorrow?",
+          "level": "A1",
+          "tags": [
+            "未来",
+            "will",
+            "疑問文"
+          ]
+        }
+      ],
+      "partNumber": 14,
+      "priority": "B"
+    },
+    {
+      "id": "unit1-p15",
+      "title": "Part 15: 疑問詞（what/who）",
+      "description": "whatとwhoの使い方を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p15-s1",
+          "jp": "これは何ですか。",
+          "en": "What is this?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "what"
+          ]
+        },
+        {
+          "id": "unit1-p15-s2",
+          "jp": "あなたは何をしていますか。",
+          "en": "What are you doing?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "what",
+            "現在進行形"
+          ]
+        },
+        {
+          "id": "unit1-p15-s3",
+          "jp": "あなたは何が好きですか。",
+          "en": "What do you like?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "what"
+          ]
+        },
+        {
+          "id": "unit1-p15-s4",
+          "jp": "あなたは何が欲しいですか。",
+          "en": "What do you want?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "what"
+          ]
+        },
+        {
+          "id": "unit1-p15-s5",
+          "jp": "あなたの名前は何ですか。",
+          "en": "What is your name?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "what"
+          ]
+        },
+        {
+          "id": "unit1-p15-s6",
+          "jp": "あれは誰ですか。",
+          "en": "Who is that?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "who"
+          ]
+        },
+        {
+          "id": "unit1-p15-s7",
+          "jp": "あなたは誰ですか。",
+          "en": "Who are you?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "who"
+          ]
+        },
+        {
+          "id": "unit1-p15-s8",
+          "jp": "誰がテニスをしますか。",
+          "en": "Who plays tennis?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "who"
+          ]
+        },
+        {
+          "id": "unit1-p15-s9",
+          "jp": "誰が走っていますか。",
+          "en": "Who is running?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "who",
+            "現在進行形"
+          ]
+        },
+        {
+          "id": "unit1-p15-s10",
+          "jp": "誰が英語を勉強しますか。",
+          "en": "Who studies English?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "who"
+          ]
+        }
+      ],
+      "partNumber": 15,
+      "priority": "B"
+    },
+    {
+      "id": "unit1-p16",
+      "title": "Part 16: 疑問詞（when/where）",
+      "description": "whenとwhereの使い方を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p16-s1",
+          "jp": "いつあなたは学校に行きますか。",
+          "en": "When do you go to school?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "when"
+          ]
+        },
+        {
+          "id": "unit1-p16-s2",
+          "jp": "いつ彼は起きますか。",
+          "en": "When does he wake up?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "when",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p16-s3",
+          "jp": "いつあなたは勉強しますか。",
+          "en": "When do you study?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "when"
+          ]
+        },
+        {
+          "id": "unit1-p16-s4",
+          "jp": "いつ彼女は来ますか。",
+          "en": "When does she come?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "when",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p16-s5",
+          "jp": "いつあなたは朝食を食べますか。",
+          "en": "When do you eat breakfast?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "when"
+          ]
+        },
+        {
+          "id": "unit1-p16-s6",
+          "jp": "どこにあなたは住んでいますか。",
+          "en": "Where do you live?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "where"
+          ]
+        },
+        {
+          "id": "unit1-p16-s7",
+          "jp": "どこで彼は働いていますか。",
+          "en": "Where does he work?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "where",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p16-s8",
+          "jp": "どこにあなたの学校はありますか。",
+          "en": "Where is your school?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "where"
+          ]
+        },
+        {
+          "id": "unit1-p16-s9",
+          "jp": "どこで彼女は勉強していますか。",
+          "en": "Where does she study?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "where",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p16-s10",
+          "jp": "どこにあなたは行きますか。",
+          "en": "Where do you go?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "where"
+          ]
+        }
+      ],
+      "partNumber": 16,
+      "priority": "B"
+    },
+    {
+      "id": "unit1-p17",
+      "title": "Part 17: 疑問詞（why/how）",
+      "description": "whyとhowの使い方を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p17-s1",
+          "jp": "なぜあなたは走っていますか。",
+          "en": "Why are you running?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "why",
+            "現在進行形"
+          ]
+        },
+        {
+          "id": "unit1-p17-s2",
+          "jp": "なぜ彼は遅刻しましたか。",
+          "en": "Why was he late?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "why",
+            "過去形"
+          ]
+        },
+        {
+          "id": "unit1-p17-s3",
+          "jp": "なぜあなたは悲しいのですか。",
+          "en": "Why are you sad?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "why"
+          ]
+        },
+        {
+          "id": "unit1-p17-s4",
+          "jp": "なぜ彼女は学校に行かなかったのですか。",
+          "en": "Why did she not go to school?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "why",
+            "過去形",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p17-s5",
+          "jp": "なぜあなたは英語を勉強するのですか。",
+          "en": "Why do you study English?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "why"
+          ]
+        },
+        {
+          "id": "unit1-p17-s6",
+          "jp": "どうやってあなたは学校に行きますか。",
+          "en": "How do you go to school?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "how"
+          ]
+        },
+        {
+          "id": "unit1-p17-s7",
+          "jp": "ご機嫌いかがですか。",
+          "en": "How are you?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "how"
+          ]
+        },
+        {
+          "id": "unit1-p17-s8",
+          "jp": "どうやって彼は英語を勉強しますか。",
+          "en": "How does he study English?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "how",
+            "三人称単数"
+          ]
+        },
+        {
+          "id": "unit1-p17-s9",
+          "jp": "天気はどうですか。",
+          "en": "How is the weather?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "how",
+            "天気"
+          ]
+        },
+        {
+          "id": "unit1-p17-s10",
+          "jp": "どうやってあなたはそれを知っていますか。",
+          "en": "How do you know that?",
+          "level": "A1",
+          "tags": [
+            "疑問詞",
+            "how"
+          ]
+        }
+      ],
+      "partNumber": 17,
+      "priority": "C"
+    },
+    {
+      "id": "unit1-p18",
+      "title": "Part 18: 命令文・依頼文",
+      "description": "命令文と依頼文を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p18-s1",
+          "jp": "ここに座りなさい。",
+          "en": "Sit here.",
+          "level": "A1",
+          "tags": [
+            "命令文"
+          ]
+        },
+        {
+          "id": "unit1-p18-s2",
+          "jp": "ドアを開けなさい。",
+          "en": "Open the door.",
+          "level": "A1",
+          "tags": [
+            "命令文"
+          ]
+        },
+        {
+          "id": "unit1-p18-s3",
+          "jp": "静かにしなさい。",
+          "en": "Be quiet.",
+          "level": "A1",
+          "tags": [
+            "命令文"
+          ]
+        },
+        {
+          "id": "unit1-p18-s4",
+          "jp": "走ってはいけません。",
+          "en": "Do not run.",
+          "level": "A1",
+          "tags": [
+            "命令文",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p18-s5",
+          "jp": "心配しないでください。",
+          "en": "Do not worry.",
+          "level": "A1",
+          "tags": [
+            "命令文",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p18-s6",
+          "jp": "ドアを開けてください。",
+          "en": "Please open the door.",
+          "level": "A1",
+          "tags": [
+            "依頼文"
+          ]
+        },
+        {
+          "id": "unit1-p18-s7",
+          "jp": "ここに来てください。",
+          "en": "Please come here.",
+          "level": "A1",
+          "tags": [
+            "依頼文"
+          ]
+        },
+        {
+          "id": "unit1-p18-s8",
+          "jp": "私を助けてください。",
+          "en": "Please help me.",
+          "level": "A1",
+          "tags": [
+            "依頼文"
+          ]
+        },
+        {
+          "id": "unit1-p18-s9",
+          "jp": "窓を閉めてください。",
+          "en": "Please close the window.",
+          "level": "A1",
+          "tags": [
+            "依頼文"
+          ]
+        },
+        {
+          "id": "unit1-p18-s10",
+          "jp": "ゆっくり話してください。",
+          "en": "Please speak slowly.",
+          "level": "A1",
+          "tags": [
+            "依頼文"
+          ]
+        }
+      ],
+      "partNumber": 18,
+      "priority": "C"
+    },
+    {
+      "id": "unit1-p19",
+      "title": "Part 19: 提案・勧誘（Let's）",
+      "description": "Let'sを使った提案・勧誘表現を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p19-s1",
+          "jp": "テニスをしましょう。",
+          "en": "Let's play tennis.",
+          "level": "A1",
+          "tags": [
+            "提案",
+            "Let's"
+          ]
+        },
+        {
+          "id": "unit1-p19-s2",
+          "jp": "公園に行きましょう。",
+          "en": "Let's go to the park.",
+          "level": "A1",
+          "tags": [
+            "提案",
+            "Let's"
+          ]
+        },
+        {
+          "id": "unit1-p19-s3",
+          "jp": "英語を勉強しましょう。",
+          "en": "Let's study English.",
+          "level": "A1",
+          "tags": [
+            "提案",
+            "Let's"
+          ]
+        },
+        {
+          "id": "unit1-p19-s4",
+          "jp": "歌を歌いましょう。",
+          "en": "Let's sing a song.",
+          "level": "A1",
+          "tags": [
+            "提案",
+            "Let's"
+          ]
+        },
+        {
+          "id": "unit1-p19-s5",
+          "jp": "昼食を食べましょう。",
+          "en": "Let's eat lunch.",
+          "level": "A1",
+          "tags": [
+            "提案",
+            "Let's"
+          ]
+        },
+        {
+          "id": "unit1-p19-s6",
+          "jp": "映画を見ましょう。",
+          "en": "Let's watch a movie.",
+          "level": "A1",
+          "tags": [
+            "提案",
+            "Let's"
+          ]
+        },
+        {
+          "id": "unit1-p19-s7",
+          "jp": "散歩しましょう。",
+          "en": "Let's take a walk.",
+          "level": "A1",
+          "tags": [
+            "提案",
+            "Let's"
+          ]
+        },
+        {
+          "id": "unit1-p19-s8",
+          "jp": "一緒に行きましょう。",
+          "en": "Let's go together.",
+          "level": "A1",
+          "tags": [
+            "提案",
+            "Let's"
+          ]
+        },
+        {
+          "id": "unit1-p19-s9",
+          "jp": "始めましょう。",
+          "en": "Let's start.",
+          "level": "A1",
+          "tags": [
+            "提案",
+            "Let's"
+          ]
+        },
+        {
+          "id": "unit1-p19-s10",
+          "jp": "休憩しましょう。",
+          "en": "Let's take a break.",
+          "level": "A1",
+          "tags": [
+            "提案",
+            "Let's"
+          ]
+        }
+      ],
+      "partNumber": 19,
+      "priority": "C"
+    },
+    {
+      "id": "unit1-p20",
+      "title": "Part 20: 形容詞・副詞",
+      "description": "形容詞と副詞の使い方を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p20-s1",
+          "jp": "これは大きい犬です。",
+          "en": "This is a big dog.",
+          "level": "A1",
+          "tags": [
+            "形容詞"
+          ]
+        },
+        {
+          "id": "unit1-p20-s2",
+          "jp": "彼は背が高い少年です。",
+          "en": "He is a tall boy.",
+          "level": "A1",
+          "tags": [
+            "形容詞"
+          ]
+        },
+        {
+          "id": "unit1-p20-s3",
+          "jp": "これは小さい車です。",
+          "en": "This is a small car.",
+          "level": "A1",
+          "tags": [
+            "形容詞"
+          ]
+        },
+        {
+          "id": "unit1-p20-s4",
+          "jp": "あれは美しい花です。",
+          "en": "That is a beautiful flower.",
+          "level": "A1",
+          "tags": [
+            "形容詞"
+          ]
+        },
+        {
+          "id": "unit1-p20-s5",
+          "jp": "今日は良い天気です。",
+          "en": "It is a nice day today.",
+          "level": "A1",
+          "tags": [
+            "形容詞",
+            "天気"
+          ]
+        },
+        {
+          "id": "unit1-p20-s6",
+          "jp": "彼は速く走ります。",
+          "en": "He runs fast.",
+          "level": "A1",
+          "tags": [
+            "副詞"
+          ]
+        },
+        {
+          "id": "unit1-p20-s7",
+          "jp": "彼女は上手に歌います。",
+          "en": "She sings well.",
+          "level": "A1",
+          "tags": [
+            "副詞"
+          ]
+        },
+        {
+          "id": "unit1-p20-s8",
+          "jp": "彼はゆっくり話します。",
+          "en": "He speaks slowly.",
+          "level": "A1",
+          "tags": [
+            "副詞"
+          ]
+        },
+        {
+          "id": "unit1-p20-s9",
+          "jp": "私はとても幸せです。",
+          "en": "I am very happy.",
+          "level": "A1",
+          "tags": [
+            "副詞",
+            "形容詞"
+          ]
+        },
+        {
+          "id": "unit1-p20-s10",
+          "jp": "彼女はとても親切です。",
+          "en": "She is very kind.",
+          "level": "A1",
+          "tags": [
+            "副詞",
+            "形容詞"
+          ]
+        }
+      ],
+      "partNumber": 20,
+      "priority": "C"
+    },
+    {
+      "id": "unit1-p21",
+      "title": "Part 21: 比較級・最上級",
+      "description": "比較級と最上級を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p21-s1",
+          "jp": "彼は私より背が高いです。",
+          "en": "He is taller than me.",
+          "level": "A2",
+          "tags": [
+            "比較級"
+          ]
+        },
+        {
+          "id": "unit1-p21-s2",
+          "jp": "この本はあの本より面白いです。",
+          "en": "This book is more interesting than that book.",
+          "level": "A2",
+          "tags": [
+            "比較級"
+          ]
+        },
+        {
+          "id": "unit1-p21-s3",
+          "jp": "彼女は彼より速く走ります。",
+          "en": "She runs faster than him.",
+          "level": "A2",
+          "tags": [
+            "比較級",
+            "副詞"
+          ]
+        },
+        {
+          "id": "unit1-p21-s4",
+          "jp": "これはより大きい車です。",
+          "en": "This is a bigger car.",
+          "level": "A2",
+          "tags": [
+            "比較級"
+          ]
+        },
+        {
+          "id": "unit1-p21-s5",
+          "jp": "英語は数学より簡単です。",
+          "en": "English is easier than math.",
+          "level": "A2",
+          "tags": [
+            "比較級"
+          ]
+        },
+        {
+          "id": "unit1-p21-s6",
+          "jp": "彼はクラスで一番背が高いです。",
+          "en": "He is the tallest in the class.",
+          "level": "A2",
+          "tags": [
+            "最上級"
+          ]
+        },
+        {
+          "id": "unit1-p21-s7",
+          "jp": "これは世界で一番大きい国です。",
+          "en": "This is the biggest country in the world.",
+          "level": "A2",
+          "tags": [
+            "最上級"
+          ]
+        },
+        {
+          "id": "unit1-p21-s8",
+          "jp": "彼女はクラスで一番速く走ります。",
+          "en": "She runs the fastest in the class.",
+          "level": "A2",
+          "tags": [
+            "最上級",
+            "副詞"
+          ]
+        },
+        {
+          "id": "unit1-p21-s9",
+          "jp": "これは一番美しい花です。",
+          "en": "This is the most beautiful flower.",
+          "level": "A2",
+          "tags": [
+            "最上級"
+          ]
+        },
+        {
+          "id": "unit1-p21-s10",
+          "jp": "彼は一番上手に歌います。",
+          "en": "He sings the best.",
+          "level": "A2",
+          "tags": [
+            "最上級",
+            "副詞"
+          ]
+        }
+      ],
+      "partNumber": 21,
+      "priority": "C"
+    },
+    {
+      "id": "unit1-p22",
+      "title": "Part 22: 前置詞",
+      "description": "基本的な前置詞の使い方を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p22-s1",
+          "jp": "私は学校にいます。",
+          "en": "I am at school.",
+          "level": "A1",
+          "tags": [
+            "前置詞",
+            "at"
+          ]
+        },
+        {
+          "id": "unit1-p22-s2",
+          "jp": "彼は家にいます。",
+          "en": "He is at home.",
+          "level": "A1",
+          "tags": [
+            "前置詞",
+            "at"
+          ]
+        },
+        {
+          "id": "unit1-p22-s3",
+          "jp": "本は机の上にあります。",
+          "en": "The book is on the desk.",
+          "level": "A1",
+          "tags": [
+            "前置詞",
+            "on"
+          ]
+        },
+        {
+          "id": "unit1-p22-s4",
+          "jp": "猫はテーブルの下にいます。",
+          "en": "The cat is under the table.",
+          "level": "A1",
+          "tags": [
+            "前置詞",
+            "under"
+          ]
+        },
+        {
+          "id": "unit1-p22-s5",
+          "jp": "私は東京に住んでいます。",
+          "en": "I live in Tokyo.",
+          "level": "A1",
+          "tags": [
+            "前置詞",
+            "in"
+          ]
+        },
+        {
+          "id": "unit1-p22-s6",
+          "jp": "彼は公園で遊んでいます。",
+          "en": "He is playing in the park.",
+          "level": "A1",
+          "tags": [
+            "前置詞",
+            "in"
+          ]
+        },
+        {
+          "id": "unit1-p22-s7",
+          "jp": "私は学校に行きます。",
+          "en": "I go to school.",
+          "level": "A1",
+          "tags": [
+            "前置詞",
+            "to"
+          ]
+        },
+        {
+          "id": "unit1-p22-s8",
+          "jp": "彼女は駅から来ました。",
+          "en": "She came from the station.",
+          "level": "A1",
+          "tags": [
+            "前置詞",
+            "from"
+          ]
+        },
+        {
+          "id": "unit1-p22-s9",
+          "jp": "私は友達と遊びます。",
+          "en": "I play with my friends.",
+          "level": "A1",
+          "tags": [
+            "前置詞",
+            "with"
+          ]
+        },
+        {
+          "id": "unit1-p22-s10",
+          "jp": "これはあなたのためです。",
+          "en": "This is for you.",
+          "level": "A1",
+          "tags": [
+            "前置詞",
+            "for"
+          ]
+        }
+      ],
+      "partNumber": 22,
+      "priority": "C"
+    },
+    {
+      "id": "unit1-p23",
+      "title": "Part 23: 接続詞",
+      "description": "基本的な接続詞の使い方を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p23-s1",
+          "jp": "私はテニスとサッカーが好きです。",
+          "en": "I like tennis and soccer.",
+          "level": "A1",
+          "tags": [
+            "接続詞",
+            "and"
+          ]
+        },
+        {
+          "id": "unit1-p23-s2",
+          "jp": "彼は親切で賢いです。",
+          "en": "He is kind and smart.",
+          "level": "A1",
+          "tags": [
+            "接続詞",
+            "and"
+          ]
+        },
+        {
+          "id": "unit1-p23-s3",
+          "jp": "あなたは紅茶かコーヒーが欲しいですか。",
+          "en": "Do you want tea or coffee?",
+          "level": "A1",
+          "tags": [
+            "接続詞",
+            "or"
+          ]
+        },
+        {
+          "id": "unit1-p23-s4",
+          "jp": "私は疲れていますが幸せです。",
+          "en": "I am tired but happy.",
+          "level": "A1",
+          "tags": [
+            "接続詞",
+            "but"
+          ]
+        },
+        {
+          "id": "unit1-p23-s5",
+          "jp": "彼女は若いですが賢いです。",
+          "en": "She is young but wise.",
+          "level": "A1",
+          "tags": [
+            "接続詞",
+            "but"
+          ]
+        },
+        {
+          "id": "unit1-p23-s6",
+          "jp": "私は勉強します、なぜならテストがあるからです。",
+          "en": "I study because I have a test.",
+          "level": "A1",
+          "tags": [
+            "接続詞",
+            "because"
+          ]
+        },
+        {
+          "id": "unit1-p23-s7",
+          "jp": "雨が降っているので私は傘を持っています。",
+          "en": "I have an umbrella because it is raining.",
+          "level": "A1",
+          "tags": [
+            "接続詞",
+            "because"
+          ]
+        },
+        {
+          "id": "unit1-p23-s8",
+          "jp": "私が家に帰った時、彼は寝ていました。",
+          "en": "When I got home, he was sleeping.",
+          "level": "A2",
+          "tags": [
+            "接続詞",
+            "when"
+          ]
+        },
+        {
+          "id": "unit1-p23-s9",
+          "jp": "もしあなたが忙しいなら、私が手伝います。",
+          "en": "If you are busy, I will help you.",
+          "level": "A2",
+          "tags": [
+            "接続詞",
+            "if"
+          ]
+        },
+        {
+          "id": "unit1-p23-s10",
+          "jp": "私は彼が好きです、なぜなら彼は親切だからです。",
+          "en": "I like him because he is kind.",
+          "level": "A1",
+          "tags": [
+            "接続詞",
+            "because"
+          ]
+        }
+      ],
+      "partNumber": 23,
+      "priority": "C"
+    },
+    {
+      "id": "unit1-p24",
+      "title": "Part 24: There is/are",
+      "description": "There is/areの使い方を学びます",
+      "sentences": [
+        {
+          "id": "unit1-p24-s1",
+          "jp": "机の上に本があります。",
+          "en": "There is a book on the desk.",
+          "level": "A1",
+          "tags": [
+            "There is/are",
+            "単数"
+          ]
+        },
+        {
+          "id": "unit1-p24-s2",
+          "jp": "公園に犬がいます。",
+          "en": "There is a dog in the park.",
+          "level": "A1",
+          "tags": [
+            "There is/are",
+            "単数"
+          ]
+        },
+        {
+          "id": "unit1-p24-s3",
+          "jp": "教室に生徒が何人かいます。",
+          "en": "There are some students in the classroom.",
+          "level": "A1",
+          "tags": [
+            "There is/are",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p24-s4",
+          "jp": "箱の中にリンゴがたくさんあります。",
+          "en": "There are many apples in the box.",
+          "level": "A1",
+          "tags": [
+            "There is/are",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p24-s5",
+          "jp": "冷蔵庫に牛乳があります。",
+          "en": "There is milk in the refrigerator.",
+          "level": "A1",
+          "tags": [
+            "There is/are",
+            "単数"
+          ]
+        },
+        {
+          "id": "unit1-p24-s6",
+          "jp": "机の上に本はありません。",
+          "en": "There is no book on the desk.",
+          "level": "A1",
+          "tags": [
+            "There is/are",
+            "否定文"
+          ]
+        },
+        {
+          "id": "unit1-p24-s7",
+          "jp": "教室に生徒はいません。",
+          "en": "There are no students in the classroom.",
+          "level": "A1",
+          "tags": [
+            "There is/are",
+            "否定文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p24-s8",
+          "jp": "机の上に本がありますか。",
+          "en": "Is there a book on the desk?",
+          "level": "A1",
+          "tags": [
+            "There is/are",
+            "疑問文"
+          ]
+        },
+        {
+          "id": "unit1-p24-s9",
+          "jp": "教室に生徒がいますか。",
+          "en": "Are there any students in the classroom?",
+          "level": "A1",
+          "tags": [
+            "There is/are",
+            "疑問文",
+            "複数"
+          ]
+        },
+        {
+          "id": "unit1-p24-s10",
+          "jp": "公園に木が何本ありますか。",
+          "en": "How many trees are there in the park?",
+          "level": "A1",
+          "tags": [
+            "There is/are",
+            "疑問文",
+            "複数"
+          ]
+        }
+      ],
+      "partNumber": 24,
+      "priority": "C"
+    }
+  ]
+}

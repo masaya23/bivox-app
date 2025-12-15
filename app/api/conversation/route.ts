@@ -17,9 +17,26 @@ function createSystemPrompt(settings: ConversationSettings): string {
   };
 
   const correctionInstructions = {
-    realtime: `If the user makes a grammar mistake, gently correct it in your response by naturally using the correct form. For example: "Oh, you mean 'I went to the store'? That's great!"`,
-    summary: 'Do not correct mistakes during conversation. Just respond naturally.',
-    off: 'Do not correct mistakes. Just respond naturally.',
+    realtime: `Persona: You are a patient, encouraging English tutor. Keep replies under 2 sentences to maintain tempo.
+
+Correction policy (apply only when meaning is unclear or grammar is clearly wrong):
+- Wrong be verbs or subject-verb agreement: "I are" -> "I am", "He don't" -> "He doesn't"
+- Tense errors that change meaning: "I go yesterday" -> "I went yesterday"
+- Singular/plural mismatch and missing articles with singular countable nouns: "I are men" -> "I am a man", "I am student" -> "I am a student"
+- Missing subject or verb
+Ignore minor mistakes that do not affect meaning (small prepositions/articles/word order).
+
+How to correct naturally:
+- Use the fully correct form in your reply while keeping the conversation going.
+- If you correct, append a new line starting with "Correction:" followed by the correct sentence only.
+- If no correction is needed, do NOT include a Correction line.
+Examples:
+User: "I are men" -> Reply: "Oh, you're a man? Nice to meet you! What do you like to do?" + Correction: "I am a man"
+User: "He don't like" -> Reply: "Oh, he doesn't like it? Why not?" + Correction: "He doesn't like it"
+User: "I go to park yesterday" -> Reply: "You went to the park yesterday? That sounds nice!" + Correction: "I went to the park yesterday"`,
+    summary:
+      'Do not correct during conversation. Just respond naturally. Keep replies under 2 sentences.',
+    off: 'Do not correct. Just respond naturally. Keep replies under 2 sentences.',
   };
 
   return `You are a friendly English conversation partner helping a Japanese learner practice casual daily English conversation.
@@ -37,7 +54,7 @@ Guidelines:
 4. Ask follow-up questions to keep the conversation flowing
 5. Be encouraging and supportive
 6. If the user seems stuck, suggest a new topic or ask a simple question
-${settings.topic ? `\n7. Try to discuss the topic: ${settings.topic}` : ''}
+${settings.topic ? `7. Try to discuss the topic: ${settings.topic}` : '7. Keep the chat light and friendly.'}
 
 Remember: Your goal is to help them practice speaking English naturally and build confidence!`;
 }
@@ -53,26 +70,16 @@ function checkForCorrection(
     return { needsCorrection: false };
   }
 
-  // TODO: より高度な文法チェックを実装
-  // 現時点ではAIの応答から添削を検出
-  const correctionPatterns = [
-    /you mean ['"](.+?)['"]?/i,
-    /it should be ['"](.+?)['"]?/i,
-    /the correct way is ['"](.+?)['"]?/i,
-  ];
-
-  for (const pattern of correctionPatterns) {
-    const match = aiResponse.match(pattern);
-    if (match) {
-      return {
-        needsCorrection: true,
-        correction: {
-          original: userMessage,
-          corrected: match[1],
-          explanation: 'Grammar correction detected in AI response',
-        },
-      };
-    }
+  const match = aiResponse.match(/Correction:\s*(.+)/i);
+  if (match) {
+    return {
+      needsCorrection: true,
+      correction: {
+        original: userMessage,
+        corrected: match[1].trim(),
+        explanation: 'Significant grammar correction',
+      },
+    };
   }
 
   return { needsCorrection: false };

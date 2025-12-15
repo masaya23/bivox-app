@@ -19,7 +19,14 @@
       "Bash(findstr:*)",
       "Bash(npm run dev:*)",
       "Bash(taskkill:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(if exist .nextdevlock del /f .nextdevlock)",
+      "Bash(ls:*)",
+      "Bash(if exist .next rd /s /q .next)",
+      "Bash(npm audit fix:*)",
+      "Bash(del dataunitsjunior-high-1unit1.json)",
+      "Bash(node scripts/fix-unit1-structure.js:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import HardNavLink from '@/components/HardNavLink';
 import { getStreakData } from '@/utils/streak';
 
 export default function Home() {
@@ -129,48 +129,48 @@ export default function Home() {
 
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
-            <Link
+            <HardNavLink
               href="/units"
               className="block w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xl font-bold rounded-2xl text-center hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105 shadow-lg"
             >
               📚 Unit学習
-            </Link>
-            <Link
+            </HardNavLink>
+            <HardNavLink
               href="/conversation"
               className="block w-full py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white text-xl font-bold rounded-2xl text-center hover:from-green-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-lg"
             >
               🗣️ AIと英会話
-            </Link>
+            </HardNavLink>
           </div>
 
           <div className="grid grid-cols-1 gap-3">
-            <Link
+            <HardNavLink
               href="/train"
               className="block w-full py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-lg font-bold rounded-2xl text-center hover:from-orange-600 hover:to-red-600 transition-all transform hover:scale-105 shadow-md"
             >
               🎯 例文トレーニング
-            </Link>
+            </HardNavLink>
           </div>
 
           <div className="grid grid-cols-3 gap-3">
-            <Link
+            <HardNavLink
               href="/settings"
               className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
             >
               ⚙️ 設定
-            </Link>
-            <Link
+            </HardNavLink>
+            <HardNavLink
               href="/help"
               className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
             >
               ❓ ヘルプ
-            </Link>
-            <Link
+            </HardNavLink>
+            <HardNavLink
               href="/test-generate"
               className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
             >
               🧪 テスト
-            </Link>
+            </HardNavLink>
           </div>
         </div>
 

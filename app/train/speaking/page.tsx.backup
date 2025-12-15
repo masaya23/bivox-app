@@ -1,0 +1,826 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { useTTS } from '@/hooks/useTTS';
+import { updateStreak } from '@/utils/streak';
+import type { Sentence } from '@/types/sentence';
+
+// ダミーデータ（10問）
+const DUMMY_SENTENCES = [
+  {
+    id: '1',
+    jp: '今日はいい天気ですね。',
+    en: "It's nice weather today.",
+    tags: ['日常会話'],
+    level: 'A1' as const,
+  },
+  {
+    id: '2',
+    jp: 'コーヒーを一杯いただけますか？',
+    en: 'Can I have a cup of coffee?',
+    tags: ['日常会話', '食事'],
+    level: 'A1' as const,
+  },
+  {
+    id: '3',
+    jp: '駅への行き方を教えてください。',
+    en: 'Could you tell me how to get to the station?',
+    tags: ['旅行', '日常会話'],
+    level: 'A2' as const,
+  },
+  {
+    id: '4',
+    jp: 'この仕事は来週までに終わらせる必要があります。',
+    en: 'I need to finish this work by next week.',
+    tags: ['仕事'],
+    level: 'B1' as const,
+  },
+  {
+    id: '5',
+    jp: '週末は何をする予定ですか？',
+    en: 'What are you planning to do this weekend?',
+    tags: ['日常会話'],
+    level: 'A2' as const,
+  },
+  {
+    id: '6',
+    jp: '電車が遅れているようです。',
+    en: 'It seems the train is delayed.',
+    tags: ['旅行', '日常会話'],
+    level: 'A2' as const,
+  },
+  {
+    id: '7',
+    jp: 'もう少しゆっくり話していただけますか？',
+    en: 'Could you speak a little more slowly?',
+    tags: ['日常会話'],
+    level: 'A2' as const,
+  },
+  {
+    id: '8',
+    jp: 'この資料を明日までにチェックしてください。',
+    en: 'Please check this document by tomorrow.',
+    tags: ['仕事'],
+    level: 'B1' as const,
+  },
+  {
+    id: '9',
+    jp: '会議は何時に始まりますか？',
+    en: 'What time does the meeting start?',
+    tags: ['仕事'],
+    level: 'A2' as const,
+  },
+  {
+    id: '10',
+    jp: 'すみません、道に迷ってしまいました。',
+    en: "Excuse me, I'm lost.",
+    tags: ['旅行', '日常会話'],
+    level: 'A2' as const,
+  },
+];
+
+type RecognitionState = 'idle' | 'listening' | 'processing' | 'completed';
+
+interface SpeakingPageProps {
+  initialSentences?: Sentence[];
+  pageTitle?: string;
+  backLink?: string;
+}
+
+// 音声認識の類似度を計算（簡易版）
+function calculateSimilarity(recognized: string, correct: string): number {
+  const r = recognized.toLowerCase().replace(/[^\w\s]/g, '');
+  const c = correct.toLowerCase().replace(/[^\w\s]/g, '');
+
+  if (r === c) return 100;
+
+  const rWords = r.split(/\s+/);
+  const cWords = c.split(/\s+/);
+
+  let matches = 0;
+  for (const word of rWords) {
+    if (cWords.includes(word)) {
+      matches++;
+    }
+  }
+
+  const similarity = (matches / Math.max(rWords.length, cWords.length)) * 100;
+  return Math.round(similarity);
+}
+
+export default function SpeakingPage({
+  initialSentences,
+  pageTitle,
+  backLink = '/train',
+}: SpeakingPageProps) {
+  const [sentences, setSentences] = useState(
+    initialSentences && initialSentences.length > 0
+      ? initialSentences
+      : DUMMY_SENTENCES
+  );
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [recognitionState, setRecognitionState] = useState<RecognitionState>('idle');
+  const [recognizedText, setRecognizedText] = useState('');
+  const [similarity, setSimilarity] = useState<number | null>(null);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [browserSupported, setBrowserSupported] = useState(true);
+  const [aiDialogOpen, setAiDialogOpen] = useState(false);
+  const [aiQuestion, setAiQuestion] = useState('');
+  const [aiResponse, setAiResponse] = useState('');
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiExplanationOpen, setAiExplanationOpen] = useState(false);
+  const [aiExplanation, setAiExplanation] = useState<any>(null);
+  const [aiExplanationLoading, setAiExplanationLoading] = useState(false);
+  const [autoExplanationTriggeredFor, setAutoExplanationTriggeredFor] = useState<number | null>(null);
+
+  const { speak: speakJapanese, isSpeaking: isPlayingJapanese } = useTTS({ rate: 1.0 });
+  const { speak: speakEnglish, isSpeaking: isPlayingEnglish } = useTTS({ rate: 0.9 });
+
+  const recognitionRef = useRef<any>(null);
+
+  const currentSentence = sentences[currentIndex];
+
+  // 音声認識の初期化
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+      if (!SpeechRecognition) {
+        setBrowserSupported(false);
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        setRecognitionState('listening');
+      };
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setRecognizedText(transcript);
+        setRecognitionState('processing');
+
+        // 類似度を計算
+        const score = calculateSimilarity(transcript, currentSentence.en);
+        setSimilarity(score);
+
+        // 70%以上で正解とみなす
+        if (score >= 70) {
+          setCorrectCount((prev) => prev + 1);
+        }
+
+        setRecognitionState('completed');
+      };
+
+      recognition.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setRecognitionState('idle');
+      };
+
+      recognition.onend = () => {
+        // onresultでcompletedに設定されている場合は維持する
+        // それ以外の場合（エラーやキャンセル）はidleに戻す
+        setRecognitionState((prevState) =>
+          prevState === 'completed' ? 'completed' : 'idle'
+        );
+      };
+
+      recognitionRef.current = recognition;
+    }
+
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {
+          // ignore
+        }
+      }
+    };
+  }, [currentSentence]);
+
+  const handlePlayJapanese = () => {
+    speakJapanese(currentSentence.jp);
+    setRecognizedText('');
+    setSimilarity(null);
+    setRecognitionState('idle');
+    setShowAnswer(false);
+    setAiExplanation(null);
+    setAiExplanationOpen(false);
+    setAutoExplanationTriggeredFor(null);
+  };
+
+  const handleStartRecording = () => {
+    if (recognitionRef.current && recognitionState === 'idle') {
+      try {
+        setAiExplanation(null);
+        setAiExplanationOpen(false);
+        setAutoExplanationTriggeredFor(null);
+        recognitionRef.current.start();
+      } catch (e) {
+        console.error('Failed to start recognition:', e);
+      }
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (recognitionRef.current && recognitionState === 'listening') {
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {
+        console.error('Failed to stop recognition:', e);
+      }
+    }
+  };
+
+  const handlePlayAnswer = () => {
+    speakEnglish(currentSentence.en);
+    setShowAnswer(true);
+  };
+
+  const handleNext = () => {
+    if (currentIndex < sentences.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
+      setRecognizedText('');
+      setSimilarity(null);
+      setRecognitionState('idle');
+      setShowAnswer(false);
+      setAiExplanation(null);
+      setAiExplanationOpen(false);
+      setAutoExplanationTriggeredFor(null);
+    } else {
+      // 完了処理
+      setIsCompleted(true);
+      updateStreak();
+    }
+  };
+
+  const handleReset = () => {
+    setCurrentIndex(0);
+    setRecognizedText('');
+    setSimilarity(null);
+    setRecognitionState('idle');
+    setIsCompleted(false);
+    setCorrectCount(0);
+    setShowAnswer(false);
+    setAiExplanation(null);
+    setAiExplanationOpen(false);
+    setAutoExplanationTriggeredFor(null);
+  };
+
+  const handleAskAI = async () => {
+    if (!aiQuestion.trim()) return;
+
+    setAiLoading(true);
+    try {
+      const response = await fetch('/api/ask-ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question: aiQuestion,
+          sentences: sentences,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'API呼び出しに失敗しました');
+      }
+
+      setAiResponse(data.answer || '回答を生成できませんでした。');
+    } catch (error) {
+      console.error('AI question error:', error);
+      setAiResponse('エラーが発生しました。もう一度お試しください。');
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
+  const handleGetAIExplanation = async () => {
+    if (!recognizedText || !currentSentence) return;
+
+    setAiExplanationLoading(true);
+    setAiExplanationOpen(true);
+    setAutoExplanationTriggeredFor(currentIndex);
+    try {
+      const response = await fetch('/api/evaluate-speaking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          japaneseText: currentSentence.jp,
+          correctAnswer: currentSentence.en,
+          userAnswer: recognizedText,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'AI評価に失敗しました');
+      }
+
+      setAiExplanation(data.evaluation);
+    } catch (error) {
+      console.error('AI explanation error:', error);
+      setAiExplanation({
+        feedback: 'エラーが発生しました。もう一度お試しください。',
+        score: 0,
+      });
+    } finally {
+      setAiExplanationLoading(false);
+    }
+  };
+
+  // 類似度が100%未満なら自動でAI解説を取得（1問につき1回）
+  useEffect(() => {
+    if (
+      similarity !== null &&
+      similarity < 100 &&
+      recognizedText &&
+      autoExplanationTriggeredFor !== currentIndex &&
+      recognitionState === 'completed'
+    ) {
+      handleGetAIExplanation();
+    }
+  }, [similarity, recognizedText, autoExplanationTriggeredFor, currentIndex, recognitionState]);
+
+  const renderAiExplanationModal = () => {
+    if (!aiExplanationOpen) return null;
+
+    return (
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div className="bg-white rounded-3xl shadow-2xl p-6 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+              <span>??</span>
+              <span>AI詳細解説</span>
+            </h2>
+            <button
+              onClick={() => {
+                setAiExplanationOpen(false);
+                setAiExplanation(null);
+              }}
+              className="text-gray-500 hover:text-gray-700 text-2xl"
+            >
+              ×
+            </button>
+          </div>
+
+          {aiExplanationLoading ? (
+            <div className="text-center py-8">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+              <p className="text-gray-600 mt-4">AIが詳しく分析しています...</p>
+            </div>
+          ) : aiExplanation ? (
+            <div className="space-y-4">
+              <div className="bg-gray-50 rounded-xl p-4">
+                <p className="text-sm text-gray-600 mb-2">あなたの回答</p>
+                <p className="text-lg font-semibold text-gray-800 mb-3">{recognizedText}</p>
+                <div className="border-t border-gray-200 pt-3">
+                  <p className="text-sm text-gray-600 mb-1">正しい表現</p>
+                  <p className="text-lg font-semibold text-green-700">
+                    {aiExplanation.correction || currentSentence?.en}
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-gray-700 font-semibold">総合スコア</span>
+                  <span className="text-3xl font-black text-gray-800">{aiExplanation.score}点</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div
+                    className={`h-3 rounded-full transition-all ${
+                      aiExplanation.score >= 70
+                        ? 'bg-gradient-to-r from-green-500 to-blue-500'
+                        : 'bg-gradient-to-r from-orange-500 to-red-500'
+                    }`}
+                    style={{ width: `${aiExplanation.score}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 rounded-xl p-4">
+                <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
+                  <span>??</span>
+                  <span>フィードバック</span>
+                </h3>
+                <p className="text-gray-700">{aiExplanation.feedback}</p>
+              </div>
+
+              {aiExplanation.explanation && (
+                <div className="bg-yellow-50 rounded-xl p-4">
+                  <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
+                    <span>??</span>
+                    <span>文法解説</span>
+                  </h3>
+                  <p className="text-gray-700">{aiExplanation.explanation}</p>
+                </div>
+              )}
+
+              {aiExplanation.encouragement && (
+                <div className="bg-purple-50 rounded-xl p-4">
+                  <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
+                    <span>??</span>
+                    <span>応援メッセージ</span>
+                  </h3>
+                  <p className="text-gray-700">{aiExplanation.encouragement}</p>
+                </div>
+              )}
+
+              <button
+                onClick={() => {
+                  setAiExplanationOpen(false);
+                  setAiExplanation(null);
+                }}
+                className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all"
+              >
+                閉じる
+              </button>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    );
+  };
+
+  if (!browserSupported) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
+        <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+          <div className="text-center mb-8">
+            <div className="text-6xl mb-4">🎤</div>
+            <h1 className="text-4xl md:text-5xl font-black text-gray-800 mb-4">
+              スピーキングモード
+            </h1>
+            <p className="text-lg text-gray-600">
+              音声入力で実践トレーニング
+            </p>
+          </div>
+
+          <div className="bg-red-50 rounded-2xl p-8 mb-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              ⚠️ ブラウザ非対応
+            </h2>
+            <p className="text-gray-700 mb-4 text-center">
+              お使いのブラウザは音声認識機能に対応していません。<br />
+              以下のブラウザをご利用ください：
+            </p>
+            <div className="space-y-2 mb-6">
+              <div className="flex items-center gap-2 text-gray-700">
+                <span className="text-blue-600">•</span>
+                <span>Google Chrome（推奨）</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-700">
+                <span className="text-blue-600">•</span>
+                <span>Microsoft Edge</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-700">
+                <span className="text-blue-600">•</span>
+                <span>Safari（iOS/macOS）</span>
+              </div>
+            </div>
+            <p className="text-sm text-gray-600 text-center">
+              現在は<strong>シャドーイングモード</strong>をご利用ください
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <Link
+              href="/train/shadowing"
+              className="block w-full py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white text-lg font-bold rounded-2xl text-center hover:from-green-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-lg"
+            >
+              シャドーイングモードで練習
+            </Link>
+            <Link
+              href={backLink}
+              className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
+            >
+              ← 戻る
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isCompleted) {
+    const accuracy = Math.round((correctCount / sentences.length) * 100);
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 p-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+            <div className="text-center mb-8">
+              <div className="text-6xl mb-4">🎉</div>
+              <h1 className="text-4xl md:text-5xl font-black text-gray-800 mb-4">
+                練習完了！
+              </h1>
+              <p className="text-lg text-gray-600">お疲れ様でした！</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 text-center">
+                <p className="text-sm text-gray-600 mb-2">問題数</p>
+                <p className="text-4xl font-black text-blue-600">
+                  {sentences.length}
+                </p>
+              </div>
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-6 text-center">
+                <p className="text-sm text-gray-600 mb-2">正解数</p>
+                <p className="text-4xl font-black text-green-600">
+                  {correctCount}
+                </p>
+              </div>
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 text-center">
+                <p className="text-sm text-gray-600 mb-2">正解率</p>
+                <p className="text-4xl font-black text-purple-600">
+                  {accuracy}%
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-gray-50 rounded-2xl p-6 mb-8">
+              <h2 className="text-xl font-bold text-gray-800 mb-4">
+                練習した文章
+              </h2>
+              <div className="space-y-3 max-h-96 overflow-y-auto">
+                {sentences.map((sentence, index) => (
+                  <div
+                    key={sentence.id}
+                    className="bg-white p-4 rounded-xl border border-gray-200"
+                  >
+                    <p className="text-sm text-gray-600 mb-1">
+                      {index + 1}. {sentence.jp}
+                    </p>
+                    <p className="text-gray-800 font-semibold">{sentence.en}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <button
+                onClick={() => setAiDialogOpen(true)}
+                className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-lg font-bold rounded-2xl text-center hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105 shadow-lg"
+              >
+                🤖 AIに質問する
+              </button>
+              <button
+                onClick={handleReset}
+                className="w-full py-3 bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold rounded-xl hover:from-green-600 hover:to-blue-600 transition-colors"
+              >
+                もう一度練習する
+              </button>
+              <Link
+                href={backLink}
+                className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
+              >
+                ← 戻る
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* AI質問ダイアログ */}
+        {aiDialogOpen && (
+          <div className="fixed inset-0 bg-white/4 backdrop-blur-[3px] flex items-center justify-center p-4 z-50">
+            <div className="bg-white/75 backdrop-blur-[3px] border border-white/40 rounded-3xl shadow-2xl p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                🤖 AIに質問する
+              </h2>
+              <p className="text-gray-600 mb-4">
+                練習した文章について、文法や表現、ニュアンスなど何でも質問してください。
+              </p>
+              <textarea
+                value={aiQuestion}
+                onChange={(e) => setAiQuestion(e.target.value)}
+                placeholder="例: この文章の文法を詳しく教えてください"
+                className="w-full p-4 border-2 border-gray-300 rounded-xl mb-4 min-h-[100px] focus:border-purple-500 focus:outline-none"
+              />
+              <div className="flex gap-3 mb-4">
+                <button
+                  onClick={handleAskAI}
+                  disabled={aiLoading || !aiQuestion.trim()}
+                  className="flex-1 py-3 bg-purple-500 text-white font-bold rounded-xl hover:bg-purple-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                >
+                  {aiLoading ? '回答生成中...' : '質問する'}
+                </button>
+                <button
+                  onClick={() => {
+                    setAiDialogOpen(false);
+                    setAiQuestion('');
+                    setAiResponse('');
+                  }}
+                  className="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-300 transition-colors"
+                >
+                  閉じる
+                </button>
+              </div>
+              {aiResponse && (
+                <div className="bg-blue-50 rounded-xl p-4">
+                  <h3 className="font-bold text-gray-800 mb-2">回答:</h3>
+                  <p className="text-gray-700 whitespace-pre-wrap">{aiResponse}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* AI詳細解説ダイアログ */}
+        {renderAiExplanationModal()}
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 p-4">
+      <div className="max-w-4xl mx-auto">
+        {/* ヘッダー */}
+        <div className="bg-white rounded-3xl shadow-2xl p-6 mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <Link
+              href={backLink}
+              className="text-gray-600 hover:text-gray-800 font-semibold"
+            >
+              ← 戻る
+            </Link>
+            <div className="text-center flex-1">
+              <h1 className="text-2xl font-black text-gray-800">
+                {pageTitle || 'スピーキングモード'}
+              </h1>
+              <p className="text-sm text-gray-600">
+                {currentIndex + 1} / {sentences.length}
+              </p>
+            </div>
+            <div className="w-20"></div>
+          </div>
+
+          {/* 進捗バー */}
+          <div className="w-full bg-gray-200 rounded-full h-3">
+            <div
+              className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all"
+              style={{
+                width: `${((currentIndex + 1) / sentences.length) * 100}%`,
+              }}
+            ></div>
+          </div>
+        </div>
+
+        {/* メインカード */}
+        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 mb-6">
+          {/* 日本語文 */}
+          <div className="text-center mb-8">
+            <p className="text-sm text-gray-600 mb-2">日本語</p>
+            <p className="text-3xl font-black text-gray-800 mb-6">
+              {currentSentence.jp}
+            </p>
+            <button
+              onClick={handlePlayJapanese}
+              disabled={isPlayingJapanese}
+              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-lg font-bold rounded-2xl hover:from-blue-600 hover:to-purple-600 disabled:from-gray-300 disabled:to-gray-400 transition-all transform hover:scale-105 shadow-lg"
+            >
+              {isPlayingJapanese ? '🔊 再生中...' : '🔊 日本語を聞く'}
+            </button>
+          </div>
+
+          {/* 音声認識エリア */}
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8 mb-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">
+              🎤 英語で話してください
+            </h2>
+
+            <div className="flex flex-col items-center gap-4">
+              {recognitionState === 'idle' && (
+                <button
+                  onClick={handleStartRecording}
+                  className="w-32 h-32 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full flex items-center justify-center text-5xl hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-110 shadow-2xl"
+                >
+                  🎤
+                </button>
+              )}
+
+              {recognitionState === 'listening' && (
+                <button
+                  onClick={handleStopRecording}
+                  className="w-32 h-32 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full flex items-center justify-center text-5xl animate-pulse shadow-2xl"
+                >
+                  🔴
+                </button>
+              )}
+
+              {(recognitionState === 'processing' || recognitionState === 'completed') && (
+                <div className="w-32 h-32 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-full flex items-center justify-center text-5xl shadow-2xl">
+                  ✓
+                </div>
+              )}
+
+              <p className="text-center text-gray-700 font-semibold">
+                {recognitionState === 'idle' && 'マイクボタンを押して話してください'}
+                {recognitionState === 'listening' && '🎙️ 聞いています...'}
+                {recognitionState === 'processing' && '処理中...'}
+                {recognitionState === 'completed' && '完了！'}
+              </p>
+            </div>
+
+            {/* 認識結果 */}
+            {recognizedText && (
+              <div className="mt-6 space-y-4">
+                <div className="bg-white rounded-xl p-4 border-2 border-purple-200">
+                  <p className="text-sm text-gray-600 mb-1">あなたの発話:</p>
+                  <p className="text-lg font-semibold text-gray-800">
+                    {recognizedText}
+                  </p>
+                </div>
+
+                {similarity !== null && (
+                  <>
+                    <div className="bg-white rounded-xl p-4 border-2 border-purple-200">
+                      <p className="text-sm text-gray-600 mb-2">判定結果:</p>
+                      <div className="flex items-center gap-4">
+                        <div className="flex-1">
+                          <div className="w-full bg-gray-200 rounded-full h-6">
+                            <div
+                              className={`h-6 rounded-full transition-all ${
+                                similarity >= 70
+                                  ? 'bg-gradient-to-r from-green-500 to-blue-500'
+                                  : 'bg-gradient-to-r from-orange-500 to-red-500'
+                              }`}
+                              style={{ width: `${similarity}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                        <p className="text-2xl font-black text-gray-800">
+                          {similarity}%
+                        </p>
+                      </div>
+                      <p className="text-sm text-gray-600 mt-2">
+                        {similarity >= 70 ? '✅ 正解！' : '❌ もう一度挑戦しましょう'}
+                      </p>
+                    </div>
+
+                    {/* AI詳細解説ボタン（100%以外） */}
+                    {similarity < 100 && (
+                      <button
+                        onClick={handleGetAIExplanation}
+                        className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg flex items-center justify-center gap-2"
+                      >
+                        <span>🤖</span>
+                        <span>AI詳細解説を見る</span>
+                      </button>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* 答えを見る */}
+          {!showAnswer && recognizedText && (
+            <button
+              onClick={handlePlayAnswer}
+              disabled={isPlayingEnglish}
+              className="w-full py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white text-lg font-bold rounded-2xl hover:from-orange-600 hover:to-red-600 disabled:from-gray-300 disabled:to-gray-400 transition-all shadow-lg mb-4"
+            >
+              {isPlayingEnglish ? '🔊 再生中...' : '📖 答えを見る・聞く'}
+            </button>
+          )}
+
+          {showAnswer && (
+            <div className="bg-blue-50 rounded-2xl p-6 mb-4">
+              <p className="text-sm text-gray-600 mb-2">正解:</p>
+              <p className="text-2xl font-bold text-gray-800">
+                {currentSentence.en}
+              </p>
+            </div>
+          )}
+
+          {/* 次へボタン */}
+          {recognitionState === 'completed' && (
+            <button
+              onClick={handleNext}
+              className="w-full py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white text-xl font-bold rounded-2xl hover:from-green-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-lg"
+            >
+              {currentIndex < sentences.length - 1 ? '次の問題へ →' : '完了する 🎉'}
+            </button>
+          )}
+        </div>
+        {renderAiExplanationModal()}
+      </div>
+    </div>
+  );
+}

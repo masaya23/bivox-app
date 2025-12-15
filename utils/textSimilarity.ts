@@ -35,20 +35,43 @@ function levenshteinDistance(str1: string, str2: string): number {
   return matrix[len1][len2];
 }
 
-// 類似度を計算（0-100%）
+// 類似度を計算（0-100%）単語の順序も考慮
 export function calculateSimilarity(text1: string, text2: string): number {
   const normalized1 = normalizeText(text1);
   const normalized2 = normalizeText(text2);
 
+  // 完全一致の場合
   if (normalized1 === normalized2) return 100;
 
-  const distance = levenshteinDistance(normalized1, normalized2);
-  const maxLength = Math.max(normalized1.length, normalized2.length);
+  // 単語に分割
+  const words1 = normalized1.split(/\s+/).filter(w => w);
+  const words2 = normalized2.split(/\s+/).filter(w => w);
 
-  if (maxLength === 0) return 100;
+  // 単語が完全に一致しているかチェック
+  if (words1.length === words2.length) {
+    const allMatch = words1.every((word, idx) => word === words2[idx]);
+    if (allMatch) return 100;
+  }
 
-  const similarity = ((maxLength - distance) / maxLength) * 100;
-  return Math.round(similarity);
+  // 単語レベルでの類似度計算
+  const maxWords = Math.max(words1.length, words2.length);
+  let matchCount = 0;
+  let positionMatchCount = 0;
+
+  for (let i = 0; i < maxWords; i++) {
+    if (words1[i] && words2[i] && words1[i] === words2[i]) {
+      matchCount++;
+      positionMatchCount++;
+    } else if (words1[i] && words2.includes(words1[i])) {
+      matchCount += 0.5; // 順序が違う場合は半分のスコア
+    }
+  }
+
+  // 順序を重視した類似度計算
+  const positionScore = (positionMatchCount / maxWords) * 60; // 順序一致は60%
+  const contentScore = (matchCount / maxWords) * 40; // 内容一致は40%
+
+  return Math.round(positionScore + contentScore);
 }
 
 // 正誤判定（類似度に基づいて判定）
