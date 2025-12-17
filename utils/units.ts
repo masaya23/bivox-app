@@ -61,6 +61,33 @@ export function getGradeName(grade: string): string {
 }
 
 /**
+ * 学年からUnitを取得（1学年=1Unit）
+ */
+export function getUnitByGrade(grade: TabFilter): Unit | undefined {
+  if (grade === 'all') return undefined;
+  return ALL_UNITS.find((unit) => unit.grade === grade);
+}
+
+/**
+ * 学年のPart一覧を取得
+ */
+export function getPartsByGrade(grade: TabFilter): Part[] {
+  if (grade === 'all') {
+    return ALL_UNITS.flatMap((unit) => unit.parts);
+  }
+  const unit = getUnitByGrade(grade);
+  return unit ? unit.parts : [];
+}
+
+/**
+ * 学年からUnit IDを取得
+ */
+export function getUnitIdByGrade(grade: TabFilter): string | undefined {
+  const unit = getUnitByGrade(grade);
+  return unit?.id;
+}
+
+/**
  * Unitの総例文数を取得
  */
 export function getUnitTotalSentences(unit: Unit): number {

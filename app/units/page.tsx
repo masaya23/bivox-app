@@ -1,40 +1,48 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import HardNavLink from '@/components/HardNavLink';
-import { getUnitsByFilter, getUnitTotalSentences, getGradeName } from '@/utils/units';
+import {
+  getUnitsByFilter,
+  getUnitTotalSentences,
+  getPartsByGrade,
+  getUnitByGrade,
+  getUnitIdByGrade,
+} from '@/utils/units';
 import type { TabFilter } from '@/types/unit';
 
-const GRADE_TABS: { id: TabFilter; label: string }[] = [
-  { id: 'all', label: '全学年' },
-  { id: 'junior-high-1', label: '中学1年' },
-  { id: 'junior-high-2', label: '中学2年' },
-  { id: 'junior-high-3', label: '中学3年' },
-];
-
-const SHUFFLE_FILTERS: { id: TabFilter; label: string; accent: string }[] = [
-  { id: 'all', label: '全Unitをまとめて練習', accent: 'from-emerald-500 to-teal-500' },
-  { id: 'junior-high-1', label: '中1 Unitをまとめて練習', accent: 'from-blue-500 to-sky-500' },
-  { id: 'junior-high-2', label: '中2 Unitをまとめて練習', accent: 'from-indigo-500 to-purple-500' },
-  { id: 'junior-high-3', label: '中3 Unitをまとめて練習', accent: 'from-pink-500 to-rose-500' },
+const GRADE_TABS: { id: TabFilter; label: string; accent: string }[] = [
+  { id: 'junior-high-1', label: '中学1年', accent: 'from-blue-500 to-sky-500' },
+  { id: 'junior-high-2', label: '中学2年', accent: 'from-indigo-500 to-purple-500' },
+  { id: 'junior-high-3', label: '中学3年', accent: 'from-pink-500 to-rose-500' },
+  { id: 'all', label: '全学年', accent: 'from-emerald-500 to-teal-500' },
 ];
 
 export default function UnitsPage() {
   const [activeTab, setActiveTab] = useState<TabFilter>('junior-high-1');
   const [shuffleMode, setShuffleMode] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const parts = getPartsByGrade(activeTab);
+  const currentUnitId = getUnitIdByGrade(activeTab);
+  const currentTabInfo = GRADE_TABS.find((tab) => tab.id === activeTab) || GRADE_TABS[0];
 
-  const getTotalSentencesByFilter = (filter: TabFilter): number =>
-    getUnitsByFilter(filter).reduce(
-      (total, unit) => total + getUnitTotalSentences(unit),
-      0
-    );
+  // 選択中の学年の総問題数を計算
+  const totalSentences = parts.reduce((sum, part) => sum + part.sentences.length, 0);
 
-  const units = getUnitsByFilter(activeTab);
+  // Part IDから学年を判定する関数
+  const getGradeFromPartId = (partId: string): string => {
+    if (partId.startsWith('unit1')) return 'unit1';
+    if (partId.startsWith('unit2')) return 'unit2';
+    if (partId.startsWith('unit3')) return 'unit3';
+    return currentUnitId || 'unit1';
+  };
+
+  const getGradeLabelFromPartId = (partId: string): string => {
+    if (partId.startsWith('unit1')) return '中1';
+    if (partId.startsWith('unit2')) return '中2';
+    if (partId.startsWith('unit3')) return '中3';
+    return '';
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 p-4">
@@ -49,9 +57,9 @@ export default function UnitsPage() {
               ← ホーム
             </HardNavLink>
             <div className="text-center flex-1">
-              <h1 className="text-3xl font-black text-gray-800">Unit学習</h1>
+              <h1 className="text-3xl font-black text-gray-800">学年別練習</h1>
               <p className="text-gray-600 text-sm mt-1">
-                Unitを選んでPart練習、またはまとめて練習を開始できます
+                学年を選んでPartを練習しましょう
               </p>
             </div>
             <div className="w-20"></div>
@@ -63,9 +71,9 @@ export default function UnitsPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${
+                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all ${
                   activeTab === tab.id
-                    ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-md'
+                    ? `bg-gradient-to-r ${tab.accent} text-white shadow-lg scale-105`
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
@@ -79,99 +87,119 @@ export default function UnitsPage() {
             <span className="text-gray-700 font-semibold">問題をシャッフルする</span>
             <button
               onClick={() => setShuffleMode(!shuffleMode)}
-              className={`relative w-14 h-8 rounded-full transition-colors ${shuffleMode ? 'bg-green-500' : 'bg-gray-300'}`}
+              className={`relative w-14 h-8 rounded-full transition-colors ${
+                shuffleMode ? 'bg-green-500' : 'bg-gray-300'
+              }`}
             >
               <div
-                className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full transition-transform ${shuffleMode ? 'transform translate-x-6' : ''}`}
+                className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full transition-transform ${
+                  shuffleMode ? 'transform translate-x-6' : ''
+                }`}
               />
             </button>
           </div>
         </div>
 
-        {/* Unitカード */}
-        <div className="space-y-4">
-          {units.length === 0 ? (
+        {/* まとめて練習ボタン */}
+        {totalSentences > 0 && (
+          <HardNavLink
+            href={
+              activeTab === 'all'
+                ? `/units/practice/select?filter=all&shuffle=${shuffleMode}`
+                : `/units/${currentUnitId}/practice/select?shuffle=${shuffleMode}`
+            }
+            className={`block rounded-2xl p-5 mb-6 shadow-xl transition-all transform hover:scale-[1.02] bg-gradient-to-r ${currentTabInfo.accent} text-white hover:shadow-2xl`}
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="px-2 py-0.5 bg-white/20 rounded text-xs font-semibold">
+                    {shuffleMode ? 'シャッフル' : '順番通り'}
+                  </span>
+                  <span className="text-white/80 text-sm">{totalSentences}問</span>
+                </div>
+                <h2 className="text-2xl font-black">{currentTabInfo.label}をまとめて練習</h2>
+                <p className="text-sm text-white/80 mt-1">
+                  {activeTab === 'all'
+                    ? '全学年のPartをまとめて練習'
+                    : `${currentTabInfo.label}の全Partをまとめて練習`}
+                </p>
+              </div>
+              <div className="text-4xl">→</div>
+            </div>
+          </HardNavLink>
+        )}
+
+        {/* Part一覧セクション */}
+        <div className="flex items-center gap-3 mb-4">
+          <h3 className="text-white font-bold text-lg">Part一覧</h3>
+          <div className="flex-1 h-px bg-white/30"></div>
+          <span className="text-white/70 text-sm">{parts.length} Part</span>
+        </div>
+
+        {/* Part一覧 */}
+        <div className="space-y-3">
+          {parts.length === 0 ? (
             <div className="bg-white rounded-2xl shadow-lg p-6 text-center text-gray-700">
-              この学年のUnitデータがありません
+              この学年のデータがありません
             </div>
           ) : (
-            units.map((unit) => {
-              const totalSentences = getUnitTotalSentences(unit);
+            parts.map((part) => {
+              // 全学年モードの場合はPartからUnit IDを取得する
+              const partUnitId =
+                activeTab === 'all' ? getGradeFromPartId(part.id) : currentUnitId;
+
               return (
-                <div
-                  key={unit.id}
-                  className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all"
+                <HardNavLink
+                  key={part.id}
+                  href={`/units/${partUnitId}/parts/${part.id}/mode?shuffle=${shuffleMode}`}
+                  className="block bg-white rounded-2xl shadow-lg p-5 hover:shadow-xl transition-all hover:scale-[1.01]"
                 >
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
-                          {getGradeName(unit.grade)}
+                        <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-bold rounded">
+                          Part {part.partNumber}
                         </span>
-                        <span className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-bold rounded-full">
-                          Unit {unit.unitNumber}
+                        {activeTab === 'all' && (
+                          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded">
+                            {getGradeLabelFromPartId(part.id)}
+                          </span>
+                        )}
+                        <span className="text-gray-400 text-sm">
+                          {part.sentences.length}問
                         </span>
-                        <span className="text-gray-500 text-sm">
-                          {unit.parts.length}パート / {totalSentences}問
-                        </span>
+                        {part.priority && (
+                          <span
+                            className={`px-2 py-0.5 text-xs font-bold rounded ${
+                              part.priority === 'A'
+                                ? 'bg-red-100 text-red-700'
+                                : part.priority === 'B'
+                                ? 'bg-yellow-100 text-yellow-700'
+                                : 'bg-gray-100 text-gray-700'
+                            }`}
+                          >
+                            {part.priority === 'A'
+                              ? '重要'
+                              : part.priority === 'B'
+                              ? '標準'
+                              : '補足'}
+                          </span>
+                        )}
                       </div>
-                      <h2 className="text-xl font-bold text-gray-800 mb-1">
-                        {unit.title}
-                      </h2>
-                      <p className="text-gray-600 text-sm">
-                        {unit.description}
+                      <h2 className="text-lg font-bold text-gray-800">{part.title}</h2>
+                      <p className="text-gray-500 text-sm mt-1 line-clamp-1">
+                        {part.description}
                       </p>
                     </div>
-                    <div className="text-3xl text-gray-400">→</div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                      →
+                    </div>
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
-                    <HardNavLink
-                      href={`/units/${unit.id}?shuffle=${shuffleMode}`}
-                      className="block w-full text-center py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold hover:from-green-600 hover:to-emerald-600 transition-all"
-                    >
-                      Partを選んで練習
-                    </HardNavLink>
-                    <HardNavLink
-                      href={`/units/${unit.id}/practice/select?shuffle=${shuffleMode}`}
-                      className="block w-full text-center py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold hover:from-orange-600 hover:to-red-600 transition-all"
-                    >
-                      Unitまとめて練習
-                    </HardNavLink>
-                  </div>
-                </div>
+                </HardNavLink>
               );
             })
           )}
-        </div>
-
-        {/* まとめて練習（学年シャッフル） */}
-        <div className="mt-8 space-y-3">
-          <h3 className="text-white font-bold text-lg text-center">学年別まとめて練習</h3>
-          {SHUFFLE_FILTERS.map((grade) => {
-            const total = getTotalSentencesByFilter(grade.id);
-            const disabled = total === 0;
-            return (
-              <HardNavLink
-                key={grade.id}
-                href={`/units/practice/select?filter=${grade.id}&shuffle=${shuffleMode}`}
-                className={`block rounded-2xl p-5 shadow-xl transition-all transform hover:scale-105 ${
-                  disabled
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none'
-                    : `bg-gradient-to-r ${grade.accent} text-white hover:shadow-2xl`
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-semibold opacity-80">{shuffleMode ? 'シャッフル出題' : '順番通り出題'}</p>
-                    <h2 className="text-2xl font-black mt-1">{grade.label}</h2>
-                    <p className="text-sm opacity-80 mt-1">{shuffleMode ? '全問からランダムに出題' : '順番通りに出題'}（{total}問）</p>
-                  </div>
-                  <div className="text-4xl">{disabled ? '?' : '→'}</div>
-                </div>
-              </HardNavLink>
-            );
-          })}
         </div>
       </div>
     </div>
