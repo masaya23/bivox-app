@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Providers from "@/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,20 +14,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "無限英作文アプリ",
-  description: "AIを活用した英語学習アプリ。音声認識で英作文トレーニング",
+  title: "Bivox - 瞬間英会話 -",
+  description: "AIを活用した瞬間英会話トレーニングアプリ。音声認識で英語が口から飛び出す体験を。",
   manifest: "/manifest.json",
-  themeColor: "#3b82f6",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "英作文",
+    title: "Bivox",
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#f97316",
+  // iOS Safari/Capacitor用のviewport-fit設定
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -46,7 +50,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        {children}
+        <Providers>
+          {children}
+        </Providers>
         <script
           dangerouslySetInnerHTML={{
             __html: `

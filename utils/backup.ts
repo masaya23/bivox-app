@@ -48,21 +48,40 @@ export function exportData(): BackupData {
 }
 
 /**
- * データをJSON文字列でダウンロード
+ * バックアップデータを共有（Web Share API）またはダウンロード
  */
-export function downloadBackup(): void {
+export async function downloadBackup(): Promise<void> {
   const data = exportData();
   const json = JSON.stringify(data, null, 2);
+  const fileName = `bivox-backup-${new Date().toISOString().split('T')[0]}.json`;
   const blob = new Blob([json], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
 
+  // Web Share API（ファイル共有）が使える場合は共有シートを表示
+  if (navigator.share && navigator.canShare) {
+    const file = new File([blob], fileName, { type: 'application/json' });
+    if (navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({
+          title: 'Bivox バックアップ',
+          files: [file],
+        });
+        return;
+      } catch (e: any) {
+        // ユーザーがキャンセルした場合は何もしない
+        if (e.name === 'AbortError') return;
+        // その他のエラーはフォールバックへ
+      }
+    }
+  }
+
+  // フォールバック: 従来のダウンロード方式（ブラウザ向け）
+  const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
-  link.download = `english-app-backup-${new Date().toISOString().split('T')[0]}.json`;
+  link.download = fileName;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-
   URL.revokeObjectURL(url);
 }
 

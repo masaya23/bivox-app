@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
+import { getApiUrl } from '@/utils/api';
 
 interface OpenAITTSOptions {
   lang?: 'ja' | 'en';
@@ -43,7 +44,7 @@ export function useOpenAITTS(options: OpenAITTSOptions = {}) {
       setIsSpeaking(true);
 
       try {
-        const response = await fetch('/api/tts', {
+        const response = await fetch(getApiUrl('/api/tts'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

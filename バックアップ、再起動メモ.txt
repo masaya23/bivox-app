@@ -1,0 +1,10 @@
+C:\programmingbackup\englishapp_20260114_180922にバックアップしてください
+
+npm run build
+npx cap sync
+
+npm run dev
+http://localhost:3000
+
+パスワードenglishapp2026katmotnis
+

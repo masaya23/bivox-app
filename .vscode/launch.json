@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Next dev + Open Browser",
+      "runtimeExecutable": "C:\\Program Files\\nodejs\\node.exe",
+      "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+      "args": ["dev", "-p", "3000"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "preLaunchTask": "Kill port 3000",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "started server on .* url: (https?://\\S+)"
+      },
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}

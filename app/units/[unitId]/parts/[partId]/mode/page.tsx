@@ -1,130 +1,136 @@
-
 /* eslint-disable @next/next/no-html-link-for-pages */
+'use client';
 
+import { useParams, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { getUnitById, getPartById } from '@/utils/units';
+import ModeSelectList from '@/components/train/ModeSelectList';
 
-export default async function PartPracticeModeSelectPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ unitId: string; partId: string }>;
-  searchParams: Promise<{ shuffle?: string }>;
-}) {
-  const resolvedParams = await params;
-  const resolvedSearchParams = await searchParams;
-  const shuffleMode = resolvedSearchParams.shuffle === 'true';
+// unitIdから学年を判定
+function getGradeFromUnitId(unitId: string): string {
+  if (unitId === 'unit1') return 'junior-high-1';
+  if (unitId === 'unit2') return 'junior-high-2';
+  if (unitId === 'unit3') return 'junior-high-3';
+  return 'junior-high-1';
+}
 
-  const unit = getUnitById(resolvedParams.unitId);
-  const part = unit ? getPartById(resolvedParams.unitId, resolvedParams.partId) : undefined;
+// 学年に応じたカラー（ホーム画面のボタンと統一）
+function getGradientForGrade(grade: string): { gradient: string; bgGradient: string } {
+  switch (grade) {
+    case 'junior-high-1':
+      return { gradient: 'from-[#1E90FF] to-[#1E90FF]', bgGradient: 'from-[#E8F4FD] to-[#E8F4FD]' };
+    case 'junior-high-2':
+      return { gradient: 'from-[#2ECC71] to-[#2ECC71]', bgGradient: 'from-[#E8F8F0] to-[#E8F8F0]' };
+    case 'junior-high-3':
+      return { gradient: 'from-[#FF4757] to-[#FF4757]', bgGradient: 'from-[#FDE8EA] to-[#FDE8EA]' };
+    case 'all':
+      return { gradient: 'from-[#3949AB] to-[#3949AB]', bgGradient: 'from-[#E8EAF6] to-[#E8EAF6]' };
+    default:
+      return { gradient: 'from-[#1E90FF] to-[#1E90FF]', bgGradient: 'from-[#E8F4FD] to-[#E8F4FD]' };
+  }
+}
+
+function PartPracticeModeSelectContent() {
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const unitId = params.unitId as string;
+  const partId = params.partId as string;
+  const shuffleMode = searchParams.get('shuffle') === 'true';
+  const gradeParam = searchParams.get('grade') || '';
+
+  const unit = getUnitById(unitId);
+  const part = unit ? getPartById(unitId, partId) : undefined;
+
+  // 戻り先を決定
+  const grade = gradeParam || getGradeFromUnitId(unitId);
+  const backLink = `/units?grade=${grade}`;
+  const colors = getGradientForGrade(grade);
 
   if (!unit || !part) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 p-4 flex items-center justify-center">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 text-center">
-          <h1 className="text-2xl font-black text-gray-800 mb-4">
-            Partが見つかりません
-          </h1>
-          <a href="/units" className="text-blue-500 hover:text-blue-700 font-semibold">
-            ← Unit一覧に戻る
-          </a>
+      <div className="min-h-screen bg-gray-200 flex justify-center">
+        <div className={`w-full max-w-[430px] min-h-screen shadow-xl bg-gradient-to-br ${colors.bgGradient}`}>
+          <div className={`p-4 bg-gradient-to-r ${colors.gradient}`}>
+            <a href="/units" className="text-white/80 hover:text-white font-medium text-sm">
+              ← 戻る
+            </a>
+            <h1 className="text-2xl font-black text-white text-center mt-2">
+              モード選択
+            </h1>
+          </div>
+          <div className="px-4 py-8">
+            <div className="bg-white rounded-3xl shadow-xl p-8 text-center border-4 border-white/50">
+              <div className="text-4xl mb-4">😢</div>
+              <h2 className="text-xl font-bold text-gray-800 mb-4">
+                Partが見つかりません
+              </h2>
+              <a
+                href="/units"
+                className={`inline-block px-6 py-3 bg-gradient-to-r ${colors.gradient} text-white font-bold rounded-2xl`}
+              >
+                ← Part一覧に戻る
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+    <div className="min-h-screen bg-gray-200 flex justify-center">
+      <div className={`w-full max-w-[430px] min-h-screen shadow-xl bg-gradient-to-br ${colors.bgGradient}`}>
         {/* ヘッダー */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-black text-gray-800 mb-4">
-            トレーニングモード選択
+        <div className={`p-4 bg-gradient-to-r ${colors.gradient}`}>
+          <div className="flex items-center justify-between">
+            <a href={backLink} className="text-white/80 hover:text-white font-medium text-sm">
+              ← 戻る
+            </a>
+          </div>
+          <h1 className="text-2xl font-black text-white text-center mt-2">
+            モード選択
           </h1>
-          <p className="text-lg text-gray-600">
-            {unit.title} - {part.title}
-          </p>
-          <p className="text-sm text-gray-500 mt-1">
-            {part.sentences.length}問
-          </p>
         </div>
 
-        {/* モード選択カード */}
-        <div className="space-y-4 mb-8">
-          {/* シャドーイングモード */}
-          <a
-            href={`/units/${unit.id}/parts/${part.id}?shuffle=${shuffleMode}&mode=shadowing`}
-            className="block p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl border-2 border-green-200 hover:border-green-400 transition-all transform hover:scale-105"
-          >
-            <div className="flex items-start gap-4">
-              <div className="text-2xl font-black text-green-700">SH</div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  シャドーイングモード
-                </h2>
-                <p className="text-gray-600 mb-3">
-                  音声を聞いて真似する基本トレーニング
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-green-600">✓</span>
-                    <span>日本語音声 → 一時停止 → 英語音声</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-green-600">✓</span>
-                    <span>自分のペースで練習できる</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-green-600">✓</span>
-                    <span>初心者におすすめ</span>
-                  </div>
-                </div>
-              </div>
-              <div className="text-gray-400 text-3xl">→</div>
-            </div>
-          </a>
+        <div className="px-4 py-6">
+          {/* Part情報カード */}
+          <div className="bg-white rounded-3xl shadow-xl p-6 mb-5 border-4 border-white/50 text-center">
+            <p className="text-sm text-gray-500 mb-1">Part {part.partNumber}</p>
+            <h2 className="text-xl font-black text-gray-800 whitespace-pre-line">{part.title}</h2>
+            <p className={`inline-block mt-3 px-4 py-1.5 bg-gradient-to-r ${colors.gradient} text-white text-sm font-bold rounded-full`}>
+              {part.sentences.length}問
+            </p>
+          </div>
 
-          {/* スピーキングモード */}
-          <a
-            href={`/units/${unit.id}/parts/${part.id}?shuffle=${shuffleMode}&mode=speaking`}
-            className="block p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 hover:border-purple-400 transition-all transform hover:scale-105"
-          >
-            <div className="flex items-start gap-4">
-              <div className="text-2xl font-black text-purple-700">SP</div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  スピーキングモード
-                </h2>
-                <p className="text-gray-600 mb-3">
-                  音声入力で自動判定する実践トレーニング
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-purple-600">✓</span>
-                    <span>日本語音声 → 音声入力 → 自動判定</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-purple-600">✓</span>
-                    <span>発音の正確さをチェック</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-purple-600">✓</span>
-                    <span>中級者以上におすすめ</span>
-                  </div>
-                </div>
-              </div>
-              <div className="text-gray-400 text-3xl">→</div>
-            </div>
-          </a>
+          {/* モード選択カード */}
+          <div className="bg-white rounded-3xl shadow-xl p-5 border-4 border-white/50">
+            <h3 className="text-lg font-black text-gray-800 mb-4 text-center">
+              学習モードを選択
+            </h3>
+            <ModeSelectList
+              unitId={unit.id}
+              partId={part.id}
+              shuffleMode={shuffleMode}
+              grade={grade}
+            />
+          </div>
         </div>
-
-        {/* 戻るボタン */}
-        <a
-          href={`/units/${unit.id}?shuffle=${shuffleMode}`}
-          className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
-        >
-          ← {unit.title}に戻る
-        </a>
       </div>
     </div>
   );
 }
+
+export default function PartPracticeModeSelectPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-200 flex justify-center">
+        <div className="w-full max-w-[430px] min-h-screen shadow-xl bg-gray-50 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+        </div>
+      </div>
+    }>
+      <PartPracticeModeSelectContent />
+    </Suspense>
+  );
+}
+

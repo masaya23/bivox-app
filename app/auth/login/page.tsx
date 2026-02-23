@@ -1,0 +1,308 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
+import HardNavLink from '@/components/HardNavLink';
+import { useAuth } from '@/contexts/AuthContext';
+
+export default function LoginPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { signIn, resendVerification, useFirebase } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [needsVerification, setNeedsVerification] = useState(false);
+  const [verificationEmail, setVerificationEmail] = useState('');
+  const [resendStatus, setResendStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [verifiedSuccess, setVerifiedSuccess] = useState(false);
+
+  // メール認証完了後のリダイレクトを検出
+  useEffect(() => {
+    if (searchParams.get('verified') === 'true') {
+      setVerifiedSuccess(true);
+      // URLからパラメータを削除（履歴を汚さないようにreplace）
+      router.replace('/auth/login');
+    }
+  }, [searchParams, router]);
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    try {
+      // メール・パスワードのバリデーション
+      if (!email || !password) {
+        setError('メールアドレスとパスワードを入力してください');
+        setIsLoading(false);
+        return;
+      }
+
+      if (password.length < 6) {
+        setError('パスワードは6文字以上で入力してください');
+        setIsLoading(false);
+        return;
+      }
+
+      // AuthContextのsignInを使用
+      const result = await signIn(email, password);
+
+      if (result.success) {
+        if (result.needsVerification) {
+          // メール認証が必要な場合
+          setVerificationEmail(email);
+          setNeedsVerification(true);
+        } else {
+          // ログイン成功 - ホームへリダイレクト
+          router.push('/home');
+        }
+      } else {
+        setError(result.error?.message || 'ログインに失敗しました');
+      }
+    } catch {
+      setError('ログインに失敗しました。もう一度お試しください。');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    setResendStatus('sending');
+    try {
+      const result = await resendVerification();
+      if (result.success) {
+        setResendStatus('sent');
+      } else {
+        setResendStatus('error');
+        setError(result.error || '再送信に失敗しました');
+      }
+    } catch {
+      setResendStatus('error');
+      setError('再送信に失敗しました');
+    }
+  };
+
+  // メール認証待ち画面
+  if (needsVerification) {
+    return (
+      <div className="min-h-screen bg-white flex flex-col max-w-[430px] mx-auto relative shadow-xl">
+        {/* ヘッダー */}
+        <header className="bg-white px-4 py-4 border-b border-gray-100">
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => {
+                setNeedsVerification(false);
+                setResendStatus('idle');
+                setError('');
+              }}
+              className="text-[#5D4037] hover:text-[#4E342E] text-2xl font-light w-10 h-10 flex items-center justify-center -ml-2"
+            >
+              ‹
+            </button>
+            <h1 className="text-lg font-bold text-[#5D4037]">メール認証が必要です</h1>
+            <div className="w-10" />
+          </div>
+        </header>
+
+        {/* メインコンテンツ */}
+        <div className="flex-1 px-6 py-8 flex flex-col items-center justify-center">
+          {/* 警告アイコン */}
+          <div className="w-24 h-24 bg-gradient-to-br from-amber-100 to-amber-200 rounded-full flex items-center justify-center mb-6 shadow-lg">
+            <svg
+              className="w-12 h-12 text-amber-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+          </div>
+
+          <h2 className="text-xl font-bold text-[#5D4037] mb-3">
+            メールアドレスを確認してください
+          </h2>
+
+          <p className="text-gray-600 text-center mb-2">
+            <span className="font-medium text-[#5D4037]">{verificationEmail}</span>
+          </p>
+
+          <p className="text-gray-500 text-sm text-center mb-8 leading-relaxed">
+            ログインするには、まずメールアドレスを<br />
+            認証する必要があります。<br />
+            登録時に送信された確認メールをご確認ください。
+          </p>
+
+          {/* 注意事項 */}
+          <div className="w-full bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6">
+            <p className="text-amber-800 text-sm text-center">
+              📧 メールが届かない場合は、迷惑メールフォルダをご確認ください
+            </p>
+          </div>
+
+          {error && (
+            <div className="w-full p-3 bg-red-50 border border-red-200 rounded-2xl mb-4">
+              <p className="text-red-600 text-sm text-center">{error}</p>
+            </div>
+          )}
+
+          {/* 確認メール再送信ボタン */}
+          <button
+            onClick={handleResendVerification}
+            disabled={resendStatus === 'sending' || resendStatus === 'sent'}
+            className="w-full py-4 bg-gradient-to-r from-[#FFE566] to-[#FCC800] text-[#5D4037] font-black text-lg rounded-2xl shadow-[0_4px_15px_rgba(252,200,0,0.4)] hover:shadow-[0_6px_20px_rgba(252,200,0,0.5)] transition-all disabled:opacity-50 mb-4"
+          >
+            {resendStatus === 'sending'
+              ? '送信中...'
+              : resendStatus === 'sent'
+              ? '✓ 送信しました'
+              : '確認メールを再送信'}
+          </button>
+
+          {resendStatus === 'sent' && (
+            <p className="text-green-600 text-sm text-center mb-4">
+              確認メールを再送信しました。メールをご確認ください。
+            </p>
+          )}
+
+          {/* ログインに戻るリンク */}
+          <button
+            onClick={() => {
+              setNeedsVerification(false);
+              setResendStatus('idle');
+              setError('');
+            }}
+            className="text-[#5D4037] font-bold hover:text-[#4E342E] underline underline-offset-2"
+          >
+            ログインに戻る
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col max-w-[430px] mx-auto relative shadow-xl">
+      {/* ヘッダー - シンプルな白背景 */}
+      <header className="bg-white px-4 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between">
+          <HardNavLink
+            href="/"
+            className="text-[#5D4037] hover:text-[#4E342E] text-2xl font-light w-10 h-10 flex items-center justify-center -ml-2"
+          >
+            ‹
+          </HardNavLink>
+          <h1 className="text-lg font-bold text-[#5D4037]">ログイン</h1>
+          <div className="w-10" />
+        </div>
+      </header>
+
+      {/* メインコンテンツ */}
+      <div className="flex-1 px-6 py-6">
+        {/* ロゴエリア */}
+        <div className="text-center mb-8">
+          <div className="w-24 h-24 mx-auto mb-4">
+            <Image
+              src="/images/mascot/bivox_fox_face_cutout.png"
+              alt="Bivox"
+              width={96}
+              height={96}
+              className="drop-shadow-lg"
+              priority
+            />
+          </div>
+          <p className="text-gray-500 text-sm">アカウントにログイン</p>
+        </div>
+
+        {/* メール認証完了メッセージ */}
+        {verifiedSuccess && (
+          <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-4">
+            <div className="flex items-center justify-center gap-2">
+              <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="text-green-700 font-medium text-sm">
+                メール認証が完了しました！
+              </p>
+            </div>
+            <p className="text-green-600 text-xs text-center mt-1">
+              ログインしてアプリをご利用ください
+            </p>
+          </div>
+        )}
+
+        {/* Firebase使用時の注意書き */}
+        {useFirebase && !verifiedSuccess && (
+          <div className="bg-blue-50 border border-blue-200 rounded-2xl p-3 mb-4">
+            <p className="text-blue-700 text-xs text-center">
+              📧 メール認証済みのアカウントでログインしてください
+            </p>
+          </div>
+        )}
+
+        {/* メールログインフォーム */}
+        <form onSubmit={handleEmailLogin} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-[#5D4037] mb-1.5">
+              メールアドレス
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="example@email.com"
+              className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-[#FCC800] focus:bg-white transition-all"
+              disabled={isLoading}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#5D4037] mb-1.5">
+              パスワード
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="6文字以上"
+              className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-[#FCC800] focus:bg-white transition-all"
+              disabled={isLoading}
+            />
+          </div>
+
+          {error && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-2xl">
+              <p className="text-red-600 text-sm text-center">{error}</p>
+            </div>
+          )}
+
+          {/* メインアクションボタン - イエロー背景 + 濃い茶色テキスト */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-4 bg-gradient-to-r from-[#FFE566] to-[#FCC800] text-[#5D4037] font-black text-lg rounded-2xl shadow-[0_4px_15px_rgba(252,200,0,0.4)] hover:shadow-[0_6px_20px_rgba(252,200,0,0.5)] transition-all disabled:opacity-50 active:scale-[0.98]"
+          >
+            {isLoading ? 'ログイン中...' : 'ログイン'}
+          </button>
+        </form>
+
+        {/* 新規登録リンク */}
+        <div className="mt-8 text-center">
+          <p className="text-gray-500 text-sm mb-2">アカウントをお持ちでない方</p>
+          <HardNavLink
+            href="/auth/register"
+            className="text-[#5D4037] font-bold hover:text-[#4E342E] underline underline-offset-2"
+          >
+            新規登録はこちら
+          </HardNavLink>
+        </div>
+      </div>
+    </div>
+  );
+}

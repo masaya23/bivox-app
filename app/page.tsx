@@ -1,181 +1,97 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import HardNavLink from '@/components/HardNavLink';
-import { getStreakData } from '@/utils/streak';
+import { useAuth } from '@/contexts/AuthContext';
 
-export default function Home() {
-  const [streakData, setStreakData] = useState<any>(null);
-  const [stats, setStats] = useState<any>(null);
+export default function WelcomePage() {
+  const router = useRouter();
+  const { isAuthenticated, isLoading } = useAuth();
 
   useEffect(() => {
-    // Streakデータと統計を読み込み
-    setStreakData(getStreakData());
-
-    const statsStr = localStorage.getItem('trainingStats');
-    if (statsStr) {
-      setStats(JSON.parse(statsStr));
+    if (!isLoading && isAuthenticated) {
+      router.replace('/home');
     }
-  }, []);
+  }, [isLoading, isAuthenticated, router]);
+
+  // 認証チェック中、またはログイン済みでリダイレクト待ち
+  if (isLoading || isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#FFE566] via-[#FCC800] to-[#FFD900] flex items-center justify-center">
+        <div className="text-white text-center">
+          <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-lg font-medium">読み込み中...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 md:p-12">
-        <div className="text-center mb-8">
-          <div className="relative inline-block mb-6">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 blur-2xl opacity-30 animate-pulse"></div>
-            <h1 className="relative text-5xl md:text-7xl font-black mb-2">
-              <span className="bg-gradient-to-r from-green-500 via-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-lg">
-                瞬間英会話
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent drop-shadow-lg">
-                トレーニング
-              </span>
-            </h1>
-          </div>
-          <p className="text-xl md:text-2xl font-semibold text-gray-700">
-            <span className="inline-block mr-2">💬</span>
-            短い文でスピーキング力アップ
-            <span className="inline-block ml-2">🚀</span>
-          </p>
+    <div className="min-h-screen bg-gradient-to-br from-[#FFE566] via-[#FCC800] to-[#FFD900] flex flex-col max-w-[430px] mx-auto relative shadow-xl">
+      {/* 背景装飾 */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 -left-10 w-40 h-40 bg-white/20 rounded-full blur-3xl" />
+        <div className="absolute top-60 -right-20 w-60 h-60 bg-yellow-300/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-40 left-10 w-32 h-32 bg-white/25 rounded-full blur-2xl" />
+      </div>
+
+      {/* メインコンテンツ */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 relative z-10">
+        {/* マスコット */}
+        <div className="mb-6">
+          <Image
+            src="/images/mascot/fox_top.png"
+            alt="Bivox マスコット"
+            width={260}
+            height={260}
+            className="drop-shadow-lg"
+            priority
+          />
         </div>
 
-        {/* Streakカード */}
-        {streakData && streakData.currentStreak > 0 && (
-          <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6 mb-6">
-            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">
-              🔥 連続学習記録
-            </h3>
-            <div className="grid grid-cols-2 gap-4 text-center">
-              <div>
-                <p className="text-4xl font-black text-orange-600">
-                  {streakData.currentStreak}
-                </p>
-                <p className="text-sm text-gray-600">連続日数</p>
-              </div>
-              <div>
-                <p className="text-4xl font-black text-red-600">
-                  {streakData.longestStreak}
-                </p>
-                <p className="text-sm text-gray-600">最長記録</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* 統計カード */}
-        {stats && (
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-6">
-            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">
-              📊 学習統計
-            </h3>
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div>
-                <p className="text-2xl font-black text-blue-600">
-                  {stats.totalSessions}
-                </p>
-                <p className="text-xs text-gray-600">セッション</p>
-              </div>
-              <div>
-                <p className="text-2xl font-black text-purple-600">
-                  {stats.totalQuestions}
-                </p>
-                <p className="text-xs text-gray-600">総問題数</p>
-              </div>
-              <div>
-                <p className="text-2xl font-black text-green-600">
-                  {stats.averageAccuracy}%
-                </p>
-                <p className="text-xs text-gray-600">平均正解率</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="space-y-4 mb-8">
-          <div className="flex items-center gap-4 p-4 bg-green-50 rounded-xl border-2 border-green-200">
-            <div className="text-3xl">✨</div>
-            <div>
-              <h3 className="font-bold text-gray-800">AI生成で無限に学習</h3>
-              <p className="text-sm text-gray-600">
-                毎回新しい例文で飽きずに継続
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-xl border-2 border-blue-200">
-            <div className="text-3xl">🎯</div>
-            <div>
-              <h3 className="font-bold text-gray-800">
-                間隔反復で効率的に記憶
-              </h3>
-              <p className="text-sm text-gray-600">
-                苦手な例文は自動的に多く出題
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4 p-4 bg-purple-50 rounded-xl border-2 border-purple-200">
-            <div className="text-3xl">🔊</div>
-            <div>
-              <h3 className="font-bold text-gray-800">音声読み上げ対応</h3>
-              <p className="text-sm text-gray-600">
-                ネイティブ発音で耳も鍛える
-              </p>
-            </div>
-          </div>
+        {/* ロゴ */}
+        <div className="mb-16">
+          <Image
+            src="/images/bivox-logo-welcome.png"
+            alt="Bivox"
+            width={200}
+            height={80}
+            className="drop-shadow-md"
+            priority
+          />
         </div>
 
-        <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
-            <HardNavLink
-              href="/units"
-              className="block w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xl font-bold rounded-2xl text-center hover:from-purple-600 hover:to-pink-600 transition-all transform hover:scale-105 shadow-lg"
-            >
-              📚 Unit学習
-            </HardNavLink>
-            <HardNavLink
-              href="/conversation"
-              className="block w-full py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white text-xl font-bold rounded-2xl text-center hover:from-green-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-lg"
-            >
-              🗣️ AIと英会話
-            </HardNavLink>
-          </div>
-
-          <div className="grid grid-cols-1 gap-3">
-            <HardNavLink
-              href="/train"
-              className="block w-full py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white text-lg font-bold rounded-2xl text-center hover:from-orange-600 hover:to-red-600 transition-all transform hover:scale-105 shadow-md"
-            >
-              🎯 例文トレーニング
-            </HardNavLink>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            <HardNavLink
-              href="/settings"
-              className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
-            >
-              ⚙️ 設定
-            </HardNavLink>
-            <HardNavLink
-              href="/help"
-              className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
-            >
-              ❓ ヘルプ
-            </HardNavLink>
-            <HardNavLink
-              href="/test-generate"
-              className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
-            >
-              🧪 テスト
-            </HardNavLink>
-          </div>
+        {/* アクションボタン */}
+        <div className="w-full space-y-3">
+          {/* メインアクションボタン: 濃い茶色テキスト + 強めのシャドウ */}
+          <HardNavLink
+            href="/auth/register"
+            className="block w-full py-4 bg-white text-[#5D4037] text-center font-black text-lg rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.2)] transition-all active:scale-[0.98]"
+          >
+            無料で始める
+          </HardNavLink>
+          {/* サブアクションボタン: 濃い茶色の枠線とテキスト */}
+          <HardNavLink
+            href="/auth/login"
+            className="block w-full py-4 bg-white/20 backdrop-blur-sm text-[#5D4037] text-center font-bold text-lg rounded-2xl border-2 border-[#5D4037]/60 hover:bg-white/30 hover:border-[#5D4037]/80 transition-all active:scale-[0.98]"
+          >
+            ログイン
+          </HardNavLink>
         </div>
+      </div>
 
-        <div className="mt-8 text-center text-sm text-gray-500">
-          <p>毎日少しずつ、確実にレベルアップ</p>
+      {/* フッター - セーフエリアを考慮した余白 */}
+      <div className="pb-12 pt-4 px-6 relative z-10" style={{ paddingBottom: 'max(3rem, env(safe-area-inset-bottom, 3rem))' }}>
+        <div className="flex items-center justify-center gap-4 text-[#5D4037]/70 text-xs">
+          <a href="/terms" className="hover:text-[#5D4037] transition-colors py-2 px-1">
+            利用規約
+          </a>
+          <span className="text-[#5D4037]/50">|</span>
+          <a href="/privacy" className="hover:text-[#5D4037] transition-colors py-2 px-1">
+            プライバシーポリシー
+          </a>
         </div>
       </div>
     </div>

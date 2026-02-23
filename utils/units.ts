@@ -95,6 +95,20 @@ export function getUnitTotalSentences(unit: Unit): number {
 }
 
 /**
+ * 次のPartを取得（同一Unit内で次のpartNumberを探す）
+ */
+export function getNextPart(unitId: string, currentPartId: string): Part | undefined {
+  const unit = getUnitById(unitId);
+  if (!unit) return undefined;
+  const currentPart = unit.parts.find((p) => p.id === currentPartId);
+  if (!currentPart) return undefined;
+  const sorted = [...unit.parts].sort((a, b) => a.partNumber - b.partNumber);
+  const currentIdx = sorted.findIndex((p) => p.id === currentPartId);
+  if (currentIdx < 0 || currentIdx >= sorted.length - 1) return undefined;
+  return sorted[currentIdx + 1];
+}
+
+/**
  * Partの例文をシャッフル
  */
 export function shufflePartSentences(part: Part): Part {
@@ -140,10 +154,18 @@ export function combineUnits(units: Unit[], shuffle: boolean = false): Sentence[
 /**
  * 例文をシャッフル
  */
-function shuffleSentences<T>(array: T[]): T[] {
+function createSeededRng(seed: number): () => number {
+  let state = seed >>> 0;
+  return () => {
+    state = (state * 1664525 + 1013904223) >>> 0;
+    return state / 0x100000000;
+  };
+}
+
+function shuffleSentences<T>(array: T[], rng: () => number = Math.random): T[] {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(rng() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
   return shuffled;
@@ -160,8 +182,10 @@ function shuffleSentences<T>(array: T[]): T[] {
 export function selectSentencesWithPriority(
   unit: Unit,
   count: number,
-  shuffle: boolean = false
+  shuffle: boolean = false,
+  seed?: number
 ): Sentence[] {
+  const rng = shuffle && typeof seed === 'number' ? createSeededRng(seed) : Math.random;
   // 優先度別にパートを分類
   const priorityA = unit.parts.filter(p => p.priority === 'A');
   const priorityB = unit.parts.filter(p => p.priority === 'B');
@@ -184,26 +208,26 @@ export function selectSentencesWithPriority(
   // Priority A から選択
   if (countA > 0 && priorityA.length > 0) {
     const aSentences = priorityA.flatMap(part => part.sentences);
-    const selected = shuffle ? shuffleSentences(aSentences) : aSentences;
+    const selected = shuffle ? shuffleSentences(aSentences, rng) : aSentences;
     selectedSentences.push(...selected.slice(0, countA));
   }
 
   // Priority B から選択
   if (countB > 0 && priorityB.length > 0) {
     const bSentences = priorityB.flatMap(part => part.sentences);
-    const selected = shuffle ? shuffleSentences(bSentences) : bSentences;
+    const selected = shuffle ? shuffleSentences(bSentences, rng) : bSentences;
     selectedSentences.push(...selected.slice(0, countB));
   }
 
   // Priority C から選択
   if (countC > 0 && priorityC.length > 0) {
     const cSentences = priorityC.flatMap(part => part.sentences);
-    const selected = shuffle ? shuffleSentences(cSentences) : cSentences;
+    const selected = shuffle ? shuffleSentences(cSentences, rng) : cSentences;
     selectedSentences.push(...selected.slice(0, countC));
   }
 
   // 最終的にシャッフル
-  return shuffle ? shuffleSentences(selectedSentences) : selectedSentences;
+  return shuffle ? shuffleSentences(selectedSentences, rng) : selectedSentences;
 }
 
 /**
@@ -217,8 +241,10 @@ export function selectSentencesWithPriority(
 export function selectSentencesFromMultipleUnits(
   units: Unit[],
   count: number,
-  shuffle: boolean = false
+  shuffle: boolean = false,
+  seed?: number
 ): Sentence[] {
+  const rng = shuffle && typeof seed === 'number' ? createSeededRng(seed) : Math.random;
   // 全Unitのパートを優先度別に分類
   const allParts = units.flatMap(unit => unit.parts);
   const priorityA = allParts.filter(p => p.priority === 'A');
@@ -241,24 +267,24 @@ export function selectSentencesFromMultipleUnits(
   // Priority A から選択
   if (countA > 0 && priorityA.length > 0) {
     const aSentences = priorityA.flatMap(part => part.sentences);
-    const selected = shuffle ? shuffleSentences(aSentences) : aSentences;
+    const selected = shuffle ? shuffleSentences(aSentences, rng) : aSentences;
     selectedSentences.push(...selected.slice(0, countA));
   }
 
   // Priority B から選択
   if (countB > 0 && priorityB.length > 0) {
     const bSentences = priorityB.flatMap(part => part.sentences);
-    const selected = shuffle ? shuffleSentences(bSentences) : bSentences;
+    const selected = shuffle ? shuffleSentences(bSentences, rng) : bSentences;
     selectedSentences.push(...selected.slice(0, countB));
   }
 
   // Priority C から選択
   if (countC > 0 && priorityC.length > 0) {
     const cSentences = priorityC.flatMap(part => part.sentences);
-    const selected = shuffle ? shuffleSentences(cSentences) : cSentences;
+    const selected = shuffle ? shuffleSentences(cSentences, rng) : cSentences;
     selectedSentences.push(...selected.slice(0, countC));
   }
 
   // 最終的にシャッフル
-  return shuffle ? shuffleSentences(selectedSentences) : selectedSentences;
+  return shuffle ? shuffleSentences(selectedSentences, rng) : selectedSentences;
 }

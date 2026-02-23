@@ -1,11 +1,11 @@
 {
-  "name": "無限英作文アプリ",
-  "short_name": "英作文",
-  "description": "AIを活用した英語学習アプリ。音声認識で英作文トレーニング",
+  "name": "Bivox - 瞬間英会話 -",
+  "short_name": "Bivox",
+  "description": "AIを活用した瞬間英会話トレーニングアプリ。音声認識で英語が口から飛び出す体験を。",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#3b82f6",
+  "theme_color": "#f97316",
   "orientation": "portrait-primary",
   "icons": [
     {

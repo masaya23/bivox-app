@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh auth status:*)",
+      "Bash(git remote add:*)"
+    ],
+    "additionalDirectories": [
+      "C:\\programming\\englishapp\\public\\audio\\ja"
+    ]
+  }
+}

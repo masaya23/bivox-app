@@ -9,12 +9,12 @@
       "id": "unit3-p1",
       "partNumber": 1,
       "title": "従属節を導く接続詞 — 1",
-      "description": "従属節を導く接続詞 — 1の使い方を練習",
+      "description": "till, until, while, as などの使い方を練習",
       "sentences": [
         {
           "id": "unit3-p1-s1",
-          "jp": "友達が来るまで待っててください。",
-          "en": "Please wait until my friend arrives.",
+          "jp": "雨が止むまで待ちましょう。",
+          "en": "Let's wait until it stops raining.",
           "tags": [
             "従属節を導く接続詞 — 1"
           ],
@@ -25,8 +25,8 @@
         },
         {
           "id": "unit3-p1-s2",
-          "jp": "彼女は映画を見ている間、泣いていました。",
-          "en": "She cried while she was watching the movie.",
+          "jp": "あなたが勉強している間、彼はテレビを見ていましたか？",
+          "en": "Was he watching TV while you were studying?",
           "tags": [
             "従属節を導く接続詞 — 1"
           ],
@@ -37,8 +37,8 @@
         },
         {
           "id": "unit3-p1-s3",
-          "jp": "宿題を終えたら、遊びに行こう。",
-          "en": "Let's go play after I finish my homework.",
+          "jp": "私は家に帰るとすぐに手を洗います。",
+          "en": "As soon as I get home, I wash my hands.",
           "tags": [
             "従属節を導く接続詞 — 1"
           ],
@@ -49,8 +49,8 @@
         },
         {
           "id": "unit3-p1-s4",
-          "jp": "私が学校に着く前に、雨が降り始めました。",
-          "en": "It started to rain before I arrived at school.",
+          "jp": "暗くなる前に家に帰りなさい。",
+          "en": "Come home before it gets dark.",
           "tags": [
             "従属節を導く接続詞 — 1"
           ],
@@ -61,8 +61,8 @@
         },
         {
           "id": "unit3-p1-s5",
-          "jp": "彼はサッカーをするのが好きだから、毎週練習します。",
-          "en": "He practices every week because he likes playing soccer.",
+          "jp": "あなたは彼が来るまでここにいますか？",
+          "en": "Will you stay here until he comes?",
           "tags": [
             "従属節を導く接続詞 — 1"
           ],
@@ -73,8 +73,8 @@
         },
         {
           "id": "unit3-p1-s6",
-          "jp": "彼女は音楽を聴きながら勉強します。",
-          "en": "She studies while listening to music.",
+          "jp": "母が夕食を作っている間、私は父と話しました。",
+          "en": "I talked to my father while my mother was cooking dinner.",
           "tags": [
             "従属節を導く接続詞 — 1"
           ],
@@ -85,8 +85,8 @@
         },
         {
           "id": "unit3-p1-s7",
-          "jp": "私が家に帰ると、母が夕食を作っていました。",
-          "en": "When I got home, my mom was cooking dinner.",
+          "jp": "あなたは宿題をした後で、テレビを見ることができます。",
+          "en": "You can watch TV after you do your homework.",
           "tags": [
             "従属節を導く接続詞 — 1"
           ],
@@ -97,8 +97,8 @@
         },
         {
           "id": "unit3-p1-s8",
-          "jp": "私たちは会議が始まるまで待っています。",
-          "en": "We will wait until the meeting starts.",
+          "jp": "私は年をとるにつれて、早起きが好きになりました。",
+          "en": "As I got older, I started to like getting up early.",
           "tags": [
             "従属節を導く接続詞 — 1"
           ],
@@ -109,8 +109,8 @@
         },
         {
           "id": "unit3-p1-s9",
-          "jp": "彼が歌っているとき、みんな拍手しました。",
-          "en": "Everyone clapped while he was singing.",
+          "jp": "ベルが鳴るまで席を立ってはいけません。",
+          "en": "Don't stand up until the bell rings.",
           "tags": [
             "従属節を導く接続詞 — 1"
           ],
@@ -121,8 +121,8 @@
         },
         {
           "id": "unit3-p1-s10",
-          "jp": "彼女は新しい本を読むために図書館に行きます。",
-          "en": "She goes to the library so that she can read a new book.",
+          "jp": "私はお風呂に入っている間に、良いアイデアを思いつきました。",
+          "en": "I had a good idea while I was taking a bath.",
           "tags": [
             "従属節を導く接続詞 — 1"
           ],
@@ -139,12 +139,12 @@
       "id": "unit3-p2",
       "partNumber": 2,
       "title": "従属節を導く接続詞 — 2",
-      "description": "従属節を導く接続詞 — 2の使い方を練習",
+      "description": "if, because, though などの使い方を練習",
       "sentences": [
         {
           "id": "unit3-p2-s1",
-          "jp": "彼はサッカーをするために公園に行きます。",
-          "en": "He goes to the park to play soccer.",
+          "jp": "もし明日晴れたら、私たちはピクニックに行きます。",
+          "en": "If it is sunny tomorrow, we will go on a picnic.",
           "tags": [
             "従属節を導く接続詞 — 2"
           ],
@@ -155,8 +155,8 @@
         },
         {
           "id": "unit3-p2-s2",
-          "jp": "私が学校に着くと、雨が降り始めました。",
-          "en": "It started to rain when I arrived at school.",
+          "jp": "とても疲れていたのに、彼は一生懸命勉強しました。",
+          "en": "Although he was very tired, he studied hard.",
           "tags": [
             "従属節を導く接続詞 — 2"
           ],
@@ -167,8 +167,8 @@
         },
         {
           "id": "unit3-p2-s3",
-          "jp": "彼女は本を読むとき、静かにします。",
-          "en": "She is quiet when she reads a book.",
+          "jp": "雨が降っていたので、私は家にいました。",
+          "en": "I stayed home because it was raining.",
           "tags": [
             "従属節を導く接続詞 — 2"
           ],
@@ -179,8 +179,8 @@
         },
         {
           "id": "unit3-p2-s4",
-          "jp": "私たちは映画を見る前に夕食を食べました。",
-          "en": "We had dinner before we watched the movie.",
+          "jp": "もしあなたが忙しいなら、私がそれをやります。",
+          "en": "If you are busy, I will do it.",
           "tags": [
             "従属節を導く接続詞 — 2"
           ],
@@ -191,8 +191,8 @@
         },
         {
           "id": "unit3-p2-s5",
-          "jp": "彼が宿題を終えたとき、私はテレビを見ていました。",
-          "en": "I was watching TV when he finished his homework.",
+          "jp": "彼女は病気だったのに、学校に来ました。",
+          "en": "Although she was sick, she came to school.",
           "tags": [
             "従属節を導く接続詞 — 2"
           ],
@@ -203,8 +203,8 @@
         },
         {
           "id": "unit3-p2-s6",
-          "jp": "彼女は友達と遊ぶために学校に行きます。",
-          "en": "She goes to school to play with her friends.",
+          "jp": "面白いので、私はその本が好きです。",
+          "en": "I like the book because it is interesting.",
           "tags": [
             "従属節を導く接続詞 — 2"
           ],
@@ -215,8 +215,8 @@
         },
         {
           "id": "unit3-p2-s7",
-          "jp": "私が寝る準備をすると、母が呼びました。",
-          "en": "My mom called me when I was getting ready for bed.",
+          "jp": "もし彼に会ったら、こんにちはと言ってください。",
+          "en": "If you see him, please say hello.",
           "tags": [
             "従属節を導く接続詞 — 2"
           ],
@@ -227,8 +227,8 @@
         },
         {
           "id": "unit3-p2-s8",
-          "jp": "彼はピアノを弾くとき、とても楽しそうです。",
-          "en": "He looks very happy when he plays the piano.",
+          "jp": "そのテストは難しかったのに、私は良い点を取りました。",
+          "en": "Though the test was difficult, I got a good score.",
           "tags": [
             "従属節を導く接続詞 — 2"
           ],
@@ -239,8 +239,8 @@
         },
         {
           "id": "unit3-p2-s9",
-          "jp": "私たちは家に帰る前に買い物をしました。",
-          "en": "We went shopping before we went home.",
+          "jp": "眠かったので、私は早く寝ました。",
+          "en": "I went to bed early because I was sleepy.",
           "tags": [
             "従属節を導く接続詞 — 2"
           ],
@@ -251,8 +251,8 @@
         },
         {
           "id": "unit3-p2-s10",
-          "jp": "彼女が笑うと、皆が楽しくなります。",
-          "en": "Everyone feels happy when she laughs.",
+          "jp": "もし時間があれば、手伝ってくれませんか？",
+          "en": "If you have time, could you help me?",
           "tags": [
             "従属節を導く接続詞 — 2"
           ],
@@ -269,12 +269,12 @@
       "id": "unit3-p3",
       "partNumber": 3,
       "title": "間接疑問文",
-      "description": "間接疑問文の使い方を練習",
+      "description": "「〜かどうか」「どこで〜か」などの使い方を練習",
       "sentences": [
         {
           "id": "unit3-p3-s1",
-          "jp": "彼がどこに行ったのか知っていますか？",
-          "en": "Do you know where he went?",
+          "jp": "私は彼が誰なのか知りません。",
+          "en": "I don't know who he is.",
           "tags": [
             "間接疑問文"
           ],
@@ -285,8 +285,8 @@
         },
         {
           "id": "unit3-p3-s2",
-          "jp": "彼女が何を食べたいか教えてくれますか？",
-          "en": "Can you tell me what she wants to eat?",
+          "jp": "彼女がどこに住んでいるか教えてください。",
+          "en": "Please tell me where she lives.",
           "tags": [
             "間接疑問文"
           ],
@@ -297,8 +297,8 @@
         },
         {
           "id": "unit3-p3-s3",
-          "jp": "私たちがいつ出発するのか分かりますか？",
-          "en": "Do you know when we will leave?",
+          "jp": "今、何時か知っていますか？",
+          "en": "Do you know what time it is?",
           "tags": [
             "間接疑問文"
           ],
@@ -309,8 +309,8 @@
         },
         {
           "id": "unit3-p3-s4",
-          "jp": "あなたが好きな映画は何ですか？",
-          "en": "Do you know what your favorite movie is?",
+          "jp": "私は彼がなぜ泣いているのか不思議です。",
+          "en": "I wonder why he is crying.",
           "tags": [
             "間接疑問文"
           ],
@@ -321,8 +321,8 @@
         },
         {
           "id": "unit3-p3-s5",
-          "jp": "先生が何を教えてくれるのか楽しみです。",
-          "en": "I am excited to know what the teacher will teach us.",
+          "jp": "ケンがいつ来るか知っていますか？",
+          "en": "Do you know when Ken will come?",
           "tags": [
             "間接疑問文"
           ],
@@ -333,8 +333,8 @@
         },
         {
           "id": "unit3-p3-s6",
-          "jp": "彼がどのスポーツが好きか知っていますか？",
-          "en": "Do you know what sport he likes?",
+          "jp": "私は彼女が何が好きなのか知りたいです。",
+          "en": "I want to know what she likes.",
           "tags": [
             "間接疑問文"
           ],
@@ -345,8 +345,8 @@
         },
         {
           "id": "unit3-p3-s7",
-          "jp": "彼女がどこで働いているか教えてくれますか？",
-          "en": "Can you tell me where she works?",
+          "jp": "あなたが何を買ったか私に見せてください。",
+          "en": "Please show me what you bought.",
           "tags": [
             "間接疑問文"
           ],
@@ -357,8 +357,8 @@
         },
         {
           "id": "unit3-p3-s8",
-          "jp": "私たちがどのくらい勉強する必要があるのか分かりますか？",
-          "en": "Do you know how long we need to study?",
+          "jp": "彼が来るかどうか分かりません。",
+          "en": "I don't know if he will come.",
           "tags": [
             "間接疑問文"
           ],
@@ -369,8 +369,8 @@
         },
         {
           "id": "unit3-p3-s9",
-          "jp": "彼がどうやって行くのか気になります。",
-          "en": "I wonder how he will get there.",
+          "jp": "私たちは何をすべきか分かりませんでした。",
+          "en": "We didn't know what we should do.",
           "tags": [
             "間接疑問文"
           ],
@@ -381,8 +381,8 @@
         },
         {
           "id": "unit3-p3-s10",
-          "jp": "あなたが好きな音楽は何か教えてくれますか？",
-          "en": "Can you tell me what kind of music you like?",
+          "jp": "その店がどこにあるか知っていますか？",
+          "en": "Do you know where the shop is?",
           "tags": [
             "間接疑問文"
           ],
@@ -399,12 +399,12 @@
       "id": "unit3-p4",
       "partNumber": 4,
       "title": "疑問詞 + to 不定詞",
-      "description": "疑問詞 + to 不定詞の使い方を練習",
+      "description": "how to, what to などの使い方を練習",
       "sentences": [
         {
           "id": "unit3-p4-s1",
-          "jp": "彼は何を食べるつもりですか？",
-          "en": "What does he plan to eat?",
+          "jp": "泳ぎ方が分かりません。",
+          "en": "I don't know how to swim.",
           "tags": [
             "疑問詞 + to 不定詞"
           ],
@@ -415,8 +415,8 @@
         },
         {
           "id": "unit3-p4-s2",
-          "jp": "あなたはどこに行くつもりですか？",
-          "en": "Where do you want to go?",
+          "jp": "何をすべきか教えてくれますか？",
+          "en": "Can you tell me what to do?",
           "tags": [
             "疑問詞 + to 不定詞"
           ],
@@ -427,8 +427,8 @@
         },
         {
           "id": "unit3-p4-s3",
-          "jp": "彼女はいつ来るつもりですか？",
-          "en": "When does she intend to come?",
+          "jp": "私はどこへ行けばよいか分かりませんでした。",
+          "en": "I didn't know where to go.",
           "tags": [
             "疑問詞 + to 不定詞"
           ],
@@ -439,8 +439,8 @@
         },
         {
           "id": "unit3-p4-s4",
-          "jp": "私たちは何をすべきですか？",
-          "en": "What should we do?",
+          "jp": "彼はそのマシンの使い方を知っています。",
+          "en": "He knows how to use the machine.",
           "tags": [
             "疑問詞 + to 不定詞"
           ],
@@ -451,8 +451,8 @@
         },
         {
           "id": "unit3-p4-s5",
-          "jp": "君はどのようにそれを学ぶつもりですか？",
-          "en": "How do you plan to learn that?",
+          "jp": "いつ出発すればよいか教えてくれますか？",
+          "en": "Can you tell me when to leave?",
           "tags": [
             "疑問詞 + to 不定詞"
           ],
@@ -463,8 +463,8 @@
         },
         {
           "id": "unit3-p4-s6",
-          "jp": "彼はなぜそれをするつもりですか？",
-          "en": "Why does he want to do that?",
+          "jp": "私はどちらの本を買えばよいか分かりません。",
+          "en": "I don't know which book to buy.",
           "tags": [
             "疑問詞 + to 不定詞"
           ],
@@ -475,8 +475,8 @@
         },
         {
           "id": "unit3-p4-s7",
-          "jp": "あなたは誰と行くつもりですか？",
-          "en": "Who are you going to go with?",
+          "jp": "彼女はチケットの入手方法を知りたがっています。",
+          "en": "She wants to know how to get a ticket.",
           "tags": [
             "疑問詞 + to 不定詞"
           ],
@@ -487,8 +487,8 @@
         },
         {
           "id": "unit3-p4-s8",
-          "jp": "私たちはいつ出発するつもりですか？",
-          "en": "When are we going to leave?",
+          "jp": "何と言えばいいか分かりません。",
+          "en": "I don't know what to say.",
           "tags": [
             "疑問詞 + to 不定詞"
           ],
@@ -499,8 +499,8 @@
         },
         {
           "id": "unit3-p4-s9",
-          "jp": "君はどの映画を見るつもりですか？",
-          "en": "Which movie do you want to see?",
+          "jp": "駅への行き方を知っていますか？",
+          "en": "Do you know how to get to the station?",
           "tags": [
             "疑問詞 + to 不定詞"
           ],
@@ -511,8 +511,8 @@
         },
         {
           "id": "unit3-p4-s10",
-          "jp": "彼女は何時に勉強するつもりですか？",
-          "en": "What time does she plan to study?",
+          "jp": "どのバスに乗ればよいか教えてください。",
+          "en": "Please tell me which bus to take.",
           "tags": [
             "疑問詞 + to 不定詞"
           ],
@@ -529,12 +529,12 @@
       "id": "unit3-p5",
       "partNumber": 5,
       "title": "形式主語の it",
-      "description": "形式主語の itの使い方を練習",
+      "description": "It is ... (for A) to ... の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p5-s1",
-          "jp": "それをするのは難しい。",
-          "en": "It is difficult to do that.",
+          "jp": "英語を話すことは難しいです。",
+          "en": "It is difficult to speak English.",
           "tags": [
             "形式主語の it"
           ],
@@ -545,8 +545,8 @@
         },
         {
           "id": "unit3-p5-s2",
-          "jp": "今朝、彼女に会うことが大切だ。",
-          "en": "It is important to meet her this morning.",
+          "jp": "毎日勉強することは大切です。",
+          "en": "It is important to study every day.",
           "tags": [
             "形式主語の it"
           ],
@@ -557,8 +557,8 @@
         },
         {
           "id": "unit3-p5-s3",
-          "jp": "あなたに会うのはうれしい。",
-          "en": "It is nice to see you.",
+          "jp": "彼の名前を覚えるのは簡単ですか？",
+          "en": "Is it easy to remember his name?",
           "tags": [
             "形式主語の it"
           ],
@@ -569,8 +569,8 @@
         },
         {
           "id": "unit3-p5-s4",
-          "jp": "宿題を終わらせるのが必要だ。",
-          "en": "It is necessary to finish the homework.",
+          "jp": "自然を守ることは私たちにとって必要です。",
+          "en": "It is necessary for us to protect nature.",
           "tags": [
             "形式主語の it"
           ],
@@ -581,8 +581,8 @@
         },
         {
           "id": "unit3-p5-s5",
-          "jp": "その映画を見るのは面白い。",
-          "en": "It is interesting to watch that movie.",
+          "jp": "彼女にとってひとりで旅行することは危険ですか？",
+          "en": "Is it dangerous for her to travel alone?",
           "tags": [
             "形式主語の it"
           ],
@@ -593,8 +593,8 @@
         },
         {
           "id": "unit3-p5-s6",
-          "jp": "彼が来るのを待つのは退屈だ。",
-          "en": "It is boring to wait for him.",
+          "jp": "旅行のときは、地図を持っておくと便利です。",
+          "en": "It is useful to have a map when you travel.",
           "tags": [
             "形式主語の it"
           ],
@@ -605,8 +605,8 @@
         },
         {
           "id": "unit3-p5-s7",
-          "jp": "この問題を解くのは簡単だ。",
-          "en": "It is easy to solve this problem.",
+          "jp": "お会いできてうれしいです。",
+          "en": "It is nice to see you.",
           "tags": [
             "形式主語の it"
           ],
@@ -617,8 +617,8 @@
         },
         {
           "id": "unit3-p5-s8",
-          "jp": "パーティーに行くのは楽しみだ。",
-          "en": "It is exciting to go to the party.",
+          "jp": "歴史を学ぶことはおもしろいです。",
+          "en": "It is interesting to learn history.",
           "tags": [
             "形式主語の it"
           ],
@@ -629,8 +629,8 @@
         },
         {
           "id": "unit3-p5-s9",
-          "jp": "新しい友達を作るのは大切だ。",
-          "en": "It is important to make new friends.",
+          "jp": "川で泳ぐのは危険です。",
+          "en": "It is dangerous to swim in the river.",
           "tags": [
             "形式主語の it"
           ],
@@ -641,8 +641,8 @@
         },
         {
           "id": "unit3-p5-s10",
-          "jp": "旅行するのは楽しい。",
-          "en": "It is fun to travel.",
+          "jp": "将来のために、外国語を学ぶのは私たちにとってよいことですか？",
+          "en": "Is it good for us to learn foreign languages for the future?",
           "tags": [
             "形式主語の it"
           ],
@@ -659,12 +659,12 @@
       "id": "unit3-p6",
       "partNumber": 6,
       "title": "SVO + to 不定詞",
-      "description": "SVO + to 不定詞の使い方を練習",
+      "description": "ask / tell / want + 人 + to ... の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p6-s1",
-          "jp": "私は彼に手伝うように頼みました。",
-          "en": "I asked him to help.",
+          "jp": "私はあなたにここに来てほしいです。",
+          "en": "I want you to come here.",
           "tags": [
             "SVO + to 不定詞"
           ],
@@ -675,8 +675,8 @@
         },
         {
           "id": "unit3-p6-s2",
-          "jp": "彼女は私に本を読むように言いました。",
-          "en": "She told me to read the book.",
+          "jp": "お父さんはあなたに車を洗うように言いましたか？",
+          "en": "Did your father tell you to wash the car?",
           "tags": [
             "SVO + to 不定詞"
           ],
@@ -687,8 +687,8 @@
         },
         {
           "id": "unit3-p6-s3",
-          "jp": "先生は私たちに宿題をするように教えました。",
-          "en": "The teacher taught us to do our homework.",
+          "jp": "彼は私に宿題を手伝ってほしいと頼みました。",
+          "en": "He asked me to help him with his homework.",
           "tags": [
             "SVO + to 不定詞"
           ],
@@ -699,8 +699,8 @@
         },
         {
           "id": "unit3-p6-s4",
-          "jp": "友達は私にパーティーに来るように誘いました。",
-          "en": "My friend invited me to come to the party.",
+          "jp": "私はケンに窓を開けるように言いました。",
+          "en": "I told Ken to open the window.",
           "tags": [
             "SVO + to 不定詞"
           ],
@@ -711,8 +711,8 @@
         },
         {
           "id": "unit3-p6-s5",
-          "jp": "母は私に早く寝るように言いました。",
-          "en": "My mother told me to go to bed early.",
+          "jp": "彼女はあなたたちに静かにするように頼みましたか？",
+          "en": "Did she ask you to be quiet?",
           "tags": [
             "SVO + to 不定詞"
           ],
@@ -723,8 +723,8 @@
         },
         {
           "id": "unit3-p6-s6",
-          "jp": "彼は私にその映画を見るように勧めました。",
-          "en": "He recommended me to watch the movie.",
+          "jp": "先生は生徒たちに座るように言いました。",
+          "en": "The teacher told the students to sit down.",
           "tags": [
             "SVO + to 不定詞"
           ],
@@ -735,8 +735,8 @@
         },
         {
           "id": "unit3-p6-s7",
-          "jp": "私は妹にその歌を歌うように教えました。",
-          "en": "I taught my sister to sing that song.",
+          "jp": "あなたは私に何をしてほしいですか？",
+          "en": "What do you want me to do?",
           "tags": [
             "SVO + to 不定詞"
           ],
@@ -747,8 +747,8 @@
         },
         {
           "id": "unit3-p6-s8",
-          "jp": "彼女は私にこの問題を解くように頼みました。",
-          "en": "She asked me to solve this problem.",
+          "jp": "私はあなたにその本を読んでほしくありません。",
+          "en": "I don't want you to read that book.",
           "tags": [
             "SVO + to 不定詞"
           ],
@@ -759,8 +759,8 @@
         },
         {
           "id": "unit3-p6-s9",
-          "jp": "彼は私に明日会うように言いました。",
-          "en": "He told me to meet him tomorrow.",
+          "jp": "母は私に遅れないように言いました。",
+          "en": "My mother told me not to be late.",
           "tags": [
             "SVO + to 不定詞"
           ],
@@ -771,8 +771,8 @@
         },
         {
           "id": "unit3-p6-s10",
-          "jp": "友達は私にその本を読むように提案しました。",
-          "en": "My friend suggested me to read that book.",
+          "jp": "彼は私に英語を教えてほしいと頼みました。",
+          "en": "He asked me to teach him English.",
           "tags": [
             "SVO + to 不定詞"
           ],
@@ -789,12 +789,12 @@
       "id": "unit3-p7",
       "partNumber": 7,
       "title": "SVOC",
-      "description": "SVOCの使い方を練習",
+      "description": "call / make / keep + A + B の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p7-s1",
-          "jp": "彼は私に本を渡した。",
-          "en": "He gave me a book.",
+          "jp": "私たちは彼をケンと呼びます。",
+          "en": "We call him Ken.",
           "tags": [
             "SVOC"
           ],
@@ -805,8 +805,8 @@
         },
         {
           "id": "unit3-p7-s2",
-          "jp": "彼女は友達にプレゼントを買った。",
-          "en": "She bought her friend a gift.",
+          "jp": "そのニュースは私を幸せにしました。",
+          "en": "The news made me happy.",
           "tags": [
             "SVOC"
           ],
@@ -817,8 +817,8 @@
         },
         {
           "id": "unit3-p7-s3",
-          "jp": "先生は私たちに宿題を出した。",
-          "en": "The teacher assigned us homework.",
+          "jp": "部屋をきれいに保ちなさい。",
+          "en": "Keep your room clean.",
           "tags": [
             "SVOC"
           ],
@@ -829,8 +829,8 @@
         },
         {
           "id": "unit3-p7-s4",
-          "jp": "彼は彼女に花を贈った。",
-          "en": "He gave her flowers.",
+          "jp": "その手紙はあなたを悲しくさせましたか？",
+          "en": "Did the letter make you sad?",
           "tags": [
             "SVOC"
           ],
@@ -841,8 +841,8 @@
         },
         {
           "id": "unit3-p7-s5",
-          "jp": "彼らは私に手紙を書いた。",
-          "en": "They wrote me a letter.",
+          "jp": "彼らはその犬をポチと名付けましたか？",
+          "en": "Did they name the dog Pochi?",
           "tags": [
             "SVOC"
           ],
@@ -853,8 +853,8 @@
         },
         {
           "id": "unit3-p7-s6",
-          "jp": "私は彼にゲームを教えた。",
-          "en": "I taught him a game.",
+          "jp": "その映画は彼を有名にしました。",
+          "en": "The movie made him famous.",
           "tags": [
             "SVOC"
           ],
@@ -865,8 +865,8 @@
         },
         {
           "id": "unit3-p7-s7",
-          "jp": "彼女は妹におもちゃを与えた。",
-          "en": "She gave her sister a toy.",
+          "jp": "窓を開けたままにしてはいけません。",
+          "en": "Don't leave the window open.",
           "tags": [
             "SVOC"
           ],
@@ -877,8 +877,8 @@
         },
         {
           "id": "unit3-p7-s8",
-          "jp": "私たちは友人に映画を紹介した。",
-          "en": "We introduced our friend to a movie.",
+          "jp": "あなたはその本をおもしろいと思いましたか？",
+          "en": "Did you find the book interesting?",
           "tags": [
             "SVOC"
           ],
@@ -889,8 +889,8 @@
         },
         {
           "id": "unit3-p7-s9",
-          "jp": "お母さんは私に料理を教えてくれた。",
-          "en": "My mother taught me how to cook.",
+          "jp": "何があなたを怒らせたのですか？",
+          "en": "What made you angry?",
           "tags": [
             "SVOC"
           ],
@@ -901,8 +901,8 @@
         },
         {
           "id": "unit3-p7-s10",
-          "jp": "彼は私たちに新しい歌を歌った。",
-          "en": "He sang us a new song.",
+          "jp": "彼は壁を白く塗りましたか？",
+          "en": "Did he paint the wall white?",
           "tags": [
             "SVOC"
           ],
@@ -919,12 +919,12 @@
       "id": "unit3-p8",
       "partNumber": 8,
       "title": "現在分詞修飾",
-      "description": "現在分詞修飾の使い方を練習",
+      "description": "名詞を後ろから修飾する現在分詞（-ing）の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p8-s1",
-          "jp": "彼女は笑っている友達を見ています。",
-          "en": "She is looking at her friend laughing.",
+          "jp": "あそこで走っている少年はケンです。",
+          "en": "The boy running over there is Ken.",
           "tags": [
             "現在分詞修飾"
           ],
@@ -935,8 +935,8 @@
         },
         {
           "id": "unit3-p8-s2",
-          "jp": "僕は走っている犬を見ました。",
-          "en": "I saw a dog running.",
+          "jp": "あなたはステージで歌っている少女を知っていますか？",
+          "en": "Do you know the girl singing on stage?",
           "tags": [
             "現在分詞修飾"
           ],
@@ -947,8 +947,8 @@
         },
         {
           "id": "unit3-p8-s3",
-          "jp": "その映画は感動的なストーリーを持っています。",
-          "en": "The movie has a touching story.",
+          "jp": "私はベンチで寝ている男性を見ました。",
+          "en": "I saw a man sleeping on a bench.",
           "tags": [
             "現在分詞修飾"
           ],
@@ -959,8 +959,8 @@
         },
         {
           "id": "unit3-p8-s4",
-          "jp": "彼は勉強している兄を手伝っています。",
-          "en": "He is helping his brother studying.",
+          "jp": "図書館で勉強している生徒たちは静かです。",
+          "en": "The students studying in the library are quiet.",
           "tags": [
             "現在分詞修飾"
           ],
@@ -971,8 +971,8 @@
         },
         {
           "id": "unit3-p8-s5",
-          "jp": "彼女は歌っている子供たちを見て微笑みました。",
-          "en": "She smiled at the children singing.",
+          "jp": "今、駅を出発するバスは混んでいます。",
+          "en": "The bus leaving the station now is crowded.",
           "tags": [
             "現在分詞修飾"
           ],
@@ -983,8 +983,8 @@
         },
         {
           "id": "unit3-p8-s6",
-          "jp": "私は泳いでいる魚を観察しました。",
-          "en": "I observed the fish swimming.",
+          "jp": "向こうでテニスをしている女性は私の姉です。",
+          "en": "The woman playing tennis over there is my sister.",
           "tags": [
             "現在分詞修飾"
           ],
@@ -995,8 +995,8 @@
         },
         {
           "id": "unit3-p8-s7",
-          "jp": "彼らは遊んでいる子供たちを見守っています。",
-          "en": "They are watching the kids playing.",
+          "jp": "あなたはピアノを弾いている男の子が見えますか？",
+          "en": "Can you see the boy playing the piano?",
           "tags": [
             "現在分詞修飾"
           ],
@@ -1007,8 +1007,8 @@
         },
         {
           "id": "unit3-p8-s8",
-          "jp": "この本は面白い内容を持っています。",
-          "en": "This book has interesting content.",
+          "jp": "私は駅で私を待っている人たちを見つけました。",
+          "en": "I found the people waiting for me at the station.",
           "tags": [
             "現在分詞修飾"
           ],
@@ -1019,8 +1019,8 @@
         },
         {
           "id": "unit3-p8-s9",
-          "jp": "彼は料理しているお母さんを手伝っています。",
-          "en": "He is helping his mother cooking.",
+          "jp": "木の下に立っている男性は誰ですか？",
+          "en": "Who is the man standing under the tree?",
           "tags": [
             "現在分詞修飾"
           ],
@@ -1031,8 +1031,8 @@
         },
         {
           "id": "unit3-p8-s10",
-          "jp": "私は読んでいる本に夢中です。",
-          "en": "I am absorbed in the book reading.",
+          "jp": "車を洗っている男性は私の父です。",
+          "en": "The man washing the car is my father.",
           "tags": [
             "現在分詞修飾"
           ],
@@ -1049,12 +1049,12 @@
       "id": "unit3-p9",
       "partNumber": 9,
       "title": "過去分詞修飾",
-      "description": "過去分詞修飾の使い方を練習",
+      "description": "名詞を後ろから修飾する過去分詞（-ed）の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p9-s1",
-          "jp": "彼は昨日、友達に会った。",
-          "en": "He met his friend yesterday.",
+          "jp": "これは夏目漱石によって書かれた本です。",
+          "en": "This is a book written by Natsume Soseki.",
           "tags": [
             "過去分詞修飾"
           ],
@@ -1065,8 +1065,8 @@
         },
         {
           "id": "unit3-p9-s2",
-          "jp": "私は完成した宿題を提出した。",
-          "en": "I submitted the completed homework.",
+          "jp": "あなたはドイツで作られた車を持っていますか？",
+          "en": "Do you have a car made in Germany?",
           "tags": [
             "過去分詞修飾"
           ],
@@ -1077,8 +1077,8 @@
         },
         {
           "id": "unit3-p9-s3",
-          "jp": "彼女は買ったばかりの靴を履いている。",
-          "en": "She is wearing the shoes she just bought.",
+          "jp": "英語は世界中で話されている言語です。",
+          "en": "English is a language spoken around the world.",
           "tags": [
             "過去分詞修飾"
           ],
@@ -1089,8 +1089,8 @@
         },
         {
           "id": "unit3-p9-s4",
-          "jp": "その映画は非常に感動的だった。",
-          "en": "The movie was very moving.",
+          "jp": "ケンという名前の少年がここに来ました。",
+          "en": "A boy named Ken came here.",
           "tags": [
             "過去分詞修飾"
           ],
@@ -1101,8 +1101,8 @@
         },
         {
           "id": "unit3-p9-s5",
-          "jp": "彼らは修理された車に乗っている。",
-          "en": "They are riding in the repaired car.",
+          "jp": "あなたは英語で書かれた手紙を受け取りましたか？",
+          "en": "Did you receive a letter written in English?",
           "tags": [
             "過去分詞修飾"
           ],
@@ -1113,8 +1113,8 @@
         },
         {
           "id": "unit3-p9-s6",
-          "jp": "私は見つけた本を読んでいる。",
-          "en": "I am reading the book I found.",
+          "jp": "私は100年前に建てられた家に住んでいます。",
+          "en": "I live in a house built 100 years ago.",
           "tags": [
             "過去分詞修飾"
           ],
@@ -1125,8 +1125,8 @@
         },
         {
           "id": "unit3-p9-s7",
-          "jp": "彼女は撮影された写真を見せてくれた。",
-          "en": "She showed me the photographed pictures.",
+          "jp": "彼はみんなに愛されている歌手です。",
+          "en": "He is a singer loved by everyone.",
           "tags": [
             "過去分詞修飾"
           ],
@@ -1137,8 +1137,8 @@
         },
         {
           "id": "unit3-p9-s8",
-          "jp": "私たちは連絡を取った友人に会った。",
-          "en": "We met the friend we contacted.",
+          "jp": "その店で売られているカメラは高いです。",
+          "en": "The cameras sold at that store are expensive.",
           "tags": [
             "過去分詞修飾"
           ],
@@ -1149,8 +1149,8 @@
         },
         {
           "id": "unit3-p9-s9",
-          "jp": "彼は書かれた記事を読み直した。",
-          "en": "He reread the written article.",
+          "jp": "私は沖縄で撮られた写真を見ました。",
+          "en": "I saw pictures taken in Okinawa.",
           "tags": [
             "過去分詞修飾"
           ],
@@ -1161,8 +1161,8 @@
         },
         {
           "id": "unit3-p9-s10",
-          "jp": "彼女は修了したコースを終えた。",
-          "en": "She finished the completed course.",
+          "jp": "これはアメリカで使われている教科書ですか？",
+          "en": "Is this a textbook used in America?",
           "tags": [
             "過去分詞修飾"
           ],
@@ -1179,12 +1179,12 @@
       "id": "unit3-p10",
       "partNumber": 10,
       "title": "関係代名詞・主格（人）",
-      "description": "関係代名詞・主格（人）の使い方を練習",
+      "description": "who / that の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p10-s1",
-          "jp": "彼女は私の友達です。",
-          "en": "She is my friend who helps me.",
+          "jp": "私にはロンドンに住んでいて、日本語も話す友達がいます。",
+          "en": "I have a friend who lives in London and speaks Japanese.",
           "tags": [
             "関係代名詞・主格（人）"
           ],
@@ -1195,8 +1195,8 @@
         },
         {
           "id": "unit3-p10-s2",
-          "jp": "彼はサッカーが得意な男の子です。",
-          "en": "He is a boy who is good at soccer.",
+          "jp": "その窓を割った少年はケンですか？",
+          "en": "Is the boy who broke the window Ken?",
           "tags": [
             "関係代名詞・主格（人）"
           ],
@@ -1207,8 +1207,8 @@
         },
         {
           "id": "unit3-p10-s3",
-          "jp": "先生は私たちに英語を教えています。",
-          "en": "The teacher is the person who teaches us English.",
+          "jp": "毎日早く学校に来る少女はエミです。",
+          "en": "The girl who comes to school early every day is Emi.",
           "tags": [
             "関係代名詞・主格（人）"
           ],
@@ -1219,8 +1219,8 @@
         },
         {
           "id": "unit3-p10-s4",
-          "jp": "彼女は歌が上手な女の子です。",
-          "en": "She is a girl who sings well.",
+          "jp": "彼は英語をとても上手に話せる先生ですか？",
+          "en": "Is he a teacher who can speak English very well?",
           "tags": [
             "関係代名詞・主格（人）"
           ],
@@ -1231,8 +1231,8 @@
         },
         {
           "id": "unit3-p10-s5",
-          "jp": "彼は毎日ジョギングをする人です。",
-          "en": "He is the person who jogs every day.",
+          "jp": "動物が好きな人々は優しいです。",
+          "en": "People who like animals are kind.",
           "tags": [
             "関係代名詞・主格（人）"
           ],
@@ -1243,8 +1243,8 @@
         },
         {
           "id": "unit3-p10-s6",
-          "jp": "彼女は旅行が好きな学生です。",
-          "en": "She is a student who loves to travel.",
+          "jp": "あなたにはサッカーが上手な兄がいますか？",
+          "en": "Do you have a brother who is good at soccer?",
           "tags": [
             "関係代名詞・主格（人）"
           ],
@@ -1255,8 +1255,8 @@
         },
         {
           "id": "unit3-p10-s7",
-          "jp": "彼は面白い映画を作る監督です。",
-          "en": "He is a director who makes interesting movies.",
+          "jp": "その本を書いた男性は有名です。",
+          "en": "The man who wrote the book is famous.",
           "tags": [
             "関係代名詞・主格（人）"
           ],
@@ -1267,8 +1267,8 @@
         },
         {
           "id": "unit3-p10-s8",
-          "jp": "彼女は私の妹で、毎日勉強しています。",
-          "en": "She is my sister who studies every day.",
+          "jp": "私は毎日一生懸命働く人々を尊敬します。",
+          "en": "I respect people who work hard every day.",
           "tags": [
             "関係代名詞・主格（人）"
           ],
@@ -1279,8 +1279,8 @@
         },
         {
           "id": "unit3-p10-s9",
-          "jp": "彼は音楽に詳しい友達です。",
-          "en": "He is a friend who knows a lot about music.",
+          "jp": "昨日ここに来た女性はあなたの叔母ですか？",
+          "en": "Is the woman who came here yesterday your aunt?",
           "tags": [
             "関係代名詞・主格（人）"
           ],
@@ -1291,8 +1291,8 @@
         },
         {
           "id": "unit3-p10-s10",
-          "jp": "彼女は本をたくさん読む人です。",
-          "en": "She is a person who reads many books.",
+          "jp": "あなたは新しい自転車が欲しい少年を知っていますか？",
+          "en": "Do you know the boy who wants a new bike?",
           "tags": [
             "関係代名詞・主格（人）"
           ],
@@ -1309,12 +1309,12 @@
       "id": "unit3-p11",
       "partNumber": 11,
       "title": "関係代名詞・主格（人以外）",
-      "description": "関係代名詞・主格（人以外）の使い方を練習",
+      "description": "which / that の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p11-s1",
-          "jp": "これは私が好きな本です。",
-          "en": "This is the book that I like.",
+          "jp": "これは駅へ行くバスです。",
+          "en": "This is a bus which goes to the station.",
           "tags": [
             "関係代名詞・主格（人以外）"
           ],
@@ -1325,8 +1325,8 @@
         },
         {
           "id": "unit3-p11-s2",
-          "jp": "あれは私の友達が作ったケーキです。",
-          "en": "That is the cake that my friend made.",
+          "jp": "私は長い耳を持つ犬を飼っています。",
+          "en": "I have a dog which has long ears.",
           "tags": [
             "関係代名詞・主格（人以外）"
           ],
@@ -1337,8 +1337,8 @@
         },
         {
           "id": "unit3-p11-s3",
-          "jp": "これが私たちが見た映画です。",
-          "en": "This is the movie that we watched.",
+          "jp": "机の上にあった本はどこですか？",
+          "en": "Where is the book that was on the desk?",
           "tags": [
             "関係代名詞・主格（人以外）"
           ],
@@ -1349,8 +1349,8 @@
         },
         {
           "id": "unit3-p11-s4",
-          "jp": "これは私が買った新しいスニーカーです。",
-          "en": "These are the new sneakers that I bought.",
+          "jp": "丘の上に立っている家を見てください。",
+          "en": "Look at the house which stands on the hill.",
           "tags": [
             "関係代名詞・主格（人以外）"
           ],
@@ -1361,8 +1361,8 @@
         },
         {
           "id": "unit3-p11-s5",
-          "jp": "それは彼が描いた絵です。",
-          "en": "That is the picture that he painted.",
+          "jp": "彼は速く走る車を買いたいと思っています。",
+          "en": "He wants to buy a car that runs fast.",
           "tags": [
             "関係代名詞・主格（人以外）"
           ],
@@ -1373,8 +1373,8 @@
         },
         {
           "id": "unit3-p11-s6",
-          "jp": "これは私の学校の図書館です。",
-          "en": "This is the library that my school has.",
+          "jp": "その庭で咲いている花は美しいです。",
+          "en": "The flowers which are blooming in the garden are beautiful.",
           "tags": [
             "関係代名詞・主格（人以外）"
           ],
@@ -1385,8 +1385,8 @@
         },
         {
           "id": "unit3-p11-s7",
-          "jp": "あれは私たちが訪れた美術館です。",
-          "en": "That is the museum that we visited.",
+          "jp": "私は人々を幸せにする映画が好きです。",
+          "en": "I like movies that make people happy.",
           "tags": [
             "関係代名詞・主格（人以外）"
           ],
@@ -1397,8 +1397,8 @@
         },
         {
           "id": "unit3-p11-s8",
-          "jp": "これは私が使っているアプリです。",
-          "en": "This is the app that I use.",
+          "jp": "公園へ行く道はどれですか？",
+          "en": "Which is the road that goes to the park?",
           "tags": [
             "関係代名詞・主格（人以外）"
           ],
@@ -1409,8 +1409,8 @@
         },
         {
           "id": "unit3-p11-s9",
-          "jp": "あれは彼女が選んだドレスです。",
-          "en": "That is the dress that she chose.",
+          "jp": "私たちは10時に出発する電車に乗りました。",
+          "en": "We took a train which left at ten.",
           "tags": [
             "関係代名詞・主格（人以外）"
           ],
@@ -1421,8 +1421,8 @@
         },
         {
           "id": "unit3-p11-s10",
-          "jp": "これは私が学んでいる英語の歌です。",
-          "en": "This is the English song that I am learning.",
+          "jp": "日本語を話すロボットがいます。",
+          "en": "There is a robot that speaks Japanese.",
           "tags": [
             "関係代名詞・主格（人以外）"
           ],
@@ -1438,15 +1438,15 @@
     {
       "id": "unit3-p12",
       "partNumber": 12,
-      "title": "関係代名詞・所有格 whose と of which",
-      "description": "関係代名詞・所有格 whose と of whichの使い方を練習",
+      "title": "関係代名詞・所有格 whose",
+      "description": "whose の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p12-s1",
-          "jp": "彼は私の友達です。彼の名前は田中です。",
-          "en": "He is my friend, whose name is Tanaka.",
+          "jp": "私にはお父さんが医者の友達がいます。",
+          "en": "I have a friend whose father is a doctor.",
           "tags": [
-            "関係代名詞・所有格 whose と of which"
+            "関係代名詞・所有格 whose"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1455,10 +1455,10 @@
         },
         {
           "id": "unit3-p12-s2",
-          "jp": "これは私が好きな本です。その本は面白いです。",
-          "en": "This is the book I like, which is interesting.",
+          "jp": "私にはお兄さんがプロサッカー選手の友達がいます。",
+          "en": "I have a friend whose brother is a professional soccer player.",
           "tags": [
-            "関係代名詞・所有格 whose と of which"
+            "関係代名詞・所有格 whose"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1467,10 +1467,10 @@
         },
         {
           "id": "unit3-p12-s3",
-          "jp": "彼女は良い先生です。彼女の授業は楽しいです。",
-          "en": "She is a good teacher, whose classes are fun.",
+          "jp": "私はお母さんが英語の先生である男の子を知っています。",
+          "en": "I know a boy whose mother is an English teacher.",
           "tags": [
-            "関係代名詞・所有格 whose と of which"
+            "関係代名詞・所有格 whose"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1479,10 +1479,10 @@
         },
         {
           "id": "unit3-p12-s4",
-          "jp": "この映画は私たちが観た映画です。それはとても感動的です。",
-          "en": "This is the movie we watched, which was very moving.",
+          "jp": "これはパソコンが壊れてしまった生徒の話です。",
+          "en": "This is a story about a student whose computer broke down.",
           "tags": [
-            "関係代名詞・所有格 whose と of which"
+            "関係代名詞・所有格 whose"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1491,10 +1491,10 @@
         },
         {
           "id": "unit3-p12-s5",
-          "jp": "彼は新しい自転車を持っています。その自転車は速いです。",
-          "en": "He has a new bicycle, which is fast.",
+          "jp": "あなたは本が人気の作家を知っていますか？",
+          "en": "Do you know a writer whose books are popular?",
           "tags": [
-            "関係代名詞・所有格 whose と of which"
+            "関係代名詞・所有格 whose"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1503,10 +1503,10 @@
         },
         {
           "id": "unit3-p12-s6",
-          "jp": "彼女は私の妹です。彼女の趣味は絵を描くことです。",
-          "en": "She is my sister, whose hobby is drawing.",
+          "jp": "彼女は名前が分からない花を買いました。",
+          "en": "She bought a flower whose name she didn't know.",
           "tags": [
-            "関係代名詞・所有格 whose と of which"
+            "関係代名詞・所有格 whose"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1515,10 +1515,10 @@
         },
         {
           "id": "unit3-p12-s7",
-          "jp": "これは私たちの家です。その家は大きいです。",
-          "en": "This is our house, which is big.",
+          "jp": "あれは車が故障してしまった男性です。",
+          "en": "That is the man whose car broke down.",
           "tags": [
-            "関係代名詞・所有格 whose と of which"
+            "関係代名詞・所有格 whose"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1527,10 +1527,10 @@
         },
         {
           "id": "unit3-p12-s8",
-          "jp": "彼はとても親切です。彼の助けはいつも必要です。",
-          "en": "He is very kind, whose help I always need.",
+          "jp": "私たちはキャプテンがケンであるチームを応援しています。",
+          "en": "We are cheering for the team whose captain is Ken.",
           "tags": [
-            "関係代名詞・所有格 whose と of which"
+            "関係代名詞・所有格 whose"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1539,10 +1539,10 @@
         },
         {
           "id": "unit3-p12-s9",
-          "jp": "これは彼女のカバンです。そのカバンは赤いです。",
-          "en": "This is her bag, which is red.",
+          "jp": "私は絵がコンテストで優勝した生徒と話しました。",
+          "en": "I spoke to the student whose painting won the contest.",
           "tags": [
-            "関係代名詞・所有格 whose と of which"
+            "関係代名詞・所有格 whose"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1551,10 +1551,10 @@
         },
         {
           "id": "unit3-p12-s10",
-          "jp": "彼は私の友人です。彼の趣味はサッカーです。",
-          "en": "He is my friend, whose hobby is soccer.",
+          "jp": "私は家が海の近くにある友達を訪ねたいです。",
+          "en": "I want to visit a friend whose house is near the sea.",
           "tags": [
-            "関係代名詞・所有格 whose と of which"
+            "関係代名詞・所有格 whose"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1569,12 +1569,12 @@
       "id": "unit3-p13",
       "partNumber": 13,
       "title": "関係代名詞・目的格（人）",
-      "description": "関係代名詞・目的格（人）の使い方を練習",
+      "description": "who / whom / that の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p13-s1",
-          "jp": "彼は私の友達です。",
-          "en": "He is my friend who helps me.",
+          "jp": "彼は私が昨日会った男性です。",
+          "en": "He is the man I met yesterday.",
           "tags": [
             "関係代名詞・目的格（人）"
           ],
@@ -1585,8 +1585,8 @@
         },
         {
           "id": "unit3-p13-s2",
-          "jp": "彼女は素晴らしい歌手です。",
-          "en": "She is a great singer who won a prize.",
+          "jp": "彼女はケンが好きな女の子ですか？",
+          "en": "Is she the girl Ken likes?",
           "tags": [
             "関係代名詞・目的格（人）"
           ],
@@ -1597,8 +1597,8 @@
         },
         {
           "id": "unit3-p13-s3",
-          "jp": "あの男の子はサッカーが上手です。",
-          "en": "The boy who plays soccer well is my brother.",
+          "jp": "彼は私が招待した男性です。",
+          "en": "He is the man I invited.",
           "tags": [
             "関係代名詞・目的格（人）"
           ],
@@ -1609,8 +1609,8 @@
         },
         {
           "id": "unit3-p13-s4",
-          "jp": "私の先生は英語を教えています。",
-          "en": "My teacher is the person who teaches English.",
+          "jp": "こちらはあなたが尊敬している人々ですか？",
+          "en": "Are these the people you respect?",
           "tags": [
             "関係代名詞・目的格（人）"
           ],
@@ -1621,8 +1621,8 @@
         },
         {
           "id": "unit3-p13-s5",
-          "jp": "彼らは私の好きな映画の出演者です。",
-          "en": "They are the actors who are in my favorite movie.",
+          "jp": "彼女はみんなが知っている歌手です。",
+          "en": "She is the singer everyone knows.",
           "tags": [
             "関係代名詞・目的格（人）"
           ],
@@ -1633,8 +1633,8 @@
         },
         {
           "id": "unit3-p13-s6",
-          "jp": "あのカメラは私が買ったものです。",
-          "en": "That is the camera which I bought last week.",
+          "jp": "私が手助けした少年は、私にお礼を言いました。",
+          "en": "The boy I helped thanked me.",
           "tags": [
             "関係代名詞・目的格（人）"
           ],
@@ -1645,8 +1645,8 @@
         },
         {
           "id": "unit3-p13-s7",
-          "jp": "彼女は私の手伝いをしてくれる人です。",
-          "en": "She is the one who helps me with my homework.",
+          "jp": "トムが一番好きな作家はだれですか？",
+          "en": "Who is the writer Tom likes the best?",
           "tags": [
             "関係代名詞・目的格（人）"
           ],
@@ -1657,8 +1657,8 @@
         },
         {
           "id": "unit3-p13-s8",
-          "jp": "彼は私の兄です。",
-          "en": "He is my brother who loves to read.",
+          "jp": "彼女は私たちがパーティーで会った女性です。",
+          "en": "She is the woman we met at the party.",
           "tags": [
             "関係代名詞・目的格（人）"
           ],
@@ -1669,8 +1669,8 @@
         },
         {
           "id": "unit3-p13-s9",
-          "jp": "彼女は私たちのチームのキャプテンです。",
-          "en": "She is the captain who leads our team.",
+          "jp": "あなたが探している男性はあちらです。",
+          "en": "The man you are looking for is over there.",
           "tags": [
             "関係代名詞・目的格（人）"
           ],
@@ -1681,8 +1681,8 @@
         },
         {
           "id": "unit3-p13-s10",
-          "jp": "あの本は私が最近読んだものです。",
-          "en": "That is the book which I read recently.",
+          "jp": "彼らは私がよく電話をする友達です。",
+          "en": "They are the friends I often call.",
           "tags": [
             "関係代名詞・目的格（人）"
           ],
@@ -1699,12 +1699,12 @@
       "id": "unit3-p14",
       "partNumber": 14,
       "title": "関係代名詞・目的格（人以外）",
-      "description": "関係代名詞・目的格（人以外）の使い方を練習",
+      "description": "which / that の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p14-s1",
-          "jp": "これは私が好きな映画です。",
-          "en": "This is the movie that I like.",
+          "jp": "これは私が昨日買った本です。",
+          "en": "This is the book I bought yesterday.",
           "tags": [
             "関係代名詞・目的格（人以外）"
           ],
@@ -1715,8 +1715,8 @@
         },
         {
           "id": "unit3-p14-s2",
-          "jp": "彼は私が食べたケーキを作りました。",
-          "en": "He made the cake that I ate.",
+          "jp": "あれは彼が撮った写真ですか？",
+          "en": "Is that the picture he took?",
           "tags": [
             "関係代名詞・目的格（人以外）"
           ],
@@ -1727,8 +1727,8 @@
         },
         {
           "id": "unit3-p14-s3",
-          "jp": "あれが私が見た絵です。",
-          "en": "That is the picture that I saw.",
+          "jp": "母が作ったケーキはおいしかったです。",
+          "en": "The cake my mother made was delicious.",
           "tags": [
             "関係代名詞・目的格（人以外）"
           ],
@@ -1739,8 +1739,8 @@
         },
         {
           "id": "unit3-p14-s4",
-          "jp": "彼女は私が買った本を読んでいます。",
-          "en": "She is reading the book that I bought.",
+          "jp": "私は父がくれた時計をなくしました。",
+          "en": "I lost the watch my father gave me.",
           "tags": [
             "関係代名詞・目的格（人以外）"
           ],
@@ -1751,8 +1751,8 @@
         },
         {
           "id": "unit3-p14-s5",
-          "jp": "これは私が使う文房具です。",
-          "en": "This is the stationery that I use.",
+          "jp": "これが彼が見たい映画です。",
+          "en": "This is the movie he wants to see.",
           "tags": [
             "関係代名詞・目的格（人以外）"
           ],
@@ -1763,8 +1763,8 @@
         },
         {
           "id": "unit3-p14-s6",
-          "jp": "あのバスは私が乗りたかったものです。",
-          "en": "That bus is the one that I wanted to take.",
+          "jp": "彼女が書いた手紙を読みましたか？",
+          "en": "Did you read the letter she wrote?",
           "tags": [
             "関係代名詞・目的格（人以外）"
           ],
@@ -1775,8 +1775,8 @@
         },
         {
           "id": "unit3-p14-s7",
-          "jp": "これが私が集めているコインです。",
-          "en": "These are the coins that I collect.",
+          "jp": "私が住んでいる家は古いです。",
+          "en": "The house I live in is old.",
           "tags": [
             "関係代名詞・目的格（人以外）"
           ],
@@ -1787,8 +1787,8 @@
         },
         {
           "id": "unit3-p14-s8",
-          "jp": "彼は私が遊んだゲームを知っています。",
-          "en": "He knows the game that I played.",
+          "jp": "英語は彼が話す言語です。",
+          "en": "English is the language he speaks.",
           "tags": [
             "関係代名詞・目的格（人以外）"
           ],
@@ -1799,8 +1799,8 @@
         },
         {
           "id": "unit3-p14-s9",
-          "jp": "これが私が作ったサラダです。",
-          "en": "This is the salad that I made.",
+          "jp": "これらは私が撮った写真です。",
+          "en": "These are the pictures I took.",
           "tags": [
             "関係代名詞・目的格（人以外）"
           ],
@@ -1811,8 +1811,8 @@
         },
         {
           "id": "unit3-p14-s10",
-          "jp": "あの店は私が行ったことのある場所です。",
-          "en": "That store is the place that I have been to.",
+          "jp": "これが私が使っている辞書です。",
+          "en": "This is the dictionary I use.",
           "tags": [
             "関係代名詞・目的格（人以外）"
           ],
@@ -1829,12 +1829,12 @@
       "id": "unit3-p15",
       "partNumber": 15,
       "title": "先行詞を含む関係代名詞 what",
-      "description": "先行詞を含む関係代名詞 whatの使い方を練習",
+      "description": "「〜するもの（こと）」の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p15-s1",
-          "jp": "私たちが話していることはとても大切です。",
-          "en": "What we are talking about is very important.",
+          "jp": "これが私が欲しかったものです。",
+          "en": "This is what I wanted.",
           "tags": [
             "先行詞を含む関係代名詞 what"
           ],
@@ -1845,8 +1845,8 @@
         },
         {
           "id": "unit3-p15-s2",
-          "jp": "彼女が好きな映画は面白いです。",
-          "en": "What she likes is an interesting movie.",
+          "jp": "彼の言ったことが信じられません。",
+          "en": "I can't believe what he said.",
           "tags": [
             "先行詞を含む関係代名詞 what"
           ],
@@ -1857,8 +1857,8 @@
         },
         {
           "id": "unit3-p15-s3",
-          "jp": "彼が言ったことは理解できませんでした。",
-          "en": "What he said was hard to understand.",
+          "jp": "彼女がしたことは正しかった。",
+          "en": "What she did was right.",
           "tags": [
             "先行詞を含む関係代名詞 what"
           ],
@@ -1869,8 +1869,8 @@
         },
         {
           "id": "unit3-p15-s4",
-          "jp": "私が欲しいものは新しい本です。",
-          "en": "What I want is a new book.",
+          "jp": "私たちに必要なのは水です。",
+          "en": "What we need is water.",
           "tags": [
             "先行詞を含む関係代名詞 what"
           ],
@@ -1881,8 +1881,8 @@
         },
         {
           "id": "unit3-p15-s5",
-          "jp": "このプロジェクトで私たちが学ぶことは多いです。",
-          "en": "What we learn in this project is a lot.",
+          "jp": "私が興味があるのは歴史です。",
+          "en": "What I am interested in is history.",
           "tags": [
             "先行詞を含む関係代名詞 what"
           ],
@@ -1893,8 +1893,8 @@
         },
         {
           "id": "unit3-p15-s6",
-          "jp": "彼女が作った料理はとても美味しいです。",
-          "en": "What she cooked is very delicious.",
+          "jp": "あなたは私が作ったものを食べたいですか？",
+          "en": "Do you want to eat what I made?",
           "tags": [
             "先行詞を含む関係代名詞 what"
           ],
@@ -1905,8 +1905,8 @@
         },
         {
           "id": "unit3-p15-s7",
-          "jp": "私たちが行く場所はここです。",
-          "en": "What we are going is here.",
+          "jp": "大切なのは愛です。",
+          "en": "What is important is love.",
           "tags": [
             "先行詞を含む関係代名詞 what"
           ],
@@ -1917,8 +1917,8 @@
         },
         {
           "id": "unit3-p15-s8",
-          "jp": "彼が私にくれたアドバイスは役に立ちました。",
-          "en": "What he gave me as advice was helpful.",
+          "jp": "彼は私が見たものを信じませんでした。",
+          "en": "He didn't believe what I saw.",
           "tags": [
             "先行詞を含む関係代名詞 what"
           ],
@@ -1929,8 +1929,8 @@
         },
         {
           "id": "unit3-p15-s9",
-          "jp": "私が考えたアイデアはユニークです。",
-          "en": "What I thought of is unique.",
+          "jp": "これがあなたの言いたいことですか？",
+          "en": "Is this what you want to say?",
           "tags": [
             "先行詞を含む関係代名詞 what"
           ],
@@ -1941,8 +1941,8 @@
         },
         {
           "id": "unit3-p15-s10",
-          "jp": "あなたが見たものは本当に素晴らしいです。",
-          "en": "What you saw was really wonderful.",
+          "jp": "今日起こったことを教えてください。",
+          "en": "Please tell me what happened today.",
           "tags": [
             "先行詞を含む関係代名詞 what"
           ],
@@ -1959,12 +1959,12 @@
       "id": "unit3-p16",
       "partNumber": 16,
       "title": "too 〜 to 〜",
-      "description": "too 〜 to 〜の使い方を練習",
+      "description": "「〜すぎて…できない」の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p16-s1",
-          "jp": "この本は難しすぎて、読めません。",
-          "en": "This book is too difficult to read.",
+          "jp": "私は忙しすぎてあなたと行けません。",
+          "en": "I am too busy to go with you.",
           "tags": [
             "too 〜 to 〜"
           ],
@@ -1975,8 +1975,8 @@
         },
         {
           "id": "unit3-p16-s2",
-          "jp": "今日は暑すぎて、外に出たくない。",
-          "en": "It is too hot to go outside today.",
+          "jp": "このお茶は熱すぎて飲めません。",
+          "en": "This tea is too hot to drink.",
           "tags": [
             "too 〜 to 〜"
           ],
@@ -1987,8 +1987,8 @@
         },
         {
           "id": "unit3-p16-s3",
-          "jp": "彼の説明は分かりにくすぎて、理解できません。",
-          "en": "His explanation is too hard to understand.",
+          "jp": "彼は疲れすぎて走れませんでした。",
+          "en": "He was too tired to run.",
           "tags": [
             "too 〜 to 〜"
           ],
@@ -1999,8 +1999,8 @@
         },
         {
           "id": "unit3-p16-s4",
-          "jp": "このケーキは甘すぎて、食べられません。",
-          "en": "This cake is too sweet to eat.",
+          "jp": "その石は重すぎて動かせません。",
+          "en": "The stone is too heavy to move.",
           "tags": [
             "too 〜 to 〜"
           ],
@@ -2011,8 +2011,8 @@
         },
         {
           "id": "unit3-p16-s5",
-          "jp": "その映画は長すぎて、最後まで見られませんでした。",
-          "en": "The movie was too long to watch until the end.",
+          "jp": "この本は私には難しすぎて読めません。",
+          "en": "This book is too difficult for me to read.",
           "tags": [
             "too 〜 to 〜"
           ],
@@ -2023,8 +2023,8 @@
         },
         {
           "id": "unit3-p16-s6",
-          "jp": "私は疲れすぎて、遊びに行けません。",
-          "en": "I am too tired to go out and play.",
+          "jp": "外は寒すぎて遊べません。",
+          "en": "It is too cold outside to play.",
           "tags": [
             "too 〜 to 〜"
           ],
@@ -2035,8 +2035,8 @@
         },
         {
           "id": "unit3-p16-s7",
-          "jp": "この問題は簡単すぎて、すぐ解けました。",
-          "en": "This problem is too easy to solve quickly.",
+          "jp": "彼女は眠すぎて勉強できません。",
+          "en": "She is too sleepy to study.",
           "tags": [
             "too 〜 to 〜"
           ],
@@ -2047,8 +2047,8 @@
         },
         {
           "id": "unit3-p16-s8",
-          "jp": "彼女は忙しすぎて、電話に出られません。",
-          "en": "She is too busy to answer the phone.",
+          "jp": "そのシャツは高すぎて買えませんでした。",
+          "en": "The shirt was too expensive to buy.",
           "tags": [
             "too 〜 to 〜"
           ],
@@ -2059,8 +2059,8 @@
         },
         {
           "id": "unit3-p16-s9",
-          "jp": "この場所は静かすぎて、話すのが難しいです。",
-          "en": "This place is too quiet to talk.",
+          "jp": "この問題は難しすぎて解けません。",
+          "en": "This problem is too difficult to solve.",
           "tags": [
             "too 〜 to 〜"
           ],
@@ -2071,8 +2071,8 @@
         },
         {
           "id": "unit3-p16-s10",
-          "jp": "その服は高すぎて、買えません。",
-          "en": "That dress is too expensive to buy.",
+          "jp": "その箱は大きすぎて運べません。",
+          "en": "The box is too big to carry.",
           "tags": [
             "too 〜 to 〜"
           ],
@@ -2088,15 +2088,15 @@
     {
       "id": "unit3-p17",
       "partNumber": 17,
-      "title": "enough 〜 to 〜",
-      "description": "enough 〜 to 〜の使い方を練習",
+      "title": "enough to 〜",
+      "description": "「…するのに十分〜」の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p17-s1",
-          "jp": "私は十分な時間があります。",
-          "en": "I have enough time to finish my homework.",
+          "jp": "彼はその車を買えるほどお金持ちです。",
+          "en": "He is rich enough to buy the car.",
           "tags": [
-            "enough 〜 to 〜"
+            "enough to 〜"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2105,10 +2105,10 @@
         },
         {
           "id": "unit3-p17-s2",
-          "jp": "彼は十分な勇気を持っています。",
-          "en": "He has enough courage to speak in front of the class.",
+          "jp": "彼女は一人で旅行できる年齢です。",
+          "en": "She is old enough to travel alone.",
           "tags": [
-            "enough 〜 to 〜"
+            "enough to 〜"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2117,10 +2117,10 @@
         },
         {
           "id": "unit3-p17-s3",
-          "jp": "私たちは十分な食べ物を持っています。",
-          "en": "We have enough food to share with everyone.",
+          "jp": "この部屋は私たちが寝られるほど広いです。",
+          "en": "This room is large enough for us to sleep in.",
           "tags": [
-            "enough 〜 to 〜"
+            "enough to 〜"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2129,10 +2129,10 @@
         },
         {
           "id": "unit3-p17-s4",
-          "jp": "彼女は十分な勉強をしています。",
-          "en": "She studies enough to pass the exam.",
+          "jp": "彼は私を手伝ってくれるほど親切でした。",
+          "en": "He was kind enough to help me.",
           "tags": [
-            "enough 〜 to 〜"
+            "enough to 〜"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2141,10 +2141,10 @@
         },
         {
           "id": "unit3-p17-s5",
-          "jp": "この本は私にとって十分に面白いです。",
-          "en": "This book is interesting enough to keep me reading.",
+          "jp": "私は始発に間に合うように、十分早く起きました。",
+          "en": "I got up early enough to catch the first train.",
           "tags": [
-            "enough 〜 to 〜"
+            "enough to 〜"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2153,10 +2153,10 @@
         },
         {
           "id": "unit3-p17-s6",
-          "jp": "私の友達は十分な知識を持っています。",
-          "en": "My friend has enough knowledge to help me with math.",
+          "jp": "この本は子どもが読めるほど簡単です。",
+          "en": "This book is easy enough for children to read.",
           "tags": [
-            "enough 〜 to 〜"
+            "enough to 〜"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2165,10 +2165,10 @@
         },
         {
           "id": "unit3-p17-s7",
-          "jp": "この映画は子供たちにとって十分に楽しいです。",
-          "en": "This movie is entertaining enough for the kids.",
+          "jp": "ケンはバスケットボール選手になれるほど背が高いです。",
+          "en": "Ken is tall enough to be a basketball player.",
           "tags": [
-            "enough 〜 to 〜"
+            "enough to 〜"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2177,10 +2177,10 @@
         },
         {
           "id": "unit3-p17-s8",
-          "jp": "私たちは十分なお金を集めました。",
-          "en": "We raised enough money to buy the new equipment.",
+          "jp": "今日は泳ぐには十分暖かいです。",
+          "en": "It is warm enough for us to swim.",
           "tags": [
-            "enough 〜 to 〜"
+            "enough to 〜"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2189,10 +2189,10 @@
         },
         {
           "id": "unit3-p17-s9",
-          "jp": "彼は十分な経験を持っています。",
-          "en": "He has enough experience to get the job.",
+          "jp": "彼はその箱を持ち上げられるだけの力があります。",
+          "en": "He is strong enough to lift the box.",
           "tags": [
-            "enough 〜 to 〜"
+            "enough to 〜"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2201,10 +2201,10 @@
         },
         {
           "id": "unit3-p17-s10",
-          "jp": "私たちは十分に準備ができています。",
-          "en": "We are prepared enough to present our project.",
+          "jp": "彼女はその問題を解けるほど賢かったです。",
+          "en": "She was smart enough to solve the problem.",
           "tags": [
-            "enough 〜 to 〜"
+            "enough to 〜"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2219,12 +2219,12 @@
       "id": "unit3-p18",
       "partNumber": 18,
       "title": "so 〜 that ⋯",
-      "description": "so 〜 that ⋯の使い方を練習",
+      "description": "「とても〜なので…」の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p18-s1",
-          "jp": "彼はとても疲れているので、すぐに寝ました。",
-          "en": "He was so tired that he went to bed immediately.",
+          "jp": "私はとても疲れていたので、早く寝ました。",
+          "en": "I was so tired that I went to bed early.",
           "tags": [
             "so 〜 that ⋯"
           ],
@@ -2235,8 +2235,8 @@
         },
         {
           "id": "unit3-p18-s2",
-          "jp": "このケーキはとても美味しいので、もう一切れ食べたいです。",
-          "en": "This cake is so delicious that I want to eat another piece.",
+          "jp": "昨日はとても寒かったので、家にいました。",
+          "en": "It was so cold yesterday that I stayed home.",
           "tags": [
             "so 〜 that ⋯"
           ],
@@ -2247,8 +2247,8 @@
         },
         {
           "id": "unit3-p18-s3",
-          "jp": "天気がとても良いので、ピクニックに行きます。",
-          "en": "The weather is so nice that we will go for a picnic.",
+          "jp": "その映画はとてもおもしろかったので、2回見ました。",
+          "en": "The movie was so interesting that I watched it twice.",
           "tags": [
             "so 〜 that ⋯"
           ],
@@ -2259,8 +2259,8 @@
         },
         {
           "id": "unit3-p18-s4",
-          "jp": "彼女はとても親切なので、みんなに好かれています。",
-          "en": "She is so kind that everyone likes her.",
+          "jp": "彼はとても速く走ったので、バスに間に合いました。",
+          "en": "He ran so fast that he caught the bus.",
           "tags": [
             "so 〜 that ⋯"
           ],
@@ -2271,8 +2271,8 @@
         },
         {
           "id": "unit3-p18-s5",
-          "jp": "その映画はとても面白いので、もう一度見たいです。",
-          "en": "The movie was so interesting that I want to watch it again.",
+          "jp": "この本はとても難しいので、理解できません。",
+          "en": "This book is so difficult that I can't understand it.",
           "tags": [
             "so 〜 that ⋯"
           ],
@@ -2283,8 +2283,8 @@
         },
         {
           "id": "unit3-p18-s6",
-          "jp": "この本はとても難しいので、手伝ってもらえますか？",
-          "en": "This book is so difficult that can you help me?",
+          "jp": "彼女はとても親切なので、みんな彼女が好きです。",
+          "en": "She is so kind that everyone likes her.",
           "tags": [
             "so 〜 that ⋯"
           ],
@@ -2295,8 +2295,8 @@
         },
         {
           "id": "unit3-p18-s7",
-          "jp": "彼はとても速く走るので、すぐにゴールに着きました。",
-          "en": "He runs so fast that he reached the finish line quickly.",
+          "jp": "彼はとても忙しかったので、昼食を食べられませんでした。",
+          "en": "He was so busy that he couldn't eat lunch.",
           "tags": [
             "so 〜 that ⋯"
           ],
@@ -2307,8 +2307,8 @@
         },
         {
           "id": "unit3-p18-s8",
-          "jp": "その問題はとても簡単なので、すぐに解けました。",
-          "en": "The problem was so easy that I solved it right away.",
+          "jp": "その箱はとても重かったので、動かせませんでした。",
+          "en": "The box was so heavy that I couldn't move it.",
           "tags": [
             "so 〜 that ⋯"
           ],
@@ -2319,8 +2319,8 @@
         },
         {
           "id": "unit3-p18-s9",
-          "jp": "私たちはとても楽しかったので、また行きたいです。",
-          "en": "We had so much fun that we want to go again.",
+          "jp": "私はとても興奮していたので、眠れませんでした。",
+          "en": "I was so excited that I couldn't sleep.",
           "tags": [
             "so 〜 that ⋯"
           ],
@@ -2331,8 +2331,8 @@
         },
         {
           "id": "unit3-p18-s10",
-          "jp": "この部屋はとても寒いので、暖房をつけました。",
-          "en": "This room is so cold that I turned on the heater.",
+          "jp": "私はとてもおなかがすいていたので、ハンバーガーを3つ食べました。",
+          "en": "I was so hungry that I ate three hamburgers.",
           "tags": [
             "so 〜 that ⋯"
           ],
@@ -2349,12 +2349,12 @@
       "id": "unit3-p19",
       "partNumber": 19,
       "title": "原形不定詞・知覚",
-      "description": "原形不定詞・知覚の使い方を練習",
+      "description": "see / hear + 人 + 原形 の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p19-s1",
-          "jp": "彼は彼女が歌うのを聞いた。",
-          "en": "He heard her sing.",
+          "jp": "私は彼が部屋に入るのを見ました。",
+          "en": "I saw him enter the room.",
           "tags": [
             "原形不定詞・知覚"
           ],
@@ -2365,8 +2365,8 @@
         },
         {
           "id": "unit3-p19-s2",
-          "jp": "私は彼らが遊ぶのを見た。",
-          "en": "I saw them play.",
+          "jp": "私たちは彼女がピアノを弾くのを聞きました。",
+          "en": "We heard her play the piano.",
           "tags": [
             "原形不定詞・知覚"
           ],
@@ -2377,8 +2377,8 @@
         },
         {
           "id": "unit3-p19-s3",
-          "jp": "彼女は猫が走るのを見た。",
-          "en": "She watched the cat run.",
+          "jp": "あなたはケンが公園を走るのを見ましたか。",
+          "en": "Did you see Ken run in the park?",
           "tags": [
             "原形不定詞・知覚"
           ],
@@ -2389,8 +2389,8 @@
         },
         {
           "id": "unit3-p19-s4",
-          "jp": "私たちは彼が話すのを聞いた。",
-          "en": "We heard him speak.",
+          "jp": "私は鳥が飛ぶのを見ました。",
+          "en": "I saw a bird fly away.",
           "tags": [
             "原形不定詞・知覚"
           ],
@@ -2401,8 +2401,8 @@
         },
         {
           "id": "unit3-p19-s5",
-          "jp": "あなたは彼女が踊るのを見ましたか？",
-          "en": "Did you see her dance?",
+          "jp": "私はだれかが私の名前を呼ぶのを聞きました。",
+          "en": "I heard someone call my name.",
           "tags": [
             "原形不定詞・知覚"
           ],
@@ -2413,8 +2413,8 @@
         },
         {
           "id": "unit3-p19-s6",
-          "jp": "彼は犬が吠えるのを聞いた。",
-          "en": "He listened to the dog bark.",
+          "jp": "彼は彼女が通りを渡るのを見ました。",
+          "en": "He saw her cross the street.",
           "tags": [
             "原形不定詞・知覚"
           ],
@@ -2425,8 +2425,8 @@
         },
         {
           "id": "unit3-p19-s7",
-          "jp": "私は友達が笑うのを見た。",
-          "en": "I saw my friend laugh.",
+          "jp": "私たちは彼が英語の歌を歌うのを聞きました。",
+          "en": "We heard him sing an English song.",
           "tags": [
             "原形不定詞・知覚"
           ],
@@ -2437,8 +2437,8 @@
         },
         {
           "id": "unit3-p19-s8",
-          "jp": "彼女は赤ちゃんが寝るのを見守った。",
-          "en": "She watched the baby sleep.",
+          "jp": "私は地面が揺れるのを感じました。",
+          "en": "I felt the ground shake.",
           "tags": [
             "原形不定詞・知覚"
           ],
@@ -2449,8 +2449,8 @@
         },
         {
           "id": "unit3-p19-s9",
-          "jp": "彼らは私が歌うのを楽しんだ。",
-          "en": "They enjoyed me singing.",
+          "jp": "あなたは彼らが家を出るのを見ましたか。",
+          "en": "Did you see them leave the house?",
           "tags": [
             "原形不定詞・知覚"
           ],
@@ -2461,8 +2461,8 @@
         },
         {
           "id": "unit3-p19-s10",
-          "jp": "私は彼が料理するのを手伝った。",
-          "en": "I helped him cook.",
+          "jp": "私は子どもたちが公園で遊ぶのを見ました。",
+          "en": "I watched the children play in the park.",
           "tags": [
             "原形不定詞・知覚"
           ],
@@ -2479,12 +2479,12 @@
       "id": "unit3-p20",
       "partNumber": 20,
       "title": "原形不定詞・使役",
-      "description": "原形不定詞・使役の使い方を練習",
+      "description": "make / let + 人 + 原形 の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p20-s1",
-          "jp": "彼は私に宿題をするように言った。",
-          "en": "He told me to do my homework.",
+          "jp": "そのニュースは彼女を泣かせました。",
+          "en": "The news made her cry.",
           "tags": [
             "原形不定詞・使役"
           ],
@@ -2495,8 +2495,8 @@
         },
         {
           "id": "unit3-p20-s2",
-          "jp": "先生は私たちに本を読むように勧めた。",
-          "en": "The teacher advised us to read the book.",
+          "jp": "行かせてください。",
+          "en": "Please let me go.",
           "tags": [
             "原形不定詞・使役"
           ],
@@ -2507,8 +2507,8 @@
         },
         {
           "id": "unit3-p20-s3",
-          "jp": "彼女は私に歌を歌わせた。",
-          "en": "She had me sing a song.",
+          "jp": "父は私に部屋を掃除させました。",
+          "en": "My father made me clean my room.",
           "tags": [
             "原形不定詞・使役"
           ],
@@ -2519,8 +2519,8 @@
         },
         {
           "id": "unit3-p20-s4",
-          "jp": "友達は私に映画を見に行くように誘った。",
-          "en": "My friend invited me to go see a movie.",
+          "jp": "彼はあなたにパソコンを使わせてくれましたか？",
+          "en": "Did he let you use his computer?",
           "tags": [
             "原形不定詞・使役"
           ],
@@ -2531,8 +2531,8 @@
         },
         {
           "id": "unit3-p20-s5",
-          "jp": "母は私に掃除を手伝わせた。",
-          "en": "My mom had me help with the cleaning.",
+          "jp": "先生はあなたたちを走らせましたか？",
+          "en": "Did the teacher make you run?",
           "tags": [
             "原形不定詞・使役"
           ],
@@ -2543,8 +2543,8 @@
         },
         {
           "id": "unit3-p20-s6",
-          "jp": "彼は私に新しいゲームを試すように頼んだ。",
-          "en": "He asked me to try the new game.",
+          "jp": "あとで知らせます。",
+          "en": "I will let you know later.",
           "tags": [
             "原形不定詞・使役"
           ],
@@ -2555,8 +2555,8 @@
         },
         {
           "id": "unit3-p20-s7",
-          "jp": "妹は私にお菓子を作らせた。",
-          "en": "My sister made me bake some cookies.",
+          "jp": "その映画はみんなを笑わせました。",
+          "en": "The movie made everyone laugh.",
           "tags": [
             "原形不定詞・使役"
           ],
@@ -2567,8 +2567,8 @@
         },
         {
           "id": "unit3-p20-s8",
-          "jp": "先生は私たちにレポートを提出するように言った。",
-          "en": "The teacher told us to submit the report.",
+          "jp": "お母さんはあなたに宿題をさせましたか？",
+          "en": "Did your mother make you do your homework?",
           "tags": [
             "原形不定詞・使役"
           ],
@@ -2579,8 +2579,8 @@
         },
         {
           "id": "unit3-p20-s9",
-          "jp": "彼は私にその本を買うように勧めた。",
-          "en": "He recommended me to buy that book.",
+          "jp": "考えさせてください。",
+          "en": "Let me think.",
           "tags": [
             "原形不定詞・使役"
           ],
@@ -2591,8 +2591,8 @@
         },
         {
           "id": "unit3-p20-s10",
-          "jp": "父は私に車を運転させてくれた。",
-          "en": "My dad let me drive the car.",
+          "jp": "やらせてください。",
+          "en": "Please let me do it.",
           "tags": [
             "原形不定詞・使役"
           ],
@@ -2609,12 +2609,12 @@
       "id": "unit3-p21",
       "partNumber": 21,
       "title": "関係副詞・where",
-      "description": "関係副詞・whereの使い方を練習",
+      "description": "「〜する場所」の where の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p21-s1",
-          "jp": "私は公園で遊びます。そこは子供たちに人気です。",
-          "en": "I play in the park, where many children like to go.",
+          "jp": "ここは私が生まれた町です。",
+          "en": "This is the town where I was born.",
           "tags": [
             "関係副詞・where"
           ],
@@ -2625,8 +2625,8 @@
         },
         {
           "id": "unit3-p21-s2",
-          "jp": "彼女は私の家に来ます。そこは彼女の好きな場所です。",
-          "en": "She comes to my house, where she feels happy.",
+          "jp": "あれは彼が住んでいる家ですか？",
+          "en": "Is that the house where he lives?",
           "tags": [
             "関係副詞・where"
           ],
@@ -2637,8 +2637,8 @@
         },
         {
           "id": "unit3-p21-s3",
-          "jp": "私たちは学校で勉強します。そこは友達と会うところです。",
-          "en": "We study at school, where we meet our friends.",
+          "jp": "これは私たちがよく遊んだ公園です。",
+          "en": "This is the park where we often played.",
           "tags": [
             "関係副詞・where"
           ],
@@ -2649,8 +2649,8 @@
         },
         {
           "id": "unit3-p21-s4",
-          "jp": "彼は映画館で映画を見ます。そこは良い音響があります。",
-          "en": "He watches movies at the cinema, where the sound is great.",
+          "jp": "ここは私たちが昼ご飯を食べる部屋です。",
+          "en": "This is the room where we have lunch.",
           "tags": [
             "関係副詞・where"
           ],
@@ -2661,8 +2661,8 @@
         },
         {
           "id": "unit3-p21-s5",
-          "jp": "お母さんは台所で料理をします。そこはいつもいい匂いがします。",
-          "en": "My mother cooks in the kitchen, where it always smells good.",
+          "jp": "ここはあなたがカバンを買った店ですか？",
+          "en": "Is this the shop where you bought the bag?",
           "tags": [
             "関係副詞・where"
           ],
@@ -2673,8 +2673,8 @@
         },
         {
           "id": "unit3-p21-s6",
-          "jp": "私たちはスーパーマーケットで買い物をします。そこはたくさんの食べ物があります。",
-          "en": "We shop at the supermarket, where there is a lot of food.",
+          "jp": "これは私が勉強する部屋です。",
+          "en": "This is the room where I study.",
           "tags": [
             "関係副詞・where"
           ],
@@ -2685,8 +2685,8 @@
         },
         {
           "id": "unit3-p21-s7",
-          "jp": "彼は友達の家に遊びに行きます。そこはゲームがたくさんあります。",
-          "en": "He goes to his friend's house, where there are many games.",
+          "jp": "私はおいしいケーキが買える店を知っています。",
+          "en": "I know a shop where you can buy delicious cakes.",
           "tags": [
             "関係副詞・where"
           ],
@@ -2697,8 +2697,8 @@
         },
         {
           "id": "unit3-p21-s8",
-          "jp": "私の姉は大学で勉強しています。そこは新しいことを学ぶ場所です。",
-          "en": "My sister studies at university, where she learns new things.",
+          "jp": "京都は古いお寺をたくさん見られる都市です。",
+          "en": "Kyoto is a city where you can see many old temples.",
           "tags": [
             "関係副詞・where"
           ],
@@ -2709,8 +2709,8 @@
         },
         {
           "id": "unit3-p21-s9",
-          "jp": "私たちは海で泳ぎます。そこはとても楽しいです。",
-          "en": "We swim at the beach, where it is very fun.",
+          "jp": "あれは彼が働いている病院です。",
+          "en": "That is the hospital where he works.",
           "tags": [
             "関係副詞・where"
           ],
@@ -2721,8 +2721,8 @@
         },
         {
           "id": "unit3-p21-s10",
-          "jp": "彼女は図書館で本を読みます。そこは静かです。",
-          "en": "She reads books in the library, where it is quiet.",
+          "jp": "あなたたちは初めて会った場所に行きましたか？",
+          "en": "Did you go to the place where you first met?",
           "tags": [
             "関係副詞・where"
           ],
@@ -2739,12 +2739,12 @@
       "id": "unit3-p22",
       "partNumber": 22,
       "title": "関係副詞・when",
-      "description": "関係副詞・whenの使い方を練習",
+      "description": "「〜する時」の when の使い方を練習",
       "sentences": [
         {
           "id": "unit3-p22-s1",
-          "jp": "私は彼に会ったとき、彼は忙しかった。",
-          "en": "He was busy when I met him.",
+          "jp": "私は彼女に初めて会った日を覚えています。",
+          "en": "I remember the day when I first met her.",
           "tags": [
             "関係副詞・when"
           ],
@@ -2755,8 +2755,8 @@
         },
         {
           "id": "unit3-p22-s2",
-          "jp": "君が来たとき、パーティーは始まった。",
-          "en": "The party started when you arrived.",
+          "jp": "日曜日は私が部屋を掃除する日です。",
+          "en": "Sunday is the day when I clean my room.",
           "tags": [
             "関係副詞・when"
           ],
@@ -2767,8 +2767,8 @@
         },
         {
           "id": "unit3-p22-s3",
-          "jp": "彼女は映画を見ているとき、泣いていた。",
-          "en": "She cried when she watched the movie.",
+          "jp": "春は桜が咲く季節です。",
+          "en": "Spring is the season when cherry blossoms bloom.",
           "tags": [
             "関係副詞・when"
           ],
@@ -2779,8 +2779,8 @@
         },
         {
           "id": "unit3-p22-s4",
-          "jp": "私たちが学校に着いたとき、雨が降り始めた。",
-          "en": "It started to rain when we arrived at school.",
+          "jp": "7時はあなたが起きる時間ですか？",
+          "en": "Is seven o'clock the time when you get up?",
           "tags": [
             "関係副詞・when"
           ],
@@ -2791,8 +2791,8 @@
         },
         {
           "id": "unit3-p22-s5",
-          "jp": "私が本を読んでいたとき、彼が話しかけてきた。",
-          "en": "He spoke to me when I was reading a book.",
+          "jp": "2018年はあなたがこの町に引っ越した年ですか？",
+          "en": "Was 2018 the year when you moved to this town?",
           "tags": [
             "関係副詞・when"
           ],
@@ -2803,8 +2803,8 @@
         },
         {
           "id": "unit3-p22-s6",
-          "jp": "彼が運動をしていたとき、友達が応援した。",
-          "en": "His friends cheered when he was playing sports.",
+          "jp": "私は私たちが一緒に遊んだ夏を決して忘れません。",
+          "en": "I will never forget the summer when we played together.",
           "tags": [
             "関係副詞・when"
           ],
@@ -2815,8 +2815,8 @@
         },
         {
           "id": "unit3-p22-s7",
-          "jp": "兄がゲームをしているとき、私は宿題をしていた。",
-          "en": "I was doing my homework when my brother was playing a game.",
+          "jp": "1月は雪がたくさん降る月です。",
+          "en": "January is the month when it snows a lot.",
           "tags": [
             "関係副詞・when"
           ],
@@ -2827,8 +2827,8 @@
         },
         {
           "id": "unit3-p22-s8",
-          "jp": "彼女が電話をかけたとき、私は家にいなかった。",
-          "en": "I was not at home when she made the call.",
+          "jp": "夜は私が英語を勉強する時間です。",
+          "en": "Night is the time when I study English.",
           "tags": [
             "関係副詞・when"
           ],
@@ -2839,8 +2839,8 @@
         },
         {
           "id": "unit3-p22-s9",
-          "jp": "子供たちが遊んでいるとき、私は庭で読書をしていた。",
-          "en": "I was reading in the garden when the children were playing.",
+          "jp": "土曜日は彼女が買い物に行ける唯一の日ですか？",
+          "en": "Is Saturday the only day when she can go shopping?",
           "tags": [
             "関係副詞・when"
           ],
@@ -2851,8 +2851,8 @@
         },
         {
           "id": "unit3-p22-s10",
-          "jp": "彼が歌っているとき、みんなが拍手した。",
-          "en": "Everyone clapped when he was singing.",
+          "jp": "夏は私たちが泳ぎに行く季節です。",
+          "en": "Summer is the season when we go swimming.",
           "tags": [
             "関係副詞・when"
           ],

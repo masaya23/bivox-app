@@ -1,35 +1,36 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import HardNavLink from '@/components/HardNavLink';
 import {
-  getUnitsByFilter,
-  getUnitTotalSentences,
   getPartsByGrade,
-  getUnitByGrade,
   getUnitIdByGrade,
 } from '@/utils/units';
+import { GRADE_TABS, getPartBadgeClassName, isGradeId } from '@/utils/gradeTheme';
 import type { TabFilter } from '@/types/unit';
 
-const GRADE_TABS: { id: TabFilter; label: string; accent: string }[] = [
-  { id: 'junior-high-1', label: '中学1年', accent: 'from-blue-500 to-sky-500' },
-  { id: 'junior-high-2', label: '中学2年', accent: 'from-indigo-500 to-purple-500' },
-  { id: 'junior-high-3', label: '中学3年', accent: 'from-pink-500 to-rose-500' },
-  { id: 'all', label: '全学年', accent: 'from-emerald-500 to-teal-500' },
-];
+const isValidGrade = (grade: string | null): grade is TabFilter => isGradeId(grade);
 
-export default function UnitsPage() {
-  const [activeTab, setActiveTab] = useState<TabFilter>('junior-high-1');
+function UnitsPageContent() {
+  const searchParams = useSearchParams();
+  const gradeParam = searchParams.get('grade');
+  const initialGrade: TabFilter = isValidGrade(gradeParam) ? gradeParam : 'junior-high-1';
+
+  const [activeTab, setActiveTab] = useState<TabFilter>(initialGrade);
   const [shuffleMode, setShuffleMode] = useState(false);
+
+  useEffect(() => {
+    if (isValidGrade(gradeParam)) {
+      setActiveTab(gradeParam);
+    }
+  }, [gradeParam]);
 
   const parts = getPartsByGrade(activeTab);
   const currentUnitId = getUnitIdByGrade(activeTab);
   const currentTabInfo = GRADE_TABS.find((tab) => tab.id === activeTab) || GRADE_TABS[0];
-
-  // 選択中の学年の総問題数を計算
   const totalSentences = parts.reduce((sum, part) => sum + part.sentences.length, 0);
 
-  // Part IDから学年を判定する関数
   const getGradeFromPartId = (partId: string): string => {
     if (partId.startsWith('unit1')) return 'unit1';
     if (partId.startsWith('unit2')) return 'unit2';
@@ -45,138 +46,119 @@ export default function UnitsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 p-4">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-gray-200 flex justify-center">
+      <div className="w-full max-w-[430px] bg-gray-50 min-h-screen shadow-xl">
         {/* ヘッダー */}
-        <div className="bg-white rounded-3xl shadow-2xl p-6 mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <HardNavLink
-              href="/"
-              className="text-gray-600 hover:text-gray-800 font-semibold"
-            >
+        <div className={`p-4 bg-gradient-to-r ${currentTabInfo.gradient}`}>
+          <div className="flex items-center justify-between">
+            <HardNavLink href="/" className="text-white/80 hover:text-white font-medium text-sm">
               ← ホーム
             </HardNavLink>
-            <div className="text-center flex-1">
-              <h1 className="text-3xl font-black text-gray-800">学年別練習</h1>
-              <p className="text-gray-600 text-sm mt-1">
-                学年を選んでPartを練習しましょう
-              </p>
+          </div>
+          <h1 className="text-2xl font-black text-white text-center mt-2">
+            {currentTabInfo.label}
+          </h1>
+        </div>
+
+        <div className="px-4 py-4">
+        {/* まとめて練習ボタン */}
+        {totalSentences > 0 && (
+          <HardNavLink
+            href={
+              activeTab === 'all'
+                ? '/units/practice/select?filter=all&shuffle=true'
+                : `/units/${currentUnitId}/practice/select?shuffle=true`
+            }
+            className={`block rounded-2xl p-4 mb-4 shadow-md transition-all active:scale-[0.98] bg-gradient-to-r ${currentTabInfo.gradient} text-white`}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="px-2.5 py-0.5 bg-white/20 rounded-full text-xs font-bold">
+                    シャッフル
+                  </span>
+                  <span className="text-white/80 text-xs">{totalSentences}問</span>
+                </div>
+                <h2 className="text-lg font-black">まとめて練習</h2>
+                <p className="text-xs text-white/80 mt-0.5">
+                  {activeTab === 'all'
+                    ? '全学年のPartをまとめて'
+                    : `${currentTabInfo.label}の全Partを`}
+                </p>
+              </div>
+              <div className="text-2xl ml-3">→</div>
             </div>
-            <div className="w-20"></div>
-          </div>
+          </HardNavLink>
+        )}
 
-          {/* 学年タブ */}
-          <div className="flex flex-wrap gap-2 justify-center mb-4">
-            {GRADE_TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all ${
-                  activeTab === tab.id
-                    ? `bg-gradient-to-r ${tab.accent} text-white shadow-lg scale-105`
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        {/* Part一覧セクション */}
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-base font-black text-gray-800">Part一覧</h3>
+          <span className="px-2.5 py-0.5 bg-gray-200 text-gray-600 text-xs font-bold rounded-full">
+            {parts.length} Part
+          </span>
+        </div>
 
-          {/* シャッフルモード切り替え */}
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-            <span className="text-gray-700 font-semibold">問題をシャッフルする</span>
+        {/* シャッフル設定 */}
+        <div className="bg-white rounded-2xl shadow-md p-4 mb-4">
+          <div className="flex items-center justify-between">
+            <span className="text-gray-700 font-bold text-sm">問題をシャッフルする</span>
             <button
               onClick={() => setShuffleMode(!shuffleMode)}
-              className={`relative w-14 h-8 rounded-full transition-colors ${
+              className={`relative w-12 h-7 rounded-full transition-colors ${
                 shuffleMode ? 'bg-green-500' : 'bg-gray-300'
               }`}
             >
               <div
-                className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full transition-transform ${
-                  shuffleMode ? 'transform translate-x-6' : ''
+                className={`absolute top-1 left-1 w-5 h-5 bg-white rounded-full transition-transform shadow-md ${
+                  shuffleMode ? 'transform translate-x-5' : ''
                 }`}
               />
             </button>
           </div>
         </div>
 
-        {/* まとめて練習ボタン */}
-        {totalSentences > 0 && (
-          <HardNavLink
-            href={
-              activeTab === 'all'
-                ? `/units/practice/select?filter=all&shuffle=${shuffleMode}`
-                : `/units/${currentUnitId}/practice/select?shuffle=${shuffleMode}`
-            }
-            className={`block rounded-2xl p-5 mb-6 shadow-xl transition-all transform hover:scale-[1.02] bg-gradient-to-r ${currentTabInfo.accent} text-white hover:shadow-2xl`}
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="px-2 py-0.5 bg-white/20 rounded text-xs font-semibold">
-                    {shuffleMode ? 'シャッフル' : '順番通り'}
-                  </span>
-                  <span className="text-white/80 text-sm">{totalSentences}問</span>
-                </div>
-                <h2 className="text-2xl font-black">{currentTabInfo.label}をまとめて練習</h2>
-                <p className="text-sm text-white/80 mt-1">
-                  {activeTab === 'all'
-                    ? '全学年のPartをまとめて練習'
-                    : `${currentTabInfo.label}の全Partをまとめて練習`}
-                </p>
-              </div>
-              <div className="text-4xl">→</div>
-            </div>
-          </HardNavLink>
-        )}
-
-        {/* Part一覧セクション */}
-        <div className="flex items-center gap-3 mb-4">
-          <h3 className="text-white font-bold text-lg">Part一覧</h3>
-          <div className="flex-1 h-px bg-white/30"></div>
-          <span className="text-white/70 text-sm">{parts.length} Part</span>
-        </div>
-
         {/* Part一覧 */}
         <div className="space-y-3">
           {parts.length === 0 ? (
-            <div className="bg-white rounded-2xl shadow-lg p-6 text-center text-gray-700">
+            <div className="text-center text-gray-500 py-8 bg-white rounded-2xl shadow-md">
               この学年のデータがありません
             </div>
           ) : (
-            parts.map((part) => {
-              // 全学年モードの場合はPartからUnit IDを取得する
+            parts.map((part, index) => {
               const partUnitId =
                 activeTab === 'all' ? getGradeFromPartId(part.id) : currentUnitId;
+              // 全学年モードでは通し番号を使用
+              const displayPartNumber = activeTab === 'all' ? index + 1 : part.partNumber;
 
               return (
                 <HardNavLink
                   key={part.id}
-                  href={`/units/${partUnitId}/parts/${part.id}/mode?shuffle=${shuffleMode}`}
-                  className="block bg-white rounded-2xl shadow-lg p-5 hover:shadow-xl transition-all hover:scale-[1.01]"
+                  href={`/units/${partUnitId}/parts/${part.id}/mode?shuffle=${shuffleMode}&from=units&grade=${activeTab}`}
+                  className="block bg-white rounded-2xl p-4 active:scale-[0.98] transition-transform shadow-md"
                 >
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-bold rounded">
-                          Part {part.partNumber}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                        <span className={getPartBadgeClassName(activeTab)}>
+                          Part {displayPartNumber}
                         </span>
                         {activeTab === 'all' && (
-                          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded">
+                          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
                             {getGradeLabelFromPartId(part.id)}
                           </span>
                         )}
-                        <span className="text-gray-400 text-sm">
+                        <span className="text-gray-400 text-xs">
                           {part.sentences.length}問
                         </span>
                         {part.priority && (
                           <span
-                            className={`px-2 py-0.5 text-xs font-bold rounded ${
+                            className={`px-2 py-0.5 text-xs font-bold rounded-full ${
                               part.priority === 'A'
                                 ? 'bg-red-100 text-red-700'
                                 : part.priority === 'B'
                                 ? 'bg-yellow-100 text-yellow-700'
-                                : 'bg-gray-100 text-gray-700'
+                                : 'bg-gray-100 text-gray-600'
                             }`}
                           >
                             {part.priority === 'A'
@@ -187,12 +169,12 @@ export default function UnitsPage() {
                           </span>
                         )}
                       </div>
-                      <h2 className="text-lg font-bold text-gray-800">{part.title}</h2>
-                      <p className="text-gray-500 text-sm mt-1 line-clamp-1">
+                      <h2 className="text-sm font-bold text-gray-800 truncate">{part.title}</h2>
+                      <p className="text-gray-500 text-xs mt-0.5 line-clamp-1">
                         {part.description}
                       </p>
                     </div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                    <div className={`w-9 h-9 rounded-full bg-gradient-to-r ${currentTabInfo.gradient} flex items-center justify-center text-white font-bold flex-shrink-0 text-sm`}>
                       →
                     </div>
                   </div>
@@ -201,7 +183,32 @@ export default function UnitsPage() {
             })
           )}
         </div>
+        </div>
       </div>
     </div>
+  );
+}
+
+export default function UnitsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-200 flex justify-center">
+        <div className="w-full max-w-[430px] bg-gray-50 min-h-screen shadow-xl">
+          <div className="p-4 bg-gradient-to-r from-blue-500 to-sky-500">
+            <HardNavLink href="/" className="text-white/80 hover:text-white font-medium text-sm">
+              ← ホーム
+            </HardNavLink>
+            <h1 className="text-2xl font-black text-white text-center mt-2">
+              読み込み中...
+            </h1>
+          </div>
+          <div className="px-4 py-8 text-center text-gray-500">
+            読み込み中...
+          </div>
+        </div>
+      </div>
+    }>
+      <UnitsPageContent />
+    </Suspense>
   );
 }

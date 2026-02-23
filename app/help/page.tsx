@@ -1,228 +1,486 @@
 'use client';
 
-import Link from 'next/link';
+import MobileLayout, { PageHeader } from '@/components/MobileLayout';
+
+// ヘルプ用セクションカード（設定画面と同じスタイル）
+function HelpCard({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
+  return (
+    <div className="mx-4 rounded-2xl bg-white shadow-[0_4px_10px_rgba(0,0,0,0.05)] overflow-hidden">
+      <div className="px-5 pt-4 pb-1">
+        <div className="flex items-center gap-2.5 mb-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#F8F6F4]">
+            {icon}
+          </div>
+          <h2 className="text-sm font-bold text-[#3E2723]">{title}</h2>
+        </div>
+      </div>
+      <div className="px-5 pb-5">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// セクション見出し（設定画面と同じ）
+function SectionHeader({ title }: { title: string }) {
+  return (
+    <p className="px-4 pt-6 pb-2 text-[11px] font-semibold text-gray-500 tracking-wide">
+      {title}
+    </p>
+  );
+}
+
+// ========== SVGアイコン群 ==========
+
+// 本（学習の始め方）
+function IconBook() {
+  return (
+    <svg className="w-5 h-5 text-[#6D4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+    </svg>
+  );
+}
+
+// ヘッドフォン（トレーニングモード）
+function IconHeadphones() {
+  return (
+    <svg className="w-5 h-5 text-[#6D4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 18v-6a9 9 0 0118 0v6" />
+      <path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3v5zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3v5z" />
+    </svg>
+  );
+}
+
+// マイク（音声機能）
+function IconMic() {
+  return (
+    <svg className="w-5 h-5 text-[#6D4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="9" y="2" width="6" height="11" rx="3" />
+      <path d="M5 10a7 7 0 0014 0" />
+      <path d="M12 17v4" />
+      <path d="M8 21h8" />
+    </svg>
+  );
+}
+
+// グラフ（学習記録）
+function IconChart() {
+  return (
+    <svg className="w-5 h-5 text-[#6D4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 20V10" />
+      <path d="M12 20V4" />
+      <path d="M6 20v-6" />
+    </svg>
+  );
+}
+
+// ハート（ライフシステム）
+function IconHeart() {
+  return (
+    <svg className="w-5 h-5 text-[#6D4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+    </svg>
+  );
+}
+
+// 王冠（プラン）
+function IconCrown() {
+  return (
+    <svg className="w-5 h-5 text-[#6D4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z" />
+      <path d="M5 16h14v4H5z" />
+    </svg>
+  );
+}
+
+// 歯車（設定）
+function IconGear() {
+  return (
+    <svg className="w-5 h-5 text-[#6D4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+    </svg>
+  );
+}
+
+// はてな（FAQ）
+function IconQuestion() {
+  return (
+    <svg className="w-5 h-5 text-[#6D4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9 9a3 3 0 015.12 2.15c0 1.5-2.12 2.1-2.12 3.35" />
+      <path d="M12 17h.01" />
+    </svg>
+  );
+}
+
+// 電球（学習のコツ）
+function IconTip() {
+  return (
+    <svg className="w-5 h-5 text-[#6D4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18h6" />
+      <path d="M10 22h4" />
+      <path d="M12 2a7 7 0 00-3 13.33V17h6v-1.67A7 7 0 0012 2z" />
+    </svg>
+  );
+}
+
+// チェックマーク付きリストアイテム
+function CheckItem({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex gap-2.5">
+      <svg className="w-4 h-4 text-[#FCC800] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+      </svg>
+      <span>{children}</span>
+    </li>
+  );
+}
+
+const SUPPORT_EMAIL = 'ztnrngtd2312@gmail.com';
+
+function openContactEmail() {
+  const subject = encodeURIComponent('【Bivox】お問い合わせ');
+  const body = encodeURIComponent(
+    '＜お問い合わせ内容をご記入ください＞\n\n\n' +
+    '---\n' +
+    `端末: ${navigator.userAgent}\n`
+  );
+  window.location.href = `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`;
+}
 
 export default function HelpPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4">
-      <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl p-8 md:p-12 my-8">
-        {/* ヘッダー */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-black text-gray-800 mb-2">
-            ヘルプ
-          </h1>
-          <p className="text-gray-600">無限英作文の使い方</p>
+    <MobileLayout showBottomNav={true} activeTab="help" requireAuth={true}>
+      <PageHeader
+        title="ヘルプ"
+        backLink="/"
+        backLabel="ホーム"
+        gradient="bg-white border-b border-gray-100"
+        titleClassName="text-[#3E2723]"
+        backLinkClassName="text-[#5D4037] hover:text-[#3E2723]"
+      />
+
+      <div className="pb-6">
+        {/* ========== 学習の始め方 ========== */}
+        <SectionHeader title="学習の始め方" />
+        <HelpCard icon={<IconBook />} title="学習の流れ">
+          <div className="space-y-3">
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">1. 学年を選ぶ</h3>
+              <p className="text-xs text-gray-600">
+                ホーム画面から「中学1年」「中学2年」「中学3年」「全学年」を選択します。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">2. パートを選ぶ</h3>
+              <p className="text-xs text-gray-600">
+                文法テーマごとに分かれたパートから学習したいものを選びます。シャッフル切り替えで問題をランダム順にしたり、「まとめて練習」で複数パートをまとめて学習することもできます。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">3. モードを選ぶ</h3>
+              <p className="text-xs text-gray-600">
+                ベーシック・スピーキング・AI応用ドリルの3つのモードから選択してトレーニングを開始します。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">4. 結果を確認</h3>
+              <p className="text-xs text-gray-600">
+                全問終了後、成績と練習した文章の一覧が表示されます。
+              </p>
+            </div>
+          </div>
+        </HelpCard>
+
+        {/* ========== トレーニングモード ========== */}
+        <SectionHeader title="トレーニングモード" />
+        <HelpCard icon={<IconHeadphones />} title="4つのモード">
+          <div className="space-y-4">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="font-bold text-gray-800 text-sm">ベーシックモード</h3>
+                <span className="text-[10px] font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded">無料</span>
+                <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">Plus</span>
+                <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">Pro</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-1">
+                日本語を聞く → ポーズ中に英語を話す → 英語の正解を聞く、の流れで自動進行します。
+              </p>
+              <ul className="text-xs text-gray-500 space-y-0.5 ml-3">
+                <li>・ ポーズ時間の調整（1〜10秒）</li>
+                <li>・ 英語の再生速度（遅い / 等速 / 速い）</li>
+                <li>・ 次の問題までの間隔の調整</li>
+              </ul>
+            </div>
+
+            <div className="border-t border-gray-100 pt-3">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="font-bold text-gray-800 text-sm">スピーキングモード</h3>
+                <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">Plus</span>
+                <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">Pro</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-1">
+                日本語を聞いた後、マイクに向かって英語で回答。AIが自動で採点し、詳細なフィードバックを返します。
+              </p>
+              <ul className="text-xs text-gray-500 space-y-0.5 ml-3">
+                <li>・ スコア・文法・意味の自動判定</li>
+                <li>・ 模範解答と自然な表現の提示</li>
+                <li>・ 間違えた場合はリトライ可能</li>
+              </ul>
+            </div>
+
+            <div className="border-t border-gray-100 pt-3">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="font-bold text-gray-800 text-sm">AI応用ドリル</h3>
+                <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">Pro</span>
+              </div>
+              <p className="text-xs text-gray-600">
+                AIがパートの文法テーマに合わせて10問を自動生成。教科書にない応用問題で実力を試せます。音声入力で回答し、AIが採点します。
+              </p>
+            </div>
+
+            <div className="border-t border-gray-100 pt-3">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="font-bold text-gray-800 text-sm">AIフリー英会話</h3>
+                <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">Pro</span>
+              </div>
+              <p className="text-xs text-gray-600 mb-1">
+                ホーム画面の「AIとフリー英会話」から開始。AIとチャット形式で自由に英会話ができます。
+              </p>
+              <ul className="text-xs text-gray-500 space-y-0.5 ml-3">
+                <li>・ 難易度の選択（初級 / 中級 / 上級）</li>
+                <li>・ 添削モード（リアルタイム / まとめて / なし）</li>
+                <li>・ 音声入力・音声読み上げ対応</li>
+              </ul>
+            </div>
+          </div>
+        </HelpCard>
+
+        {/* ========== 音声機能 ========== */}
+        <SectionHeader title="音声機能" />
+        <HelpCard icon={<IconMic />} title="音声の使い方">
+          <div className="space-y-3">
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">音声再生</h3>
+              <p className="text-xs text-gray-600 mb-1">
+                日本語・英語ともにMP3音声で再生されます。ベーシックモードでは再生速度を3段階で調整できます。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">音声入力（スピーキング / AI応用ドリル）</h3>
+              <p className="text-xs text-gray-600 mb-1">
+                音声認識機能を使って英語を入力します。初回使用時にマイクのアクセス許可が求められます。
+              </p>
+              <ul className="text-xs text-gray-500 space-y-0.5 ml-3">
+                <li>・ 静かな環境での使用を推奨</li>
+                <li>・ はっきりと発音するとより正確に認識されます</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">バックグラウンド再生</h3>
+              <p className="text-xs text-gray-600">
+                Plus / Proプランでは、ベーシックモードを画面を閉じたまま流し聞きできます。ロック画面からの再生操作にも対応しています。
+              </p>
+            </div>
+          </div>
+        </HelpCard>
+
+        {/* ========== 学習記録 ========== */}
+        <SectionHeader title="学習記録" />
+        <HelpCard icon={<IconChart />} title="学習ログ">
+          <div className="space-y-3">
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">連続学習日数（ストリーク）</h3>
+              <p className="text-xs text-gray-600">
+                毎日学習を続けると連続日数がカウントされます。最長記録も保存されます。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">学習統計</h3>
+              <p className="text-xs text-gray-600">
+                総学習日数、解いた問題数、セッション数を確認できます。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">カレンダー</h3>
+              <p className="text-xs text-gray-600">
+                月ごとに学習した日が色付きで表示されます。日付をタップすると、その日の学習内容を確認できます。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">学習時間グラフ</h3>
+              <p className="text-xs text-gray-600">
+                1週間 / 1ヶ月 / 6ヶ月 / 1年 / 全期間の学習時間を棒グラフで確認できます。
+              </p>
+            </div>
+          </div>
+        </HelpCard>
+
+        {/* ========== ライフシステム ========== */}
+        <SectionHeader title="ライフシステム" />
+        <HelpCard icon={<IconHeart />} title="ライフについて">
+          <div className="space-y-3">
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">ライフとは？</h3>
+              <p className="text-xs text-gray-600">
+                Freeプランでは、1問ごとにライフが1つ消費されます。ライフが0になるとトレーニングが一時停止します。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">ライフの回復</h3>
+              <p className="text-xs text-gray-600">
+                48分ごとに1ライフが自動回復します（最大30ライフ）。回復までの残り時間は画面上部で確認できます。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">ライフ無制限</h3>
+              <p className="text-xs text-gray-600">
+                Plus・Proプランではライフが無制限になり、好きなだけ学習できます。
+              </p>
+            </div>
+          </div>
+        </HelpCard>
+
+        {/* ========== プラン ========== */}
+        <SectionHeader title="プラン" />
+        <HelpCard icon={<IconCrown />} title="料金プラン">
+          <div className="space-y-4">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="font-bold text-gray-800 text-sm">Free（無料）</h3>
+              </div>
+              <ul className="text-xs text-gray-500 space-y-0.5 ml-3">
+                <li>・ ベーシックモード</li>
+                <li>・ ライフ制限あり（最大30 / 48分で1回復）</li>
+                <li>・ 広告表示あり</li>
+              </ul>
+            </div>
+            <div className="border-t border-gray-100 pt-3">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="font-bold text-gray-800 text-sm">Plus</h3>
+                <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">月額800円</span>
+              </div>
+              <ul className="text-xs text-gray-500 space-y-0.5 ml-3">
+                <li>・ Freeの全機能</li>
+                <li>・ スピーキングモード</li>
+                <li>・ ライフ無制限</li>
+                <li>・ 広告非表示</li>
+                <li>・ バックグラウンド再生</li>
+              </ul>
+            </div>
+            <div className="border-t border-gray-100 pt-3">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="font-bold text-gray-800 text-sm">Pro</h3>
+                <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">月額1,480円</span>
+              </div>
+              <ul className="text-xs text-gray-500 space-y-0.5 ml-3">
+                <li>・ Plusの全機能</li>
+                <li>・ AI応用ドリル</li>
+                <li>・ AIフリー英会話</li>
+              </ul>
+            </div>
+          </div>
+        </HelpCard>
+
+        {/* ========== 設定 ========== */}
+        <SectionHeader title="カスタマイズ" />
+        <HelpCard icon={<IconGear />} title="設定項目">
+          <div className="space-y-3">
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">ベーシックモード設定</h3>
+              <p className="text-xs text-gray-600">
+                ポーズ時間・英語再生速度・次の問題までの間隔をトレーニング画面の歯車アイコンから調整できます。設定は自動保存されます。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">データバックアップ</h3>
+              <p className="text-xs text-gray-600">
+                設定画面から学習データのバックアップを作成できます。「バックアップを作成」をタップすると共有メニューが開き、Googleドライブやメールなどお好みの保存先に送れます。復元時は保存したファイルを「バックアップから復元」で読み込みます。機種変更時やデータ消失に備えて定期的にバックアップを取ることをおすすめします。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">アカウント管理</h3>
+              <p className="text-xs text-gray-600">
+                メールアドレスの変更、パスワードの変更、ログアウトは設定画面から行えます。
+              </p>
+            </div>
+          </div>
+        </HelpCard>
+
+        {/* ========== FAQ ========== */}
+        <SectionHeader title="よくある質問" />
+        <HelpCard icon={<IconQuestion />} title="FAQ">
+          <div className="space-y-3">
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">音声認識が動作しない</h3>
+              <p className="text-xs text-gray-600">
+                設定アプリからBivoxのマイク権限が許可されているか確認してください。それでも動作しない場合はアプリを再起動してお試しください。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">ライフが足りない</h3>
+              <p className="text-xs text-gray-600">
+                48分ごとに1ライフ自動回復します。広告を見て5ライフ回復することもできます。学習ログ画面で回復状況を確認できます。Plus・Proプランではライフが無制限です。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">バックグラウンドで音が止まる</h3>
+              <p className="text-xs text-gray-600">
+                バックグラウンド再生はPlus / Proプランの機能です。Freeプランでは画面を閉じると再生が一時停止します。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">データが消えてしまった</h3>
+              <p className="text-xs text-gray-600">
+                学習データはお使いの端末に保存されています。ブラウザのデータ削除やキャッシュクリアで消える可能性があるため、設定画面から定期的にバックアップを取ってください。
+              </p>
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">オフラインで使える？</h3>
+              <p className="text-xs text-gray-600">
+                ベーシックモードはオフラインでも利用可能です。スピーキング・AI応用ドリル・AIフリー英会話はインターネット接続が必要です。
+              </p>
+            </div>
+          </div>
+        </HelpCard>
+
+        {/* ========== 学習のコツ ========== */}
+        <SectionHeader title="ヒント" />
+        <HelpCard icon={<IconTip />} title="学習のコツ">
+          <ul className="text-xs text-gray-600 space-y-2.5">
+            <CheckItem>毎日少しずつでも続けることが大切</CheckItem>
+            <CheckItem>まずはベーシックモードで耳と口を慣らす</CheckItem>
+            <CheckItem>慣れてきたらスピーキングモードでAI採点に挑戦</CheckItem>
+            <CheckItem>ポーズ中に声に出すことでスピーキング力UP</CheckItem>
+            <CheckItem>通勤・通学中はバックグラウンド再生で流し聞き</CheckItem>
+          </ul>
+        </HelpCard>
+
+        {/* ========== お問い合わせ ========== */}
+        <SectionHeader title="サポート" />
+        <div className="mx-4 mb-2">
+          <button
+            onClick={openContactEmail}
+            className="w-full flex items-center gap-3 px-5 py-4 bg-white rounded-2xl shadow-[0_4px_10px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-transform"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#F8F6F4]">
+              <svg className="w-5 h-5 text-[#6D4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+              </svg>
+            </div>
+            <div className="flex-1 text-left">
+              <p className="text-sm font-bold text-[#3E2723]">お問い合わせ</p>
+              <p className="text-[11px] text-gray-500">解決しない場合はお気軽にご連絡ください</p>
+            </div>
+            <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
         </div>
-
-        {/* 基本的な使い方 */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span className="text-3xl">📖</span>
-            基本的な使い方
-          </h2>
-          <div className="bg-green-50 rounded-2xl p-6 space-y-4">
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">1. トレーニング開始</h3>
-              <p className="text-sm text-gray-700">
-                ホーム画面の「トレーニング開始」ボタンをクリックして学習を始めます。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">2. 問題を解く</h3>
-              <p className="text-sm text-gray-700">
-                日本語文が表示されるので、英語に翻訳します。「🎤 音声で答える」または「答えを見る」を選択できます。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">3. 評価する</h3>
-              <p className="text-sm text-gray-700">
-                自分の答えを「完璧」「まあまあ」「難しい」の3段階で評価します。この評価がSRS（間隔反復）システムに記録されます。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">4. 結果を確認</h3>
-              <p className="text-sm text-gray-700">
-                全問終了後、今回の成績と連続学習記録（Streak）、全体統計が表示されます。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* 音声機能 */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span className="text-3xl">🎤</span>
-            音声機能
-          </h2>
-          <div className="bg-blue-50 rounded-2xl p-6 space-y-4">
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">音声で答える</h3>
-              <p className="text-sm text-gray-700 mb-2">
-                「🎤 音声で答える」をクリックすると、日本語文が読み上げられた後、音声認識が開始されます。英語で答えを話してください。
-              </p>
-              <ul className="text-sm text-gray-700 list-disc list-inside space-y-1 ml-2">
-                <li>自動でタイムアウト（デフォルト10秒）します</li>
-                <li>「録音停止」ボタンで手動停止も可能</li>
-                <li>認識された音声は自動で正誤判定されます</li>
-                <li>判定が不満な場合は「やり直し」が可能</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">音声読み上げ</h3>
-              <p className="text-sm text-gray-700 mb-2">
-                英文の横にある「🔊」ボタンで、英文の読み上げができます。
-              </p>
-              <ul className="text-sm text-gray-700 list-disc list-inside space-y-1 ml-2">
-                <li>自動再生ON/OFFの切り替えが可能</li>
-                <li>読み上げ速度の調整（×0.5〜×2.0）</li>
-                <li>日本語もAI音声で読み上げ対応</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* 機能説明 */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span className="text-3xl">⚡</span>
-            主要機能
-          </h2>
-          <div className="bg-purple-50 rounded-2xl p-6 space-y-4">
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">🔥 連続学習記録（Streak）</h3>
-              <p className="text-sm text-gray-700">
-                毎日トレーニングを完了することで、連続学習日数がカウントされます。モチベーション維持に役立ちます。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">🎯 間隔反復システム（SRS）</h3>
-              <p className="text-sm text-gray-700">
-                あなたの評価に基づいて、苦手な例文は多く、得意な例文は少なめに出題されるよう自動調整されます。効率的に記憶できます。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">⚡ 瞬間英作文モード</h3>
-              <p className="text-sm text-gray-700">
-                問題画面で「瞬間英作文」をONにすると、日本語が自動で読み上げられ、すぐに音声入力が開始されます。スピーディーな学習に最適です。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">🤖 AI質問機能</h3>
-              <p className="text-sm text-gray-700">
-                分からない文法や表現について、AIに質問できます。「AI に質問」ボタンをクリックして質問を入力してください。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">📊 学習統計</h3>
-              <p className="text-sm text-gray-700">
-                総セッション数、総問題数、平均正解率など、あなたの学習記録が自動で記録・表示されます。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* 設定 */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span className="text-3xl">⚙️</span>
-            設定
-          </h2>
-          <div className="bg-orange-50 rounded-2xl p-6 space-y-4">
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">タイムアウト時間</h3>
-              <p className="text-sm text-gray-700">
-                音声入力の自動タイムアウト時間を調整できます（5〜30秒）。問題画面の「⚙️ 設定」から変更できます。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">正解判定の厳しさ</h3>
-              <p className="text-sm text-gray-700">
-                類似度の閾値を調整できます（50〜95%）。低いほど寛容、高いほど厳格な判定になります。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">データのバックアップ</h3>
-              <p className="text-sm text-gray-700">
-                ホーム画面の「⚙️ 設定」から、学習データのエクスポート・インポートが可能です。機種変更時などに便利です。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span className="text-3xl">❓</span>
-            よくある質問
-          </h2>
-          <div className="bg-gray-50 rounded-2xl p-6 space-y-4">
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">音声認識が動作しない</h3>
-              <p className="text-sm text-gray-700">
-                ChromeやEdgeなどの対応ブラウザを使用してください。また、マイクの権限を許可する必要があります。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">データが消えてしまった</h3>
-              <p className="text-sm text-gray-700">
-                ブラウザのキャッシュクリアなどで消える可能性があります。定期的にバックアップを取ることをおすすめします。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">オフラインで使えますか？</h3>
-              <p className="text-sm text-gray-700">
-                PWA対応により、一度読み込めばオフラインでも基本機能は使用可能です。ただし、AI質問や例文生成にはインターネット接続が必要です。
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-800 mb-2">例文は増やせますか？</h3>
-              <p className="text-sm text-gray-700">
-                現在はダミーデータですが、将来的にAI生成で無限に例文を増やせるようになる予定です。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Tips */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span className="text-3xl">💡</span>
-            学習のコツ
-          </h2>
-          <div className="bg-yellow-50 rounded-2xl p-6">
-            <ul className="text-sm text-gray-700 space-y-3">
-              <li className="flex gap-2">
-                <span className="text-green-600 font-bold">✓</span>
-                <span>毎日少しずつでも続けることが大切。Streakを途切れさせないようにしましょう</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-green-600 font-bold">✓</span>
-                <span>最初は答えを見ながらでOK。繰り返すうちに自然と覚えられます</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-green-600 font-bold">✓</span>
-                <span>音声で答える練習をすると、スピーキング力も同時に鍛えられます</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-green-600 font-bold">✓</span>
-                <span>分からない表現はAIに質問して、理解を深めましょう</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-green-600 font-bold">✓</span>
-                <span>瞬間英作文モードで、反射的に英語が出るまで練習しましょう</span>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        {/* 戻るボタン */}
-        <Link
-          href="/"
-          className="block w-full py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-2xl text-center hover:from-blue-600 hover:to-purple-600 transition-all transform hover:scale-105 shadow-lg"
-        >
-          ホームに戻る
-        </Link>
       </div>
-    </div>
+
+    </MobileLayout>
   );
 }

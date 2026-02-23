@@ -1,0 +1,984 @@
+# Unit 1 - Unit 1: 基礎文法総合
+## Part 1: be動詞（am / is / are：肯定・否定・疑問・短縮）
+unit1-p1-s1 Tags: be動詞
+JP: 私は学生です。
+EN: I am a student.
+
+unit1-p1-s2 Tags: be動詞
+JP: 彼は先生ですか？ ーいいえ、違います。
+EN: Is he a teacher? - No, he is not.
+
+unit1-p1-s3 Tags: be動詞
+JP: あなたは日本人ですか？ ーはい、そうです。
+EN: Are you Japanese? - Yes, I am.
+
+unit1-p1-s4 Tags: be動詞
+JP: 彼女は私の友達です。
+EN: She is my friend.
+
+unit1-p1-s5 Tags: be動詞
+JP: それはあなたのバッグですか？ ーいいえ、違います。
+EN: Is it your bag? - No, it is not.
+
+unit1-p1-s6 Tags: be動詞
+JP: 私たちは公園にいます。
+EN: We are in the park.
+
+unit1-p1-s7 Tags: be動詞
+JP: 彼らは忙しいですか？ ーはい、とても忙しいです。
+EN: Are they busy? - Yes, they are very busy.
+
+unit1-p1-s8 Tags: be動詞
+JP: これはあなたの本ですか？
+EN: Is this your book?
+
+unit1-p1-s9 Tags: be動詞
+JP: 私の犬はとてもかわいいです。
+EN: My dog is very cute.
+
+unit1-p1-s10 Tags: be動詞
+JP: ケンはテニス部員ですか？ ーはい、そうです。
+EN: Is Ken on the tennis team? - Yes, he is.
+
+## Part 2: this / that
+unit1-p2-s1 Tags: this / that
+JP: これは私の本です。
+EN: This is my book.
+
+unit1-p2-s2 Tags: this / that
+JP: あれはあなたのペンですか？ ーいいえ、違います。
+EN: Is that your pen? - No, it is not.
+
+unit1-p2-s3 Tags: this / that
+JP: これは新しいカバンですか？ ーはい、そうです。
+EN: Is this a new bag? - Yes, it is.
+
+unit1-p2-s4 Tags: this / that
+JP: あれは私の自転車です。
+EN: That is my bicycle.
+
+unit1-p2-s5 Tags: this / that
+JP: これはリンゴですか？ ーいいえ、オレンジです。
+EN: Is this an apple? - No, it is an orange.
+
+unit1-p2-s6 Tags: this / that
+JP: あれは学校ではありません。
+EN: That is not a school.
+
+unit1-p2-s7 Tags: this / that
+JP: あれは鳥ですか？ ーはい、そうです。
+EN: Is that a bird? - Yes, it is.
+
+unit1-p2-s8 Tags: this / that
+JP: あれは古い車です。
+EN: That is an old car.
+
+unit1-p2-s9 Tags: this / that
+JP: これはあなたのカメラですか？ ーいいえ、父のものです。
+EN: Is this your camera? - No, it is my father's.
+
+unit1-p2-s10 Tags: this / that
+JP: あれは私の先生です。
+EN: That is my teacher.
+
+## Part 3: these / those
+unit1-p3-s1 Tags: these / those
+JP: これらの本は面白いです。
+EN: These books are interesting.
+
+unit1-p3-s2 Tags: these / those
+JP: あれらの犬はとてもかわいいです。
+EN: Those dogs are very cute.
+
+unit1-p3-s3 Tags: these / those
+JP: これらはあなたの写真ですか？ ーはい、そうです。
+EN: Are these your pictures? - Yes, they are.
+
+unit1-p3-s4 Tags: these / those
+JP: これらは美しい花です。
+EN: These are beautiful flowers.
+
+unit1-p3-s5 Tags: these / those
+JP: あれらはオレンジですか？ ーいいえ、違います。
+EN: Are those oranges? - No, they are not.
+
+unit1-p3-s6 Tags: these / those
+JP: あれらの車は新しいですか？ ーはい、新しいです。
+EN: Are those cars new? - Yes, they are new.
+
+unit1-p3-s7 Tags: these / those
+JP: これらは難しい問題ですか？ ーはい、とても難しいです。
+EN: Are these difficult questions? - Yes, they are very difficult.
+
+unit1-p3-s8 Tags: these / those
+JP: あれらはあなたのペンですか？
+EN: Are those your pens?
+
+unit1-p3-s9 Tags: these / those
+JP: これらは私のノートではありません。
+EN: These are not my notebooks.
+
+unit1-p3-s10 Tags: these / those
+JP: あれらは何ですか？ ーあのかばんたちです。
+EN: What are those? - Those are bags.
+
+## Part 4: What is (are) 〜 ?
+unit1-p4-s1 Tags: What is (are) 〜 ?
+JP: これは何ですか？ ー私の新しいペンです。
+EN: What is this? - It is my new pen.
+
+unit1-p4-s2 Tags: What is (are) 〜 ?
+JP: あれは何ですか？ ー古いお寺です。
+EN: What is that? - It is an old temple.
+
+unit1-p4-s3 Tags: What is (are) 〜 ?
+JP: これらは何ですか？ ー私の写真です。
+EN: What are these? - They are my pictures.
+
+unit1-p4-s4 Tags: What is (are) 〜 ?
+JP: あれらは何ですか？ ー大きな鳥です。
+EN: What are those? - They are big birds.
+
+unit1-p4-s5 Tags: What is (are) 〜 ?
+JP: あなたの名前は何ですか？
+EN: What is your name?
+
+unit1-p4-s6 Tags: What is (are) 〜 ?
+JP: 彼らの名前は何ですか？
+EN: What are their names?
+
+unit1-p4-s7 Tags: What is (are) 〜 ?
+JP: あなたの好きな教科は何ですか？ ー数学です。
+EN: What is your favorite subject? - It is math.
+
+unit1-p4-s8 Tags: What is (are) 〜 ?
+JP: あれらの建物は何ですか？
+EN: What are those buildings?
+
+unit1-p4-s9 Tags: What is (are) 〜 ?
+JP: あなたの電話番号は何ですか？
+EN: What is your phone number?
+
+unit1-p4-s10 Tags: What is (are) 〜 ?
+JP: あれらの動物は何ですか？
+EN: What are those animals?
+
+## Part 5: 人称代名詞の主格
+unit1-p5-s1 Tags: 人称代名詞の主格
+JP: 私は忙しいです。
+EN: I am busy.
+
+unit1-p5-s2 Tags: 人称代名詞の主格
+JP: 彼はサッカーが好きですか？ ーはい、好きです。
+EN: Does he like soccer? - Yes, he does.
+
+unit1-p5-s3 Tags: 人称代名詞の主格
+JP: 彼女は毎日本を読みますか？ ーはい、読みます。
+EN: Does she read books every day? - Yes, she does.
+
+unit1-p5-s4 Tags: 人称代名詞の主格
+JP: 私たちは公園に行きます。
+EN: We go to the park.
+
+unit1-p5-s5 Tags: 人称代名詞の主格
+JP: あなたは日本語を勉強しますか？ ーはい、勉強します。
+EN: Do you study Japanese? - Yes, I do.
+
+unit1-p5-s6 Tags: 人称代名詞の主格
+JP: 彼らは私の友達です。
+EN: They are my friends.
+
+unit1-p5-s7 Tags: 人称代名詞の主格
+JP: 私は音楽が好きです。
+EN: I like music.
+
+unit1-p5-s8 Tags: 人称代名詞の主格
+JP: 彼女は先生ですか？ ーいいえ、違います。
+EN: Is she a teacher? - No, she is not.
+
+unit1-p5-s9 Tags: 人称代名詞の主格
+JP: それは私の本です。
+EN: It is my book.
+
+unit1-p5-s10 Tags: 人称代名詞の主格
+JP: あなたたちはテニスをしますか？ ーいいえ、しません。
+EN: Do you play tennis? - No, I do not.
+
+## Part 6: 人称代名詞の所有格
+unit1-p6-s1 Tags: 人称代名詞の所有格
+JP: これは私のペンです。
+EN: This is my pen.
+
+unit1-p6-s2 Tags: 人称代名詞の所有格
+JP: 彼の名前はトムですか？ ーはい、そうです。
+EN: Is his name Tom? - Yes, it is.
+
+unit1-p6-s3 Tags: 人称代名詞の所有格
+JP: 彼女の犬はかわいいです。
+EN: Her dog is cute.
+
+unit1-p6-s4 Tags: 人称代名詞の所有格
+JP: あなたのカバンはどこですか？ ーあそこです。
+EN: Where is your bag? - It is over there.
+
+unit1-p6-s5 Tags: 人称代名詞の所有格
+JP: 私たちの教室はここです。
+EN: Our classroom is here.
+
+unit1-p6-s6 Tags: 人称代名詞の所有格
+JP: 彼らの家は大きいですか？ ーいいえ、大きくありません。
+EN: Is their house big? - No, it is not big.
+
+unit1-p6-s7 Tags: 人称代名詞の所有格
+JP: その犬の名前はポチです。
+EN: Its name is Pochi.
+
+unit1-p6-s8 Tags: 人称代名詞の所有格
+JP: お父さんは元気ですか？ ーはい、とても元気です。
+EN: How is your father? - He is very well.
+
+unit1-p6-s9 Tags: 人称代名詞の所有格
+JP: 彼女の誕生日はいつですか？ ー明日です。
+EN: When is her birthday? - It is tomorrow.
+
+unit1-p6-s10 Tags: 人称代名詞の所有格
+JP: 私の好きな色は青です。
+EN: My favorite color is blue.
+
+## Part 7: Who is (are) 〜 ?
+unit1-p7-s1 Tags: Who is (are) 〜 ?
+JP: あの男の子は誰ですか？ ー私の弟です。
+EN: Who is that boy? - He is my brother.
+
+unit1-p7-s2 Tags: Who is (are) 〜 ?
+JP: あなたは誰ですか？
+EN: Who are you?
+
+unit1-p7-s3 Tags: Who is (are) 〜 ?
+JP: 彼女は誰ですか？ ーベーカー先生です。
+EN: Who is she? - She is Ms. Baker.
+
+unit1-p7-s4 Tags: Who is (are) 〜 ?
+JP: あの男の人たちは誰ですか？
+EN: Who are those men?
+
+unit1-p7-s5 Tags: Who is (are) 〜 ?
+JP: あなたの先生は誰ですか？ ー佐藤先生です。
+EN: Who is your teacher? - My teacher is Mr. Sato.
+
+unit1-p7-s6 Tags: Who is (are) 〜 ?
+JP: 好きな歌手は誰ですか？
+EN: Who is your favorite singer?
+
+unit1-p7-s7 Tags: Who is (are) 〜 ?
+JP: 彼は誰ですか？
+EN: Who is he?
+
+unit1-p7-s8 Tags: Who is (are) 〜 ?
+JP: あの女の子は誰ですか？ ーエミです。
+EN: Who is that girl? - She is Emi.
+
+unit1-p7-s9 Tags: Who is (are) 〜 ?
+JP: 彼らは誰ですか？ ー私の友達です。
+EN: Who are they? - They are my friends.
+
+unit1-p7-s10 Tags: Who is (are) 〜 ?
+JP: 次のバッターは誰ですか？
+EN: Who is the next batter?
+
+## Part 8: 一般動詞
+unit1-p8-s1 Tags: 一般動詞
+JP: 私はテニスをします。
+EN: I play tennis.
+
+unit1-p8-s2 Tags: 一般動詞
+JP: あなたはピアノを弾きますか？ ーいいえ、弾きません。
+EN: Do you play the piano? - No, I don’t.
+
+unit1-p8-s3 Tags: 一般動詞
+JP: サッカーは好きですか？ ーはい、好きです。
+EN: Do you like soccer? - Yes, I do.
+
+unit1-p8-s4 Tags: 一般動詞
+JP: 彼女は毎日英語を勉強します。
+EN: She studies English every day.
+
+unit1-p8-s5 Tags: 一般動詞
+JP: ケンは学校へ行きますか？ ーいいえ、行きません。
+EN: Does Ken go to school? - No, he doesn’t.
+
+unit1-p8-s6 Tags: 一般動詞
+JP: 彼は納豆を食べません。
+EN: He doesn’t eat natto.
+
+unit1-p8-s7 Tags: 一般動詞
+JP: 私たちはテレビを見ます。
+EN: We watch TV.
+
+unit1-p8-s8 Tags: 一般動詞
+JP: 彼女は速く走りますか？ ーはい、走ります。
+EN: Does she run fast? - Yes, she does.
+
+unit1-p8-s9 Tags: 一般動詞
+JP: 私はあなたを知っています。
+EN: I know you.
+
+unit1-p8-s10 Tags: 一般動詞
+JP: あなたは何を持っていますか？ ー新しいカメラを持っています。
+EN: What do you have? - I have a new camera.
+
+## Part 9: how many (much) 〜
+unit1-p9-s1 Tags: how many (much) 〜
+JP: あなたはペンを何本持っていますか？ ー5本持っています。
+EN: How many pens do you have? - I have five pens.
+
+unit1-p9-s2 Tags: how many (much) 〜
+JP: この本はいくらですか？ ー1,000円です。
+EN: How much is this book? - It is one thousand yen.
+
+unit1-p9-s3 Tags: how many (much) 〜
+JP: 兄弟姉妹は何人いますか？
+EN: How many brothers and sisters do you have?
+
+unit1-p9-s4 Tags: how many (much) 〜
+JP: 公園に鳥は何羽いますか？ ー3羽います。
+EN: How many birds are there in the park? - There are three birds.
+
+unit1-p9-s5 Tags: how many (much) 〜
+JP: あなたは毎日どのくらい水を飲みますか？
+EN: How much water do you drink every day?
+
+unit1-p9-s6 Tags: how many (much) 〜
+JP: あなたは写真を何枚持っていますか？ ー10枚持っています。
+EN: How many photos do you have? - I have ten photos.
+
+unit1-p9-s7 Tags: how many (much) 〜
+JP: そのチケットはいくらですか？
+EN: How much is that ticket?
+
+unit1-p9-s8 Tags: how many (much) 〜
+JP: 1週間は何日ありますか？ ー7日あります。
+EN: How many days are there in a week? - There are seven days.
+
+unit1-p9-s9 Tags: how many (much) 〜
+JP: 浴槽にどのくらいお湯が入っていますか？
+EN: How much hot water is in the bathtub?
+
+unit1-p9-s10 Tags: how many (much) 〜
+JP: あなたは1か月に本を何冊読みますか？
+EN: How many books do you read a month?
+
+## Part 10: 人称代名詞の目的格
+unit1-p10-s1 Tags: 人称代名詞の目的格
+JP: 私は彼を知っています。
+EN: I know him.
+
+unit1-p10-s2 Tags: 人称代名詞の目的格
+JP: 彼女を見て。
+EN: Look at her.
+
+unit1-p10-s3 Tags: 人称代名詞の目的格
+JP: ケンは私たちが好きですか？ ーはい、好きです。
+EN: Does Ken like us? - Yes, he does.
+
+unit1-p10-s4 Tags: 人称代名詞の目的格
+JP: あなたはそれらを洗いますか？ ーはい、洗います。
+EN: Do you wash them? - Yes, I do.
+
+unit1-p10-s5 Tags: 人称代名詞の目的格
+JP: 彼はあなたを愛していますか？
+EN: Does he love you?
+
+unit1-p10-s6 Tags: 人称代名詞の目的格
+JP: 私の父は私を助けてくれます。
+EN: My father helps me.
+
+unit1-p10-s7 Tags: 人称代名詞の目的格
+JP: 彼女と遊ぼう。 ーはい、そうしましょう。
+EN: Let's play with her. - Yes, let's.
+
+unit1-p10-s8 Tags: 人称代名詞の目的格
+JP: あなたは彼らに電話しますか？ ーいいえ、しません。
+EN: Do you call them? - No, I do not.
+
+unit1-p10-s9 Tags: 人称代名詞の目的格
+JP: 私たちと一緒に来てください。
+EN: Please come with us.
+
+unit1-p10-s10 Tags: 人称代名詞の目的格
+JP: あなたはそれを毎日使いますか？ ーはい、使います。
+EN: Do you use it every day? - Yes, I do.
+
+## Part 11: 人称代名詞の独立所有格
+unit1-p11-s1 Tags: 人称代名詞の独立所有格
+JP: この本は彼のです。
+EN: This book is his.
+
+unit1-p11-s2 Tags: 人称代名詞の独立所有格
+JP: 私のはここです。
+EN: Mine is here.
+
+unit1-p11-s3 Tags: 人称代名詞の独立所有格
+JP: このかわいい犬は彼女のですか？ ーいいえ、違います。
+EN: Is this cute dog hers? - No, it is not.
+
+unit1-p11-s4 Tags: 人称代名詞の独立所有格
+JP: あの大きな家は私たちのものです。
+EN: That big house is ours.
+
+unit1-p11-s5 Tags: 人称代名詞の独立所有格
+JP: このカバンはあなたのですか？ ーはい、私のです。
+EN: Is this bag yours? - Yes, it is mine.
+
+unit1-p11-s6 Tags: 人称代名詞の独立所有格
+JP: それらの靴は彼らのですか？ ーいいえ、私の兄のものです。
+EN: Are those shoes theirs? - No, they are my brother's.
+
+unit1-p11-s7 Tags: 人称代名詞の独立所有格
+JP: このカメラは私のです。
+EN: This camera is mine.
+
+unit1-p11-s8 Tags: 人称代名詞の独立所有格
+JP: どの自転車があなたのですか？ ーあの青いのが私のです。
+EN: Which bicycle is yours? - That blue one is mine.
+
+unit1-p11-s9 Tags: 人称代名詞の独立所有格
+JP: このコンピュータは彼女のですか？ ーはい、そうです。
+EN: Is this computer hers? - Yes, it is.
+
+unit1-p11-s10 Tags: 人称代名詞の独立所有格
+JP: これらは私たちのものです。
+EN: These are ours.
+
+## Part 12: 命令文 / Let's 〜
+unit1-p12-s1 Tags: 命令文 / Let's 〜
+JP: 窓を開けてください。
+EN: Open the window, please.
+
+unit1-p12-s2 Tags: 命令文 / Let's 〜
+JP: サッカーをしよう。 ーはい、しましょう。
+EN: Let's play soccer. - Yes, let's.
+
+unit1-p12-s3 Tags: 命令文 / Let's 〜
+JP: ここに座ってください。 ーありがとうございます。
+EN: Sit down here, please. - Thank you.
+
+unit1-p12-s4 Tags: 命令文 / Let's 〜
+JP: 走ってはいけません。
+EN: Don't run.
+
+unit1-p12-s5 Tags: 命令文 / Let's 〜
+JP: 家に帰ろう。 ーいいですね。
+EN: Let's go home. - That's a good idea.
+
+unit1-p12-s6 Tags: 命令文 / Let's 〜
+JP: この本を読んでください。
+EN: Please read this book.
+
+unit1-p12-s7 Tags: 命令文 / Let's 〜
+JP: 英語を勉強しよう。 ーもちろんです。
+EN: Let's study English. - Sure.
+
+unit1-p12-s8 Tags: 命令文 / Let's 〜
+JP: 部屋を掃除しなさい。
+EN: Clean your room.
+
+unit1-p12-s9 Tags: 命令文 / Let's 〜
+JP: 遅れてはいけません。 ーわかりました。
+EN: Don't be late. - All right.
+
+unit1-p12-s10 Tags: 命令文 / Let's 〜
+JP: 一緒に昼ごはんを食べよう。
+EN: Let's have lunch together.
+
+## Part 13: whose
+unit1-p13-s1 Tags: whose
+JP: これは誰の本ですか？ ーケンの本です。
+EN: Whose book is this? - It is Ken's book.
+
+unit1-p13-s2 Tags: whose
+JP: あれは誰の自転車ですか？ ー私のです。
+EN: Whose bicycle is that? - It is mine.
+
+unit1-p13-s3 Tags: whose
+JP: これらは誰の写真ですか？
+EN: Whose pictures are these?
+
+unit1-p13-s4 Tags: whose
+JP: あれは誰の家ですか？
+EN: Whose house is that?
+
+unit1-p13-s5 Tags: whose
+JP: これは誰のペンですか？
+EN: Whose pen is this?
+
+unit1-p13-s6 Tags: whose
+JP: あれは誰の車ですか？ ー私の父の車です。
+EN: Whose car is that? - It is my father's car.
+
+unit1-p13-s7 Tags: whose
+JP: これらは誰の靴ですか？ ーエミのです。
+EN: Whose shoes are these? - They are Emi's.
+
+unit1-p13-s8 Tags: whose
+JP: あれは誰のカバンですか？
+EN: Whose bag is that?
+
+unit1-p13-s9 Tags: whose
+JP: これは誰の帽子ですか？ ーあなたのですよ。
+EN: Whose hat is this? - It is yours.
+
+unit1-p13-s10 Tags: whose
+JP: あれは誰の犬ですか？
+EN: Whose dog is that?
+
+## Part 14: where
+unit1-p14-s1 Tags: where
+JP: あなたはどこに住んでいますか？ ー東京に住んでいます。
+EN: Where do you live? - I live in Tokyo.
+
+unit1-p14-s2 Tags: where
+JP: 私の本はどこですか？ ー机の上にありますよ。
+EN: Where is my book? - It is on the desk.
+
+unit1-p14-s3 Tags: where
+JP: あなたはどこでテニスをしますか？ ー学校でします。
+EN: Where do you play tennis? - I play it at school.
+
+unit1-p14-s4 Tags: where
+JP: ケンはどこですか？
+EN: Where is Ken?
+
+unit1-p14-s5 Tags: where
+JP: 駅はどこですか？
+EN: Where is the station?
+
+unit1-p14-s6 Tags: where
+JP: 彼女はどこの出身ですか？ ーカナダ出身です。
+EN: Where is she from? - She is from Canada.
+
+unit1-p14-s7 Tags: where
+JP: あなたはどこでサッカーを練習しますか？
+EN: Where do you practice soccer?
+
+unit1-p14-s8 Tags: where
+JP: 郵便局はどこにありますか？ ー図書館の近くにあります。
+EN: Where is the post office? - It is near the library.
+
+unit1-p14-s9 Tags: where
+JP: 彼らはどこで勉強しますか？
+EN: Where do they study?
+
+unit1-p14-s10 Tags: where
+JP: あなたの学校はどこですか？
+EN: Where is your school?
+
+## Part 15: when
+unit1-p15-s1 Tags: when
+JP: あなたの誕生日はいつですか？
+EN: When is your birthday?
+
+unit1-p15-s2 Tags: when
+JP: あなたはいつ宿題をしますか？
+EN: When do you do your homework?
+
+unit1-p15-s3 Tags: when
+JP: 夏休みはいつですか？
+EN: When is summer vacation?
+
+unit1-p15-s4 Tags: when
+JP: 彼女はいつテニスをしますか？
+EN: When does she play tennis?
+
+unit1-p15-s5 Tags: when
+JP: そのパーティーはいつですか？
+EN: When is the party?
+
+unit1-p15-s6 Tags: when
+JP: あなたはいつテレビを見ますか？
+EN: When do you watch TV?
+
+unit1-p15-s7 Tags: when
+JP: ケンはいつ日本に来ますか？
+EN: When does Ken come to Japan?
+
+unit1-p15-s8 Tags: when
+JP: テストはいつですか？
+EN: When is the test?
+
+unit1-p15-s9 Tags: when
+JP: あなたたちはいつサッカーをしますか？
+EN: When do you play soccer?
+
+unit1-p15-s10 Tags: when
+JP: 次の試合はいつですか？
+EN: When is the next game?
+
+## Part 16: which
+unit1-p16-s1 Tags: which
+JP: どちらがあなたの傘ですか？
+EN: Which is your umbrella?
+
+unit1-p16-s2 Tags: which
+JP: どちらが彼女の車ですか、こちらですか、それともあちらですか？
+EN: Which is her car, this one or that one?
+
+unit1-p16-s3 Tags: which
+JP: どの靴が彼のですか？
+EN: Which shoes are his?
+
+unit1-p16-s4 Tags: which
+JP: どちらがあなたのお母さんのカバンですか？
+EN: Which is your mother's bag?
+
+unit1-p16-s5 Tags: which
+JP: どの辞書があなたのですか？
+EN: Which dictionary is yours?
+
+unit1-p16-s6 Tags: which
+JP: どの男性が彼のコーチですか？
+EN: Which man is his coach?
+
+unit1-p16-s7 Tags: which
+JP: どの少年たちがあなたの友達ですか、こちらですか、それともあちらですか？
+EN: Which boys are your friends, these or those?
+
+unit1-p16-s8 Tags: which
+JP: どの猫が彼のですか？
+EN: Which cat is his?
+
+unit1-p16-s9 Tags: which
+JP: どちらがあなたのお姉さんのお気に入りのカップですか、こちらですか、それともあちらですか？ ーあちらです。
+EN: Which is your sister's favorite cup, this one or that one? - That one.
+
+unit1-p16-s10 Tags: which
+JP: どちらが彼女の好きな科目ですか、数学ですか、それとも英語ですか？ ー英語です。
+EN: Which is her favorite subject, math or English? - English.
+
+## Part 17: it
+unit1-p17-s1 Tags: it
+JP: 今日は曇りです。
+EN: It is cloudy today.
+
+unit1-p17-s2 Tags: it
+JP: 大阪は今日は雨ですか？
+EN: Is it rainy in Osaka today?
+
+unit1-p17-s3 Tags: it
+JP: ニューヨークでは今、正午です。
+EN: It is noon in New York now.
+
+unit1-p17-s4 Tags: it
+JP: ロンドンは今日、寒いですか？
+EN: Is it cold in London today?
+
+unit1-p17-s5 Tags: it
+JP: カナダは今、冬です。
+EN: It is winter in Canada now.
+
+unit1-p17-s6 Tags: it
+JP: 外はとても暗いです。
+EN: It is very dark outside.
+
+unit1-p17-s7 Tags: it
+JP: ここは涼しいです。
+EN: It is cool here.
+
+unit1-p17-s8 Tags: it
+JP: 昼食の時間です。
+EN: It is lunchtime.
+
+unit1-p17-s9 Tags: it
+JP: この島はいつも暖かいです。
+EN: It is always warm on this island.
+
+unit1-p17-s10 Tags: it
+JP: 今日の午後はあまり涼しくありません。
+EN: It is not very cool this afternoon.
+
+## Part 18: What time 〜 ?
+unit1-p18-s1 Tags: What time 〜 ?
+JP: 今、何時ですか？
+EN: What time is it now?
+
+unit1-p18-s2 Tags: What time 〜 ?
+JP: あなたは何時に起きますか？
+EN: What time do you get up?
+
+unit1-p18-s3 Tags: What time 〜 ?
+JP: あなたは何時に寝ますか？
+EN: What time do you go to bed?
+
+unit1-p18-s4 Tags: What time 〜 ?
+JP: 学校は何時に始まりますか？
+EN: What time does school start?
+
+unit1-p18-s5 Tags: What time 〜 ?
+JP: あなたは何時に夕食を食べますか？
+EN: What time do you have dinner?
+
+unit1-p18-s6 Tags: What time 〜 ?
+JP: その映画は何時に終わりますか？
+EN: What time does the movie end?
+
+unit1-p18-s7 Tags: What time 〜 ?
+JP: 彼らは何時にここに着きますか？
+EN: What time do they get here?
+
+unit1-p18-s8 Tags: What time 〜 ?
+JP: 今、東京は何時ですか？
+EN: What time is it in Tokyo?
+
+unit1-p18-s9 Tags: What time 〜 ?
+JP: ケンは何時に家を出ますか？ ― 7時に出ます。
+EN: What time does Ken leave home? — He leaves at seven.
+
+unit1-p18-s10 Tags: What time 〜 ?
+JP: あなたは何時に勉強しますか？ ― 8時にします。
+EN: What time do you study? — I study at eight.
+
+## Part 19: how
+unit1-p19-s1 Tags: how
+JP: あなたのお父さんはお元気ですか？
+EN: How is your father?
+
+unit1-p19-s2 Tags: how
+JP: あなたの娘さんはどうやって駅に行きますか。 ー自転車で行きます。
+EN: How does your daughter go to the station? - She goes by bike.
+
+unit1-p19-s3 Tags: how
+JP: あなたのおじいさんの具合はどうですか？
+EN: How is your grandfather?
+
+unit1-p19-s4 Tags: how
+JP: スミス先生はどうやって学校に来ますか。 ーバスで来ます。
+EN: How does Mr. Smith come to school? - He comes by bus.
+
+unit1-p19-s5 Tags: how
+JP: このカメラはどうやって使うのですか？
+EN: How do I use this camera?
+
+unit1-p19-s6 Tags: how
+JP: シドニーの天気はどうですか。 ーとても晴れています。
+EN: How is the weather in Sydney? - It is very sunny.
+
+unit1-p19-s7 Tags: how
+JP: 彼女はどうやってロンドンに行きますか？
+EN: How does she get to London?
+
+unit1-p19-s8 Tags: how
+JP: ご両親はお元気ですか。 ー元気です。
+EN: How are your parents? - They are fine.
+
+unit1-p19-s9 Tags: how
+JP: マイクはどのように走りますか。 ーとても速く走ります。
+EN: How does Mike run? - He runs very fast.
+
+unit1-p19-s10 Tags: how
+JP: ケンはどのくらい上手にギターを弾きますか. ーとても上手に弾きます。
+EN: How well does Ken play the guitar? - He plays very well.
+
+## Part 20: How old (tall) 〜 ?
+unit1-p20-s1 Tags: How old (tall) 〜 ?
+JP: 彼は何歳ですか？ ー14歳です。
+EN: How old is he? - He is fourteen.
+
+unit1-p20-s2 Tags: How old (tall) 〜 ?
+JP: あなたのお兄さんは何歳ですか？ ー20歳です。
+EN: How old is your brother? - He is twenty.
+
+unit1-p20-s3 Tags: How old (tall) 〜 ?
+JP: あの生徒たちは何歳ですか？ ー13歳です。
+EN: How old are those students? - They are thirteen.
+
+unit1-p20-s4 Tags: How old (tall) 〜 ?
+JP: あなたのお姉さんは身長何センチですか？ ー155センチです。
+EN: How tall is your sister? - She is 155 centimeters tall.
+
+unit1-p20-s5 Tags: How old (tall) 〜 ?
+JP: マイクは身長何センチですか？ ー180センチです。
+EN: How tall is Mike? - He is 180 centimeters tall.
+
+unit1-p20-s6 Tags: How old (tall) 〜 ?
+JP: あの木の高さはどれくらいですか？ ー10メートル以上あります。
+EN: How tall is that tree? - It is over ten meters tall.
+
+unit1-p20-s7 Tags: How old (tall) 〜 ?
+JP: このお寺はどのくらい古いですか？ ー約300年です。
+EN: How old is this temple? - It is about three hundred years old.
+
+unit1-p20-s8 Tags: How much 〜 ?
+JP: このペンはいくらですか？ ー200円です。
+EN: How much is this pen? - It is two hundred yen.
+
+unit1-p20-s9 Tags: How much 〜 ?
+JP: このカメラはいくらですか？ ー5万円です。
+EN: How much is this camera? - It is fifty thousand yen.
+
+unit1-p20-s10 Tags: How much 〜 ?
+JP: あのパソコンはいくらですか？ ー10万円です。
+EN: How much is that computer? - It is one hundred thousand yen.
+
+## Part 21: 疑問詞主語の who
+unit1-p21-s1 Tags: 疑問詞主語の who
+JP: 誰がこのケーキを作りましたか？
+EN: Who made this cake?
+
+unit1-p21-s2 Tags: 疑問詞主語の who
+JP: 誰がテニスをしますか？ — 健がします。
+EN: Who plays tennis? — Ken does.
+
+unit1-p21-s3 Tags: 疑問詞主語の who
+JP: 誰がその答えを知っていますか？
+EN: Who knows the answer?
+
+unit1-p21-s4 Tags: 疑問詞主語の who
+JP: 誰が台所にいますか？ — 父がいます。
+EN: Who is in the kitchen? — My father is.
+
+unit1-p21-s5 Tags: 疑問詞主語の who
+JP: 誰が速く走りますか？
+EN: Who runs fast?
+
+unit1-p21-s6 Tags: 疑問詞主語の who
+JP: 誰が英語を教えますか？ — グリーン先生が教えます。
+EN: Who teaches English? — Ms. Green does.
+
+unit1-p21-s7 Tags: 疑問詞主語の who
+JP: 誰がピアノを弾いていますか？
+EN: Who is playing the piano?
+
+unit1-p21-s8 Tags: 疑問詞主語の who
+JP: 誰が昨日ここに来ましたか？ — 佐藤先生が来ました。
+EN: Who came here yesterday? — Mr. Sato did.
+
+unit1-p21-s9 Tags: 疑問詞主語の who
+JP: 誰があなたを助けてくれますか？
+EN: Who can help you?
+
+unit1-p21-s10 Tags: 疑問詞主語の who
+JP: 誰がその本を持っていますか？ — 私が持っています。
+EN: Who has the book? — I do.
+
+## Part 22: can
+unit1-p22-s1 Tags: can
+JP: あの鳥が見えますか？
+EN: Can you see that bird?
+
+unit1-p22-s2 Tags: can
+JP: エミはとても速く泳げます。
+EN: Emi can swim very fast.
+
+unit1-p22-s3 Tags: can
+JP: 彼はギターとフルートを演奏できます。
+EN: He can play the guitar and the flute.
+
+unit1-p22-s4 Tags: can
+JP: 私は漢字が読めません。
+EN: I can't read kanji.
+
+unit1-p22-s5 Tags: can
+JP: あなたはスケートができますか？
+EN: Can you skate?
+
+unit1-p22-s6 Tags: can
+JP: あの少年たちは英語を理解できますか？
+EN: Can those boys understand English?
+
+unit1-p22-s7 Tags: can
+JP: 漢字はいくつ書けますか？
+EN: How many kanji can you write?
+
+unit1-p22-s8 Tags: can
+JP: 5分でこの本が読めますか？
+EN: Can you read this book in five minutes?
+
+unit1-p22-s9 Tags: can
+JP: 彼らは何が作れますか？
+EN: What can they make?
+
+unit1-p22-s10 Tags: can
+JP: どこでおいしいお寿司が食べられますか？ ーあのお店で食べられます。
+EN: Where can we eat good sushi? - We can eat it at that restaurant.
+
+## Part 23: 現在進行形
+unit1-p23-s1 Tags: 現在進行形
+JP: 私は今、家で英語を勉強しています。
+EN: I am studying English at home now.
+
+unit1-p23-s2 Tags: 現在進行形
+JP: 彼は今、テニスをしています。
+EN: He is playing tennis now.
+
+unit1-p23-s3 Tags: 現在進行形
+JP: あなたは今、何をしていますか？
+EN: What are you doing now?
+
+unit1-p23-s4 Tags: 現在進行形
+JP: 彼女は今、本を読んでいます。
+EN: She is reading a book now.
+
+unit1-p23-s5 Tags: 現在進行形
+JP: 彼らは今、走っています。
+EN: They are running now.
+
+unit1-p23-s6 Tags: 現在進行形
+JP: ケンはどこでギターを弾いていますか？ ー自分の部屋で弾いています。
+EN: Where is Ken playing the guitar? - He is playing it in his room.
+
+unit1-p23-s7 Tags: 現在進行形
+JP: 彼は何語を話していますか？ ー英語を話しています。
+EN: What language is he speaking? - He is speaking English.
+
+unit1-p23-s8 Tags: 現在進行形
+JP: あなたは昼ごはんに何を食べていますか？ ーサンドイッチを食べています。
+EN: What are you eating for lunch? - I am eating a sandwich.
+
+unit1-p23-s9 Tags: 現在進行形
+JP: ミカとケンは何をしていますか？ ーサッカーをしています。
+EN: What are Mika and Ken doing? - They are playing soccer.
+
+unit1-p23-s10 Tags: 現在進行形
+JP: 私の父は今、車を洗っています。
+EN: My father is washing his car now.
+
+## Part 24: There is (are) 〜
+unit1-p24-s1 Tags: There is (are) 〜
+JP: 公園に猫がいます。
+EN: There is a cat in the park.
+
+unit1-p24-s2 Tags: There is (are) 〜
+JP: テーブルの上に本が2冊あります。
+EN: There are two books on the table.
+
+unit1-p24-s3 Tags: There is (are) 〜
+JP: 木の下に犬がいますか？
+EN: Is there a dog under the tree?
+
+unit1-p24-s4 Tags: There is (are) 〜
+JP: 私の部屋にテレビはありません。
+EN: There isn't a TV in my room.
+
+unit1-p24-s5 Tags: There is (are) 〜
+JP: この町には公園がたくさんあります。
+EN: There are many parks in this town.
+
+unit1-p24-s6 Tags: There is (are) 〜
+JP: 部屋に生徒は何人いますか？ ー10人います。
+EN: How many students are there in the room? - There are ten.
+
+unit1-p24-s7 Tags: There is (are) 〜
+JP: 冷蔵庫の中に卵がいくつかあります。
+EN: There are some eggs in the fridge.
+
+unit1-p24-s8 Tags: There is (are) 〜
+JP: 学校の近くに図書館があります。
+EN: There is a library near the school.
+
+unit1-p24-s9 Tags: There is (are) 〜
+JP: あそこに男の子が3人いますか？ ーはい、います。
+EN: Are there three boys over there? - Yes, there are.
+
+unit1-p24-s10 Tags: There is (are) 〜
+JP: 机の上にペンはいくつかありますか？ ーいいえ、ありません。
+EN: Are there any pens on the desk? - No, there aren't.

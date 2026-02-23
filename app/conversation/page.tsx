@@ -1,8 +1,11 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
+import HardNavLink from '@/components/HardNavLink';
 import { Message, ConversationSettings } from '@/types/conversation';
+import { apiFetch } from '@/utils/api';
+import { recordLearningTime } from '@/utils/learningTime';
+import { recordSession } from '@/utils/sessionLog';
 
 export default function ConversationPage() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -22,6 +25,7 @@ export default function ConversationPage() {
   const isInitialized = useRef(false);
   const silenceTimerRef = useRef<any>(null);
   const interimTranscriptRef = useRef<string>('');
+  const startTimeRef = useRef<number>(Date.now()); // 学習開始時刻
   const SILENCE_TIMEOUT_MS = 1500;
 
 
@@ -68,14 +72,16 @@ export default function ConversationPage() {
       };
 
       recognitionRef.current.onerror = (event: any) => {
-        console.error('Speech recognition error:', event.error);
+        if (event.error !== 'no-speech' && event.error !== 'aborted') {
+          console.error('Speech recognition error:', event.error);
+        }
 
         if (silenceTimerRef.current) {
           clearTimeout(silenceTimerRef.current);
           silenceTimerRef.current = null;
         }
 
-        if (event.error === 'aborted') {
+        if (event.error === 'aborted' || event.error === 'no-speech') {
           return;
         }
 
@@ -131,9 +137,8 @@ export default function ConversationPage() {
     setIsProcessing(true);
 
     try {
-      const response = await fetch('/api/conversation', {
+      const response = await apiFetch('/api/conversation', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [...messages, userMessage],
           settings,
@@ -255,9 +260,8 @@ export default function ConversationPage() {
     setIsProcessing(true);
 
     try {
-      const response = await fetch('/api/conversation', {
+      const response = await apiFetch('/api/conversation', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [...newMessages, newMessage],
           settings,
@@ -294,6 +298,32 @@ export default function ConversationPage() {
     setError(null);
   };
 
+  // 音声再生を停止
+  const stopSpeech = () => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+  };
+
+  const sessionRecordedRef = useRef(false);
+  const recordConversationSession = () => {
+    if (sessionRecordedRef.current) return;
+    sessionRecordedRef.current = true;
+    const elapsedMinutes = Math.max(1, Math.ceil((Date.now() - startTimeRef.current) / 60000));
+    recordLearningTime(elapsedMinutes);
+    recordSession('AIとフリー英会話', elapsedMinutes, { unit: 'minutes' });
+  };
+
+  // ページ離脱時に音声再生を停止 & 学習時間を記録
+  useEffect(() => {
+    return () => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      recordConversationSession();
+    };
+  }, []);
+
   // 初回メッセージ（1回のみ実行）
   useEffect(() => {
     if (!isInitialized.current && messages.length === 0) {
@@ -310,233 +340,245 @@ export default function ConversationPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 p-4">
-      <div className="max-w-4xl mx-auto">
-        {/* ヘッダー */}
-        <div className="bg-white rounded-3xl shadow-2xl p-4 mb-4">
-          <div className="flex items-center justify-between">
-            <Link
-              href="/"
-              className="text-gray-600 hover:text-gray-800 font-semibold"
-            >
-              ← ホーム
-            </Link>
-            <h1 className="text-2xl font-black text-gray-800">
-              🗣️ AI英会話
-            </h1>
-            <button
-              onClick={() => setShowSettings(!showSettings)}
-              className="text-2xl hover:scale-110 transition-transform"
-            >
-              ⚙️
-            </button>
-          </div>
+    <div className="min-h-screen bg-gray-50 flex flex-col max-w-[430px] mx-auto relative shadow-xl">
+      {/* ヘッダー */}
+      <div className="px-4 py-4 sticky top-0 z-30" style={{ background: 'linear-gradient(to right, #8E4DFF, #D94D9E)' }}>
+        <div className="flex items-center justify-between">
+          <HardNavLink
+            href="/"
+            className="text-white/80 hover:text-white font-semibold text-sm min-w-[60px]"
+            onClick={() => {
+              stopSpeech();
+              recordConversationSession();
+            }}
+          >
+            ← ホーム
+          </HardNavLink>
+          <h1 className="text-xl font-black text-white">
+            AIとフリー英会話
+          </h1>
+          <button
+            onClick={() => setShowSettings(!showSettings)}
+            className="text-xl hover:scale-110 transition-transform min-w-[60px] text-right"
+          >
+            ⚙️
+          </button>
+        </div>
 
-          {/* 設定パネル */}
-          {showSettings && (
-            <div className="mt-4 p-4 bg-gray-50 rounded-xl space-y-4">
-              {/* レベル選択 */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  英語レベル
-                </label>
-                <div className="flex gap-2">
-                  {(['beginner', 'intermediate', 'advanced'] as const).map(
-                    (level) => (
-                      <button
-                        key={level}
-                        onClick={() =>
-                          setSettings({ ...settings, userLevel: level })
-                        }
-                        className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                          settings.userLevel === level
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-white text-gray-700 hover:bg-gray-100'
-                        }`}
-                      >
-                        {level === 'beginner' && '初級'}
-                        {level === 'intermediate' && '中級'}
-                        {level === 'advanced' && '上級'}
-                      </button>
-                    )
-                  )}
-                </div>
-              </div>
-
-              {/* 添削モード */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  添削モード
-                </label>
-                <div className="flex gap-2">
-                  {(['realtime', 'summary', 'off'] as const).map((mode) => (
+        {/* 設定パネル */}
+        {showSettings && (
+          <div className="mt-4 p-4 bg-white/95 rounded-xl space-y-4">
+            {/* レベル選択 */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-2">
+                英語レベル
+              </label>
+              <div className="flex gap-2">
+                {(['beginner', 'intermediate', 'advanced'] as const).map(
+                  (level) => (
                     <button
-                      key={mode}
+                      key={level}
                       onClick={() =>
-                        setSettings({ ...settings, correctionMode: mode })
+                        setSettings({ ...settings, userLevel: level })
                       }
-                      className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                        settings.correctionMode === mode
-                          ? 'bg-green-500 text-white'
-                          : 'bg-white text-gray-700 hover:bg-gray-100'
+                      className={`flex-1 px-2 py-2 rounded-lg font-semibold transition-all text-xs ${
+                        settings.userLevel === level
+                          ? 'bg-blue-500 text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                       }`}
                     >
-                      {mode === 'realtime' && 'リアルタイム'}
-                      {mode === 'summary' && 'まとめて'}
-                      {mode === 'off' && 'なし'}
+                      {level === 'beginner' && '初級'}
+                      {level === 'intermediate' && '中級'}
+                      {level === 'advanced' && '上級'}
                     </button>
-                  ))}
-                </div>
+                  )
+                )}
               </div>
-
-              {/* リセットボタン */}
-              <button
-                onClick={resetConversation}
-                className="w-full py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors"
-              >
-                🔄 会話をリセット
-              </button>
             </div>
-          )}
-        </div>
 
-        {/* チャットエリア */}
-        <div className="bg-white rounded-3xl shadow-2xl p-4 mb-4 h-[60vh] overflow-y-auto">
-          <div className="space-y-4">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${
-                  message.role === 'user' ? 'justify-end' : 'justify-start'
-                }`}
-              >
-                <div
-                  className={`max-w-[80%] rounded-2xl p-4 ${
-                    message.role === 'user'
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-100 text-gray-800'
-                  }`}
-                >
-                  {/* 編集モード */}
-                  {editingMessageId === message.id ? (
-                    <div>
-                      <textarea
-                        value={editingText}
-                        onChange={(e) => setEditingText(e.target.value)}
-                        className="w-full p-2 border-2 border-blue-300 rounded-lg text-gray-800 focus:outline-none focus:border-blue-500"
-                        rows={3}
-                      />
-                      <div className="flex gap-2 mt-2">
-                        <button
-                          onClick={saveEdit}
-                          className="flex-1 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors"
-                        >
-                          ✅ 保存して再送信
-                        </button>
-                        <button
-                          onClick={cancelEdit}
-                          className="flex-1 py-2 bg-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-400 transition-colors"
-                        >
-                          ❌ キャンセル
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      <p className="whitespace-pre-wrap">{message.content}</p>
-                      {message.correction && (
-                        <div className="mt-2 pt-2 border-t border-gray-300 text-sm">
-                          <p className="font-semibold text-orange-600">
-                            ✏️ 添削:
-                          </p>
-                          <p className="text-gray-600">
-                            {message.correction.corrected}
-                          </p>
-                        </div>
-                      )}
-                      {message.role === 'user' && (
-                        <button
-                          onClick={() => startEditMessage(message)}
-                          className="mt-2 text-xs opacity-70 hover:opacity-100"
-                        >
-                          ✏️ 編集
-                        </button>
-                      )}
-                      {message.role === 'assistant' && (
-                        <button
-                          onClick={() => speak(message.content)}
-                          className="mt-2 text-xs opacity-70 hover:opacity-100"
-                        >
-                          🔊 もう一度聞く
-                        </button>
-                      )}
-                    </>
-                  )}
-                </div>
+            {/* 添削モード */}
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-2">
+                添削モード
+              </label>
+              <div className="flex gap-2">
+                {(['realtime', 'summary', 'off'] as const).map((mode) => (
+                  <button
+                    key={mode}
+                    onClick={() =>
+                      setSettings({ ...settings, correctionMode: mode })
+                    }
+                    className={`flex-1 px-2 py-2 rounded-lg font-semibold transition-all text-xs ${
+                      settings.correctionMode === mode
+                        ? 'bg-green-500 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {mode === 'realtime' && 'リアルタイム'}
+                    {mode === 'summary' && 'まとめて'}
+                    {mode === 'off' && 'なし'}
+                  </button>
+                ))}
               </div>
-            ))}
-            {isProcessing && (
-              <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-2xl p-4">
-                  <div className="flex gap-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div
-                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                      style={{ animationDelay: '0.1s' }}
-                    ></div>
-                    <div
-                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                      style={{ animationDelay: '0.2s' }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-        </div>
+            </div>
 
-        {/* エラー表示 */}
-        {error && (
-          <div className="bg-red-100 border-2 border-red-300 rounded-2xl p-4 mb-4 text-red-700">
-            {error}
+            {/* リセットボタン */}
+            <button
+              onClick={resetConversation}
+              className="w-full py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors text-sm"
+            >
+              会話をリセット
+            </button>
           </div>
         )}
+      </div>
 
-        {/* 音声入力ボタン */}
-        <div className="bg-white rounded-3xl shadow-2xl p-6">
-          <div className="text-center">
-            <button
-              onClick={isRecording ? stopRecording : startRecording}
-              disabled={isProcessing || editingMessageId !== null}
-              className={`w-24 h-24 rounded-full font-bold text-white text-2xl transition-all transform ${
-                isRecording
-                  ? 'bg-red-500 animate-pulse scale-110'
-                  : 'bg-gradient-to-r from-green-500 to-blue-500 hover:scale-105'
-              } ${
-                isProcessing || editingMessageId !== null ? 'opacity-50 cursor-not-allowed' : ''
-              } shadow-lg`}
+      {/* チャットエリア */}
+      <div className="flex-1 overflow-y-auto px-4 py-4">
+        <div className="space-y-3">
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={`flex ${
+                message.role === 'user' ? 'justify-end' : 'justify-start'
+              }`}
             >
-              {isRecording ? '🛑' : '🎤'}
-            </button>
-            <p className="mt-4 text-gray-600 font-semibold">
-              {isRecording
-                ? '話してください...'
-                : isProcessing
-                ? 'AIが考えています...'
-                : editingMessageId !== null
-                ? 'メッセージを編集中...'
-                : 'タップして話す'}
-            </p>
-          </div>
+              <div
+                className={`max-w-[85%] rounded-2xl p-3 ${
+                  message.role === 'user'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-white text-gray-800 shadow-md'
+                }`}
+              >
+                {/* 編集モード */}
+                {editingMessageId === message.id ? (
+                  <div>
+                    <textarea
+                      value={editingText}
+                      onChange={(e) => setEditingText(e.target.value)}
+                      className="w-full p-2 border-2 border-blue-300 rounded-lg text-gray-800 focus:outline-none focus:border-blue-500 text-sm"
+                      rows={3}
+                    />
+                    <div className="flex gap-2 mt-2">
+                      <button
+                        onClick={saveEdit}
+                        className="flex-1 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors text-xs"
+                      >
+                        保存
+                      </button>
+                      <button
+                        onClick={cancelEdit}
+                        className="flex-1 py-2 bg-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-400 transition-colors text-xs"
+                      >
+                        キャンセル
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <p className="whitespace-pre-wrap text-sm">{message.content}</p>
+                    {message.correction && (
+                      <div className="mt-2 pt-2 border-t border-gray-300 text-xs">
+                        <p className="font-semibold text-orange-600">
+                          添削:
+                        </p>
+                        <p className="text-gray-600">
+                          {message.correction.corrected}
+                        </p>
+                      </div>
+                    )}
+                    {message.role === 'user' && (
+                      <button
+                        onClick={() => startEditMessage(message)}
+                        className="mt-2 text-xs opacity-70 hover:opacity-100"
+                      >
+                        編集
+                      </button>
+                    )}
+                    {message.role === 'assistant' && (
+                      <button
+                        onClick={() => speak(message.content)}
+                        className="mt-2 text-xs opacity-70 hover:opacity-100"
+                      >
+                        もう一度聞く
+                      </button>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          ))}
+          {isProcessing && (
+            <div className="flex justify-start">
+              <div className="bg-white rounded-2xl p-4 shadow-md">
+                <div className="flex gap-1">
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                  <div
+                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                    style={{ animationDelay: '0.1s' }}
+                  ></div>
+                  <div
+                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                    style={{ animationDelay: '0.2s' }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+      </div>
+
+      {/* エラー表示 */}
+      {error && (
+        <div className="mx-4 mb-2 bg-red-100 border border-red-300 rounded-xl p-3 text-red-700 text-sm">
+          {error}
+        </div>
+      )}
+
+      {/* 音声入力ボタン */}
+      <div className="bg-white border-t border-gray-200 px-4 py-4">
+        <div className="text-center">
+          <button
+            onClick={isRecording ? stopRecording : startRecording}
+            disabled={isProcessing || editingMessageId !== null}
+            className={`w-16 h-16 rounded-full font-bold text-white text-xl transition-all transform ${
+              isRecording
+                ? 'bg-red-500 animate-pulse scale-110'
+                : 'bg-gradient-to-r from-green-500 to-blue-500 hover:scale-105'
+            } ${
+              isProcessing || editingMessageId !== null ? 'opacity-50 cursor-not-allowed' : ''
+            } shadow-lg`}
+          >
+            {isRecording ? (
+              <div className="flex items-center justify-center gap-[3px]">
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <div
+                    key={i}
+                    className="w-[3px] bg-white rounded-full"
+                    style={{
+                      animation: 'soundWave 1s ease-in-out infinite',
+                      animationDelay: `${i * 0.15}s`,
+                      height: '8px',
+                    }}
+                  />
+                ))}
+              </div>
+            ) : (
+              '🎤'
+            )}
+          </button>
+          <p className="mt-2 text-gray-600 font-semibold text-sm">
+            {isRecording
+              ? '話してください...'
+              : isProcessing
+              ? 'AIが考えています...'
+              : editingMessageId !== null
+              ? 'メッセージを編集中...'
+              : 'タップして話す'}
+          </p>
         </div>
       </div>
     </div>
   );
 }
-
-
-
-
-
-

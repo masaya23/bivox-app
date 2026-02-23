@@ -1,127 +1,134 @@
+'use client';
 
 /* eslint-disable @next/next/no-html-link-for-pages */
 
+import { Suspense } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
 import { getUnitById } from '@/utils/units';
+import { GRADE_THEMES } from '@/utils/gradeTheme';
+import ModeSelectCard from '@/components/train/ModeSelectCard';
 
-export default async function UnitPracticeModeSelectPage({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ unitId: string }>;
-  searchParams: Promise<{ count?: string; shuffle?: string }>;
-}) {
-  const resolvedParams = await params;
-  const resolvedSearchParams = await searchParams;
-  const count = resolvedSearchParams.count || '10';
-  const shuffleMode = resolvedSearchParams.shuffle === 'true';
+function UnitPracticeModeSelectPageContent() {
+  const params = useParams();
+  const searchParams = useSearchParams();
 
-  const unit = getUnitById(resolvedParams.unitId);
+  const unitId = params.unitId as string;
+  const count = searchParams.get('count') || '10';
+  const seed = searchParams.get('seed') || '0';
+  const shuffleMode = true;
+
+  const unit = getUnitById(unitId);
 
   if (!unit) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 p-4 flex items-center justify-center">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 text-center">
-          <h1 className="text-2xl font-black text-gray-800 mb-4">
-            Unitが見つかりません
-          </h1>
-          <a href="/units" className="text-blue-500 hover:text-blue-700 font-semibold">
-            ← Unit一覧に戻る
-          </a>
+      <div className="min-h-screen bg-gray-200 flex justify-center">
+        <div className="w-full max-w-[430px] bg-gray-50 min-h-screen shadow-xl flex items-center justify-center px-4">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 text-center w-full">
+            <h1 className="text-2xl font-black text-gray-800 mb-4">
+              Unitが見つかりません
+            </h1>
+            <a href="/units" className="text-blue-500 hover:text-blue-700 font-semibold">
+              &larr; Unit一覧に戻る
+            </a>
+          </div>
         </div>
       </div>
     );
   }
 
+  const baseHref = `/units/${unit.id}/practice?count=${count}&shuffle=${shuffleMode}&seed=${seed}`;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 md:p-12">
-        {/* ヘッダー */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-black text-gray-800 mb-4">
-            トレーニングモード選択
+    <div className="min-h-screen bg-gray-200 flex justify-center">
+      <div className="w-full max-w-[430px] bg-gray-50 min-h-screen shadow-xl">
+        <div className={`p-4 bg-gradient-to-r ${GRADE_THEMES[unit.grade].gradient}`}>
+          <div className="flex items-center justify-between">
+            <a
+              href={`/units/${unit.id}/practice/select?shuffle=${shuffleMode}&seed=${seed}`}
+              className="text-white/80 hover:text-white font-semibold text-sm"
+            >
+              &larr;戻る
+            </a>
+            <div className="min-w-[60px]" />
+          </div>
+          <h1 className="text-xl font-black text-white text-center mt-2">
+            学習モードを選択
           </h1>
-          <p className="text-lg text-gray-600">
-            {unit.title} - {count}問
-          </p>
         </div>
 
-        {/* モード選択カード */}
-        <div className="space-y-4 mb-8">
-          {/* シャドーイングモード */}
-          <a
-            href={`/units/${unit.id}/practice?count=${count}&shuffle=${shuffleMode}&mode=shadowing`}
-            className="block p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl border-2 border-green-200 hover:border-green-400 transition-all transform hover:scale-105"
-          >
-            <div className="flex items-start gap-4">
-              <div className="text-2xl font-black text-green-700">SH</div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  シャドーイングモード
-                </h2>
-                <p className="text-gray-600 mb-3">
-                  音声を聞いて真似する基本トレーニング
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-green-600">✓</span>
-                    <span>日本語音声 → 一時停止 → 英語音声</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-green-600">✓</span>
-                    <span>自分のペースで練習できる</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-green-600">✓</span>
-                    <span>初心者におすすめ</span>
-                  </div>
-                </div>
-              </div>
-              <div className="text-gray-400 text-3xl">→</div>
-            </div>
-          </a>
+        <div className="px-4 py-4">
+          {/* モード選択カード */}
+          <div className="space-y-4">
+            {/* ベーシックモード */}
+            <ModeSelectCard
+              mode="shadowing"
+              href={`${baseHref}&mode=shadowing`}
+              icon="BS"
+              iconBg="bg-green-500"
+              title="ベーシックモード"
+              description="音声を聞いて真似する\n基本トレーニング"
+              features={[
+                '日本語 → 一時停止 → 英語音声',
+                '一時停止の間に声に出して英作文する',
+                '「分かる」から「出来る」に',
+              ]}
+              gradient="bg-green-50"
+              borderColor="border-green-200"
+              accentColor="text-green-600"
+            />
 
-          {/* スピーキングモード */}
-          <a
-            href={`/units/${unit.id}/practice?count=${count}&shuffle=${shuffleMode}&mode=speaking`}
-            className="block p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 hover:border-purple-400 transition-all transform hover:scale-105"
-          >
-            <div className="flex items-start gap-4">
-              <div className="text-2xl font-black text-purple-700">SP</div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  スピーキングモード
-                </h2>
-                <p className="text-gray-600 mb-3">
-                  音声入力で自動判定する実践トレーニング
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-purple-600">✓</span>
-                    <span>日本語音声 → 音声入力 → 自動判定</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-purple-600">✓</span>
-                    <span>発音の正確さをチェック</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-700">
-                    <span className="text-purple-600">✓</span>
-                    <span>中級者以上におすすめ</span>
-                  </div>
-                </div>
-              </div>
-              <div className="text-gray-400 text-3xl">→</div>
-            </div>
-          </a>
+            {/* スピーキングモード */}
+            <ModeSelectCard
+              mode="speaking"
+              href={`${baseHref}&mode=speaking`}
+              icon="SP"
+              iconBg="bg-orange-500"
+              title="スピーキングモード"
+              description="音声入力で自動判定し間違いは\n解説してくれるモード"
+              features={[
+                '日本語 → 音声入力 → 自動判定',
+                '間違いの分析と解説',
+                'より理解力を深める',
+              ]}
+              gradient="bg-orange-50"
+              borderColor="border-orange-200"
+              accentColor="text-orange-600"
+            />
+
+            {/* AI応用ドリルモード */}
+            <ModeSelectCard
+              mode="ai-drill"
+              href={`${baseHref}&mode=ai-drill`}
+              icon="AI"
+              iconBg="bg-purple-500"
+              title="AI応用ドリル"
+              description="問題はAIが生成する問題で\n応用力を鍛える"
+              features={[
+                'スピーキングモードの応用',
+                '同じ文法レベルで新問題生成',
+                'AIの出題によりマンネリを防ぐ',
+              ]}
+              gradient="bg-purple-50"
+              borderColor="border-purple-200"
+              accentColor="text-purple-600"
+            />
+          </div>
         </div>
-
-        {/* 戻るボタン */}
-        <a
-          href={`/units/${unit.id}/practice/select?shuffle=${shuffleMode}`}
-          className="block w-full py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl text-center hover:bg-gray-200 transition-colors"
-        >
-          ← 問題数選択に戻る
-        </a>
       </div>
     </div>
+  );
+}
+
+export default function UnitPracticeModeSelectPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-200 flex justify-center">
+        <div className="w-full max-w-[430px] bg-gray-50 min-h-screen shadow-xl flex items-center justify-center">
+          <div className="text-gray-500">読み込み中...</div>
+        </div>
+      </div>
+    }>
+      <UnitPracticeModeSelectPageContent />
+    </Suspense>
   );
 }
