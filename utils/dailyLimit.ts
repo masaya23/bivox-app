@@ -18,8 +18,8 @@ const store: Record<string, DailyRecord> = {};
 export interface DailyLimitConfig {
   /** エンドポイント名（ストアのキーに使用） */
   endpoint: string;
-  /** プラン別の日次上限。0 = 使用不可、-1 = 無制限 */
-  limits: Record<UserPlan, number>;
+  /** プラン別の日次上限。0 = 使用不可、-1 = 無制限。masterは早期リターンで処理 */
+  limits: Record<Exclude<UserPlan, 'master'>, number>;
 }
 
 export interface DailyLimitResult {
