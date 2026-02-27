@@ -14,13 +14,13 @@ import { Capacitor } from '@capacitor/core';
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
 // ユーザープラン（日次上限チェック用）
-let _userPlan: 'free' | 'plus' | 'pro' = 'free';
+let _userPlan: string = 'free';
 
 /**
  * APIリクエストに付与するユーザープランを設定
  * SubscriptionContextから呼び出す
  */
-export function setApiUserPlan(plan: 'free' | 'plus' | 'pro') {
+export function setApiUserPlan(plan: string) {
   _userPlan = plan;
 }
 

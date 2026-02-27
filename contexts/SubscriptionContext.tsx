@@ -408,9 +408,14 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
   }, [computeEffectiveTier]);
 
   // プラン変更時にAPIヘッダー用のプランを同期
+  // マスターアカウントは'master'を送信（サーバー側で日次制限スキップ）
   useEffect(() => {
-    setApiUserPlan(computeEffectiveTier());
-  }, [computeEffectiveTier]);
+    if (isMaster) {
+      setApiUserPlan('master' as any);
+    } else {
+      setApiUserPlan(computeEffectiveTier());
+    }
+  }, [computeEffectiveTier, isMaster]);
 
   const value: SubscriptionContextType = {
     ...state,

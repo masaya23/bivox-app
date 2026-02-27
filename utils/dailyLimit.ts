@@ -4,7 +4,7 @@
  * サーバー再起動でもリセットされるが、制限が緩む方向なので安全
  */
 
-export type UserPlan = 'free' | 'plus' | 'pro';
+export type UserPlan = 'free' | 'plus' | 'pro' | 'master';
 
 interface DailyRecord {
   count: number;
@@ -60,8 +60,20 @@ export function checkDailyLimit(
   plan: UserPlan,
   config: DailyLimitConfig
 ): DailyLimitResult {
-  const limit = config.limits[plan];
   const resetTime = getNextMidnightJST();
+
+  // マスターアカウントは常に無制限
+  if (plan === 'master') {
+    return {
+      success: true,
+      used: 0,
+      limit: -1,
+      remaining: -1,
+      resetTime,
+    };
+  }
+
+  const limit = config.limits[plan];
 
   // 使用不可（0）
   if (limit === 0) {
@@ -127,6 +139,7 @@ export function checkDailyLimit(
  * リクエストヘッダーからプランを取得
  */
 export function getPlanFromHeader(headerValue: string | null): UserPlan {
+  if (headerValue === 'master') return 'master';
   if (headerValue === 'pro') return 'pro';
   if (headerValue === 'plus') return 'plus';
   return 'free';
