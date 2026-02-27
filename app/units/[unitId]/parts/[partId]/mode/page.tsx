@@ -3,6 +3,7 @@
 
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import HardNavLink from '@/components/HardNavLink';
 import { getUnitById, getPartById } from '@/utils/units';
 import ModeSelectList from '@/components/train/ModeSelectList';
 
@@ -83,9 +84,9 @@ function PartPracticeModeSelectContent() {
         {/* ヘッダー */}
         <div className={`p-4 bg-gradient-to-r ${colors.gradient}`}>
           <div className="flex items-center justify-between">
-            <a href={backLink} className="text-white/80 hover:text-white font-medium text-sm">
+            <HardNavLink href={backLink} className="text-white/80 hover:text-white font-medium text-sm">
               ← 戻る
-            </a>
+            </HardNavLink>
           </div>
           <h1 className="text-2xl font-black text-white text-center mt-2">
             モード選択

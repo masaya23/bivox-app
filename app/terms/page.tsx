@@ -1,9 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 
 export default function TermsPage() {
-  const router = useRouter();
+  const router = useAppRouter();
 
   return (
     <div className="min-h-screen bg-gray-50 max-w-[430px] mx-auto">
@@ -81,7 +81,21 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold text-gray-800 mb-3">第6条（免責事項）</h2>
+            <h2 className="text-lg font-bold text-gray-800 mb-3">第6条（AI機能の利用）</h2>
+            <p className="text-sm text-gray-600 leading-relaxed mb-2">
+              本アプリでは、スピーキングモード・AI応用ドリル・AIフリー英会話等の機能において、
+              外部のAIサービス（OpenAI API）を利用しています。
+            </p>
+            <ul className="text-sm text-gray-600 leading-relaxed list-disc list-inside space-y-1">
+              <li>ユーザーが入力した音声・テキストデータは、AI処理のために外部サーバーに送信されます</li>
+              <li>AIによる判定・生成結果の正確性は保証されません</li>
+              <li>AI機能の利用には通信環境が必要です</li>
+              <li>AIサービス提供元の障害やメンテナンスにより、一時的に利用できない場合があります</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-bold text-gray-800 mb-3">第7条（免責事項）</h2>
             <p className="text-sm text-gray-600 leading-relaxed">
               運営者は、本アプリに事実上または法律上の瑕疵（安全性、信頼性、正確性、完全性、有効性、
               特定の目的への適合性、セキュリティなどに関する欠陥、エラーやバグ、権利侵害などを含みます）
@@ -90,7 +104,7 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold text-gray-800 mb-3">第7条（規約の変更）</h2>
+            <h2 className="text-lg font-bold text-gray-800 mb-3">第8条（規約の変更）</h2>
             <p className="text-sm text-gray-600 leading-relaxed">
               運営者は、必要と判断した場合には、ユーザーに通知することなくいつでも本規約を変更することができるものとします。
               変更後の利用規約は、本アプリ上に表示した時点より効力を生じるものとします。
@@ -98,7 +112,7 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-lg font-bold text-gray-800 mb-3">第8条（準拠法・裁判管轄）</h2>
+            <h2 className="text-lg font-bold text-gray-800 mb-3">第9条（準拠法・裁判管轄）</h2>
             <p className="text-sm text-gray-600 leading-relaxed">
               本規約の解釈にあたっては、日本法を準拠法とします。
               本アプリに関して紛争が生じた場合には、運営者の本店所在地を管轄する裁判所を専属的合意管轄とします。
@@ -107,7 +121,7 @@ export default function TermsPage() {
 
           <div className="pt-4 border-t border-gray-200">
             <p className="text-xs text-gray-400 text-center">
-              最終更新日: 2024年1月1日
+              最終更新日: 2026年2月1日
             </p>
           </div>
         </div>

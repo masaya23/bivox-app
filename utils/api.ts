@@ -13,6 +13,24 @@ import { Capacitor } from '@capacitor/core';
 // 本番時（Capacitor）: 外部サーバーのURLを指定
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
+// ユーザープラン（日次上限チェック用）
+let _userPlan: 'free' | 'plus' | 'pro' = 'free';
+
+/**
+ * APIリクエストに付与するユーザープランを設定
+ * SubscriptionContextから呼び出す
+ */
+export function setApiUserPlan(plan: 'free' | 'plus' | 'pro') {
+  _userPlan = plan;
+}
+
+export function getApiUserPlan() {
+  return _userPlan;
+}
+
+// 日次上限アラートのデバウンス用タイムスタンプ
+let _lastDailyLimitAlert = 0;
+
 /**
  * Capacitorネイティブアプリかどうかをチェック
  */
@@ -29,9 +47,13 @@ export function isNativeApp(): boolean {
  * APIエンドポイントのフルURLを取得
  */
 export function getApiUrl(endpoint: string): string {
+  // trailingSlash: true のサーバーへのPOSTリダイレクト時にCORSヘッダーが
+  // 欠落する問題を防ぐため、APIパスには常にtrailing slashを付加
+  const normalizedEndpoint = addTrailingSlashToApi(endpoint);
+
   // 環境変数が設定されている場合は常にそれを使用
   if (API_BASE_URL) {
-    return `${API_BASE_URL}${endpoint}`;
+    return `${API_BASE_URL}${normalizedEndpoint}`;
   }
 
   // ネイティブアプリでAPI_BASE_URLが未設定の場合は警告
@@ -39,8 +61,23 @@ export function getApiUrl(endpoint: string): string {
     console.warn('NEXT_PUBLIC_API_BASE_URL is not set for native app');
   }
 
-  // Webの場合は相対パスを使用
-  return endpoint;
+  return normalizedEndpoint;
+}
+
+/**
+ * APIエンドポイントにtrailing slashを付加
+ * Next.jsのtrailingSlash: trueによる308リダイレクト時、
+ * CORSヘッダーが欠落してブラウザがリクエストをブロックする問題を回避
+ */
+function addTrailingSlashToApi(endpoint: string): string {
+  if (!endpoint.startsWith('/api/') || endpoint.endsWith('/')) {
+    return endpoint;
+  }
+  const qIndex = endpoint.indexOf('?');
+  if (qIndex === -1) {
+    return endpoint + '/';
+  }
+  return endpoint.substring(0, qIndex) + '/' + endpoint.substring(qIndex);
 }
 
 /**
@@ -56,12 +93,23 @@ export async function apiCall<T>(
     ...options,
     headers: {
       'Content-Type': 'application/json',
+      'X-User-Plan': _userPlan,
       ...options.headers,
     },
   });
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ error: 'Unknown error' }));
+    // 日次上限到達時の通知
+    if (response.status === 429 && error.dailyLimitReached && typeof window !== 'undefined') {
+      const now = Date.now();
+      if (now - _lastDailyLimitAlert > 5000) {
+        _lastDailyLimitAlert = now;
+        setTimeout(() => {
+          alert(error.error || '本日の利用上限に達しました。明日またお試しください。');
+        }, 0);
+      }
+    }
     throw new Error(error.error || `API error: ${response.status}`);
   }
 
@@ -82,9 +130,30 @@ export async function apiFetch(
     ...options,
     headers: {
       'Content-Type': 'application/json',
+      'X-User-Plan': _userPlan,
       ...options.headers,
     },
   });
+
+  // 日次上限到達時の通知
+  if (response.status === 429) {
+    try {
+      const cloned = response.clone();
+      const body = await cloned.json();
+      if (body.dailyLimitReached && typeof window !== 'undefined') {
+        // 短時間に複数回表示しないようにデバウンス
+        const now = Date.now();
+        if (now - _lastDailyLimitAlert > 5000) {
+          _lastDailyLimitAlert = now;
+          setTimeout(() => {
+            alert(body.error || '本日の利用上限に達しました。明日またお試しください。');
+          }, 0);
+        }
+      }
+    } catch {
+      // JSONパース失敗は無視
+    }
+  }
 
   return response;
 }

@@ -4,10 +4,12 @@ import { useState, useRef, useEffect } from 'react';
 import HardNavLink from '@/components/HardNavLink';
 import { Message, ConversationSettings } from '@/types/conversation';
 import { apiFetch } from '@/utils/api';
+import { useServerTTS } from '@/hooks/useServerTTS';
 import { recordLearningTime } from '@/utils/learningTime';
 import { recordSession } from '@/utils/sessionLog';
 
 export default function ConversationPage() {
+  const serverTTS = useServerTTS();
   const [messages, setMessages] = useState<Message[]>([]);
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -213,14 +215,9 @@ export default function ConversationPage() {
     setIsRecording(false);
   };
 
-  // テキスト読み上げ
+  // テキスト読み上げ（サーバーTTS API使用）
   const speak = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
-      utterance.rate = 0.9;
-      window.speechSynthesis.speak(utterance);
-    }
+    serverTTS.speak(text, 'en-US');
   };
 
   // メッセージの編集開始
@@ -300,9 +297,7 @@ export default function ConversationPage() {
 
   // 音声再生を停止
   const stopSpeech = () => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
+    serverTTS.stop();
   };
 
   const sessionRecordedRef = useRef(false);
@@ -317,9 +312,7 @@ export default function ConversationPage() {
   // ページ離脱時に音声再生を停止 & 学習時間を記録
   useEffect(() => {
     return () => {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
+      serverTTS.stop();
       recordConversationSession();
     };
   }, []);

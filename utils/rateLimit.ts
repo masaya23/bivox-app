@@ -115,4 +115,19 @@ export const RATE_LIMITS = {
     windowMs: 60 * 60 * 1000,
     max: 20,
   },
+  // 採点（grader+validator で高コスト）: 1分あたり5回
+  GRADE: {
+    windowMs: 60 * 1000,
+    max: 5,
+  },
+  // 文法解説: 1分あたり10回
+  EXPLAIN_GRAMMAR: {
+    windowMs: 60 * 1000,
+    max: 10,
+  },
+  // 音声書き起こし: 1分あたり15回
+  TRANSCRIBE: {
+    windowMs: 60 * 1000,
+    max: 15,
+  },
 } as const;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import HardNavLink from '@/components/HardNavLink';
 import {
   BarChart,
   Bar,
@@ -95,7 +95,7 @@ export default function LearningTimePage() {
       {/* ヘッダー */}
       <div className="bg-white px-4 py-4 sticky top-0 z-10 border-b border-gray-100">
         <div className="flex items-center justify-between">
-          <Link
+          <HardNavLink
             href="/study-log"
             className="p-2 -ml-2 text-[#5D4037] hover:bg-gray-100 rounded-full transition-colors"
           >
@@ -112,7 +112,7 @@ export default function LearningTimePage() {
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
-          </Link>
+          </HardNavLink>
           <h1 className="text-lg font-bold text-[#3E2723]">学習時間推移</h1>
           <div className="w-10" /> {/* スペーサー */}
         </div>

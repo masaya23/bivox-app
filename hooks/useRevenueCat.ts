@@ -281,6 +281,10 @@ export function useRevenueCat(): UseRevenueCatReturn {
 
     if (!plusPackage) {
       console.error(`Plus ${period} package not found`);
+      setState(prev => ({
+        ...prev,
+        error: 'ストアに接続できません。ネットワーク接続を確認してください。',
+      }));
       return false;
     }
 
@@ -297,6 +301,10 @@ export function useRevenueCat(): UseRevenueCatReturn {
 
     if (!proPackage) {
       console.error(`Pro ${period} package not found`);
+      setState(prev => ({
+        ...prev,
+        error: 'ストアに接続できません。ネットワーク接続を確認してください。',
+      }));
       return false;
     }
 

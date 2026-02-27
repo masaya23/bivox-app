@@ -1,5 +1,15 @@
 'use client';
 
+import { Capacitor } from '@capacitor/core';
+
+const isNative = (() => {
+  try {
+    return typeof window !== 'undefined' && Capacitor.isNativePlatform();
+  } catch {
+    return false;
+  }
+})();
+
 // ========== ボトムナビ デザイン定数 ==========
 const NAV_COLORS = {
   background: '#FFFFFF',
@@ -80,7 +90,10 @@ function NavItemButton({
     if (e.button !== 0) return;
     if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) return;
     e.preventDefault();
-    window.location.assign(item.href);
+    const targetHref = isNative && item.href !== '/' && !item.href.includes('.')
+      ? item.href + '.html'
+      : item.href;
+    window.location.assign(targetHref);
   };
 
   const color = isActive ? NAV_COLORS.active : NAV_COLORS.inactive;

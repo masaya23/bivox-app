@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode, useCallback 
 import { TrialStatus, StoreReceipt } from '@/types/auth';
 import { getCurrentTrialStatus } from '@/utils/trialPrevention';
 import { useAuth } from './AuthContext';
+import { setApiUserPlan } from '@/utils/api';
 
 // サブスクリプションプラン
 export type SubscriptionTier = 'free' | 'plus' | 'pro';
@@ -404,6 +405,11 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
   // デバッグ用：現在有効なプランを取得（オーバーライドを考慮）
   const getEffectiveTier = useCallback((): SubscriptionTier => {
     return computeEffectiveTier();
+  }, [computeEffectiveTier]);
+
+  // プラン変更時にAPIヘッダー用のプランを同期
+  useEffect(() => {
+    setApiUserPlan(computeEffectiveTier());
   }, [computeEffectiveTier]);
 
   const value: SubscriptionContextType = {

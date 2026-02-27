@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { Capacitor } from '@capacitor/core';
 import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useAdMob } from '@/hooks/useAdMob';
 
 interface RewardVideoAdProps {
   onRewardEarned?: () => void;
@@ -23,23 +25,40 @@ export default function RewardVideoAd({
   disabled = false,
 }: RewardVideoAdProps) {
   const { shouldShowAds } = useSubscription();
+  const { showRewardedAd, isNative } = useAdMob();
   const [adState, setAdState] = useState<AdState>('idle');
   const [progress, setProgress] = useState(0);
 
   const showAds = shouldShowAds();
 
-  const handleWatchAd = useCallback(() => {
+  const handleWatchAd = useCallback(async () => {
     if (disabled || adState !== 'idle' || !showAds) return;
 
+    // ネイティブ環境：AdMobリワード広告を表示
+    if (isNative) {
+      setAdState('loading');
+      const earned = await showRewardedAd();
+      if (earned) {
+        setAdState('completed');
+        onRewardEarned?.();
+        setTimeout(() => {
+          setAdState('idle');
+          onAdClosed?.();
+        }, 1000);
+      } else {
+        setAdState('idle');
+        onAdClosed?.();
+      }
+      return;
+    }
+
+    // Web環境：デモ用シミュレート（開発確認用）
     setAdState('loading');
     setProgress(0);
 
-    // 実際のアプリではここでAdMob Rewarded Adを表示
-    // デモ用にタイマーでシミュレート
     setTimeout(() => {
       setAdState('playing');
 
-      // 広告再生をシミュレート（5秒間）
       const duration = 5000;
       const interval = 100;
       let elapsed = 0;
@@ -61,7 +80,7 @@ export default function RewardVideoAd({
         }
       }, interval);
     }, 1000);
-  }, [disabled, adState, onRewardEarned, onAdClosed, showAds]);
+  }, [disabled, adState, onRewardEarned, onAdClosed, showAds, isNative, showRewardedAd]);
 
   // プレミアムユーザーには表示しない
   if (!showAds) {
@@ -99,10 +118,10 @@ export default function RewardVideoAd({
       {adState === 'loading' && (
         <>
           <span className="animate-spin">⏳</span>
-          読み込み中...
+          {isNative ? '広告を読み込み中...' : '読み込み中...'}
         </>
       )}
-      {adState === 'playing' && (
+      {adState === 'playing' && !isNative && (
         <div className="w-full">
           <div className="flex items-center justify-between mb-1">
             <span>広告再生中...</span>

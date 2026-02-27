@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import type { ReactNode, ButtonHTMLAttributes } from 'react';
-import { useRouter } from 'next/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import MobileLayout from '@/components/MobileLayout';
 import PremiumSection from '@/components/subscription/PremiumSection';
 import {
@@ -295,7 +295,7 @@ const DEFAULT_LIFE_SETTINGS: LifeSettings = {
 };
 
 export default function SettingsPage() {
-  const router = useRouter();
+  const router = useAppRouter();
   const [importStatus, setImportStatus] = useState<string>('');
   const [storageSize, setStorageSize] = useState<number>(0);
   const [adminSecretKey, setAdminSecretKey] = useState<string>('');
@@ -854,6 +854,14 @@ export default function SettingsPage() {
             <RowLeading
               icon={<IconShield className={ICON_BASE} />}
               title="プライバシーポリシー"
+            />
+            <ChevronRight />
+          </RowLink>
+          <Divider />
+          <RowLink href="/tokushoho">
+            <RowLeading
+              icon={<IconDocument className={ICON_BASE} />}
+              title="特定商取引法に基づく表記"
             />
             <ChevronRight />
           </RowLink>

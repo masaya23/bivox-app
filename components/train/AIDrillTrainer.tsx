@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import Link from 'next/link';
+import HardNavLink from '@/components/HardNavLink';
 import { apiFetch } from '@/utils/api';
+import { useServerTTS } from '@/hooks/useServerTTS';
 import { updateStreak } from '@/utils/streak';
 import { recordLearningTime } from '@/utils/learningTime';
 import { recordSession } from '@/utils/sessionLog';
@@ -70,7 +71,8 @@ interface WordDiffResult {
 }
 
 function getWordDiff(userText: string, correctText: string): WordDiffResult {
-  const tokenize = (text: string) => text.split(/\s+/).filter(Boolean);
+  // "-"のみのトークンは除外（音声入力では"-"が反映されないため）
+  const tokenize = (text: string) => text.split(/\s+/).filter(t => Boolean(t) && !/^[-–—]+$/.test(t));
   const normalizeWord = (word: string) => word.toLowerCase().replace(/[^\w]/g, '');
 
   const userWords = tokenize(userText);
@@ -177,7 +179,8 @@ export default function AIDrillTrainer({
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
   const [historyPage, setHistoryPage] = useState(0);
-  const [isTTSSpeaking, setIsTTSSpeaking] = useState(false);
+  const serverTTS = useServerTTS();
+  const isTTSSpeaking = serverTTS.isSpeaking;
   const [questionsQueue, setQuestionsQueue] = useState<{ questionJa: string; expectedEn: string }[]>([]);
 
   const historyPageSize = 10;
@@ -202,39 +205,43 @@ export default function AIDrillTrainer({
   const accumulatedTextRef = useRef('');
   const currentSessionTextRef = useRef('');
   const autoRestartCountRef = useRef(0);
+  const questionTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const recordingTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const initializedRef = useRef(false);
+  // phaseを同期的に参照するためのref（タイマーコールバック内で使用）
+  const phaseRef = useRef<AIDrillPhase>('loading');
+  // API呼び出しの排他制御
+  const evaluatingRef = useRef(false);
+  // evaluateNoSpeech用のAbortController
+  const evaluateAbortRef = useRef<AbortController | null>(null);
 
-  // ブラウザTTSで日本語を読み上げ
-  const speakJapanese = useCallback((text: string) => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ja-JP';
-    utterance.rate = 0.9;
-    window.speechSynthesis.speak(utterance);
+  // serverTTSの関数をrefで保持（依存チェーン防止）
+  const serverTTSSpeakRef = useRef(serverTTS.speak);
+  const serverTTSStopRef = useRef(serverTTS.stop);
+  useEffect(() => {
+    serverTTSSpeakRef.current = serverTTS.speak;
+    serverTTSStopRef.current = serverTTS.stop;
+  }, [serverTTS.speak, serverTTS.stop]);
+
+  // phase変更時にrefも同期
+  const setPhaseWithRef = useCallback((newPhase: AIDrillPhase) => {
+    phaseRef.current = newPhase;
+    setPhase(newPhase);
   }, []);
 
-  // ブラウザTTSで英語を読み上げ
+  // サーバーTTS APIで日本語を読み上げ（refを使い依存を安定化）
+  const speakJapanese = useCallback((text: string) => {
+    serverTTSSpeakRef.current(text, 'ja-JP');
+  }, []);
+
+  // サーバーTTS APIで英語を読み上げ（refを使い依存を安定化）
   const speakEnglish = useCallback((text: string) => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
-    window.speechSynthesis.speak(utterance);
+    serverTTSSpeakRef.current(text, 'en-US');
   }, []);
 
   // 任意のテキストをTTSで読み上げ（完了画面の再生ボタン用）
   const speakText = (text: string, lang: string = 'en-US') => {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang;
-    utterance.rate = 0.9;
-    utterance.onstart = () => setIsTTSSpeaking(true);
-    utterance.onend = () => setIsTTSSpeaking(false);
-    utterance.onerror = () => setIsTTSSpeaking(false);
-    window.speechSynthesis.speak(utterance);
+    serverTTSSpeakRef.current(text, lang);
   };
 
   // ランダムにサンプル文を取得
@@ -382,7 +389,28 @@ export default function AIDrillTrainer({
     };
   }, []);
 
+  // startQuestion内のタイマーをクリア
+  const clearQuestionTimers = useCallback(() => {
+    if (questionTimerRef.current) {
+      clearTimeout(questionTimerRef.current);
+      questionTimerRef.current = null;
+    }
+    if (recordingTimerRef.current) {
+      clearTimeout(recordingTimerRef.current);
+      recordingTimerRef.current = null;
+    }
+  }, []);
+
   const startQuestion = useCallback((question: { questionJa: string; expectedEn: string }) => {
+    // 前回のタイマーをクリア
+    clearQuestionTimers();
+    // 進行中の評価をキャンセル
+    if (evaluateAbortRef.current) {
+      evaluateAbortRef.current.abort();
+      evaluateAbortRef.current = null;
+    }
+    evaluatingRef.current = false;
+
     setError(null);
     setJudgeResult(null);
     setAiEvaluation(null);
@@ -392,12 +420,17 @@ export default function AIDrillTrainer({
     setEditableText('');
     setShowAnswer(false);
     setIsNoSpeech(false);
+    setIsAiLoading(false);
     setCurrentQuestion(question);
-    setPhase('question');
+    setPhaseWithRef('question');
 
-    setTimeout(() => {
+    questionTimerRef.current = setTimeout(() => {
+      // タイマー発火時にphaseが変わっていたら何もしない
+      if (phaseRef.current !== 'question') return;
       speakJapanese(question.questionJa);
-      setTimeout(() => {
+      recordingTimerRef.current = setTimeout(() => {
+        // 録音開始時もphaseを確認
+        if (phaseRef.current !== 'question') return;
         if (recognitionRef.current) {
           resetRecognitionRefs();
           try {
@@ -406,10 +439,10 @@ export default function AIDrillTrainer({
         }
       }, 2000);
     }, 500);
-  }, [speakJapanese]);
+  }, [speakJapanese, clearQuestionTimers]);
 
   const initializeDrill = useCallback(async () => {
-    setPhase('loading');
+    setPhaseWithRef('loading');
     setError(null);
     setJudgeResult(null);
     setAiEvaluation(null);
@@ -459,14 +492,27 @@ export default function AIDrillTrainer({
     } catch (err) {
       console.error('問題生成エラー:', err);
       setError(err instanceof Error ? err.message : '問題生成に失敗しました');
-      setPhase('question');
+      setPhaseWithRef('question');
     }
   }, [getRandomSamples, partTitle, grammarTags, startQuestion]);
 
-  // 初回問題生成
+  // 初回問題生成（一度だけ実行）
   useEffect(() => {
+    if (initializedRef.current) return;
+    initializedRef.current = true;
     initializeDrill();
-  }, [initializeDrill]);
+
+    return () => {
+      clearQuestionTimers();
+      // コンポーネントアンマウント時に全てのAPI呼び出しをキャンセル
+      if (evaluateAbortRef.current) {
+        evaluateAbortRef.current.abort();
+        evaluateAbortRef.current = null;
+      }
+      evaluatingRef.current = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // 無音時の自動処理
   useEffect(() => {
@@ -476,8 +522,19 @@ export default function AIDrillTrainer({
   }, [isNoSpeech, showAnswer]);
 
   // 未回答時のAI評価（スピーキング評価API）
+  // useEffectのクリーンアップ競合を防ぐため、排他制御付きで実装
   useEffect(() => {
     if (!isNoSpeech || !currentQuestion) return;
+    // 既に評価中なら重複呼び出しをスキップ
+    if (evaluatingRef.current) return;
+    evaluatingRef.current = true;
+
+    // 前回のリクエストをキャンセル
+    if (evaluateAbortRef.current) {
+      evaluateAbortRef.current.abort();
+    }
+    const abortController = new AbortController();
+    evaluateAbortRef.current = abortController;
 
     const evaluateNoSpeech = async () => {
       setIsAiLoading(true);
@@ -507,9 +564,14 @@ export default function AIDrillTrainer({
             userAnswer: '（未回答・無音）',
             partTitle,
           }),
+          signal: abortController.signal,
         });
 
+        if (abortController.signal.aborted) return;
+
         const data = await response.json();
+
+        if (abortController.signal.aborted) return;
 
         if (!data.success) {
           if (data.error && String(data.error).includes('リクエスト制限')) {
@@ -531,9 +593,12 @@ export default function AIDrillTrainer({
         } else {
           evaluation = data.evaluation;
         }
-      } catch (err) {
+      } catch (err: any) {
+        if (err?.name === 'AbortError') return;
         console.error('未回答判定エラー:', err);
       }
+
+      if (abortController.signal.aborted) return;
 
       setAiEvaluation(evaluation);
       setSimilarity(0);
@@ -568,14 +633,20 @@ export default function AIDrillTrainer({
       });
 
       setIsAiLoading(false);
+      evaluatingRef.current = false;
     };
 
     evaluateNoSpeech();
+
+    return () => {
+      abortController.abort();
+      evaluatingRef.current = false;
+    };
   }, [isNoSpeech, currentQuestion, partTitle]);
 
   const handleStartRecording = () => {
     if (!recognitionRef.current || isListening) return;
-    window.speechSynthesis?.cancel();
+    serverTTSStopRef.current();
     setRecognitionError(null);
     setShowAnswer(false);
     setIsNoSpeech(false);
@@ -597,7 +668,7 @@ export default function AIDrillTrainer({
   const judgeAnswer = async (answer: string) => {
     if (!currentQuestion) return;
 
-    setPhase('judging');
+    setPhaseWithRef('judging');
     setIsAiLoading(true);
     setError(null);
     setAiEvaluation(null);
@@ -631,7 +702,7 @@ export default function AIDrillTrainer({
               mistakeAnalysis: '',
             });
             setSimilarity(0);
-            setPhase('result');
+            setPhaseWithRef('result');
             return;
           }
           throw new Error(data.error || '判定に失敗しました');
@@ -696,11 +767,11 @@ export default function AIDrillTrainer({
         return [...prev, currentResult];
       });
 
-      setPhase('result');
+      setPhaseWithRef('result');
     } catch (err) {
       console.error('判定エラー:', err);
       setError(err instanceof Error ? err.message : '判定に失敗しました');
-      setPhase('question');
+      setPhaseWithRef('question');
     } finally {
       setIsAiLoading(false);
     }
@@ -713,6 +784,13 @@ export default function AIDrillTrainer({
 
   const handleShowAnswer = () => {
     finishRecording();
+    clearQuestionTimers();
+    // 進行中の評価をリセット
+    evaluatingRef.current = false;
+    if (evaluateAbortRef.current) {
+      evaluateAbortRef.current.abort();
+      evaluateAbortRef.current = null;
+    }
     setShowAnswer(true);
     setIsNoSpeech(true);
     setEditableText('（答えを見る）');
@@ -722,34 +800,47 @@ export default function AIDrillTrainer({
   };
 
   const handleRetry = () => {
+    clearQuestionTimers();
+    // 進行中の評価をリセット
+    evaluatingRef.current = false;
+    if (evaluateAbortRef.current) {
+      evaluateAbortRef.current.abort();
+      evaluateAbortRef.current = null;
+    }
     setUserInput('');
     setEditableText('');
     setShowAnswer(false);
     setIsNoSpeech(false);
+    setIsAiLoading(false);
     setJudgeResult(null);
     setAiEvaluation(null);
     setSimilarity(null);
     setAnswerExampleIndex(0);
     setRecognitionError(null);
     clearSilenceTimer();
-    setPhase('question');
+    setPhaseWithRef('question');
 
     if (currentQuestion) {
-      speakJapanese(currentQuestion.questionJa);
-      setTimeout(() => {
-        if (recognitionRef.current) {
-          resetRecognitionRefs();
-          try {
-            recognitionRef.current.start();
-          } catch { /* ignore */ }
-        }
-      }, 2000);
+      questionTimerRef.current = setTimeout(() => {
+        if (phaseRef.current !== 'question') return;
+        speakJapanese(currentQuestion.questionJa);
+        recordingTimerRef.current = setTimeout(() => {
+          if (phaseRef.current !== 'question') return;
+          if (recognitionRef.current) {
+            resetRecognitionRefs();
+            try {
+              recognitionRef.current.start();
+            } catch { /* ignore */ }
+          }
+        }, 2000);
+      }, 500);
     }
   };
 
   // 次の問題へ
   const handleNext = () => {
-    window.speechSynthesis?.cancel();
+    serverTTSStopRef.current();
+    clearQuestionTimers();
     const nextIndex = session.currentIndex + 1;
     const totalQuestions = questionsQueue.length || TOTAL_QUESTIONS;
 
@@ -757,7 +848,7 @@ export default function AIDrillTrainer({
     // ここでは次の問題への移動のみ行う
 
     if (nextIndex >= totalQuestions) {
-      setPhase('finished');
+      setPhaseWithRef('finished');
       // レッスン完了時に学習記録を保存
       updateStreak(totalQuestions);
       // 学習時間を記録（実際の経過時間を計算）
@@ -797,7 +888,14 @@ export default function AIDrillTrainer({
   };
 
   const handleReset = () => {
-    window.speechSynthesis?.cancel();
+    serverTTSStopRef.current();
+    clearQuestionTimers();
+    // 進行中の評価をキャンセル
+    evaluatingRef.current = false;
+    if (evaluateAbortRef.current) {
+      evaluateAbortRef.current.abort();
+      evaluateAbortRef.current = null;
+    }
     setSession({
       totalQuestions: TOTAL_QUESTIONS,
       currentIndex: 0,
@@ -806,7 +904,7 @@ export default function AIDrillTrainer({
       partTitle,
       grammarTags,
     });
-    setPhase('loading');
+    setPhaseWithRef('loading');
     setCurrentQuestion(null);
     setJudgeResult(null);
     setAiEvaluation(null);
@@ -815,6 +913,7 @@ export default function AIDrillTrainer({
     setEditableText('');
     setShowAnswer(false);
     setIsNoSpeech(false);
+    setIsAiLoading(false);
     setRecognitionError(null);
     setShowReviewMode(false);
     setReviewQuestions([]);
@@ -826,6 +925,8 @@ export default function AIDrillTrainer({
     setExpandedCardIndex(null);
     setHistoryPage(0);
     startTimeRef.current = Date.now();
+    // initializedRefをリセットしてから再初期化
+    initializedRef.current = false;
     initializeDrill();
   };
 
@@ -906,7 +1007,7 @@ export default function AIDrillTrainer({
   const handleReviewNext = () => {
     if (reviewIndex + 1 >= reviewQuestions.length) {
       setShowReviewMode(false);
-      setPhase('finished');
+      setPhaseWithRef('finished');
     } else {
       const nextIndex = reviewIndex + 1;
       setReviewIndex(nextIndex);
@@ -966,7 +1067,7 @@ export default function AIDrillTrainer({
         <div className="bg-white rounded-3xl p-8 text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-3">AI応用ドリル</h1>
           <p className="text-gray-600">このブラウザは音声認識に対応していません。Google Chromeでお試しください。</p>
-          <a href={backLink} className="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold">← 戻る</a>
+          <HardNavLink href={backLink} className="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold">← 戻る</HardNavLink>
         </div>
       </div>
     );
@@ -1089,12 +1190,12 @@ export default function AIDrillTrainer({
                   >
                     ← Part選択
                   </a>
-                  <Link
+                  <HardNavLink
                     href="/home"
                     className="text-xs text-gray-400 font-semibold active:text-gray-600 transition-colors"
                   >
                     ホームに戻る
-                  </Link>
+                  </HardNavLink>
                 </div>
               </div>
             </div>
@@ -1342,7 +1443,7 @@ export default function AIDrillTrainer({
             <button
               onClick={() => {
                 setShowReviewMode(false);
-                setPhase('finished');
+                setPhaseWithRef('finished');
               }}
               className="inline-flex items-center gap-2 whitespace-nowrap shrink-0 text-blue-700 hover:text-blue-900 font-semibold bg-white/80 backdrop-blur px-4 py-2 rounded-full shadow-sm border border-white/60"
             >

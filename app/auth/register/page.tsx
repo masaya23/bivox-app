@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import HardNavLink from '@/components/HardNavLink';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAppRouter } from '@/hooks/useAppRouter';
 
 export default function RegisterPage() {
-  const router = useRouter();
+  const router = useAppRouter();
   const { signUp, useFirebase } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

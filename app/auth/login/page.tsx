@@ -1,13 +1,14 @@
 'use client';
 
 import { Suspense, useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import HardNavLink from '@/components/HardNavLink';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAppRouter } from '@/hooks/useAppRouter';
 
 function LoginPageInner() {
-  const router = useRouter();
+  const router = useAppRouter();
   const searchParams = useSearchParams();
   const { signIn, resendVerification, useFirebase } = useAuth();
   const [email, setEmail] = useState('');

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import HardNavLink from '@/components/HardNavLink';
 import {
   BarChart,
   Bar,
@@ -49,7 +49,7 @@ export default function LearningTimeWidget() {
   const todayIndex = chartData.length - 1;
 
   return (
-    <Link href="/study-log/time" className="block">
+    <HardNavLink href="/study-log/time" className="block">
       <div className="bg-white rounded-2xl shadow-lg p-5 hover:shadow-xl transition-shadow">
         <div className="flex items-center justify-between mb-1">
           <h2 className="font-bold text-gray-700">学習時間</h2>
@@ -115,6 +115,6 @@ export default function LearningTimeWidget() {
           </ResponsiveContainer>
         </div>
       </div>
-    </Link>
+    </HardNavLink>
   );
 }

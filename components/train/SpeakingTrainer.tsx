@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import HardNavLink from '@/components/HardNavLink';
 import { useLocalAudio } from '@/hooks/useLocalAudio';
 import { updateStreak } from '@/utils/streak';
 import { recordLearningTime } from '@/utils/learningTime';
@@ -88,8 +88,8 @@ interface WordDiffResult {
 }
 
 function getWordDiff(userText: string, correctText: string): WordDiffResult {
-  // 単語を抽出（句読点を保持しつつ分割）
-  const tokenize = (text: string) => text.split(/\s+/).filter(Boolean);
+  // 単語を抽出（句読点を保持しつつ分割、"-"のみのトークンは除外）
+  const tokenize = (text: string) => text.split(/\s+/).filter(t => Boolean(t) && !/^[-–—]+$/.test(t));
   const normalizeWord = (word: string) => word.toLowerCase().replace(/[^\w]/g, '');
 
   const userWords = tokenize(userText);
@@ -243,15 +243,44 @@ export default function SpeakingTrainer({
     window.speechSynthesis.cancel();
     stopEnglish();
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang;
-    utterance.rate = 0.9;
+    const doSpeak = () => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.rate = 0.9;
 
-    utterance.onstart = () => setIsTTSSpeaking(true);
-    utterance.onend = () => setIsTTSSpeaking(false);
-    utterance.onerror = () => setIsTTSSpeaking(false);
+      // Android WebView向け: 適切なvoiceを選択
+      const voices = window.speechSynthesis.getVoices();
+      const matchingVoice = voices.find(v => v.lang.startsWith(lang.split('-')[0]));
+      if (matchingVoice) {
+        utterance.voice = matchingVoice;
+      }
 
-    window.speechSynthesis.speak(utterance);
+      utterance.onstart = () => setIsTTSSpeaking(true);
+      utterance.onend = () => setIsTTSSpeaking(false);
+      utterance.onerror = () => setIsTTSSpeaking(false);
+
+      window.speechSynthesis.speak(utterance);
+    };
+
+    // Android WebViewではvoicesが非同期ロードされるため待機
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      doSpeak();
+    } else {
+      // voicesがまだロードされていない場合はイベントを待つ
+      const onVoicesChanged = () => {
+        window.speechSynthesis.removeEventListener('voiceschanged', onVoicesChanged);
+        doSpeak();
+      };
+      window.speechSynthesis.addEventListener('voiceschanged', onVoicesChanged);
+      // タイムアウト: 1秒以内にvoicesがロードされなければそのまま実行
+      setTimeout(() => {
+        window.speechSynthesis.removeEventListener('voiceschanged', onVoicesChanged);
+        if (!isTTSSpeaking) {
+          doSpeak();
+        }
+      }, 1000);
+    }
   };
 
   // TTS停止関数
@@ -1054,7 +1083,7 @@ export default function SpeakingTrainer({
         <div className="bg-white rounded-3xl shadow-xl p-8 text-center max-w-xl">
           <h1 className="text-2xl font-bold text-gray-800 mb-3">スピーキングモード</h1>
           <p className="text-gray-600">このブラウザは音声認識に対応していません。Google Chromeでお試しください。</p>
-          <a href={backLink} className="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold">← 戻る</a>
+          <HardNavLink href={backLink} className="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold">← 戻る</HardNavLink>
         </div>
       </div>
     );
@@ -1187,8 +1216,8 @@ export default function SpeakingTrainer({
                           <p className="text-gray-800 font-semibold mt-1">{correctAnswer}</p>
                         </div>
                         <button
-                          onClick={() => speakText(correctAnswer, 'en-US')}
-                          disabled={isTTSSpeaking}
+                          onClick={() => { stopEnglish(); speakEnglish(currentSentence.id, 'en', undefined, correctAnswer).catch(() => {}); }}
+                          disabled={isPlayingEnglish}
                           className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 disabled:opacity-50 transition-all"
                         >
                           ▶
@@ -1330,12 +1359,12 @@ export default function SpeakingTrainer({
                   >
                     ← Part選択
                   </a>
-                  <Link
+                  <HardNavLink
                     href="/home"
                     className="text-xs text-gray-400 font-semibold active:text-gray-600 transition-colors"
                   >
                     ホームに戻る
-                  </Link>
+                  </HardNavLink>
                 </div>
               </div>
             </div>
@@ -1460,9 +1489,10 @@ export default function SpeakingTrainer({
                                     <button
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        speakText(result.userAnswer, 'en-US');
+                                        stopEnglish();
+                                        speakEnglish(result.sentence.id, 'en', undefined, result.userAnswer).catch(() => {});
                                       }}
-                                      disabled={isTTSSpeaking}
+                                      disabled={isPlayingEnglish}
                                       className="w-7 h-7 bg-orange-200 text-orange-600 rounded-full flex items-center justify-center hover:bg-orange-300 disabled:opacity-50 text-xs"
                                     >
                                       ▶
@@ -1483,9 +1513,10 @@ export default function SpeakingTrainer({
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      speakText(displayAnswer, 'en-US');
+                                      stopEnglish();
+                                      speakEnglish(result.sentence.id, 'en', undefined, displayAnswer).catch(() => {});
                                     }}
-                                    disabled={isTTSSpeaking}
+                                    disabled={isPlayingEnglish}
                                     className="w-7 h-7 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 disabled:opacity-50 text-xs"
                                   >
                                     ▶
@@ -1519,10 +1550,11 @@ export default function SpeakingTrainer({
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
+                                    stopEnglish();
                                     const textToSpeak = displayEvaluation?.correctedUserAnswer || displayEvaluation?.correction || result.sentence.en;
-                                    speakText(textToSpeak, 'en-US');
+                                    speakEnglish(result.sentence.id, 'en', undefined, textToSpeak).catch(() => {});
                                   }}
-                                  disabled={isTTSSpeaking}
+                                  disabled={isPlayingEnglish}
                                   className="w-7 h-7 bg-green-100 text-green-600 rounded-full flex items-center justify-center hover:bg-green-200 disabled:opacity-50 text-xs"
                                 >
                                   ▶
@@ -1557,9 +1589,11 @@ export default function SpeakingTrainer({
                                       <button
                                         onClick={(e) => {
                                           e.stopPropagation();
-                                          speakText(answer, 'en-US');
+                                          stopEnglish();
+                                          const sid = answer === result.sentence.en ? result.sentence.id : `tts-${Date.now()}`;
+                                          speakEnglish(sid, 'en', undefined, answer).catch(() => {});
                                         }}
-                                        disabled={isTTSSpeaking}
+                                        disabled={isPlayingEnglish}
                                         className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 disabled:opacity-50 text-xs"
                                       >
                                         ▶
@@ -1626,7 +1660,7 @@ export default function SpeakingTrainer({
         {/* ヘッダー */}
         <header className="bg-white px-4 py-3 sticky top-0 z-30 border-b border-gray-100">
           <div className="flex items-center justify-between">
-            <a href={backLink} className="text-gray-600 font-semibold text-sm min-w-[50px]">← 戻る</a>
+            <HardNavLink href={backLink} className="text-gray-600 font-semibold text-sm min-w-[50px]">← 戻る</HardNavLink>
             <div className="text-center flex-1 px-2">
               {headerTitle.partLabel && (
                 <span className={badgeClass}>
@@ -1871,13 +1905,16 @@ export default function SpeakingTrainer({
                         stopTTS();
                         stopEnglish();
                         // 現在表示中のスライドのテキストを読み上げ
-                        speakText(modelAnswersList[answerExampleIndex], 'en-US');
+                        const text = modelAnswersList[answerExampleIndex];
+                        // 元の文と同じならMP3を再生、異なればTTSフォールバック用に存在しないIDを使用
+                        const sentenceId = text === currentSentence.en ? currentSentence.id : `tts-${Date.now()}`;
+                        speakEnglish(sentenceId, 'en', undefined, text).catch(() => {});
                       }}
                       disabled={isTTSSpeaking || isPlayingEnglish}
                       className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 disabled:opacity-50 transition-all text-sm font-semibold"
                     >
-                      <span>{isTTSSpeaking ? '🔊' : '▶'}</span>
-                      <span>{isTTSSpeaking ? '再生中...' : '発音を聞く'}</span>
+                      <span>{isPlayingEnglish ? '🔊' : '▶'}</span>
+                      <span>{isPlayingEnglish ? '再生中...' : '発音を聞く'}</span>
                     </button>
                   </div>
                 </div>

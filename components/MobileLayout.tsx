@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import { Capacitor } from '@capacitor/core';
 import HardNavLink from './HardNavLink';
 import { FixedAdBanner } from './ads/AdBanner';
@@ -27,7 +27,7 @@ export default function MobileLayout({
   requireAuth = false,
 }: MobileLayoutProps) {
   const [isNative, setIsNative] = useState(false);
-  const router = useRouter();
+  const router = useAppRouter();
   const { isAuthenticated, isLoading } = useAuth();
 
   useEffect(() => {

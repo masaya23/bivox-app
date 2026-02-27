@@ -3,7 +3,7 @@
 import { useLife } from '@/contexts/LifeContext';
 import { LIFE_CONFIG, formatTimeRemaining, getTimeToFullRecovery } from '@/types/life';
 import RewardVideoAd from '@/components/ads/RewardVideoAd';
-import Link from 'next/link';
+import HardNavLink from '@/components/HardNavLink';
 
 export default function LifeOutDialog() {
   const {
@@ -80,12 +80,12 @@ export default function LifeOutDialog() {
           />
 
           {/* プレミアムプランへ */}
-          <Link href="/settings" onClick={closeLifeOutDialog}>
+          <HardNavLink href="/settings" onClick={closeLifeOutDialog}>
             <button className="w-full py-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
               <span className="text-xl">👑</span>
               <span>プレミアムでライフ無制限</span>
             </button>
-          </Link>
+          </HardNavLink>
 
           {/* 回復を待つ */}
           <button

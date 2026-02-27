@@ -9,7 +9,7 @@
     "build:cap": "cross-env BUILD_TARGET=capacitor next build",
     "start": "next start",
     "lint": "eslint",
-    "cap:build": "powershell -Command \"Rename-Item -Path app/api -NewName _api_backup -ErrorAction SilentlyContinue; try { npm run build:cap } finally { Rename-Item -Path app/_api_backup -NewName api -ErrorAction SilentlyContinue }\" && npx cap sync",
+    "cap:build": "powershell -Command \"Copy-Item -Recurse -Force app/api ../_api_backup; Remove-Item -Recurse -Force app/api; Copy-Item middleware.ts middleware.ts.bak; Remove-Item middleware.ts; try { npm run build:cap } finally { Copy-Item -Recurse -Force ../_api_backup app/api; Remove-Item -Recurse -Force ../_api_backup; Copy-Item middleware.ts.bak middleware.ts; Remove-Item middleware.ts.bak }\" && npx cap sync",
     "cap:sync": "npx cap sync",
     "cap:ios": "npx cap open ios",
     "cap:android": "npx cap open android",
@@ -17,12 +17,14 @@
     "cap:run:android": "npx cap run android"
   },
   "dependencies": {
+    "@capacitor-community/admob": "^8.0.0",
     "@capacitor-firebase/analytics": "^8.0.1",
     "@capacitor/android": "^8.0.0",
     "@capacitor/cli": "^8.0.0",
     "@capacitor/core": "^8.0.0",
     "@capacitor/ios": "^8.0.0",
     "@revenuecat/purchases-capacitor": "^12.0.1",
+    "@sentry/nextjs": "^10.40.0",
     "canvas-confetti": "^1.9.4",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",

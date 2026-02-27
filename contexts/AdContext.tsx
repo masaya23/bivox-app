@@ -5,7 +5,7 @@ import { useSubscription } from './SubscriptionContext';
 
 // 広告表示の設定定数
 const AD_CONFIG = {
-  // バナー広告の高さ（px）
+  // バナー広告の高さ（px）- ネイティブAdMobバナーと同じ
   BANNER_HEIGHT: 50,
 };
 

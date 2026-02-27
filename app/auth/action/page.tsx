@@ -1,12 +1,13 @@
 'use client';
 
 import { Suspense, useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import { applyActionCode, getAuth } from 'firebase/auth';
 import { isFirebaseConfigured } from '@/lib/firebase';
 
 function AuthActionPageInner() {
-  const router = useRouter();
+  const router = useAppRouter();
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<'processing' | 'success' | 'error'>('processing');
   const [message, setMessage] = useState('認証を処理中...');

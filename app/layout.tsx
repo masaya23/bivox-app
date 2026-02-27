@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import CapacitorLinkInterceptor from "@/components/CapacitorLinkInterceptor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,6 +52,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <Providers>
+          <CapacitorLinkInterceptor />
           {children}
         </Providers>
         <script
@@ -58,14 +60,17 @@ export default function RootLayout({
             __html: `
               (function() {
                 if (!('serviceWorker' in navigator)) return;
-                const IS_PROD = ${isProd ? 'true' : 'false'};
+                var IS_PROD = ${isProd ? 'true' : 'false'};
 
-                // 開発中はService WorkerがNext.jsの更新を邪魔しやすいので、既存SWとキャッシュを削除する
-                if (!IS_PROD) {
+                // Capacitor環境ではService Workerを使わない（キャッシュ失敗やナビゲーション干渉を防止）
+                var isCapacitor = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+
+                // 開発中またはCapacitor環境ではSWとキャッシュを削除する
+                if (!IS_PROD || isCapacitor) {
                   Promise.all([
-                    navigator.serviceWorker.getRegistrations().then((regs) => Promise.all(regs.map((r) => r.unregister()))),
-                    (self.caches ? caches.keys().then((keys) => Promise.all(keys.map((k) => caches.delete(k)))) : Promise.resolve()),
-                  ]).catch(() => {});
+                    navigator.serviceWorker.getRegistrations().then(function(regs) { return Promise.all(regs.map(function(r) { return r.unregister(); })); }),
+                    (self.caches ? caches.keys().then(function(keys) { return Promise.all(keys.map(function(k) { return caches.delete(k); })); }) : Promise.resolve()),
+                  ]).catch(function() {});
                   return;
                 }
 

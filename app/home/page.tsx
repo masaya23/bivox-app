@@ -1,9 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { Capacitor } from '@capacitor/core';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useAuth } from '@/contexts/AuthContext';
+
+const isNative = (() => {
+  try {
+    return typeof window !== 'undefined' && Capacitor.isNativePlatform();
+  } catch {
+    return false;
+  }
+})();
 import TeaserModal from '@/components/subscription/TeaserModal';
 import PaywallScreen from '@/components/subscription/PaywallScreen';
 import { FixedAdBanner } from '@/components/ads/AdBanner';
@@ -67,7 +76,15 @@ function MenuButton({
     if ('button' in e && e.button !== 0) return;
     if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) return;
     e.preventDefault();
-    window.location.assign(href);
+    // Capacitor環境では.html拡張子を付与
+    let targetHref = href;
+    if (isNative && href !== '/' && !href.includes('.')) {
+      const qIndex = href.indexOf('?');
+      targetHref = qIndex !== -1
+        ? href.substring(0, qIndex) + '.html' + href.substring(qIndex)
+        : href + '.html';
+    }
+    window.location.assign(targetHref);
   };
 
   const buttonClasses = `
@@ -115,7 +132,7 @@ function MenuButton({
 }
 
 export default function HomePage() {
-  const router = useRouter();
+  const router = useAppRouter();
   const [showTeaser, setShowTeaser] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
   const { canAccessMode } = useSubscription();

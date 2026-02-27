@@ -13,6 +13,7 @@ import {
   MODE_NAMES,
   MODE_REQUIRED_PLAN,
 } from '@/contexts/SubscriptionContext';
+import { logSubscriptionCancel } from '@/utils/analytics';
 import { useRevenueCat } from '@/hooks/useRevenueCat';
 
 interface PaywallScreenProps {
@@ -60,13 +61,11 @@ const CANCELLATION_REASONS = [
 const FEATURE_COMPARISON = [
   { feature: 'チュートリアル', free: true, plus: true, pro: true },
   { feature: 'ベーシックモード', free: true, plus: true, pro: true },
-  { feature: 'スピーキングモード', free: false, plus: true, pro: true },
-  { feature: 'AI応用ドリル', free: false, plus: false, pro: true },
-  { feature: 'AIとフリー英会話', free: false, plus: false, pro: true },
+  { feature: 'スピーキングモード', free: '-', plus: '50回/日', pro: '無制限' },
+  { feature: 'AI応用ドリル', free: '-', plus: '-', pro: '100回/日' },
+  { feature: 'AIとフリー英会話', free: '-', plus: '-', pro: '100回/日' },
   { feature: '広告なし', free: false, plus: true, pro: true },
   { feature: 'バックグラウンド再生', free: false, plus: true, pro: true },
-  { feature: 'スピーキング判定', free: '-', plus: '50回/日', pro: '無制限' },
-  { feature: 'AI機能利用', free: '-', plus: '-', pro: '100回/日' },
 ];
 
 // プランアイコン（SVG）
@@ -181,8 +180,9 @@ export default function PaywallScreen({
           // 購入成功時、SubscriptionContextも更新
           upgradePlan(selectedPlan, billingPeriod);
           setTimeout(() => onClose(), 500);
-        } else if (revenueCat.error) {
-          setPurchaseError(revenueCat.error);
+        } else {
+          // エラーがあれば表示（パッケージ未取得、ストア接続不可など）
+          setPurchaseError(revenueCat.error || 'ストアに接続できませんでした。しばらくしてからお試しください。');
         }
       } else {
         // Webの場合はモック処理（デモ用）
@@ -661,14 +661,16 @@ export default function PaywallScreen({
                     onClick={() => {
                       if (cancellationReason) {
                         setCancellationStep('complete');
-                        // 実際の解約処理
-                        upgradePlan('free');
+                        // Analytics: 解約イベント
+                        if (effectiveTier !== 'free') {
+                          logSubscriptionCancel(effectiveTier, cancellationReason);
+                        }
                       }
                     }}
                     disabled={!cancellationReason}
                     className="w-full py-3 bg-red-500 text-white rounded-xl font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    解約を確定する
+                    解約手続きへ進む
                   </button>
                   <button
                     onClick={() => setCancellationStep('notice')}
@@ -680,38 +682,57 @@ export default function PaywallScreen({
               </div>
             )}
 
-            {/* ステップ3: 完了 */}
+            {/* ステップ3: ストアへ誘導 */}
             {cancellationStep === 'complete' && (
               <div className="p-6">
                 <div className="text-center mb-6">
-                  <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-3xl">✓</span>
+                  <div className="w-16 h-16 bg-amber-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <span className="text-3xl">📱</span>
                   </div>
                   <h3 className="text-xl font-black text-gray-800 mb-2">
-                    解約手続きが完了しました
+                    サブスクリプション管理画面を開きます
                   </h3>
                   <p className="text-gray-500 text-sm">
-                    ご利用ありがとうございました
+                    ストアの設定画面で解約手続きを行ってください
                   </p>
                 </div>
 
-                <div className="bg-gray-50 rounded-2xl p-4 mb-6 text-center">
-                  <p className="text-gray-600 text-sm">
-                    またのご利用をお待ちしております。<br />
-                    いつでもプランを再開できます。
+                <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3 mb-6">
+                  <p className="text-amber-800 text-xs text-center">
+                    解約後も現在の契約期間終了まで引き続きご利用いただけます。いつでもプランを再開できます。
                   </p>
                 </div>
 
-                <button
-                  onClick={() => {
-                    setCancellationStep('none');
-                    setCancellationReason('');
-                    onClose();
-                  }}
-                  className="w-full py-3 bg-gray-800 text-white rounded-xl font-bold text-sm"
-                >
-                  閉じる
-                </button>
+                <div className="space-y-3">
+                  <button
+                    onClick={() => {
+                      const platform = Capacitor.getPlatform();
+                      if (platform === 'ios') {
+                        window.open('https://apps.apple.com/account/subscriptions', '_blank');
+                      } else if (platform === 'android') {
+                        window.open('https://play.google.com/store/account/subscriptions', '_blank');
+                      } else {
+                        // Web: 手順を案内
+                        window.open('https://support.apple.com/ja-jp/HT202039', '_blank');
+                      }
+                    }}
+                    className="w-full py-3 bg-red-500 text-white rounded-xl font-bold text-sm active:scale-[0.98] transition-transform"
+                  >
+                    {Capacitor.getPlatform() === 'ios' ? 'App Storeの設定を開く' :
+                     Capacitor.getPlatform() === 'android' ? 'Google Playの設定を開く' :
+                     'サブスクリプション管理を開く'}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCancellationStep('none');
+                      setCancellationReason('');
+                      onClose();
+                    }}
+                    className="w-full py-3 text-gray-500 font-medium text-sm"
+                  >
+                    閉じる
+                  </button>
+                </div>
               </div>
             )}
           </div>

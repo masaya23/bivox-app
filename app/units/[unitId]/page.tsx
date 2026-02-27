@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import { getUnitById } from '@/utils/units';
 
 export default function UnitDetailPage() {
   const params = useParams();
-  const router = useRouter();
+  const router = useAppRouter();
 
   useEffect(() => {
     const unitId = params.unitId as string;

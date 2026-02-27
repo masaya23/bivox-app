@@ -1,7 +1,8 @@
 'use client';
 
 import { Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import ShadowingTrainer from '@/components/train/ShadowingTrainer';
 import SpeakingTrainer from '@/components/train/SpeakingTrainer';
 import AIDrillTrainer from '@/components/train/AIDrillTrainer';
@@ -18,7 +19,7 @@ const FILTER_NAMES: Record<TabFilter, string> = {
 
 function AllUnitsPracticePageContent() {
   const searchParams = useSearchParams();
-  const router = useRouter();
+  const router = useAppRouter();
 
   const filter = (searchParams.get('filter') || 'all') as TabFilter;
   const questionCount = parseInt(searchParams.get('count') || '0', 10);

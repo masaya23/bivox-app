@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import Image from 'next/image';
 import TutorialOverlay, { TutorialStepConfig } from '@/components/tutorial/TutorialOverlay';
 
@@ -11,20 +11,22 @@ const completeTutorial = () => {
   localStorage.setItem('tutorial_completed_at', new Date().toISOString());
 };
 
-// Web Speech APIで音声を再生
-const speakText = (text: string, lang: 'ja-JP' | 'en-US') => {
-  if (typeof window === 'undefined' || !window.speechSynthesis) return;
+// ローカルMP3ファイルで音声を再生
+let tutorialAudio: HTMLAudioElement | null = null;
+const speakText = (_text: string, lang: 'ja-JP' | 'en-US') => {
+  if (typeof window === 'undefined') return;
 
-  // 既存の発話をキャンセル
-  window.speechSynthesis.cancel();
+  // 既存の再生を停止
+  if (tutorialAudio) {
+    tutorialAudio.pause();
+    tutorialAudio = null;
+  }
 
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = lang;
-  utterance.rate = 0.9; // 少しゆっくり
-  utterance.pitch = 1;
-  utterance.volume = 1;
-
-  window.speechSynthesis.speak(utterance);
+  // チュートリアルで使う固定文のMP3 (unit1-p1-s1: "I am a student." / "私は学生です。")
+  const audioLang = lang === 'ja-JP' ? 'ja' : 'en';
+  const audio = new Audio(`/audio/${audioLang}/unit1-p1-s1.mp3`);
+  tutorialAudio = audio;
+  audio.play().catch(() => {});
 };
 
 // チュートリアルのフェーズ
@@ -371,7 +373,7 @@ function MockBasicModeUI({
 }
 
 export default function TutorialPage() {
-  const router = useRouter();
+  const router = useAppRouter();
   const [phase, setPhase] = useState<TutorialPhase>('intro');
   const [introStep, setIntroStep] = useState(0);
   const [spotlightStep, setSpotlightStep] = useState(0);

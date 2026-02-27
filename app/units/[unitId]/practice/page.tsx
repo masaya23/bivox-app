@@ -1,7 +1,8 @@
 'use client';
 
 import { Suspense } from 'react';
-import { useParams, useSearchParams, useRouter } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 import ShadowingTrainer from '@/components/train/ShadowingTrainer';
 import SpeakingTrainer from '@/components/train/SpeakingTrainer';
 import AIDrillTrainer from '@/components/train/AIDrillTrainer';
@@ -11,7 +12,7 @@ import type { Sentence } from '@/types/sentence';
 function UnitPracticePageContent() {
   const params = useParams();
   const searchParams = useSearchParams();
-  const router = useRouter();
+  const router = useAppRouter();
 
   const unitId = params.unitId as string;
   const questionCount = parseInt(searchParams.get('count') || '0', 10);

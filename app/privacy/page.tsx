@@ -1,9 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 
 export default function PrivacyPage() {
-  const router = useRouter();
+  const router = useAppRouter();
 
   return (
     <div className="min-h-screen bg-gray-50 max-w-[430px] mx-auto">
@@ -91,6 +91,7 @@ export default function PrivacyPage() {
               本アプリでは、以下の外部サービスを利用しています。
             </p>
             <ul className="text-sm text-gray-600 leading-relaxed list-disc list-inside space-y-1">
+              <li>Firebase Authentication（ユーザー認証）</li>
               <li>OpenAI API（AI機能）</li>
               <li>Google AdMob（広告配信、無料プランのみ）</li>
               <li>RevenueCat（課金管理）</li>
@@ -154,7 +155,7 @@ export default function PrivacyPage() {
 
           <div className="pt-4 border-t border-gray-200">
             <p className="text-xs text-gray-400 text-center">
-              最終更新日: 2024年1月1日
+              最終更新日: 2026年2月1日
             </p>
           </div>
         </div>

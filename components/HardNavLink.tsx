@@ -1,6 +1,7 @@
 'use client';
 
 import type { ReactNode, MouseEvent } from 'react';
+import { Capacitor } from '@capacitor/core';
 
 type HardNavLinkProps = {
   href: string;
@@ -8,6 +9,14 @@ type HardNavLinkProps = {
   children: ReactNode;
   onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 };
+
+const isNative = (() => {
+  try {
+    return typeof window !== 'undefined' && Capacitor.isNativePlatform();
+  } catch {
+    return false;
+  }
+})();
 
 /**
  * Next.jsのクライアント遷移（RSC fetch）が失敗する環境でも、
@@ -24,7 +33,11 @@ export default function HardNavLink({ href, className, children, onClick }: Hard
     if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) return;
 
     e.preventDefault();
-    window.location.assign(href);
+    // Capacitor環境では.html拡張子を付与して正しいファイルにルーティング
+    const targetHref = isNative && href !== '/' && !href.includes('.')
+      ? href + '.html'
+      : href;
+    window.location.assign(targetHref);
   };
 
   return (

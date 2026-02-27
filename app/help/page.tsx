@@ -364,7 +364,7 @@ export default function HelpPage() {
               </div>
               <ul className="text-xs text-gray-500 space-y-0.5 ml-3">
                 <li>・ Freeの全機能</li>
-                <li>・ スピーキングモード</li>
+                <li>・ スピーキングモード（50回/日）</li>
                 <li>・ ライフ無制限</li>
                 <li>・ 広告非表示</li>
                 <li>・ バックグラウンド再生</li>
@@ -377,8 +377,9 @@ export default function HelpPage() {
               </div>
               <ul className="text-xs text-gray-500 space-y-0.5 ml-3">
                 <li>・ Plusの全機能</li>
-                <li>・ AI応用ドリル</li>
-                <li>・ AIフリー英会話</li>
+                <li>・ スピーキングモード無制限</li>
+                <li>・ AI応用ドリル（100回/日）</li>
+                <li>・ AIフリー英会話（100回/日）</li>
               </ul>
             </div>
           </div>

@@ -34,13 +34,20 @@ const config: CapacitorConfig = {
 
   // プラグイン設定
   plugins: {
-    // スプラッシュスクリーン（後で追加）
+    // スプラッシュスクリーン
     SplashScreen: {
       launchShowDuration: 2000,
       launchAutoHide: true,
       backgroundColor: '#ffffff',
       androidScaleType: 'CENTER_CROP',
       showSpinner: false,
+    },
+    // AdMob設定
+    AdMob: {
+      appIdAndroid: process.env.ADMOB_APP_ID_ANDROID || 'ca-app-pub-3992336575084323~3030699737',
+      appIdIos: process.env.ADMOB_APP_ID_IOS || 'ca-app-pub-3992336575084323~9069494476',
+      // デバッグ時はテストデバイスIDを設定
+      initializeForTesting: true,
     },
   },
 };

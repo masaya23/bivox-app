@@ -218,7 +218,7 @@ export default function ShadowingTrainer({
 
     // 1. 日本語を読み上げ（完了まで待機）- sentenceIdを使用
     setPlaybackState('playing-japanese');
-    await speakJapanese(sentence.id, 'ja', undefined, sentence.jp);
+    await speakJapanese(sentence.id, 'ja', undefined, sentence.jp, currentRateRef.current);
     if (runIdRef.current !== runId) return;
 
     // ★ ライフ消費ポイント：日本語再生完了後、ポーズに切り替わる瞬間
@@ -843,7 +843,7 @@ export default function ShadowingTrainer({
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="font-semibold text-gray-700 text-sm">英語の再生速度</label>
+                  <label className="font-semibold text-gray-700 text-sm">音声の再生速度</label>
                   <span className="text-xs text-gray-500">{draftRate.toFixed(2)}x</span>
                 </div>
                 <div className="flex items-center gap-1 rounded-full bg-blue-50 p-1 border border-blue-100">

@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
+import { apiFetch } from '@/utils/api';
 
 interface LocalAudioOptions {
   lang?: 'ja' | 'en';
@@ -42,42 +43,50 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
   /**
    * Web Speech API (TTS) を使って読み上げる（フォールバック用）
    */
-  const speakWithTTS = useCallback((text: string, ttsLang: string, playbackRate?: number): Promise<void> => {
-    return new Promise((resolve) => {
-      if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-        resolve();
+  /**
+   * サーバーTTS APIで音声を生成・再生（Capacitor WebView対応）
+   */
+  const speakWithServerTTS = useCallback(async (text: string, ttsLang: string): Promise<void> => {
+    try {
+      const response = await apiFetch('/api/tts', {
+        method: 'POST',
+        body: JSON.stringify({ text, lang: ttsLang.startsWith('ja') ? 'ja' : 'en' }),
+      });
+
+      if (!response.ok) {
+        if (mountedRef.current) setIsSpeaking(false);
         return;
       }
 
-      // 既存の再生を停止
-      window.speechSynthesis.cancel();
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audioRef.current = audio;
 
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = ttsLang;
-      const defaultRate = ttsLang.startsWith('ja') ? 1.0 : 0.9;
-      utterance.rate = typeof playbackRate === 'number' ? playbackRate : defaultRate;
-
-      utterance.onend = () => {
-        if (mountedRef.current) {
-          setIsSpeaking(false);
-        }
-        resolve();
-      };
-
-      utterance.onerror = () => {
-        if (mountedRef.current) {
-          setIsSpeaking(false);
-        }
-        resolve();
-      };
-
-      if (mountedRef.current) {
-        setIsSpeaking(true);
-      }
-
-      window.speechSynthesis.speak(utterance);
-    });
-  }, []);
+      await new Promise<void>((resolve) => {
+        audio.onended = () => {
+          URL.revokeObjectURL(url);
+          if (mountedRef.current) setIsSpeaking(false);
+          cleanupAudio();
+          resolve();
+        };
+        audio.onerror = () => {
+          URL.revokeObjectURL(url);
+          if (mountedRef.current) setIsSpeaking(false);
+          cleanupAudio();
+          resolve();
+        };
+        audio.play().catch(() => {
+          URL.revokeObjectURL(url);
+          if (mountedRef.current) setIsSpeaking(false);
+          cleanupAudio();
+          resolve();
+        });
+      });
+    } catch {
+      if (mountedRef.current) setIsSpeaking(false);
+    }
+  }, [cleanupAudio]);
 
   /**
    * 音声を再生
@@ -164,7 +173,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
             // ローカルファイルがない場合はTTSにフォールバック
             cleanupAudio();
             if (fallbackText) {
-              await speakWithTTS(fallbackText, ttsLang, playbackRate);
+              await speakWithServerTTS(fallbackText, ttsLang);
             } else {
               if (mountedRef.current) {
                 setIsSpeaking(false);
@@ -207,7 +216,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
               // 再生失敗時もTTSにフォールバック
               cleanupAudio();
               if (fallbackText) {
-                await speakWithTTS(fallbackText, ttsLang, playbackRate);
+                await speakWithServerTTS(fallbackText, ttsLang);
               } else {
                 if (mountedRef.current) {
                   setIsSpeaking(false);
@@ -233,7 +242,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
         // エラー時もTTSにフォールバック
         cleanupAudio();
         if (fallbackText) {
-          await speakWithTTS(fallbackText, ttsLang, playbackRate);
+          await speakWithServerTTS(fallbackText, ttsLang);
         } else {
           if (mountedRef.current) {
             setIsSpeaking(false);
@@ -241,7 +250,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
         }
       }
     },
-    [lang, cleanupAudio, speakWithTTS]
+    [lang, cleanupAudio, speakWithServerTTS]
   );
 
   /**

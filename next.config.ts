@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 // Capacitorビルドかどうかを環境変数で判定
 const isCapacitorBuild = process.env.BUILD_TARGET === 'capacitor';
@@ -12,8 +13,10 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
 
-  // トレーリングスラッシュを有効化（Capacitorでのルーティング対応）
-  trailingSlash: true,
+  // トレーリングスラッシュ: Web版はtrue、Capacitorビルドはfalse
+  // Capacitorの内蔵WebViewサーバーはディレクトリのindex.htmlを解決できないため、
+  // Capacitorビルドではフラットなhtmlファイル（auth/register.html等）を生成する
+  trailingSlash: !isCapacitorBuild,
 
   // CORS設定（Capacitorアプリからのリクエストを許可）- 静的エクスポート時は無効
   ...(!isCapacitorBuild && {
@@ -34,7 +37,7 @@ const nextConfig: NextConfig = {
             },
             {
               key: 'Access-Control-Allow-Headers',
-              value: 'Content-Type, Authorization, X-Requested-With',
+              value: 'Content-Type, Authorization, X-Requested-With, X-User-Plan',
             },
             {
               key: 'Access-Control-Max-Age',
@@ -47,4 +50,17 @@ const nextConfig: NextConfig = {
   }),
 };
 
-export default nextConfig;
+// Sentry統合（Capacitorビルド時はスキップ）
+export default isCapacitorBuild
+  ? nextConfig
+  : withSentryConfig(nextConfig, {
+      // ソースマップをSentryにアップロード（ビルド時）
+      silent: true,
+      // 組織・プロジェクト設定（Sentry CLIで使用）
+      org: process.env.SENTRY_ORG,
+      project: process.env.SENTRY_PROJECT,
+      // ソースマップ設定
+      sourcemaps: {
+        deleteSourcemapsAfterUpload: true,
+      },
+    });

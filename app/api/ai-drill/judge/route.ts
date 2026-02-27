@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { checkRateLimit, RATE_LIMITS } from '@/utils/rateLimit';
 import { getClientId } from '@/utils/clientId';
+import { checkDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 import type { JudgeAnswerRequest, JudgeAnswerResponse } from '@/types/aiDrill';
 
 const openai = new OpenAI({
@@ -243,6 +244,21 @@ export async function POST(request: NextRequest) {
           resetTime: rateLimitResult.resetTime,
         },
         { status: 429 }
+      );
+    }
+
+    // 日次上限チェック
+    const plan = getPlanFromHeader(request.headers.get('x-user-plan'));
+    const dailyResult = checkDailyLimit(clientId, plan, DAILY_LIMITS.AI_DRILL_JUDGE);
+    if (!dailyResult.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: '本日の利用上限に達しました。明日またお試しください。',
+          dailyLimitReached: true,
+          resetTime: dailyResult.resetTime,
+        },
+        { status: 429, headers: dailyLimitHeaders(dailyResult) }
       );
     }
 

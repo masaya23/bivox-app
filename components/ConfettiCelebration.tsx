@@ -36,54 +36,64 @@ export default function ConfettiCelebration({
     // canvas要素を取得してconfettiインスタンスを作成
     if (!canvasRef.current) return;
 
-    const myConfetti = confetti.create(canvasRef.current, {
-      resize: true,
-      useWorker: true,
-    });
+    let myConfetti: confetti.CreateTypes;
+    try {
+      myConfetti = confetti.create(canvasRef.current, {
+        resize: true,
+        useWorker: false,
+      });
+    } catch {
+      // confetti初期化に失敗しても完了画面は表示する
+      return;
+    }
 
     // アプリのテーマカラー
     const colors = ['#06b6d4', '#ec4899', '#facc15', '#22c55e', '#8b5cf6', '#f97316'];
 
     // 左右から中央に向かって発射
     const fireConfetti = () => {
-      // 左側から
-      myConfetti({
-        particleCount: 50,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0, y: 0.6 },
-        colors: colors,
-        shapes: ['square', 'circle'],
-        scalar: 1.2,
-        drift: 0,
-        gravity: 1.2,
-      });
+      try {
+        // 左側から
+        myConfetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0, y: 0.6 },
+          colors: colors,
+          shapes: ['square', 'circle'],
+          scalar: 1.2,
+          drift: 0,
+          gravity: 1.2,
+        });
 
-      // 右側から
-      myConfetti({
-        particleCount: 50,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1, y: 0.6 },
-        colors: colors,
-        shapes: ['square', 'circle'],
-        scalar: 1.2,
-        drift: 0,
-        gravity: 1.2,
-      });
+        // 右側から
+        myConfetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1, y: 0.6 },
+          colors: colors,
+          shapes: ['square', 'circle'],
+          scalar: 1.2,
+          drift: 0,
+          gravity: 1.2,
+        });
 
-      // 中央上部から
-      myConfetti({
-        particleCount: 80,
-        angle: 90,
-        spread: 100,
-        origin: { x: 0.5, y: 0.3 },
-        colors: colors,
-        shapes: ['square', 'circle'],
-        scalar: 1.5,
-        drift: 0,
-        gravity: 1,
-      });
+        // 中央上部から
+        myConfetti({
+          particleCount: 80,
+          angle: 90,
+          spread: 100,
+          origin: { x: 0.5, y: 0.3 },
+          colors: colors,
+          shapes: ['square', 'circle'],
+          scalar: 1.5,
+          drift: 0,
+          gravity: 1,
+        });
+      } catch {
+        // confetti発射に失敗しても無視
+      }
     };
 
     // 初回発射
@@ -96,22 +106,26 @@ export default function ConfettiCelebration({
 
     // 0.6秒後に3回目（少し控えめに）
     const timer2 = setTimeout(() => {
-      myConfetti({
-        particleCount: 30,
-        angle: 90,
-        spread: 120,
-        origin: { x: 0.5, y: 0.4 },
-        colors: colors,
-        shapes: ['square', 'circle'],
-        scalar: 1,
-        gravity: 1.2,
-      });
+      try {
+        myConfetti({
+          particleCount: 30,
+          angle: 90,
+          spread: 120,
+          origin: { x: 0.5, y: 0.4 },
+          colors: colors,
+          shapes: ['square', 'circle'],
+          scalar: 1,
+          gravity: 1.2,
+        });
+      } catch {
+        // ignore
+      }
     }, 600);
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
-      myConfetti.reset();
+      try { myConfetti.reset(); } catch { /* ignore */ }
     };
   }, [show]);
 
