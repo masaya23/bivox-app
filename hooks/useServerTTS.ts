@@ -8,22 +8,39 @@ import { apiFetch } from '@/utils/api';
  * Capacitor WebViewでspeechSynthesisが動作しない問題を回避
  *
  * - サーバーTTS API（OpenAI）で音声を生成・再生
- * - API失敗時はspeechSynthesisにフォールバック
+ * - 重複呼び出し防止（speakingLock）
+ * - Capacitor WebViewはデフォルトでautoplayを許可するためunlock不要
  */
 export function useServerTTS() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const mountedRef = useRef(true);
+  const speakingLockRef = useRef(false);
+  const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     mountedRef.current = true;
     return () => {
       mountedRef.current = false;
-      stop();
+      // クリーンアップ
+      if (abortRef.current) {
+        abortRef.current.abort();
+        abortRef.current = null;
+      }
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+        audioRef.current = null;
+      }
     };
   }, []);
 
   const stop = useCallback(() => {
+    // 進行中のAPIリクエストをキャンセル
+    if (abortRef.current) {
+      abortRef.current.abort();
+      abortRef.current = null;
+    }
     if (audioRef.current) {
       audioRef.current.onended = null;
       audioRef.current.onerror = null;
@@ -31,55 +48,31 @@ export function useServerTTS() {
       audioRef.current.src = '';
       audioRef.current = null;
     }
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
+    speakingLockRef.current = false;
     if (mountedRef.current) {
       setIsSpeaking(false);
     }
   }, []);
 
   /**
-   * speechSynthesisで読み上げる（フォールバック用）
-   */
-  const speakWithBrowserTTS = useCallback((text: string, lang: string): Promise<void> => {
-    return new Promise((resolve) => {
-      if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-        resolve();
-        return;
-      }
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang;
-      utterance.rate = 0.9;
-
-      let settled = false;
-      const finish = () => {
-        if (settled) return;
-        settled = true;
-        clearTimeout(timer);
-        if (mountedRef.current) setIsSpeaking(false);
-        resolve();
-      };
-
-      utterance.onend = finish;
-      utterance.onerror = finish;
-      window.speechSynthesis.speak(utterance);
-
-      // 安全タイムアウト（10秒）
-      const timer = setTimeout(finish, 10000);
-    });
-  }, []);
-
-  /**
    * テキストを読み上げる
-   * サーバーTTS APIを優先し、失敗時はspeechSynthesisにフォールバック
+   * サーバーTTS APIで音声を生成し、Audioで再生
+   * Promiseは再生完了（またはエラー）時にresolveする
    */
-  const speak = useCallback(async (text: string, lang: string = 'en-US') => {
+  const speak = useCallback(async (text: string, lang: string = 'en-US'): Promise<void> => {
     if (!text) return;
 
+    // 前回の再生を停止
     stop();
+
+    // 重複防止ロック
+    if (speakingLockRef.current) return;
+    speakingLockRef.current = true;
+
     if (mountedRef.current) setIsSpeaking(true);
+
+    const abortController = new AbortController();
+    abortRef.current = abortController;
 
     try {
       const response = await apiFetch('/api/tts', {
@@ -88,37 +81,40 @@ export function useServerTTS() {
           text,
           lang: lang.startsWith('ja') ? 'ja' : 'en',
         }),
+        signal: abortController.signal,
       });
 
+      if (abortController.signal.aborted) return;
       if (!response.ok) throw new Error('TTS API error');
 
       const blob = await response.blob();
+      if (abortController.signal.aborted) return;
+
       const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
       audioRef.current = audio;
 
       await new Promise<void>((resolve) => {
-        audio.onended = () => {
+        const cleanup = () => {
           URL.revokeObjectURL(url);
+          speakingLockRef.current = false;
           if (mountedRef.current) setIsSpeaking(false);
           resolve();
         };
-        audio.onerror = () => {
-          URL.revokeObjectURL(url);
-          if (mountedRef.current) setIsSpeaking(false);
-          resolve();
-        };
+
+        audio.onended = cleanup;
+        audio.onerror = cleanup;
+
         audio.play().catch(() => {
-          URL.revokeObjectURL(url);
-          if (mountedRef.current) setIsSpeaking(false);
-          resolve();
+          cleanup();
         });
       });
-    } catch {
-      // サーバーTTS失敗時はブラウザTTSにフォールバック
-      await speakWithBrowserTTS(text, lang);
+    } catch (err: any) {
+      if (err?.name === 'AbortError') return;
+      speakingLockRef.current = false;
+      if (mountedRef.current) setIsSpeaking(false);
     }
-  }, [stop, speakWithBrowserTTS]);
+  }, [stop]);
 
   return { speak, stop, isSpeaking };
 }

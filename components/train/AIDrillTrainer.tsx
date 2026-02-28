@@ -214,6 +214,10 @@ export default function AIDrillTrainer({
   const evaluatingRef = useRef(false);
   // evaluateNoSpeech用のAbortController
   const evaluateAbortRef = useRef<AbortController | null>(null);
+  // TTS再生中フラグ（refで同期的にチェック）
+  const ttsSpeakingRef = useRef(false);
+  // 無回答タイムアウト
+  const noSpeechTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // serverTTSの関数をrefで保持（依存チェーン防止）
   const serverTTSSpeakRef = useRef(serverTTS.speak);
@@ -223,6 +227,11 @@ export default function AIDrillTrainer({
     serverTTSStopRef.current = serverTTS.stop;
   }, [serverTTS.speak, serverTTS.stop]);
 
+  // TTS再生状態をrefに同期（タイマー/コールバック内で同期的にチェック用）
+  useEffect(() => {
+    ttsSpeakingRef.current = isTTSSpeaking;
+  }, [isTTSSpeaking]);
+
   // phase変更時にrefも同期
   const setPhaseWithRef = useCallback((newPhase: AIDrillPhase) => {
     phaseRef.current = newPhase;
@@ -230,13 +239,13 @@ export default function AIDrillTrainer({
   }, []);
 
   // サーバーTTS APIで日本語を読み上げ（refを使い依存を安定化）
-  const speakJapanese = useCallback((text: string) => {
-    serverTTSSpeakRef.current(text, 'ja-JP');
+  const speakJapanese = useCallback((text: string): Promise<void> => {
+    return serverTTSSpeakRef.current(text, 'ja-JP');
   }, []);
 
   // サーバーTTS APIで英語を読み上げ（refを使い依存を安定化）
-  const speakEnglish = useCallback((text: string) => {
-    serverTTSSpeakRef.current(text, 'en-US');
+  const speakEnglish = useCallback((text: string): Promise<void> => {
+    return serverTTSSpeakRef.current(text, 'en-US');
   }, []);
 
   // 任意のテキストをTTSで読み上げ（完了画面の再生ボタン用）
@@ -323,10 +332,16 @@ export default function AIDrillTrainer({
       if (silenceTimerRef.current) {
         clearTimeout(silenceTimerRef.current);
       }
+      // 音声入力があったらnoSpeechTimeoutをキャンセル（発話中にタイムアウトしない）
+      if (noSpeechTimeoutRef.current) {
+        clearTimeout(noSpeechTimeoutRef.current);
+        noSpeechTimeoutRef.current = null;
+      }
       silenceTimerRef.current = setTimeout(() => {
+        // 2秒間の無音で自動停止
         intentionalStopRef.current = true;
         try { recognitionRef.current?.stop(); } catch { /* ignore */ }
-      }, 1500);
+      }, 2000);
     };
 
     recognition.onerror = (event: any) => {
@@ -352,25 +367,36 @@ export default function AIDrillTrainer({
     };
 
     recognition.onend = () => {
-      if (!intentionalStopRef.current && autoRestartCountRef.current < 3) {
+      // TTS再生中に認識が終了した場合は再起動せず静かに終了
+      if (ttsSpeakingRef.current) {
+        setIsListening(false);
+        return;
+      }
+
+      if (!intentionalStopRef.current && autoRestartCountRef.current < 2) {
         const sessionText = currentSessionTextRef.current.trim();
         if (sessionText) {
           accumulatedTextRef.current = (accumulatedTextRef.current + sessionText).trim() + ' ';
         }
         currentSessionTextRef.current = '';
         autoRestartCountRef.current++;
-        try {
-          recognitionRef.current?.start();
-        } catch {
-          setIsListening(false);
-        }
+        // 少し待ってから再起動（連続起動を防止）
+        setTimeout(() => {
+          if (phaseRef.current !== 'question' && phaseRef.current !== 'recording') return;
+          if (ttsSpeakingRef.current) { setIsListening(false); return; }
+          try {
+            recognitionRef.current?.start();
+          } catch {
+            setIsListening(false);
+          }
+        }, 300);
       } else {
         setIsListening(false);
         if (silenceTimerRef.current) {
           clearTimeout(silenceTimerRef.current);
           silenceTimerRef.current = null;
         }
-        if (autoRestartCountRef.current >= 3 && !accumulatedTextRef.current.trim() && !currentSessionTextRef.current.trim()) {
+        if (!accumulatedTextRef.current.trim() && !currentSessionTextRef.current.trim()) {
           setIsNoSpeech(true);
         }
       }
@@ -399,6 +425,10 @@ export default function AIDrillTrainer({
       clearTimeout(recordingTimerRef.current);
       recordingTimerRef.current = null;
     }
+    if (noSpeechTimeoutRef.current) {
+      clearTimeout(noSpeechTimeoutRef.current);
+      noSpeechTimeoutRef.current = null;
+    }
   }, []);
 
   const startQuestion = useCallback((question: { questionJa: string; expectedEn: string }) => {
@@ -424,20 +454,40 @@ export default function AIDrillTrainer({
     setCurrentQuestion(question);
     setPhaseWithRef('question');
 
-    questionTimerRef.current = setTimeout(() => {
+    // 日本語TTS再生完了後にマイク開始
+    questionTimerRef.current = setTimeout(async () => {
       // タイマー発火時にphaseが変わっていたら何もしない
       if (phaseRef.current !== 'question') return;
-      speakJapanese(question.questionJa);
-      recordingTimerRef.current = setTimeout(() => {
-        // 録音開始時もphaseを確認
-        if (phaseRef.current !== 'question') return;
-        if (recognitionRef.current) {
-          resetRecognitionRefs();
-          try {
-            recognitionRef.current.start();
-          } catch { /* ignore */ }
-        }
-      }, 2000);
+      try {
+        await speakJapanese(question.questionJa);
+      } catch { /* ignore TTS errors */ }
+
+      // TTS再生完了を確実に待つ（isSpeakingがfalseになるまで）
+      let waitCount = 0;
+      while (ttsSpeakingRef.current && waitCount < 50) {
+        await new Promise(r => setTimeout(r, 100));
+        waitCount++;
+      }
+
+      // TTS再生完了後、phaseがまだquestionならマイク開始
+      if (phaseRef.current !== 'question') return;
+      if (recognitionRef.current) {
+        resetRecognitionRefs();
+        try {
+          recognitionRef.current.start();
+        } catch { /* ignore */ }
+
+        // 無回答タイムアウト: 8秒間音声入力がなければ自動でisNoSpeechをセット
+        noSpeechTimeoutRef.current = setTimeout(() => {
+          if (phaseRef.current !== 'question' && phaseRef.current !== 'recording') return;
+          if (!accumulatedTextRef.current.trim() && !currentSessionTextRef.current.trim()) {
+            intentionalStopRef.current = true;
+            try { recognitionRef.current?.stop(); } catch { /* ignore */ }
+            setIsListening(false);
+            setIsNoSpeech(true);
+          }
+        }, 8000);
+      }
     }, 500);
   }, [speakJapanese, clearQuestionTimers]);
 
@@ -464,31 +514,98 @@ export default function AIDrillTrainer({
         }),
       });
 
-      const data = await response.json();
-      if (!data.success) {
-        throw new Error(data.error || '問題生成に失敗しました');
+      // エラーレスポンス（JSON）の場合
+      const contentType = response.headers.get('content-type') || '';
+      if (!response.ok || contentType.includes('application/json')) {
+        const data = await response.json();
+        if (!data.success) {
+          throw new Error(data.error || '問題生成に失敗しました');
+        }
+        // 非ストリーミングフォールバック
+        const questions = Array.isArray(data) ? data : data.questions;
+        if (!questions || questions.length === 0) {
+          throw new Error('問題生成に失敗しました');
+        }
+        const normalizedQuestions = questions.map((q: { japanese: string; english: string }) => ({
+          questionJa: q.japanese,
+          expectedEn: q.english,
+        }));
+        setQuestionsQueue(normalizedQuestions);
+        setSession(prev => ({
+          ...prev,
+          totalQuestions: normalizedQuestions.length || TOTAL_QUESTIONS,
+          currentIndex: 0,
+          history: [],
+        }));
+        startTimeRef.current = Date.now();
+        startQuestion(normalizedQuestions[0]);
+        return;
       }
 
-      const questions = Array.isArray(data) ? data : data.questions;
+      // ストリーミングレスポンス（NDJSON）の場合
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('ストリーム読み取りに失敗しました');
 
-      if (!questions || questions.length === 0) {
-        throw new Error(data.error || '問題生成に失敗しました');
+      const decoder = new TextDecoder();
+      let buffer = '';
+      const questions: { questionJa: string; expectedEn: string }[] = [];
+      let firstQuestionStarted = false;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          try {
+            const q = JSON.parse(line);
+            if (q.error) throw new Error(q.error);
+            if (q.japanese && q.english) {
+              questions.push({ questionJa: q.japanese, expectedEn: q.english });
+
+              if (!firstQuestionStarted) {
+                // 1問目到着: 即座に出題開始
+                firstQuestionStarted = true;
+                setQuestionsQueue([...questions]);
+                setSession(prev => ({
+                  ...prev,
+                  totalQuestions: TOTAL_QUESTIONS,
+                  currentIndex: 0,
+                  history: [],
+                }));
+                startTimeRef.current = Date.now();
+                startQuestion(questions[0]);
+              } else {
+                // 2問目以降: キューを更新
+                setQuestionsQueue([...questions]);
+              }
+            }
+          } catch (e) {
+            if (e instanceof Error && e.message !== '' && !e.message.includes('JSON')) {
+              throw e;
+            }
+          }
+        }
       }
 
-      const normalizedQuestions = questions.map((q: { japanese: string; english: string }) => ({
-        questionJa: q.japanese,
-        expectedEn: q.english,
-      }));
-
-      setQuestionsQueue(normalizedQuestions);
-      setSession(prev => ({
-        ...prev,
-        totalQuestions: normalizedQuestions.length || TOTAL_QUESTIONS,
-        currentIndex: 0,
-        history: [],
-      }));
-      startTimeRef.current = Date.now();
-      startQuestion(normalizedQuestions[0]);
+      // 全問到着後、totalQuestionsを確定
+      if (questions.length > 0) {
+        setQuestionsQueue([...questions]);
+        setSession(prev => ({
+          ...prev,
+          totalQuestions: questions.length,
+        }));
+        if (!firstQuestionStarted) {
+          startTimeRef.current = Date.now();
+          startQuestion(questions[0]);
+        }
+      } else {
+        throw new Error('問題生成に失敗しました');
+      }
     } catch (err) {
       console.error('問題生成エラー:', err);
       setError(err instanceof Error ? err.message : '問題生成に失敗しました');
@@ -620,7 +737,7 @@ export default function AIDrillTrainer({
         // 初回 → 不正解として保存
         const currentResult: QuestionResult = {
           questionJa: currentQuestion.questionJa,
-          correctEn: evaluation.correction || currentQuestion.expectedEn,
+          correctEn: currentQuestion.expectedEn,
           userAnswer: '（未回答）',
           aiEvaluation: evaluation,
           initialStatus: 'incorrect',
@@ -634,6 +751,9 @@ export default function AIDrillTrainer({
 
       setIsAiLoading(false);
       evaluatingRef.current = false;
+      // 無回答時も結果画面に遷移
+      setPhaseWithRef('result');
+      setJudgeResult({ isCorrect: false, correctEn: currentQuestion.expectedEn, explanation: '' });
     };
 
     evaluateNoSpeech();
@@ -710,7 +830,8 @@ export default function AIDrillTrainer({
 
       const evaluation: AIEvaluation = data.evaluation;
       const isCorrect = evaluation?.isCorrect ?? (evaluation?.score ?? 0) >= 70;
-      const correctEn = evaluation?.correction || currentQuestion.expectedEn;
+      // 正解文は常に問題データのexpectedEnを使用（AI生成の表記揺れを防止）
+      const correctEn = currentQuestion.expectedEn;
       const explanation = evaluation?.grammarRule || evaluation?.mistakeAnalysis || evaluation?.feedback || '';
 
       const result = {
@@ -821,18 +942,29 @@ export default function AIDrillTrainer({
     setPhaseWithRef('question');
 
     if (currentQuestion) {
-      questionTimerRef.current = setTimeout(() => {
+      questionTimerRef.current = setTimeout(async () => {
         if (phaseRef.current !== 'question') return;
-        speakJapanese(currentQuestion.questionJa);
-        recordingTimerRef.current = setTimeout(() => {
-          if (phaseRef.current !== 'question') return;
-          if (recognitionRef.current) {
-            resetRecognitionRefs();
-            try {
-              recognitionRef.current.start();
-            } catch { /* ignore */ }
-          }
-        }, 2000);
+        try {
+          await speakJapanese(currentQuestion.questionJa);
+        } catch { /* ignore */ }
+        // TTS完了後にマイク開始
+        if (phaseRef.current !== 'question') return;
+        if (recognitionRef.current) {
+          resetRecognitionRefs();
+          try {
+            recognitionRef.current.start();
+          } catch { /* ignore */ }
+          // 無回答タイムアウト
+          noSpeechTimeoutRef.current = setTimeout(() => {
+            if (phaseRef.current !== 'question' && phaseRef.current !== 'recording') return;
+            if (!accumulatedTextRef.current.trim() && !currentSessionTextRef.current.trim()) {
+              intentionalStopRef.current = true;
+              try { recognitionRef.current?.stop(); } catch { /* ignore */ }
+              setIsListening(false);
+              setIsNoSpeech(true);
+            }
+          }, 8000);
+        }
       }, 500);
     }
   };
@@ -938,7 +1070,7 @@ export default function AIDrillTrainer({
     const incorrectQuestions = incorrectResults.map((r, idx) => ({
       id: `q${idx + 1}`,
       questionJa: r.questionJa,
-      correctEn: r.finalAiEvaluation?.correction || r.aiEvaluation?.correction || r.correctEn,
+      correctEn: r.correctEn,
       userAnswerEn: r.finalUserAnswer || r.userAnswer,
       isCorrect: r.finalStatus === 'correct',
       explanation: r.finalAiEvaluation?.feedback || r.aiEvaluation?.feedback || '',
@@ -1054,7 +1186,7 @@ export default function AIDrillTrainer({
   const incorrectCount = session.history.filter(q => !q.isCorrect).length;
   const renderInMobileFrame = (content: React.ReactNode) => (
     <div className="min-h-screen bg-gray-100 flex justify-center">
-      <main className="w-full max-w-md bg-white min-h-screen shadow-xl relative overflow-hidden flex flex-col">
+      <main className="w-full max-w-md bg-white min-h-screen shadow-xl relative overflow-y-auto flex flex-col">
         {content}
       </main>
     </div>
@@ -1388,28 +1520,6 @@ export default function AIDrillTrainer({
                                 {displayEvaluation?.correction || result.correctEn}
                               </p>
                             </div>
-                            {displayEvaluation?.modelAnswers && displayEvaluation.modelAnswers.length > 1 && (
-                              <div className="bg-blue-50 rounded-xl p-3">
-                                <span className="text-xs text-blue-600 font-bold mb-1 block">別の言い方</span>
-                                <ul className="space-y-1">
-                                  {displayEvaluation.modelAnswers.slice(1).map((answer, i) => (
-                                    <li key={i} className="flex items-center justify-between">
-                                      <span className="text-gray-700 text-sm">• {answer}</span>
-                                      <button
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          speakText(answer, 'en-US');
-                                        }}
-                                        disabled={isTTSSpeaking}
-                                        className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 disabled:opacity-50 text-xs"
-                                      >
-                                        ▶
-                                      </button>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
                             {displayEvaluation?.feedback && !isExcellent && !isRecovered && (
                               <div className="bg-gray-50 rounded-xl p-3 border border-gray-200">
                                 <p className="text-xs text-gray-700 font-bold mb-1">フィードバック</p>
@@ -1580,11 +1690,15 @@ export default function AIDrillTrainer({
   // 通常モード
   const displayQuestion = currentQuestion?.questionJa;
   const expectedAnswer = currentQuestion?.expectedEn;
-  const modelAnswersList = aiEvaluation?.modelAnswers && aiEvaluation.modelAnswers.length > 0
-    ? aiEvaluation.modelAnswers
-    : judgeResult?.correctEn
-      ? [judgeResult.correctEn]
-      : [];
+  // 回答例: expectedEnを常に1つ目に配置、AI生成の別表現は重複除外して2つ目以降に
+  const modelAnswersList = (() => {
+    const base = expectedAnswer || judgeResult?.correctEn || '';
+    if (!base) return [];
+    const normalize = (s: string) => s.toLowerCase().replace(/[.?!,;:'"]/g, '').replace(/\s+/g, ' ').trim();
+    const baseNorm = normalize(base);
+    const extras = (aiEvaluation?.modelAnswers || []).filter(a => normalize(a) !== baseNorm);
+    return [base, ...extras];
+  })();
   const correctionTarget = aiEvaluation?.correctedUserAnswer || aiEvaluation?.correction || judgeResult?.correctEn || '';
   const wordDiff = getWordDiff(editableText || '', correctionTarget);
   const hasNoSpeechExplanation = Boolean(
@@ -1767,6 +1881,13 @@ export default function AIDrillTrainer({
               <div className="text-center mb-6">
                 <p className="text-sm text-gray-500 mb-2">問題</p>
                 <h2 className="text-3xl font-bold text-gray-800">{displayQuestion}</h2>
+                <button
+                  onClick={() => displayQuestion && speakJapanese(displayQuestion)}
+                  className="mt-3 inline-flex items-center justify-center gap-2 py-2 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all shadow-md text-sm"
+                >
+                  <span>🔊</span>
+                  <span>日本語を聞く</span>
+                </button>
               </div>
 
               <div className="bg-gradient-to-b from-purple-50 to-pink-50 rounded-3xl shadow-lg p-6 mb-4">
@@ -1863,6 +1984,19 @@ export default function AIDrillTrainer({
           {/* 結果表示 */}
           {phase === 'result' && judgeResult && (
             <>
+              {/* 問題文と日本語を聞くボタン */}
+              <div className="text-center mb-4">
+                <p className="text-sm text-gray-500 mb-2">問題</p>
+                <h2 className="text-2xl font-bold text-gray-800 mb-3">{displayQuestion}</h2>
+                <button
+                  onClick={() => displayQuestion && speakJapanese(displayQuestion)}
+                  className="inline-flex items-center justify-center gap-2 py-2 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all shadow-md text-sm"
+                >
+                  <span>🔊</span>
+                  <span>日本語を聞く</span>
+                </button>
+              </div>
+
               {/* 回答例カルーセル */}
               {modelAnswersList.length > 0 && (
                 <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg p-4 mb-3 border border-blue-100">
@@ -1962,7 +2096,7 @@ export default function AIDrillTrainer({
                   <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-3">
                     <span className="text-xs text-green-600 font-bold">正解</span>
                     <p className="mt-1 text-gray-800 font-bold text-lg">
-                      {aiEvaluation?.correction || expectedAnswer}
+                      {expectedAnswer}
                     </p>
                   </div>
 

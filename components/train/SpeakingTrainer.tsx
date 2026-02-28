@@ -363,10 +363,10 @@ export default function SpeakingTrainer({
         clearTimeout(silenceTimerRef.current);
       }
       silenceTimerRef.current = setTimeout(() => {
-        // 1.5秒の無音で自動停止
+        // 2秒の無音で自動停止
         intentionalStopRef.current = true;
         try { recognitionRef.current?.stop(); } catch { /* ignore */ }
-      }, 1500);
+      }, 2000);
     };
 
     recognition.onerror = (event: any) => {
@@ -393,27 +393,36 @@ export default function SpeakingTrainer({
     };
 
     recognition.onend = () => {
-      if (!intentionalStopRef.current && autoRestartCountRef.current < 3) {
-        // 意図的でない停止 → 自動再起動
+      // TTS再生中に認識が終了した場合は再起動せず静かに終了
+      if (isPlayingJapanese || isPlayingEnglish || isTTSSpeaking) {
+        setIsListening(false);
+        return;
+      }
+
+      if (!intentionalStopRef.current && autoRestartCountRef.current < 2) {
+        // 意図的でない停止 → 自動再起動（遅延付きで連続起動防止）
         const sessionText = currentSessionTextRef.current.trim();
         if (sessionText) {
           accumulatedTextRef.current = (accumulatedTextRef.current + sessionText).trim() + ' ';
         }
         currentSessionTextRef.current = '';
         autoRestartCountRef.current++;
-        try {
-          recognitionRef.current?.start();
-        } catch {
-          setIsListening(false);
-        }
+        setTimeout(() => {
+          if (isPlayingJapanese || isPlayingEnglish || isTTSSpeaking) { setIsListening(false); return; }
+          try {
+            recognitionRef.current?.start();
+          } catch {
+            setIsListening(false);
+          }
+        }, 300);
       } else {
         setIsListening(false);
         if (silenceTimerRef.current) {
           clearTimeout(silenceTimerRef.current);
           silenceTimerRef.current = null;
         }
-        // 再起動上限に達し、音声未検出ならno-speech扱い
-        if (autoRestartCountRef.current >= 3 && !accumulatedTextRef.current.trim() && !currentSessionTextRef.current.trim()) {
+        // 音声未検出ならno-speech扱い
+        if (!accumulatedTextRef.current.trim() && !currentSessionTextRef.current.trim()) {
           setIsNoSpeech(true);
         }
       }

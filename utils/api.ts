@@ -28,6 +28,25 @@ export function getApiUserPlan() {
   return _userPlan;
 }
 
+/**
+ * 現在のユーザープランを取得（マスターモード判定を含む）
+ * localStorageのマスターモードフラグを直接チェックすることで
+ * Reactのステート更新タイミングに依存しない
+ */
+function getEffectiveUserPlan(): string {
+  if (_userPlan === 'master') return 'master';
+  // フォールバック: localStorageから直接マスターモードを確認
+  if (typeof window !== 'undefined') {
+    try {
+      const isMaster = localStorage.getItem('englishapp_master_mode');
+      if (isMaster === 'true') return 'master';
+    } catch {
+      // ignore
+    }
+  }
+  return _userPlan;
+}
+
 // 日次上限アラートのデバウンス用タイムスタンプ
 let _lastDailyLimitAlert = 0;
 
@@ -88,12 +107,13 @@ export async function apiCall<T>(
   options: RequestInit = {}
 ): Promise<T> {
   const url = getApiUrl(endpoint);
+  const effectivePlan = getEffectiveUserPlan();
 
   const response = await fetch(url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      'X-User-Plan': _userPlan,
+      'X-User-Plan': effectivePlan,
       ...options.headers,
     },
   });
@@ -125,12 +145,13 @@ export async function apiFetch(
   options: RequestInit = {}
 ): Promise<Response> {
   const url = getApiUrl(endpoint);
+  const effectivePlan = getEffectiveUserPlan();
 
   const response = await fetch(url, {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      'X-User-Plan': _userPlan,
+      'X-User-Plan': effectivePlan,
       ...options.headers,
     },
   });

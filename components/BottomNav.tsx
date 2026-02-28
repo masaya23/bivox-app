@@ -22,9 +22,9 @@ const NAV_COLORS = {
 function IconHome({ active }: { active: boolean }) {
   const color = active ? NAV_COLORS.active : NAV_COLORS.inactive;
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill={active ? color : 'none'} stroke={color} strokeWidth={active ? 1.5 : 1.8} strokeLinecap="round" strokeLinejoin="round">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={active ? 2.4 : 1.8} strokeLinecap="round" strokeLinejoin="round">
       <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" />
-      {!active && <path d="M9 21V12h6v9" />}
+      <path d="M9 21V12h6v9" />
     </svg>
   );
 }

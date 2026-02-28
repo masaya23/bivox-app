@@ -28,6 +28,53 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+/**
+ * ストリーミングバッファからJSONオブジェクトを抽出
+ * { "japanese": "...", "english": "..." } を検出して返す
+ */
+function extractQuestions(buffer: string, startFrom: number): { found: { japanese: string; english: string }[]; lastEnd: number } {
+  const found: { japanese: string; english: string }[] = [];
+  let pos = startFrom;
+
+  while (pos < buffer.length) {
+    const objStart = buffer.indexOf('{', pos);
+    if (objStart === -1) break;
+
+    // 対応する閉じブレースを探す（文字列内のブレースを無視）
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+    let i = objStart;
+
+    for (; i < buffer.length; i++) {
+      const ch = buffer[i];
+      if (escaped) { escaped = false; continue; }
+      if (ch === '\\') { escaped = true; continue; }
+      if (ch === '"') { inString = !inString; continue; }
+      if (inString) continue;
+      if (ch === '{') depth++;
+      if (ch === '}') { depth--; if (depth === 0) break; }
+    }
+
+    if (depth !== 0) break; // 未完了オブジェクト
+
+    const objStr = buffer.substring(objStart, i + 1);
+    try {
+      const obj = JSON.parse(objStr);
+      if (obj.japanese && obj.english) {
+        found.push({ japanese: obj.japanese, english: obj.english });
+        pos = i + 1;
+      } else {
+        pos = objStart + 1;
+      }
+    } catch {
+      pos = objStart + 1;
+    }
+  }
+
+  return { found, lastEnd: pos };
+}
+
 export async function POST(request: NextRequest) {
   try {
     // レートリミットチェック
@@ -75,89 +122,94 @@ export async function POST(request: NextRequest) {
 
     // サンプル文をフォーマット
     const samplesText = samples
-      .map((s: { jp: string; en: string }, i: number) => `例${i + 1}: ${s.jp} → ${s.en}`)
+      .map((s: { jp: string; en: string }, i: number) => `${s.en} → ${s.jp}`)
       .join('\n');
 
     const grammarContext = grammarTags.length > 0
-      ? `対象文法: ${grammarTags.join(', ')}`
+      ? `Grammar tags: ${grammarTags.join(', ')}`
       : '';
 
     const excludeContext = excludeQuestions && excludeQuestions.length > 0
-      ? `\n\n絶対に以下の問題と同じ内容・意味の問題は作成しないでください（既に出題済み）:\n${excludeQuestions.slice(0, 10).map((q: string) => `- ${q}`).join('\n')}`
+      ? `\nDo NOT generate questions with the same meaning as these (already used):\n${excludeQuestions.slice(0, 10).map((q: string) => `- ${q}`).join('\n')}`
       : '';
 
     const selectedNames = getRandomNames(4);
 
-    const completion = await openai.chat.completions.create({
+    // ストリーミングでOpenAI APIを呼び出し
+    const stream = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
+      stream: true,
       messages: [
         {
           role: 'system',
-          content: `You are an expert English teacher creating a practice drill.
+          content: `You create English practice drills. Grammar topic: "${partTitle}".
 
-# Task
-Create **10 unique practice questions** (Japanese to English translation) based on the grammar topic: "${partTitle}".
-Output must be a JSON object with a key "questions" containing an array of 10 objects.
+# English-First Process
+1. Write English sentence using the "${partTitle}" grammar pattern.
+2. Translate to natural Japanese.
 
-# Balance & Diversity Rules (CRITICAL)
-1. Sentence Type Balance:
-   - Analyze the "${partTitle}".
-   - IF the grammar allows different types (e.g., "be verb", "past tense", "can"), you MUST generate a mix:
-     - Affirmative (+): 3-4 questions
-     - Negative (-): 3-4 questions
-     - Interrogative (?): 3-4 questions
-   - IF the grammar is specific (e.g., "Where", "What", "How many"), force that sentence type but vary the rest.
-
-2. Subject Diversity:
-   - Do NOT use "You" or "I" for more than 2 questions each.
-   - You MUST use a mix of pronouns: "He", "She", "We", "They", "It".
-   - You MUST use specific names/nouns for at least 3 questions. Use these names: [${selectedNames}].
-
-3. No Duplication:
-   - Do not repeat the same verb or adjective more than twice.
-   - Ensure every Japanese sentence is distinct.
-
+# Rules
+- 10 questions: mix affirmative/negative/interrogative (3-4 each if grammar allows)
+- Vary subjects: He, She, We, They, It + names: [${selectedNames}]. Max 2 uses of "I"/"You".
+- No repeated verbs/adjectives more than twice.
+- English must match the "${partTitle}" pattern exactly. No advanced grammar.
 ${grammarContext}${excludeContext}
 
-# Sample Style (Follow this difficulty level)
+# Samples (follow this level)
 ${samplesText}
 
-# Output Format (JSON Only)
-{
-  "questions": [
-    { "japanese": "...", "english": "..." },
-    ...
-  ]
-}`,
+# Output: JSON only
+{"questions":[{"japanese":"...","english":"..."},...]}`
         },
         {
           role: 'user',
-          content: 'Generate 10 questions now.',
+          content: 'Generate 10 questions.',
         },
       ],
       temperature: 0.7,
-      max_tokens: 900,
-      response_format: { type: 'json_object' },
+      max_tokens: 1200,
     });
 
-    const content = completion.choices[0]?.message?.content;
+    // NDJSONストリームとして返す（1問ごとに1行）
+    const encoder = new TextEncoder();
+    const readable = new ReadableStream({
+      async start(controller) {
+        try {
+          let buffer = '';
+          let lastEnd = 0;
 
-    if (!content) {
-      throw new Error('AIからの応答が空です');
-    }
+          for await (const chunk of stream) {
+            const content = chunk.choices[0]?.delta?.content || '';
+            buffer += content;
 
-    // JSONをパース
-    let result: { questions?: { japanese: string; english: string }[] } | { japanese: string; english: string }[];
-    try {
-      result = JSON.parse(content);
-    } catch {
-      console.error('JSON parse error:', content);
-      throw new Error('AIの応答をパースできませんでした');
-    }
+            // バッファから完成した問題オブジェクトを抽出
+            const result = extractQuestions(buffer, lastEnd);
+            for (const q of result.found) {
+              controller.enqueue(encoder.encode(JSON.stringify(q) + '\n'));
+            }
+            lastEnd = result.lastEnd;
+          }
 
-    return NextResponse.json({
-      success: true,
-      questions: Array.isArray(result) ? result : result.questions,
+          // ストリーム終了後、残りの問題を抽出
+          const finalResult = extractQuestions(buffer, lastEnd);
+          for (const q of finalResult.found) {
+            controller.enqueue(encoder.encode(JSON.stringify(q) + '\n'));
+          }
+
+          controller.close();
+        } catch (error) {
+          console.error('ストリーミング問題生成エラー:', error);
+          controller.enqueue(encoder.encode(JSON.stringify({ error: 'AI問題生成中にエラーが発生しました' }) + '\n'));
+          controller.close();
+        }
+      },
+    });
+
+    return new Response(readable, {
+      headers: {
+        'Content-Type': 'application/x-ndjson',
+        'Cache-Control': 'no-cache',
+      },
     });
   } catch (error) {
     console.error('AI問題生成エラー:', error);

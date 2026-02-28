@@ -46,7 +46,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
   /**
    * サーバーTTS APIで音声を生成・再生（Capacitor WebView対応）
    */
-  const speakWithServerTTS = useCallback(async (text: string, ttsLang: string): Promise<void> => {
+  const speakWithServerTTS = useCallback(async (text: string, ttsLang: string, unlockedAudio?: HTMLAudioElement): Promise<void> => {
     try {
       const response = await apiFetch('/api/tts', {
         method: 'POST',
@@ -60,7 +60,8 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
 
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
-      const audio = new Audio(url);
+      // unlock済みのAudio要素があればそれを再利用、なければ新規作成
+      const audio = unlockedAudio || new Audio();
       audioRef.current = audio;
 
       await new Promise<void>((resolve) => {
@@ -76,6 +77,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
           cleanupAudio();
           resolve();
         };
+        audio.src = url;
         audio.play().catch(() => {
           URL.revokeObjectURL(url);
           if (mountedRef.current) setIsSpeaking(false);

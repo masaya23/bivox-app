@@ -268,8 +268,12 @@ IMPORTANT - Multiple Model Answers (STRICT QUALITY RULES):
   - Alternative answers MUST have EQUAL or LOWER grammatical complexity.
   - NEVER introduce advanced grammar (perfect tense, relative clauses, difficult verbs)
     unless already present in the reference answer.
+  - NEVER rearrange the sentence structure in ways that change the grammar pattern.
+    The Part Title defines the grammar pattern being practiced — alternatives must use the SAME pattern.
+  - ❌ Bad: Reference "Is that Sakura's car?" → Alternative "Is that car Sakura's?" (different structure, possessive moved)
   - ❌ Bad: Reference "I am a student." → Alternative "I'd describe myself as a student." (too complex)
-  - ⭕ Good: Reference "I am a student." → Alternative "I'm a student." (same level)
+  - ⭕ Good: Reference "I am a student." → Alternative "I'm a student." (same level, same structure)
+  - ⭕ Good: Reference "Is that Sakura's car?" → (no valid alternative — return only 1 answer)
 
   RULE 3 - When in Doubt, Don't:
   - If unsure whether an alternative is appropriate, DO NOT include it.
