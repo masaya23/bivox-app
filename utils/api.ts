@@ -109,12 +109,13 @@ export async function apiCall<T>(
   const url = getApiUrl(endpoint);
   const effectivePlan = getEffectiveUserPlan();
 
+  const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
   const response = await fetch(url, {
     ...options,
     headers: {
-      'Content-Type': 'application/json',
+      ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
       'X-User-Plan': effectivePlan,
-      ...options.headers,
+      ...(options.headers as Record<string, string>),
     },
   });
 
@@ -147,13 +148,16 @@ export async function apiFetch(
   const url = getApiUrl(endpoint);
   const effectivePlan = getEffectiveUserPlan();
 
+  const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
+  const headers: Record<string, string> = {
+    'X-User-Plan': effectivePlan,
+    ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+    ...(options.headers as Record<string, string>),
+  };
+
   const response = await fetch(url, {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      'X-User-Plan': effectivePlan,
-      ...options.headers,
-    },
+    headers,
   });
 
   // 日次上限到達時の通知

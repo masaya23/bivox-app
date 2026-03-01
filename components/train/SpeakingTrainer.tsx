@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import HardNavLink from '@/components/HardNavLink';
 import { useLocalAudio } from '@/hooks/useLocalAudio';
+import { useWhisperRecognition } from '@/hooks/useWhisperRecognition';
 import { updateStreak } from '@/utils/streak';
 import { recordLearningTime } from '@/utils/learningTime';
 import { recordSession } from '@/utils/sessionLog';
@@ -210,6 +211,8 @@ export default function SpeakingTrainer({
   // ローカル音声再生
   const { speak: speakJapanese, stop: stopJapanese, isSpeaking: isPlayingJapanese } = useLocalAudio({ lang: 'ja' });
   const { speak: speakEnglish, stop: stopEnglish, isSpeaking: isPlayingEnglish } = useLocalAudio({ lang: 'en' });
+  const whisper = useWhisperRecognition();
+  const isTranscribing = whisper.isTranscribing;
 
   // TTS再生状態
   const [isTTSSpeaking, setIsTTSSpeaking] = useState(false);
@@ -291,16 +294,9 @@ export default function SpeakingTrainer({
     }
   };
 
-  const recognitionRef = useRef<any>(null);
   const startTimeRef = useRef<number | null>(null); // 学習開始時刻
   const safetyTimeoutRef = useRef<NodeJS.Timeout | null>(null); // 録音開始保険タイマー
   const shouldAutoRecordRef = useRef<boolean>(false); // 自動録音すべきかのフラグ
-  const intentionalStopRef = useRef(false); // 意図的な停止かどうか
-  const silenceTimerRef = useRef<NodeJS.Timeout | null>(null); // 無音検知タイマー
-  const gracePeriodActiveRef = useRef(false); // グレースピリオド中かどうか
-  const accumulatedTextRef = useRef(''); // リスタートをまたいで蓄積されたテキスト
-  const currentSessionTextRef = useRef(''); // 現在の認識セッションのテキスト
-  const autoRestartCountRef = useRef(0); // 自動再起動カウント（無限ループ防止）
   const currentSentence = sentences[currentIndex];
 
   // 初期化
@@ -313,178 +309,45 @@ export default function SpeakingTrainer({
     startTimeRef.current = Date.now();
   }, [initialSentences]);
 
-  // 音声認識の初期化
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      setBrowserSupported(false);
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.maxAlternatives = 1;
-
-    recognition.onstart = () => {
-      setIsListening(true);
-      setRecognitionError(null);
-      shouldAutoRecordRef.current = false;
-      currentSessionTextRef.current = '';
-      autoRestartCountRef.current = 0;
-      // グレースピリオド（2.5秒）: この間はno-speechエラーを無視
-      gracePeriodActiveRef.current = true;
-      setTimeout(() => {
-        gracePeriodActiveRef.current = false;
-      }, 2500);
-    };
-
-    recognition.onresult = (event: any) => {
-      // 実際の音声を検出したので自動再起動カウントをリセット
-      autoRestartCountRef.current = 0;
-
-      let sessionTranscript = '';
-      for (let i = 0; i < event.results.length; i++) {
-        sessionTranscript += event.results[i][0].transcript;
-      }
-      currentSessionTextRef.current = sessionTranscript;
-
-      const fullText = (accumulatedTextRef.current + sessionTranscript).trim();
-      if (fullText) {
-        setRecognizedText(fullText);
-        setEditableText(fullText);
-      }
-
-      // 無音タイマーをリセット（発話のたびに延長）
-      if (silenceTimerRef.current) {
-        clearTimeout(silenceTimerRef.current);
-      }
-      silenceTimerRef.current = setTimeout(() => {
-        // 2秒の無音で自動停止
-        intentionalStopRef.current = true;
-        try { recognitionRef.current?.stop(); } catch { /* ignore */ }
-      }, 2000);
-    };
-
-    recognition.onerror = (event: any) => {
-      const err = String(event?.error || 'unknown');
-      if (err === 'no-speech') {
-        // グレースピリオド中はno-speechを無視（onendで自動再起動）
-        if (!gracePeriodActiveRef.current) {
-          setIsNoSpeech(true);
-          intentionalStopRef.current = true;
-          setIsListening(false);
-          try { recognitionRef.current?.stop(); } catch { /* ignore */ }
-        }
-      } else if (err === 'not-allowed' || err === 'service-not-allowed') {
-        setRecognitionError('マイクの許可が必要です（ブラウザの権限設定を確認してください）。');
-        intentionalStopRef.current = true;
-        setIsListening(false);
-      } else if (err === 'aborted') {
-        // 再起動時のabortedエラーは無視
-      } else {
-        setRecognitionError(`音声認識エラー: ${err}`);
-        intentionalStopRef.current = true;
-        setIsListening(false);
-      }
-    };
-
-    recognition.onend = () => {
-      // TTS再生中に認識が終了した場合は再起動せず静かに終了
-      if (isPlayingJapanese || isPlayingEnglish || isTTSSpeaking) {
-        setIsListening(false);
-        return;
-      }
-
-      if (!intentionalStopRef.current && autoRestartCountRef.current < 2) {
-        // 意図的でない停止 → 自動再起動（遅延付きで連続起動防止）
-        const sessionText = currentSessionTextRef.current.trim();
-        if (sessionText) {
-          accumulatedTextRef.current = (accumulatedTextRef.current + sessionText).trim() + ' ';
-        }
-        currentSessionTextRef.current = '';
-        autoRestartCountRef.current++;
-        setTimeout(() => {
-          if (isPlayingJapanese || isPlayingEnglish || isTTSSpeaking) { setIsListening(false); return; }
-          try {
-            recognitionRef.current?.start();
-          } catch {
-            setIsListening(false);
-          }
-        }, 300);
-      } else {
-        setIsListening(false);
-        if (silenceTimerRef.current) {
-          clearTimeout(silenceTimerRef.current);
-          silenceTimerRef.current = null;
-        }
-        // 音声未検出ならno-speech扱い
-        if (!accumulatedTextRef.current.trim() && !currentSessionTextRef.current.trim()) {
-          setIsNoSpeech(true);
-        }
-      }
-    };
-
-    recognitionRef.current = recognition;
-
-    return () => {
-      intentionalStopRef.current = true;
-      try { recognition.stop(); } catch { /* ignore */ }
-      recognitionRef.current = null;
-      if (safetyTimeoutRef.current) {
-        clearTimeout(safetyTimeoutRef.current);
-        safetyTimeoutRef.current = null;
-      }
-      if (silenceTimerRef.current) {
-        clearTimeout(silenceTimerRef.current);
-        silenceTimerRef.current = null;
-      }
-    };
-  }, []);
-
-  // 無音タイマーをクリア
-  const clearSilenceTimer = () => {
-    if (silenceTimerRef.current) {
-      clearTimeout(silenceTimerRef.current);
-      silenceTimerRef.current = null;
-    }
-  };
-
-  // 録音を意図的に終了
+  // Whisper録音を停止
   const finishRecording = () => {
-    intentionalStopRef.current = true;
-    clearSilenceTimer();
-    try { recognitionRef.current?.stop(); } catch { /* ignore */ }
+    whisper.stopListening();
     setIsListening(false);
   };
 
-  // 音声認識の蓄積テキストをリセット
-  const resetRecognitionRefs = () => {
-    intentionalStopRef.current = false;
-    accumulatedTextRef.current = '';
-    currentSessionTextRef.current = '';
-    autoRestartCountRef.current = 0;
-    clearSilenceTimer();
+  /** Whisper録音を開始（コールバックで結果を受け取る） */
+  const startWhisperRecording = (expectedText?: string) => {
+    if (isListening || isTranscribing) return false;
+    whisper.startListening({
+      expectedText,
+      silenceTimeout: 1.2,
+      noSpeechTimeout: 8,
+      onResult: (text: string) => {
+        setRecognizedText(text);
+        setEditableText(text);
+        setIsListening(false);
+      },
+      onNoSpeech: () => {
+        setIsListening(false);
+        setIsNoSpeech(true);
+      },
+      onError: (msg: string) => {
+        setIsListening(false);
+        setRecognitionError(msg);
+      },
+    });
+    setIsListening(true);
+    setRecognitionError(null);
+    shouldAutoRecordRef.current = false;
+    return true;
   };
 
   // 録音を開始するヘルパー関数（重複防止付き）
   const startAutoRecording = () => {
-    // 再生中は録音を開始しない
-    if (!recognitionRef.current || isListening || hasJudged || showAnswer || isPlayingJapanese) {
+    if (isListening || isTranscribing || hasJudged || showAnswer || isPlayingJapanese) {
       return false;
     }
-    setRecognitionError(null);
-    resetRecognitionRefs();
-    try {
-      recognitionRef.current.start();
-      return true;
-    } catch {
-      // 既に録音中の場合など
-      return false;
-    }
+    return startWhisperRecording(currentSentence?.en);
   };
 
   // Safety Timeout をクリアするヘルパー
@@ -630,27 +493,22 @@ export default function SpeakingTrainer({
   };
 
   const handleStartRecording = () => {
-    if (!recognitionRef.current || isListening) return;
-    setHasUserInteracted(true); // ユーザー操作を記録
-    shouldAutoRecordRef.current = false; // 手動録音なので自動録音フラグをOFF
-    clearSafetyTimeout(); // Safety Timeoutもクリア
-    clearSilenceTimer();
+    if (isListening || isTranscribing) return;
+    setHasUserInteracted(true);
+    shouldAutoRecordRef.current = false;
+    clearSafetyTimeout();
     stopJapanese();
     stopEnglish();
-    setRecognitionError(null);
+    setRecognizedText('');
+    setEditableText('');
     setHasJudged(false);
     setAiEvaluation(null);
     setSimilarity(null);
-    resetRecognitionRefs();
-    try {
-      recognitionRef.current.start();
-    } catch {
-      setRecognitionError('音声認識を開始できませんでした。ページを再読み込みしてお試しください。');
-    }
+    startWhisperRecording(currentSentence?.en);
   };
 
   const handleStopRecording = () => {
-    if (!recognitionRef.current || !isListening) return;
+    if (!isListening) return;
     finishRecording();
   };
 
@@ -660,7 +518,6 @@ export default function SpeakingTrainer({
     setHasUserInteracted(true); // ユーザー操作を記録
     shouldAutoRecordRef.current = false; // 判定するので自動録音を停止
     clearSafetyTimeout(); // Safety Timeoutもクリア
-    clearSilenceTimer();
     finishRecording();
     setIsAiLoading(true);
     setHasJudged(true);
@@ -735,7 +592,7 @@ export default function SpeakingTrainer({
   const handleRetry = () => {
     // 前回のタイマーをクリア
     clearSafetyTimeout();
-    clearSilenceTimer();
+    finishRecording();
 
     // 状態を完全にリセット
     setRecognizedText('');
@@ -747,37 +604,22 @@ export default function SpeakingTrainer({
     setShowAnswer(false);
     setIsNoSpeech(false);
 
-    // 自動録音フラグをON（refを使うことでクロージャ問題を回避）
+    // 自動録音フラグをON
     shouldAutoRecordRef.current = true;
 
     // 日本語を再生し、終了後に自動録音
     const playAndRecord = async () => {
       try {
         await speakJapanese(currentSentence.id, 'ja', undefined, currentSentence.jp);
-        // 日本語再生終了後、少し待ってから自動録音開始
         setTimeout(() => {
-          // refを使って最新の状態を確認（クロージャ問題回避）
-          if (shouldAutoRecordRef.current && recognitionRef.current) {
-            setRecognitionError(null);
-            resetRecognitionRefs();
-            try {
-              recognitionRef.current.start();
-            } catch {
-              // 既に録音中の場合など
-            }
+          if (shouldAutoRecordRef.current) {
+            startWhisperRecording(currentSentence.en);
           }
         }, 300);
       } catch {
-        // 音声再生失敗時もSafety Timeoutで録音を試みる
         safetyTimeoutRef.current = setTimeout(() => {
-          if (shouldAutoRecordRef.current && recognitionRef.current) {
-            setRecognitionError(null);
-            resetRecognitionRefs();
-            try {
-              recognitionRef.current.start();
-            } catch {
-              // ignore
-            }
+          if (shouldAutoRecordRef.current) {
+            startWhisperRecording(currentSentence.en);
           }
         }, 2000);
       }
@@ -790,6 +632,8 @@ export default function SpeakingTrainer({
     shouldAutoRecordRef.current = false; // 答えを見るので自動録音を停止
     clearSafetyTimeout(); // Safety Timeoutもクリア
     finishRecording(); // 録音中なら停止
+    stopJapanese(); // 日本語音声再生中なら停止
+    stopEnglish(); // 英語音声再生中なら停止
     setShowAnswer(true);
     setIsAiLoading(true);
     setHasJudged(true);
@@ -924,7 +768,7 @@ export default function SpeakingTrainer({
   const handleReset = () => {
     // 前回のタイマーをクリア
     clearSafetyTimeout();
-    clearSilenceTimer();
+    finishRecording();
 
     stopJapanese();
     stopEnglish();
@@ -943,36 +787,21 @@ export default function SpeakingTrainer({
     setExpandedCardIndex(null);
     setHistoryPage(0);
 
-    // 自動録音フラグをON
     shouldAutoRecordRef.current = true;
 
-    // currentIndex=0の場合、useEffectが再実行されないので手動で再生開始
-    // (currentIndexが変わる場合はuseEffectが処理する)
     if (currentIndex === 0) {
       const playAndRecord = async () => {
         try {
           await speakJapanese(sentences[0].id, 'ja', undefined, sentences[0].jp);
           setTimeout(() => {
-            if (shouldAutoRecordRef.current && recognitionRef.current) {
-              setRecognitionError(null);
-              resetRecognitionRefs();
-              try {
-                recognitionRef.current.start();
-              } catch {
-                // ignore
-              }
+            if (shouldAutoRecordRef.current) {
+              startWhisperRecording(sentences[0].en);
             }
           }, 300);
         } catch {
-          // 音声再生失敗時もSafety Timeoutで録音を試みる
           safetyTimeoutRef.current = setTimeout(() => {
-            if (shouldAutoRecordRef.current && recognitionRef.current) {
-              resetRecognitionRefs();
-              try {
-                recognitionRef.current.start();
-              } catch {
-                // ignore
-              }
+            if (shouldAutoRecordRef.current) {
+              startWhisperRecording(sentences[0].en);
             }
           }, 2000);
         }
@@ -1039,9 +868,9 @@ export default function SpeakingTrainer({
     setIsReviewAnswerShown(false);
     setSelectedWords([]);
 
-    // 最初の問題の単語をシャッフル（最終回答の訂正を使用）
+    // 最初の問題の単語をシャッフル（最終回答の訂正を使用、「-」は除外）
     const correctAnswer = incorrectResults[0].finalAiEvaluation?.correction || incorrectResults[0].aiEvaluation?.correction || incorrectResults[0].sentence.en;
-    const words = correctAnswer.split(/\s+/).filter(Boolean);
+    const words = correctAnswer.split(/\s+/).filter(w => Boolean(w) && !/^[-–—]+$/.test(w));
     setShuffledWords(shuffleArray(words));
   };
 
@@ -1062,10 +891,24 @@ export default function SpeakingTrainer({
   // 復習モード: 答え合わせ
   const handleCheckReviewAnswer = () => {
     setIsReviewAnswerShown(true);
+
+    // 正解時のみ英語音声を自動再生（不正解時は▶ボタンで手動再生）
+    const currentReviewQuestion = reviewQuestions[reviewIndex];
+    const correctAnswer = currentReviewQuestion.aiEvaluation?.correction || currentReviewQuestion.sentence.en;
+    const userBuiltSentence = selectedWords.join(' ');
+    const isCorrect = userBuiltSentence.toLowerCase().replace(/[^\w\s]/g, '') === correctAnswer.toLowerCase().replace(/[^\w\s]/g, '');
+    if (isCorrect) {
+      setTimeout(() => {
+        speakEnglish(currentReviewQuestion.sentence.id, 'en', undefined, correctAnswer).catch(() => {});
+      }, 500);
+    }
   };
 
   // 復習モード: 次の問題へ
   const handleNextReviewQuestion = () => {
+    // 再生中の音声を停止
+    stopEnglish();
+
     if (reviewIndex < reviewQuestions.length - 1) {
       const nextIndex = reviewIndex + 1;
       setReviewIndex(nextIndex);
@@ -1073,7 +916,7 @@ export default function SpeakingTrainer({
       setSelectedWords([]);
 
       const correctAnswer = reviewQuestions[nextIndex].aiEvaluation?.correction || reviewQuestions[nextIndex].sentence.en;
-      const words = correctAnswer.split(/\s+/).filter(Boolean);
+      const words = correctAnswer.split(/\s+/).filter(w => Boolean(w) && !/^[-–—]+$/.test(w));
       setShuffledWords(shuffleArray(words));
     } else {
       // 復習完了
@@ -1083,6 +926,7 @@ export default function SpeakingTrainer({
 
   // 復習モード: 終了
   const exitReviewMode = () => {
+    stopEnglish();
     setIsReviewMode(false);
   };
 
@@ -1129,7 +973,8 @@ export default function SpeakingTrainer({
       const currentReviewQuestion = reviewQuestions[reviewIndex];
       const correctAnswer = currentReviewQuestion.aiEvaluation?.correction || currentReviewQuestion.sentence.en;
       const userBuiltSentence = selectedWords.join(' ');
-      const isAnswerCorrect = userBuiltSentence.toLowerCase().replace(/[^\w\s]/g, '') === correctAnswer.toLowerCase().replace(/[^\w\s]/g, '');
+      const normalizeTile = (s: string) => s.toLowerCase().split(/\s+/).filter(w => !/^[-–—]+$/.test(w)).join(' ').replace(/[^\w\s]/g, '');
+      const isAnswerCorrect = normalizeTile(userBuiltSentence) === normalizeTile(correctAnswer);
 
       return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex justify-center">
@@ -1225,7 +1070,7 @@ export default function SpeakingTrainer({
                           <p className="text-gray-800 font-semibold mt-1">{correctAnswer}</p>
                         </div>
                         <button
-                          onClick={() => { stopEnglish(); speakEnglish(currentSentence.id, 'en', undefined, correctAnswer).catch(() => {}); }}
+                          onClick={() => { stopEnglish(); speakEnglish(currentReviewQuestion.sentence.id, 'en', undefined, correctAnswer).catch(() => {}); }}
                           disabled={isPlayingEnglish}
                           className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 disabled:opacity-50 transition-all"
                         >

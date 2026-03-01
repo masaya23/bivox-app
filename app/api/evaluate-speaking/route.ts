@@ -416,7 +416,12 @@ export async function POST(request: NextRequest) {
 
       const expandContractions = (text: string) => {
         let t = text;
+        // 不規則な短縮形を先に処理
+        t = t.replace(/\bwon't\b/g, 'will not');
+        t = t.replace(/\bcan't\b/g, 'can not');
+        t = t.replace(/\bshan't\b/g, 'shall not');
         t = t.replace(/\blet's\b/g, 'let us');
+        // 規則的な短縮形
         t = t.replace(/n't\b/g, ' not');
         t = t.replace(/'re\b/g, ' are');
         t = t.replace(/'ve\b/g, ' have');

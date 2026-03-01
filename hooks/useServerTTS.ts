@@ -62,13 +62,11 @@ export function useServerTTS() {
   const speak = useCallback(async (text: string, lang: string = 'en-US'): Promise<void> => {
     if (!text) return;
 
-    // 前回の再生を停止
+    // 前回の再生を停止（ロックも解放される）
     stop();
 
-    // 重複防止ロック
-    if (speakingLockRef.current) return;
+    // ロックを取得
     speakingLockRef.current = true;
-
     if (mountedRef.current) setIsSpeaking(true);
 
     const abortController = new AbortController();

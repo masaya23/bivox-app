@@ -4,7 +4,11 @@
       "Bash(gh auth status:*)",
       "Bash(git remote add:*)",
       "Bash(git push:*)",
-      "WebFetch(domain:bivox-app.onrender.com)"
+      "WebFetch(domain:bivox-app.onrender.com)",
+      "Bash(npx next build)",
+      "Bash(npx @capacitor/assets generate:*)",
+      "Bash(python3 -c \"from PIL import Image; img = Image.open\\(''android/app/src/main/res/drawable/splash_mascot.png''\\); print\\(f''Size: {img.size}''\\)\")",
+      "Bash(identify /c/programming/englishapp/android/app/src/main/res/drawable/splash_mascot.png)"
     ],
     "additionalDirectories": [
       "C:\\programming\\englishapp\\public\\audio\\ja"

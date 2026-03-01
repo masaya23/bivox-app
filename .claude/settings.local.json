@@ -53,7 +53,16 @@
       "WebFetch(domain:platform.openai.com)",
       "WebFetch(domain:openai.com)",
       "WebFetch(domain:pricepertoken.com)",
-      "Bash(node scripts/sync-txt-to-json.js:*)"
+      "Bash(node scripts/sync-txt-to-json.js:*)",
+      "Bash(adb logcat -d -s \"AndroidRuntime:E\" --format=brief)",
+      "Bash(\"/c/Users/PC_user/AppData/Local/Android/Sdk/platform-tools/adb.exe\" logcat -d -s \"AndroidRuntime:E\" --format=brief)",
+      "Bash(grep -o 'items-end' /c/programming/englishapp/out/_next/static/chunks/app/page*.js)",
+      "Bash(tr '>' '\\\\n')",
+      "Bash(BUILD_TARGET=capacitor npm run build)",
+      "Bash(git checkout HEAD -- app/api/)",
+      "Bash(BUILD_TARGET=capacitor npx next build)",
+      "Bash(\"/c/Users/PC_user/AppData/Local/Android/Sdk/platform-tools/adb.exe\" shell df -h /data)",
+      "Bash(\"/c/Users/PC_user/AppData/Local/Android/Sdk/platform-tools/adb.exe\" shell df /data/)"
     ],
     "deny": [],
     "ask": []

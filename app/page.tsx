@@ -39,34 +39,33 @@ export default function WelcomePage() {
 
       {/* メインコンテンツ */}
       <div className="flex-1 flex flex-col items-center px-6 relative z-10">
-        {/* 上半分：キツネを下寄せ（画面中央のすぐ上に配置） */}
-        <div className="flex-1 flex items-end justify-center">
+        {/* 上部スペーサー */}
+        <div className="flex-[2]" />
+
+        {/* キツネ */}
+        <Image
+          src="/images/mascot/fox_top.png"
+          alt="Bivox マスコット"
+          width={240}
+          height={240}
+          className="drop-shadow-lg"
+          priority
+        />
+
+        {/* ロゴ */}
+        <div className="mt-1 mb-6">
           <Image
-            src="/images/mascot/fox_top.png"
-            alt="Bivox マスコット"
-            width={240}
-            height={240}
-            className="drop-shadow-lg"
+            src="/images/bivox-logo-welcome.png"
+            alt="Bivox"
+            width={300}
+            height={160}
+            className="drop-shadow-md"
             priority
           />
         </div>
 
-        {/* 下半分：ロゴ+ボタンを上寄せ（画面中央のすぐ下に配置） */}
-        <div className="flex-1 flex flex-col items-center justify-start w-full">
-          {/* ロゴ */}
-          <div className="mt-1 mb-6">
-            <Image
-              src="/images/bivox-logo-welcome.png"
-              alt="Bivox"
-              width={300}
-              height={160}
-              className="drop-shadow-md"
-              priority
-            />
-          </div>
-
-          {/* アクションボタン */}
-          <div className="w-full space-y-3">
+        {/* アクションボタン */}
+        <div className="w-full space-y-3">
           {/* メインアクションボタン: 濃い茶色テキスト + 強めのシャドウ */}
           <HardNavLink
             href="/auth/register"
@@ -82,7 +81,9 @@ export default function WelcomePage() {
             ログイン
           </HardNavLink>
         </div>
-        </div>
+
+        {/* 下部スペーサー */}
+        <div className="flex-[1]" />
       </div>
 
       {/* フッター - セーフエリアを考慮した余白 */}

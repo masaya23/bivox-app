@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import HardNavLink from '@/components/HardNavLink';
 import { apiFetch } from '@/utils/api';
 import { useServerTTS } from '@/hooks/useServerTTS';
+import { useWhisperRecognition } from '@/hooks/useWhisperRecognition';
 import { updateStreak } from '@/utils/streak';
 import { recordLearningTime } from '@/utils/learningTime';
 import { recordSession } from '@/utils/sessionLog';
@@ -128,7 +129,8 @@ function getWordDiff(userText: string, correctText: string): WordDiffResult {
 
 // 単語をシャッフルする関数
 function shuffleWords(text: string): string[] {
-  const words = text.split(/\s+/).filter(Boolean);
+  // 「-」のみのトークンを除外（疑問文+返答の区切り文字）
+  const words = text.split(/\s+/).filter(w => Boolean(w) && !/^[-–—]+$/.test(w));
   const shuffled = [...words];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -181,6 +183,8 @@ export default function AIDrillTrainer({
   const [historyPage, setHistoryPage] = useState(0);
   const serverTTS = useServerTTS();
   const isTTSSpeaking = serverTTS.isSpeaking;
+  const whisper = useWhisperRecognition();
+  const isTranscribing = whisper.isTranscribing;
   const [questionsQueue, setQuestionsQueue] = useState<{ questionJa: string; expectedEn: string }[]>([]);
 
   const historyPageSize = 10;
@@ -197,14 +201,7 @@ export default function AIDrillTrainer({
   const [selectedTiles, setSelectedTiles] = useState<string[]>([]);
   const [tileCorrect, setTileCorrect] = useState<boolean | null>(null);
 
-  const recognitionRef = useRef<any>(null);
   const startTimeRef = useRef<number>(Date.now()); // 学習開始時刻
-  const intentionalStopRef = useRef(false);
-  const silenceTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const gracePeriodActiveRef = useRef(false);
-  const accumulatedTextRef = useRef('');
-  const currentSessionTextRef = useRef('');
-  const autoRestartCountRef = useRef(0);
   const questionTimerRef = useRef<NodeJS.Timeout | null>(null);
   const recordingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const initializedRef = useRef(false);
@@ -262,158 +259,34 @@ export default function AIDrillTrainer({
     }));
   }, [partSentences]);
 
-  // 無音タイマーをクリア
-  const clearSilenceTimer = () => {
-    if (silenceTimerRef.current) {
-      clearTimeout(silenceTimerRef.current);
-      silenceTimerRef.current = null;
-    }
-  };
-
-  // 録音を意図的に終了
+  // Whisper録音を停止
   const finishRecording = () => {
-    intentionalStopRef.current = true;
-    clearSilenceTimer();
-    try { recognitionRef.current?.stop(); } catch { /* ignore */ }
-    setIsListening(false);
+    whisper.stopListening();
   };
 
-  // 蓄積テキストをリセット
-  const resetRecognitionRefs = () => {
-    intentionalStopRef.current = false;
-    accumulatedTextRef.current = '';
-    currentSessionTextRef.current = '';
-    autoRestartCountRef.current = 0;
-    clearSilenceTimer();
-  };
-
-  // 音声認識の初期化
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      setBrowserSupported(false);
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'en-US';
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.maxAlternatives = 1;
-
-    recognition.onstart = () => {
-      setIsListening(true);
-      setRecognitionError(null);
-      currentSessionTextRef.current = '';
-      autoRestartCountRef.current = 0;
-      gracePeriodActiveRef.current = true;
-      setTimeout(() => {
-        gracePeriodActiveRef.current = false;
-      }, 2500);
-    };
-
-    recognition.onresult = (event: any) => {
-      autoRestartCountRef.current = 0;
-
-      let sessionTranscript = '';
-      for (let i = 0; i < event.results.length; i++) {
-        sessionTranscript += event.results[i][0].transcript;
-      }
-      currentSessionTextRef.current = sessionTranscript;
-
-      const fullText = (accumulatedTextRef.current + sessionTranscript).trim();
-      if (fullText) {
-        setUserInput(fullText);
-        setEditableText(fullText);
-      }
-
-      if (silenceTimerRef.current) {
-        clearTimeout(silenceTimerRef.current);
-      }
-      // 音声入力があったらnoSpeechTimeoutをキャンセル（発話中にタイムアウトしない）
-      if (noSpeechTimeoutRef.current) {
-        clearTimeout(noSpeechTimeoutRef.current);
-        noSpeechTimeoutRef.current = null;
-      }
-      silenceTimerRef.current = setTimeout(() => {
-        // 2秒間の無音で自動停止
-        intentionalStopRef.current = true;
-        try { recognitionRef.current?.stop(); } catch { /* ignore */ }
-      }, 2000);
-    };
-
-    recognition.onerror = (event: any) => {
-      const err = String(event?.error || 'unknown');
-      if (err === 'no-speech') {
-        if (!gracePeriodActiveRef.current) {
-          setIsNoSpeech(true);
-          intentionalStopRef.current = true;
-          setIsListening(false);
-          try { recognitionRef.current?.stop(); } catch { /* ignore */ }
-        }
-      } else if (err === 'not-allowed' || err === 'service-not-allowed') {
-        setRecognitionError('マイクの許可が必要です（ブラウザの権限設定を確認してください）。');
-        intentionalStopRef.current = true;
+  /** Whisper録音を開始（コールバックで結果を受け取る） */
+  const startWhisperRecording = useCallback((expectedText?: string) => {
+    whisper.startListening({
+      expectedText,
+      silenceTimeout: 1.2,
+      noSpeechTimeout: 8,
+      onResult: (text: string) => {
+        setUserInput(text);
+        setEditableText(text);
         setIsListening(false);
-      } else if (err === 'aborted') {
-        // 再起動時のabortedエラーは無視
-      } else {
-        setRecognitionError(`音声認識エラー: ${err}`);
-        intentionalStopRef.current = true;
+      },
+      onNoSpeech: () => {
         setIsListening(false);
-      }
-    };
-
-    recognition.onend = () => {
-      // TTS再生中に認識が終了した場合は再起動せず静かに終了
-      if (ttsSpeakingRef.current) {
+        setIsNoSpeech(true);
+      },
+      onError: (msg: string) => {
         setIsListening(false);
-        return;
-      }
-
-      if (!intentionalStopRef.current && autoRestartCountRef.current < 2) {
-        const sessionText = currentSessionTextRef.current.trim();
-        if (sessionText) {
-          accumulatedTextRef.current = (accumulatedTextRef.current + sessionText).trim() + ' ';
-        }
-        currentSessionTextRef.current = '';
-        autoRestartCountRef.current++;
-        // 少し待ってから再起動（連続起動を防止）
-        setTimeout(() => {
-          if (phaseRef.current !== 'question' && phaseRef.current !== 'recording') return;
-          if (ttsSpeakingRef.current) { setIsListening(false); return; }
-          try {
-            recognitionRef.current?.start();
-          } catch {
-            setIsListening(false);
-          }
-        }, 300);
-      } else {
-        setIsListening(false);
-        if (silenceTimerRef.current) {
-          clearTimeout(silenceTimerRef.current);
-          silenceTimerRef.current = null;
-        }
-        if (!accumulatedTextRef.current.trim() && !currentSessionTextRef.current.trim()) {
-          setIsNoSpeech(true);
-        }
-      }
-    };
-
-    recognitionRef.current = recognition;
-
-    return () => {
-      intentionalStopRef.current = true;
-      try { recognition.stop(); } catch { /* ignore */ }
-      recognitionRef.current = null;
-      if (silenceTimerRef.current) {
-        clearTimeout(silenceTimerRef.current);
-        silenceTimerRef.current = null;
-      }
-    };
-  }, []);
+        setRecognitionError(msg);
+      },
+    });
+    setIsListening(true);
+    setRecognitionError(null);
+  }, [whisper]);
 
   // startQuestion内のタイマーをクリア
   const clearQuestionTimers = useCallback(() => {
@@ -471,25 +344,9 @@ export default function AIDrillTrainer({
 
       // TTS再生完了後、phaseがまだquestionならマイク開始
       if (phaseRef.current !== 'question') return;
-      if (recognitionRef.current) {
-        resetRecognitionRefs();
-        try {
-          recognitionRef.current.start();
-        } catch { /* ignore */ }
-
-        // 無回答タイムアウト: 8秒間音声入力がなければ自動でisNoSpeechをセット
-        noSpeechTimeoutRef.current = setTimeout(() => {
-          if (phaseRef.current !== 'question' && phaseRef.current !== 'recording') return;
-          if (!accumulatedTextRef.current.trim() && !currentSessionTextRef.current.trim()) {
-            intentionalStopRef.current = true;
-            try { recognitionRef.current?.stop(); } catch { /* ignore */ }
-            setIsListening(false);
-            setIsNoSpeech(true);
-          }
-        }, 8000);
-      }
+      startWhisperRecording(question.expectedEn);
     }, 500);
-  }, [speakJapanese, clearQuestionTimers]);
+  }, [speakJapanese, clearQuestionTimers, startWhisperRecording]);
 
   const initializeDrill = useCallback(async () => {
     setPhaseWithRef('loading');
@@ -765,22 +622,18 @@ export default function AIDrillTrainer({
   }, [isNoSpeech, currentQuestion, partTitle]);
 
   const handleStartRecording = () => {
-    if (!recognitionRef.current || isListening) return;
+    if (isListening || isTranscribing) return;
     serverTTSStopRef.current();
     setRecognitionError(null);
     setShowAnswer(false);
     setIsNoSpeech(false);
-    clearSilenceTimer();
-    resetRecognitionRefs();
-    try {
-      recognitionRef.current.start();
-    } catch {
-      setRecognitionError('音声認識を開始できませんでした。ページを再読み込みしてお試しください。');
-    }
+    setUserInput('');
+    setEditableText('');
+    startWhisperRecording(currentQuestion?.expectedEn);
   };
 
   const handleStopRecording = () => {
-    if (!recognitionRef.current || !isListening) return;
+    if (!isListening) return;
     finishRecording();
   };
 
@@ -905,6 +758,7 @@ export default function AIDrillTrainer({
 
   const handleShowAnswer = () => {
     finishRecording();
+    serverTTS.stop();
     clearQuestionTimers();
     // 進行中の評価をリセット
     evaluatingRef.current = false;
@@ -938,7 +792,6 @@ export default function AIDrillTrainer({
     setSimilarity(null);
     setAnswerExampleIndex(0);
     setRecognitionError(null);
-    clearSilenceTimer();
     setPhaseWithRef('question');
 
     if (currentQuestion) {
@@ -949,22 +802,7 @@ export default function AIDrillTrainer({
         } catch { /* ignore */ }
         // TTS完了後にマイク開始
         if (phaseRef.current !== 'question') return;
-        if (recognitionRef.current) {
-          resetRecognitionRefs();
-          try {
-            recognitionRef.current.start();
-          } catch { /* ignore */ }
-          // 無回答タイムアウト
-          noSpeechTimeoutRef.current = setTimeout(() => {
-            if (phaseRef.current !== 'question' && phaseRef.current !== 'recording') return;
-            if (!accumulatedTextRef.current.trim() && !currentSessionTextRef.current.trim()) {
-              intentionalStopRef.current = true;
-              try { recognitionRef.current?.stop(); } catch { /* ignore */ }
-              setIsListening(false);
-              setIsNoSpeech(true);
-            }
-          }, 8000);
-        }
+        startWhisperRecording(currentQuestion.expectedEn);
       }, 500);
     }
   };
@@ -1123,11 +961,12 @@ export default function AIDrillTrainer({
     const userAnswer = selectedTiles.join(' ');
     const correctAnswer = currentReviewQuestion.correctEn;
 
-    // 大文字小文字を無視して比較
-    const isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+    // 大文字小文字を無視し、「-」を除外して比較
+    const normalize = (s: string) => s.toLowerCase().split(/\s+/).filter(w => !/^[-–—]+$/.test(w)).join(' ');
+    const isCorrect = normalize(userAnswer) === normalize(correctAnswer);
     setTileCorrect(isCorrect);
 
-    // 正解の場合は英語音声を再生
+    // 正解時のみ英語音声を自動再生（不正解時は▶ボタンで手動再生）
     if (isCorrect) {
       setTimeout(() => {
         speakEnglish(correctAnswer);
@@ -1137,6 +976,9 @@ export default function AIDrillTrainer({
 
   // 復習モードの次の問題
   const handleReviewNext = () => {
+    // 再生中の音声を停止
+    serverTTS.stop();
+
     if (reviewIndex + 1 >= reviewQuestions.length) {
       setShowReviewMode(false);
       setPhaseWithRef('finished');
@@ -1154,6 +996,7 @@ export default function AIDrillTrainer({
 
   // 復習問題をやり直す
   const handleReviewRetry = () => {
+    serverTTS.stop();
     const currentReviewQuestion = reviewQuestions[reviewIndex];
     setShuffledTiles(shuffleWords(currentReviewQuestion.correctEn));
     setSelectedTiles([]);
@@ -1552,6 +1395,7 @@ export default function AIDrillTrainer({
           <div className="flex items-center justify-between">
             <button
               onClick={() => {
+                serverTTS.stop();
                 setShowReviewMode(false);
                 setPhaseWithRef('finished');
               }}
@@ -1646,9 +1490,20 @@ export default function AIDrillTrainer({
                   </h3>
                 </div>
                 {!tileCorrect && (
-                  <div className="bg-white rounded-xl p-4 text-center">
-                    <p className="text-sm text-gray-500 mb-1">正解</p>
-                    <p className="text-lg font-semibold text-green-700">{currentReviewQuestion.correctEn}</p>
+                  <div className="bg-white rounded-xl p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-500 mb-1">正解</p>
+                        <p className="text-lg font-semibold text-green-700">{currentReviewQuestion.correctEn}</p>
+                      </div>
+                      <button
+                        onClick={() => { serverTTS.stop(); speakEnglish(currentReviewQuestion.correctEn); }}
+                        disabled={isTTSSpeaking}
+                        className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 disabled:opacity-50 transition-all shrink-0 ml-3"
+                      >
+                        ▶
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
