@@ -29,17 +29,27 @@ export async function POST(request: NextRequest) {
       type: audio.type || 'audio/webm',
     });
 
+    const promptText = typeof prompt === 'string' && prompt.trim()
+      ? prompt.toString().slice(0, 800)
+      : undefined;
+
     const transcription = await openai.audio.transcriptions.create({
       file,
       model: 'whisper-1',
       language,
-      prompt: typeof prompt === 'string' && prompt.trim() ? prompt.toString().slice(0, 500) : undefined,
+      prompt: promptText,
       temperature,
+      response_format: 'verbose_json',
     });
+
+    // verbose_json では no_speech_prob が取得可能
+    const result = transcription as any;
+    const noSpeechProb = result.segments?.[0]?.no_speech_prob ?? 0;
 
     return NextResponse.json({
       success: true,
-      text: transcription.text,
+      text: noSpeechProb > 0.8 ? '' : (result.text || ''),
+      noSpeechProb,
     });
   } catch (error: any) {
     console.error('Transcription error:', error);

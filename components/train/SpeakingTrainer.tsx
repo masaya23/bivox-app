@@ -320,8 +320,8 @@ export default function SpeakingTrainer({
     if (isListening || isTranscribing) return false;
     whisper.startListening({
       expectedText,
-      silenceTimeout: 1.2,
-      noSpeechTimeout: 8,
+      silenceTimeout: 2,
+      noSpeechTimeout: 10,
       onResult: (text: string) => {
         setRecognizedText(text);
         setEditableText(text);
@@ -499,8 +499,6 @@ export default function SpeakingTrainer({
     clearSafetyTimeout();
     stopJapanese();
     stopEnglish();
-    setRecognizedText('');
-    setEditableText('');
     setHasJudged(false);
     setAiEvaluation(null);
     setSimilarity(null);
@@ -515,10 +513,12 @@ export default function SpeakingTrainer({
   const handleJudge = async () => {
     if (!editableText.trim()) return;
 
-    setHasUserInteracted(true); // ユーザー操作を記録
-    shouldAutoRecordRef.current = false; // 判定するので自動録音を停止
-    clearSafetyTimeout(); // Safety Timeoutもクリア
-    finishRecording();
+    setHasUserInteracted(true);
+    shouldAutoRecordRef.current = false;
+    clearSafetyTimeout();
+    // マイクON中なら中断（文字起こしなしで停止し、現在のテキストで判定）
+    whisper.cancelListening();
+    setIsListening(false);
     setIsAiLoading(true);
     setHasJudged(true);
 
@@ -1549,13 +1549,39 @@ export default function SpeakingTrainer({
         <div className="bg-gradient-to-b from-blue-50 to-green-50 rounded-3xl shadow-lg p-8 mb-4">
           <h2 className="text-center font-bold text-gray-700 mb-6">回答</h2>
 
-          {/* 大きな録音ボタン */}
+          {/* 回答入力エリア */}
           {!hasJudged && !showAnswer && (
             <div className="flex flex-col items-center">
+              {/* テキスト入力欄 + 送信ボタン（常時表示） */}
+              {!isAiLoading && (
+                <div className="w-full mb-4">
+                  <div className="flex gap-2 items-stretch">
+                    <textarea
+                      value={editableText}
+                      onChange={(e) => setEditableText(e.target.value)}
+                      placeholder={isListening ? '聞き取り中...' : isTranscribing ? '文字起こし中...' : 'ここに英文を入力または音声入力...'}
+                      className="flex-1 p-3 border-2 border-blue-200 rounded-xl focus:outline-none focus:border-blue-400 resize-none text-gray-800"
+                      rows={2}
+                    />
+                    <button
+                      onClick={handleJudge}
+                      disabled={!editableText.trim() || isAiLoading}
+                      className="px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 transition-all flex items-center justify-center"
+                      title="判定する"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* マイクボタン */}
               <button
                 onClick={isListening ? handleStopRecording : handleStartRecording}
                 disabled={isAiLoading}
-                className={`w-24 h-24 rounded-full flex items-center justify-center shadow-xl transition-all transform hover:scale-105 ${
+                className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all transform hover:scale-105 ${
                   isListening
                     ? 'bg-red-500 animate-pulse'
                     : isAiLoading
@@ -1563,13 +1589,10 @@ export default function SpeakingTrainer({
                     : 'bg-red-500 hover:bg-red-600'
                 }`}
               >
-                {/* 内側の白い縁取り */}
-                <div className={`w-20 h-20 rounded-full border-4 border-white/30 flex items-center justify-center ${
+                <div className={`w-14 h-14 rounded-full border-3 border-white/30 flex items-center justify-center ${
                   isListening ? 'bg-red-600' : isAiLoading ? 'bg-gray-500' : 'bg-red-600'
                 }`}>
-                  {isAiLoading ? (
-                    <span className="text-white text-sm font-bold">処理中...</span>
-                  ) : isListening ? (
+                  {isListening ? (
                     <div className="flex items-center justify-center gap-[3px]">
                       {[0, 1, 2, 3, 4].map((i) => (
                         <div
@@ -1584,41 +1607,19 @@ export default function SpeakingTrainer({
                       ))}
                     </div>
                   ) : (
-                    <div className="w-4 h-4 bg-white rounded-full" /> /* 録音アイコン */
+                    <div className="w-3.5 h-3.5 bg-white rounded-full" />
                   )}
                 </div>
               </button>
 
-              {/* ステータス表示 */}
-              <p className="text-gray-500 mt-4 text-sm">
-                {isAiLoading ? '判定中...' : isListening ? '聞き取り中...' : 'タップして録音'}
+              <p className="text-gray-500 mt-2 text-xs">
+                {isListening ? '聞き取り中...' : 'タップして録音'}
               </p>
-
-              {/* 文字起こし結果表示・修正エリア */}
-              {editableText && !isAiLoading && (
-                <div className="w-full mt-6">
-                  <p className="text-xs text-gray-500 mb-1 text-center">文字起こしを修正</p>
-                  <textarea
-                    value={editableText}
-                    onChange={(e) => setEditableText(e.target.value)}
-                    placeholder="ここで修正してから判定できます。"
-                    className="w-full p-3 border-2 border-blue-200 rounded-xl focus:outline-none focus:border-blue-400 resize-none text-gray-800 text-center"
-                    rows={2}
-                  />
-                  <button
-                    onClick={handleJudge}
-                    disabled={isAiLoading || !editableText.trim()}
-                    className="w-full mt-3 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 transition-all"
-                  >
-                    判定する
-                  </button>
-                </div>
-              )}
 
               {/* わからない・答えを見るボタン */}
               <button
                 onClick={handleShowAnswer}
-                className="mt-6 px-6 py-2 border-2 border-blue-400 text-blue-500 font-semibold rounded-full hover:bg-blue-50 transition-all"
+                className="mt-4 px-6 py-2 border-2 border-blue-400 text-blue-500 font-semibold rounded-full hover:bg-blue-50 transition-all"
               >
                 わからない・答えを見る
               </button>

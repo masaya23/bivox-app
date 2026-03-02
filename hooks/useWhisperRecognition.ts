@@ -38,6 +38,8 @@ export function useWhisperRecognition() {
   const optionsRef = useRef<StartOptions>({});
   const hasSpeechRef = useRef(false);
   const isListeningRef = useRef(false);
+  /** cancel() で停止した場合に文字起こしをスキップするフラグ */
+  const cancelledRef = useRef(false);
 
   useEffect(() => {
     mountedRef.current = true;
@@ -53,8 +55,12 @@ export function useWhisperRecognition() {
     formData.append('audio', audioBlob, 'recording.webm');
     formData.append('language', 'en');
     formData.append('temperature', '0');
-    if (optionsRef.current.expectedText) {
-      formData.append('prompt', optionsRef.current.expectedText);
+    // Whisper prompt: 期待テキストをヒントとして含め、文字起こし精度を向上
+    const expected = optionsRef.current.expectedText;
+    if (expected) {
+      // 期待テキストをそのままpromptに含める（Whisperが文体・語彙を推測しやすくなる）
+      const prompt = `English speaking practice. Expected: ${expected}`;
+      formData.append('prompt', prompt);
     }
 
     const response = await apiFetch('/api/transcribe', {
@@ -117,6 +123,13 @@ export function useWhisperRecognition() {
     }
   }, [releaseResources]);
 
+  /** 録音を中断（文字起こしなしで停止） */
+  const cancelListening = useCallback(() => {
+    if (!isListeningRef.current && !mediaRecorderRef.current) return;
+    cancelledRef.current = true;
+    stopListening();
+  }, [stopListening]);
+
   /** 録音を開始 */
   const startListening = useCallback(async (options: StartOptions = {}) => {
     if (isListeningRef.current) return;
@@ -124,6 +137,7 @@ export function useWhisperRecognition() {
     optionsRef.current = options;
     audioChunksRef.current = [];
     hasSpeechRef.current = false;
+    cancelledRef.current = false;
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -162,6 +176,13 @@ export function useWhisperRecognition() {
         releaseResources();
 
         if (!mountedRef.current) return;
+
+        // cancel() で停止された場合は文字起こしをスキップ
+        if (cancelledRef.current) {
+          cancelledRef.current = false;
+          if (mountedRef.current) setIsListening(false);
+          return;
+        }
 
         const chunks = audioChunksRef.current;
         const opts = optionsRef.current;
@@ -205,7 +226,7 @@ export function useWhisperRecognition() {
       // 無音検知
       const bufferLength = analyser.fftSize;
       const dataArray = new Uint8Array(bufferLength);
-      const silenceThreshold = 5;
+      const silenceThreshold = 3;
       const silenceMs = (options.silenceTimeout || 2) * 1000;
 
       const checkSilence = () => {
@@ -256,5 +277,7 @@ export function useWhisperRecognition() {
     isTranscribing,
     startListening,
     stopListening,
+    /** 文字起こしなしで録音を中断 */
+    cancelListening,
   };
 }
