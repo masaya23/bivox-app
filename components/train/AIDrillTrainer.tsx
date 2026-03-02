@@ -970,8 +970,8 @@ export default function AIDrillTrainer({
     // 正解時のみ英語音声を自動再生（不正解時は▶ボタンで手動再生）
     if (isCorrect) {
       setTimeout(() => {
-        speakEnglish(correctAnswer);
-      }, 500);
+        speakEnglish(correctAnswer).catch(() => {});
+      }, 600);
     }
   };
 

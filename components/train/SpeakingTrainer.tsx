@@ -896,11 +896,13 @@ export default function SpeakingTrainer({
     const currentReviewQuestion = reviewQuestions[reviewIndex];
     const correctAnswer = currentReviewQuestion.aiEvaluation?.correction || currentReviewQuestion.sentence.en;
     const userBuiltSentence = selectedWords.join(' ');
-    const isCorrect = userBuiltSentence.toLowerCase().replace(/[^\w\s]/g, '') === correctAnswer.toLowerCase().replace(/[^\w\s]/g, '');
+    // レンダー時のisAnswerCorrectと同じ正規化ロジックを使用
+    const normalizeTile = (s: string) => s.toLowerCase().split(/\s+/).filter(w => !/^[-\u2013\u2014]+$/.test(w)).join(' ').replace(/[^\w\s]/g, '');
+    const isCorrect = normalizeTile(userBuiltSentence) === normalizeTile(correctAnswer);
     if (isCorrect) {
       setTimeout(() => {
         speakEnglish(currentReviewQuestion.sentence.id, 'en', undefined, correctAnswer).catch(() => {});
-      }, 500);
+      }, 600);
     }
   };
 
