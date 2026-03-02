@@ -303,6 +303,23 @@ IMPORTANT - Corrected User Answer (Complete Correction):
     → NOT "She is not a teacher" (this preserves the wrong subject)
   - The output MUST be grammatically perfect AND convey the exact meaning of the model answer
 
+═══════════════════════════════════════════════════════════════
+SCORING RULE: CONTRACTIONS（短縮形）
+═══════════════════════════════════════════════════════════════
+
+【CRITICAL - 短縮形は完全正解】
+短縮形と非短縮形の違いだけの場合は **score: 100, judgement: "correct"** にしてください。
+- "She's" = "She is" → score: 100
+- "I'm" = "I am" → score: 100
+- "don't" = "do not" → score: 100
+- "isn't" = "is not" → score: 100
+- "won't" = "will not" → score: 100
+- "they've" = "they have" → score: 100
+- "he'd" = "he would" / "he had" → score: 100
+
+短縮形の違いは「間違い」ではありません。**減点理由にしないでください。**
+短縮形について mistakePointJa, ruleJa, nuanceJa で言及しないでください。
+
 JSON format:
 {
   "judgement": "correct" | "acceptable" | "incorrect",
@@ -403,16 +420,32 @@ export async function POST(request: NextRequest) {
     const normalizeVariants = (input: string): string[] => {
       const prepared = input
         .toLowerCase()
-        .replace(/[’‘]/g, "'")
+        .replace(/[\u2018\u2019]/g, "'")
         .replace(/\s+/g, ' ')
         .trim();
 
+      // 'd → would / had の両方を生成
       const withExpandedD = prepared.includes("'d")
         ? [
             prepared.replace(/'d\b/g, ' would'),
             prepared.replace(/'d\b/g, ' had'),
           ]
         : [prepared];
+
+      // 's → is / has の両方を生成（let's は先に処理）
+      const expandApostropheS = (variants: string[]): string[] => {
+        const result: string[] = [];
+        for (const v of variants) {
+          const withLets = v.replace(/\blet's\b/g, 'let us');
+          if (withLets.includes("'s")) {
+            result.push(withLets.replace(/'s\b/g, ' is'));
+            result.push(withLets.replace(/'s\b/g, ' has'));
+          } else {
+            result.push(withLets);
+          }
+        }
+        return result;
+      };
 
       const expandContractions = (text: string) => {
         let t = text;
@@ -438,7 +471,8 @@ export async function POST(request: NextRequest) {
           .replace(/\s+/g, ' ')
           .trim();
 
-      return withExpandedD.map((variant) => stripPunctuation(expandContractions(variant)));
+      const withS = expandApostropheS(withExpandedD);
+      return withS.map((variant) => stripPunctuation(expandContractions(variant)));
     };
 
     const isNormalizedMatch =
@@ -593,6 +627,31 @@ Evaluate the learner's answer. Replace {LEARNER_ANSWER} with "${userAnswer}" and
         graderResult.mistakePointJa = '';
         graderResult.ruleJa = '';
         graderResult.nuanceJa = '';
+      }
+
+      // 短縮形の違いのみでスコアが下がっている場合は100点に補正
+      // （normalizeVariantsで拾えなかったが、AIが acceptable/correct と判断した場合）
+      if (
+        graderResult.score >= 80 &&
+        graderResult.score < 100 &&
+        (graderResult.judgement === 'correct' || graderResult.judgement === 'acceptable')
+      ) {
+        // ユーザー回答と正解の正規化結果を比較（modelAnswersも含む）
+        const allCorrectAnswers = [
+          correctAnswer,
+          ...(graderResult.modelAnswers || []),
+          graderResult.bestAnswer,
+        ].filter(Boolean);
+
+        const userVariants = normalizeVariants(userAnswer);
+        const isContractionOnly = allCorrectAnswers.some((ans: string) =>
+          normalizeVariants(ans).some((v: string) => userVariants.includes(v))
+        );
+        if (isContractionOnly) {
+          graderResult.score = 100;
+          graderResult.judgement = 'correct';
+          graderResult.mistakePointJa = '';
+        }
       }
 
       const judgement = typeof graderResult.judgement === 'string' ? graderResult.judgement.toLowerCase() : '';
