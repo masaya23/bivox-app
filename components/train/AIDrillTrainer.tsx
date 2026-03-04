@@ -1575,30 +1575,17 @@ export default function AIDrillTrainer({
   return renderInMobileFrame(
     <>
       {/* ヘッダー */}
-      <header className="relative z-10 px-4 pt-6 pb-4">
+      <header className="bg-white px-4 py-3 sticky top-0 z-30 border-b border-gray-100">
         <div className="flex items-center justify-between">
-          <a
-            href={backLink}
-            className="inline-flex items-center gap-2 whitespace-nowrap shrink-0 text-blue-700 hover:text-blue-900 font-semibold bg-white/80 backdrop-blur px-4 py-2 rounded-full shadow-sm border border-white/60"
-          >
-            <span aria-hidden>←</span>
-            <span className="leading-none">戻る</span>
-          </a>
-
-          <span className="min-w-[50px]" />
-        </div>
-
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-          {headerTitle.partLabel && (
-            <div className="mb-1">
+          <HardNavLink href={backLink} className="text-gray-600 font-semibold text-sm min-w-[50px]">← 戻る</HardNavLink>
+          <div className="text-center flex-1 px-2">
+            {headerTitle.partLabel && (
               <span className={badgeClass}>
                 {headerTitle.partLabel}
               </span>
-            </div>
-          )}
-          <h1 className="text-xl font-black text-gray-900">
-            AI応用ドリル
-          </h1>
+            )}
+          </div>
+          <span className="min-w-[50px]" />
         </div>
       </header>
 
