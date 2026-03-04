@@ -155,12 +155,14 @@ export async function POST(request: NextRequest) {
     // システムプロンプト生成
     const systemPrompt = createSystemPrompt(settings);
 
-    // OpenAI API用のメッセージ形式に変換
+    // OpenAI API用のメッセージ形式に変換（correction情報を復元してAIに文脈を渡す）
     const openaiMessages: OpenAI.Chat.ChatCompletionMessageParam[] = [
       { role: 'system', content: systemPrompt },
-      ...messages.map((msg) => ({
+      ...messages.map((msg: any) => ({
         role: msg.role as 'user' | 'assistant',
-        content: msg.content,
+        content: msg.role === 'assistant' && msg.correction
+          ? `${msg.content}\nCorrection: ${msg.correction.corrected}`
+          : msg.content,
       })),
     ];
 
