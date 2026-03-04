@@ -41,36 +41,14 @@ export default function ConversationPage() {
     if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
       const SpeechRecognition = (window as any).webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = true;
-      recognitionRef.current.interimResults = true;
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
       recognitionRef.current.lang = 'en-US';
 
       recognitionRef.current.onresult = (event: any) => {
-        let fullTranscript = '';
-
-        for (let i = 0; i < event.results.length; i++) {
-          const transcript = event.results[i][0].transcript;
-          fullTranscript += transcript + ' ';
-        }
-
-        interimTranscriptRef.current = fullTranscript.trim();
-
-        if (event.results[event.results.length - 1].isFinal) {
-          if (silenceTimerRef.current) {
-            clearTimeout(silenceTimerRef.current);
-            silenceTimerRef.current = null;
-          }
-
-          silenceTimerRef.current = setTimeout(() => {
-            if (recognitionRef.current) {
-              try {
-                recognitionRef.current.stop();
-              } catch (e) {
-                console.error('Stop error:', e);
-              }
-            }
-          }, 1500);
-        }
+        // continuous=false なので結果は1つだけ
+        const transcript = event.results[0]?.[0]?.transcript || '';
+        interimTranscriptRef.current = transcript.trim();
       };
 
       recognitionRef.current.onerror = (event: any) => {
