@@ -378,6 +378,22 @@ export default function ConversationPage() {
                 ) : (
                   <>
                     <p className="whitespace-pre-wrap text-sm">{message.content}</p>
+                    {message.role === 'user' && (
+                      <button
+                        onClick={() => startEditMessage(message)}
+                        className="mt-2 text-xs opacity-70 hover:opacity-100"
+                      >
+                        編集
+                      </button>
+                    )}
+                    {message.role === 'assistant' && (
+                      <button
+                        onClick={() => speak(message.content)}
+                        className="mt-2 text-xs opacity-70 hover:opacity-100"
+                      >
+                        もう一度聞く
+                      </button>
+                    )}
                     {message.correction && (
                       <div className="mt-2 pt-2 border-t border-gray-300 text-xs">
                         <p className="font-semibold text-orange-600">
@@ -398,22 +414,6 @@ export default function ConversationPage() {
                           </button>
                         </div>
                       </div>
-                    )}
-                    {message.role === 'user' && (
-                      <button
-                        onClick={() => startEditMessage(message)}
-                        className="mt-2 text-xs opacity-70 hover:opacity-100"
-                      >
-                        編集
-                      </button>
-                    )}
-                    {message.role === 'assistant' && (
-                      <button
-                        onClick={() => speak(message.content)}
-                        className="mt-2 text-xs opacity-70 hover:opacity-100"
-                      >
-                        もう一度聞く
-                      </button>
                     )}
                   </>
                 )}
