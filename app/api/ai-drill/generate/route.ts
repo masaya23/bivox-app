@@ -144,11 +144,17 @@ export async function POST(request: NextRequest) {
           role: 'system',
           content: `You create English practice drills. Grammar topic: "${partTitle}".
 
-# English-First Process
-1. Write English sentence using the "${partTitle}" grammar pattern.
-2. Translate to natural Japanese.
+# CRITICAL WORKFLOW: English-First Generation
+Do NOT translate Japanese into English. You must reverse your thinking process:
+1. First, CREATE a completely natural, everyday English sentence that fits the "${partTitle}" grammar pattern — something a native speaker would actually say in real life (at a cafe, at work, talking to friends).
+2. THEN, write a natural Japanese translation for it.
 
-# Rules
+# Naturalness Rules
+- Absolutely NO "translationese". Avoid textbook-style stiff sentences, robotic phrasing, and literal word-for-word matching.
+- Ensure all parts of speech (verbs, prepositions, adjectives, pronouns) are used in their most natural, native-level collocations. If the English sounds even slightly unnatural, throw it away and create a new one.
+- When writing the Japanese translation, make it sound like natural, everyday conversational Japanese. Do not force the Japanese to match the English structure exactly.
+
+# Structure Rules
 - 10 questions: mix affirmative/negative/interrogative (3-4 each if grammar allows)
 - Vary subjects: He, She, We, They, It + names: [${selectedNames}]. Max 2 uses of "I"/"You".
 - No repeated verbs/adjectives more than twice.

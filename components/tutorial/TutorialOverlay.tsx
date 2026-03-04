@@ -198,16 +198,23 @@ export default function TutorialOverlay({
         </div>
       )}
 
-      {/* マスコット＋吹き出しエリア（ボタンエリアの上に配置） */}
-      <div className="fixed bottom-78 left-0 right-0 max-w-[430px] mx-auto z-[100] px-4">
-        <div className="flex items-end gap-3">
+      {/* マスコット＋吹き出しエリア（スポットライト対象の下に配置） */}
+      <div
+        className="fixed left-0 right-0 max-w-[430px] mx-auto z-[100] px-4"
+        style={{
+          top: spotlightRect
+            ? `${spotlightRect.top + spotlightRect.height + 12}px`
+            : '50%',
+        }}
+      >
+        <div className="flex items-start gap-3">
           {/* マスコット */}
           <div className="w-20 h-20 flex-shrink-0">
             {mascotComponent || <SpotlightMascot expression={currentConfig.mascotExpression} />}
           </div>
 
           {/* 吹き出し */}
-          <div className="flex-1 -mb-2">
+          <div className="flex-1 mt-1">
             <SpotlightSpeechBubble
               text={currentConfig.mascotSpeech}
               isTyping={!speechComplete}
@@ -217,33 +224,28 @@ export default function TutorialOverlay({
         </div>
       </div>
 
-      {/* ボタンエリア（画面最下部に固定） */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto z-[100]">
-        <div className="px-4 pb-4 pt-2">
-          <div className="flex gap-2">
-            {/* スキップボタン */}
+      {/* スキップボタン（右上に固定） */}
+      <button
+        onClick={onSkip}
+        className="fixed top-4 right-4 z-[100] px-4 py-2 bg-white/30 backdrop-blur-sm text-white text-sm font-bold rounded-full border-[1.5px] border-white hover:bg-white/40 transition-all"
+      >
+        スキップ
+      </button>
+
+      {/* 次へボタン（画面最下部に固定） */}
+      {currentConfig.buttonText && speechComplete && !currentConfig.hideNextButton && (
+        <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto z-[100]">
+          <div className="px-4 pb-4 pt-2">
             <button
-              onClick={onSkip}
-              className="px-4 py-3 bg-white/30 backdrop-blur-sm text-white text-sm font-bold rounded-full border-[1.5px] border-white hover:bg-white/40 transition-all"
+              onClick={handleNext}
+              className="w-full py-3 bg-white text-gray-800 font-bold rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.2)] transition-all transform hover:scale-[1.02] active:scale-[0.98]"
             >
-              スキップ
+              {currentConfig.buttonText}
             </button>
-
-            {/* 次へボタン（hideNextButtonの場合は非表示） */}
-            {currentConfig.buttonText && speechComplete && !currentConfig.hideNextButton && (
-              <button
-                onClick={handleNext}
-                className="flex-1 py-3 bg-white text-gray-800 font-bold rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.2)] transition-all transform hover:scale-[1.02] active:scale-[0.98]"
-              >
-                {currentConfig.buttonText}
-              </button>
-            )}
           </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent -z-10 rounded-t-3xl" />
         </div>
-
-        {/* 背景グラデーション */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent -z-10 rounded-t-3xl" />
-      </div>
+      )}
     </div>
   );
 }
