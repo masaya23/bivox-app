@@ -1524,12 +1524,25 @@ export default function SpeakingTrainer({
                 </span>
               )}
             </div>
-            <span className="text-gray-500 text-sm min-w-[50px] text-right">{currentIndex + 1} / {sentences.length}</span>
+            <span className="min-w-[50px]" />
           </div>
         </header>
 
         {/* メインコンテンツ */}
         <div className="flex-1 overflow-y-auto p-4">
+
+        {/* 進捗バー */}
+        <div className="mb-4 space-y-1">
+          <div className="text-center text-xs font-semibold text-gray-500 tabular-nums">
+            {currentIndex + 1} / {sentences.length}
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div
+              className="bg-gradient-to-r from-green-500 to-blue-500 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${((currentIndex + 1) / sentences.length) * 100}%` }}
+            />
+          </div>
+        </div>
 
         {/* 問題 */}
         <div className="text-center mb-6">

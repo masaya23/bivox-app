@@ -1585,11 +1585,7 @@ export default function AIDrillTrainer({
             <span className="leading-none">戻る</span>
           </a>
 
-          <div className="text-right">
-            <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-bold">
-              {session.currentIndex + 1}/{totalQuestions}
-            </span>
-          </div>
+          <span className="min-w-[50px]" />
         </div>
 
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
@@ -1611,10 +1607,13 @@ export default function AIDrillTrainer({
         <div className="max-w-2xl mx-auto">
           {/* 進捗バー */}
           {phase !== 'loading' && (
-            <div className="mb-6">
-              <div className="w-full bg-gray-200 rounded-full h-3">
+            <div className="mb-6 space-y-1">
+              <div className="text-center text-xs font-semibold text-gray-500 tabular-nums">
+                {session.currentIndex + 1} / {totalQuestions}
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
                 <div
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-300"
+                  className="bg-gradient-to-r from-green-500 to-blue-500 h-2 rounded-full transition-all duration-300"
                   style={{ width: `${((session.currentIndex + 1) / totalQuestions) * 100}%` }}
                 />
               </div>

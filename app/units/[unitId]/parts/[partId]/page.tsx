@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useMemo } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import ShadowingTrainer from '@/components/train/ShadowingTrainer';
@@ -30,12 +30,22 @@ function PartPracticePageContent() {
   const unit = getUnitById(unitId);
   const part = unit ? getPartById(unitId, partId) : undefined;
 
+  // useMemoでシャッフル結果を安定化（再レンダー時に再シャッフルされるのを防止）
+  // Hooksは条件付きreturnの前に呼ぶ必要がある
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const sentences = useMemo(
+    () => {
+      if (!part) return [];
+      return shuffleMode ? shufflePartSentences(part).sentences : part.sentences;
+    },
+    [shuffleMode, partId] // partIdが変わった時だけ再シャッフル
+  );
+
   if (!unit || !part) {
     router.push('/units');
     return null;
   }
 
-  const sentences = shuffleMode ? shufflePartSentences(part).sentences : part.sentences;
   // 戻り先はモード選択画面
   const grade = gradeParam || getGradeFromUnitId(unitId);
   const backLink = `/units/${unitId}/parts/${partId}/mode?shuffle=${shuffleMode}&grade=${grade}`;
