@@ -377,9 +377,20 @@ export default function ConversationPage() {
                         <p className="font-semibold text-orange-600">
                           添削:
                         </p>
-                        <p className="text-gray-600">
-                          {message.correction.corrected}
-                        </p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-gray-600 flex-1">
+                            {message.correction.corrected}
+                          </p>
+                          <button
+                            onClick={() => speak(message.correction!.corrected)}
+                            className="flex-shrink-0 w-7 h-7 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors"
+                            aria-label="添削を読み上げ"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
                     )}
                     {message.role === 'user' && (
