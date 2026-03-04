@@ -187,10 +187,13 @@ export async function POST(request: NextRequest) {
       settings.correctionMode
     );
 
+    // Correction行を応答テキストから除去（添削は別フィールドで返すため）
+    const cleanResponse = aiResponse.replace(/\n?Correction:\s*.+/i, '').trim();
+
     return NextResponse.json(
       {
         success: true,
-        response: aiResponse,
+        response: cleanResponse,
         correction: needsCorrection ? correction : null,
       },
       {
