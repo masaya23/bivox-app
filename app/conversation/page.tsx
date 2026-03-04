@@ -5,13 +5,14 @@ import HardNavLink from '@/components/HardNavLink';
 import { Message, ConversationSettings } from '@/types/conversation';
 import { apiFetch } from '@/utils/api';
 import { useServerTTS } from '@/hooks/useServerTTS';
+import { useWhisperRecognition } from '@/hooks/useWhisperRecognition';
 import { recordLearningTime } from '@/utils/learningTime';
 import { recordSession } from '@/utils/sessionLog';
 
 export default function ConversationPage() {
   const serverTTS = useServerTTS();
+  const whisper = useWhisperRecognition();
   const [messages, setMessages] = useState<Message[]>([]);
-  const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [settings, setSettings] = useState<ConversationSettings>({
     userLevel: 'intermediate',
@@ -23,85 +24,13 @@ export default function ConversationPage() {
   const [editingText, setEditingText] = useState<string>('');
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const recognitionRef = useRef<any>(null);
   const isInitialized = useRef(false);
-  const silenceTimerRef = useRef<any>(null);
-  const interimTranscriptRef = useRef<string>('');
-  const startTimeRef = useRef<number>(Date.now()); // 学習開始時刻
-  const SILENCE_TIMEOUT_MS = 1500;
-
+  const startTimeRef = useRef<number>(Date.now());
 
   // 自動スクロール
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  // 音声認識の初期化（1回のみ）
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).webkitSpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.interimResults = false;
-      recognitionRef.current.lang = 'en-US';
-
-      recognitionRef.current.onresult = (event: any) => {
-        // continuous=false なので結果は1つだけ
-        const transcript = event.results[0]?.[0]?.transcript || '';
-        interimTranscriptRef.current = transcript.trim();
-      };
-
-      recognitionRef.current.onerror = (event: any) => {
-        if (event.error !== 'no-speech' && event.error !== 'aborted') {
-          console.error('Speech recognition error:', event.error);
-        }
-
-        if (silenceTimerRef.current) {
-          clearTimeout(silenceTimerRef.current);
-          silenceTimerRef.current = null;
-        }
-
-        if (event.error === 'aborted' || event.error === 'no-speech') {
-          return;
-        }
-
-        setIsRecording(false);
-
-        if (event.error !== 'no-speech') {
-          setError('音声認識エラーが発生しました');
-        }
-      };
-
-      recognitionRef.current.onend = () => {
-        if (silenceTimerRef.current) {
-          clearTimeout(silenceTimerRef.current);
-          silenceTimerRef.current = null;
-        }
-
-        setIsRecording(false);
-
-        // 即座にメッセージを送信
-        const transcript = interimTranscriptRef.current.trim();
-        if (transcript) {
-          handleUserMessage(transcript);
-          interimTranscriptRef.current = '';
-        }
-      };
-    }
-
-    return () => {
-      if (recognitionRef.current) {
-        try {
-          recognitionRef.current.stop();
-        } catch (e) {
-          console.error('Cleanup stop error:', e);
-        }
-      }
-      if (silenceTimerRef.current) {
-        clearTimeout(silenceTimerRef.current);
-      }
-    };
-  }, []); // 空の依存配列で1回のみ初期化
 
   // ユーザーメッセージを処理
   const handleUserMessage = async (content: string) => {
@@ -151,48 +80,32 @@ export default function ConversationPage() {
     }
   };
 
-  // 音声認識開始（TTS再生中なら停止してからマイク開始）
+  // 音声認識開始（Whisper API使用）
   const startRecording = () => {
-    if (!recognitionRef.current) {
-      setError('音声認識が利用できません（Chrome推奨）');
-      return;
-    }
     // TTS再生中なら停止（初回メッセージ等のスキップ用）
     serverTTS.stop();
     setError(null);
-    interimTranscriptRef.current = '';
-    if (silenceTimerRef.current) {
-      clearTimeout(silenceTimerRef.current);
-    }
-    setIsRecording(true);
-    try {
-      recognitionRef.current.start();
-    } catch (e) {
-      console.error('Recognition start error:', e);
-    }
+
+    whisper.startListening({
+      silenceTimeout: 3,
+      noSpeechTimeout: 10,
+      onResult: (text: string) => {
+        if (text.trim()) {
+          handleUserMessage(text.trim());
+        }
+      },
+      onNoSpeech: () => {
+        // 発話なし — 何もしない
+      },
+      onError: (msg: string) => {
+        setError(msg);
+      },
+    });
   };
 
   // 音声認識停止
   const stopRecording = () => {
-    if (silenceTimerRef.current) {
-      clearTimeout(silenceTimerRef.current);
-      silenceTimerRef.current = null;
-    }
-
-    if (recognitionRef.current) {
-      try {
-        recognitionRef.current.stop();
-      } catch (e) {
-        console.error('Stop recording error:', e);
-        try {
-          recognitionRef.current.abort();
-        } catch (abortError) {
-          console.error('Abort recording error:', abortError);
-        }
-      }
-    }
-
-    setIsRecording(false);
+    whisper.stopListening();
   };
 
   // テキスト読み上げ（サーバーTTS API使用）
@@ -314,6 +227,9 @@ export default function ConversationPage() {
       }, 500);
     }
   }, []);
+
+  const isRecording = whisper.isListening;
+  const isTranscribing = whisper.isTranscribing;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col max-w-[430px] mx-auto relative shadow-xl">
@@ -487,7 +403,7 @@ export default function ConversationPage() {
               </div>
             </div>
           ))}
-          {isProcessing && (
+          {(isProcessing || isTranscribing) && (
             <div className="flex justify-start">
               <div className="bg-white rounded-2xl p-4 shadow-md">
                 <div className="flex gap-1">
@@ -520,13 +436,13 @@ export default function ConversationPage() {
         <div className="text-center">
           <button
             onClick={isRecording ? stopRecording : startRecording}
-            disabled={isProcessing || editingMessageId !== null}
+            disabled={isProcessing || isTranscribing || editingMessageId !== null}
             className={`w-16 h-16 rounded-full font-bold text-white text-xl transition-all transform ${
               isRecording
                 ? 'bg-red-500 animate-pulse scale-110'
                 : 'bg-gradient-to-r from-green-500 to-blue-500 hover:scale-105'
             } ${
-              isProcessing || editingMessageId !== null ? 'opacity-50 cursor-not-allowed' : ''
+              isProcessing || isTranscribing || editingMessageId !== null ? 'opacity-50 cursor-not-allowed' : ''
             } shadow-lg`}
           >
             {isRecording ? (
@@ -550,6 +466,8 @@ export default function ConversationPage() {
           <p className="mt-2 text-gray-600 font-semibold text-sm">
             {isRecording
               ? '話してください...'
+              : isTranscribing
+              ? '文字起こし中...'
               : isProcessing
               ? 'AIが考えています...'
               : editingMessageId !== null
