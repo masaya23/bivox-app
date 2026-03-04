@@ -55,13 +55,8 @@ export function useWhisperRecognition() {
     formData.append('audio', audioBlob, 'recording.webm');
     formData.append('language', 'en');
     formData.append('temperature', '0');
-    // Whisper prompt: 期待テキストをヒントとして含め、文字起こし精度を向上
-    const expected = optionsRef.current.expectedText;
-    if (expected) {
-      // 期待テキストをそのままpromptに含める（Whisperが文体・語彙を推測しやすくなる）
-      const prompt = `English speaking practice. Expected: ${expected}`;
-      formData.append('prompt', prompt);
-    }
+    // Whisper prompt: 一般的なコンテキストのみ（正解文を含めるとWhisperが補完しすぎる）
+    formData.append('prompt', 'English speaking practice. Short sentences.');
 
     const response = await apiFetch('/api/transcribe', {
       method: 'POST',
