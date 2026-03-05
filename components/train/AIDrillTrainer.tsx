@@ -13,6 +13,8 @@ import MascotComment from '@/components/MascotComment';
 import ResultHeader from './ResultHeader';
 import type { Sentence } from '@/types/sentence';
 import type { AIDrillSession, AIDrillQuestion, AIDrillPhase } from '@/types/aiDrill';
+import PlayIcon from '@/components/icons/PlayIcon';
+import SpeakerIcon from '@/components/icons/SpeakerIcon';
 import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
 
 interface AIDrillTrainerProps {
@@ -1238,18 +1240,7 @@ export default function AIDrillTrainer({
                         ? 'bg-yellow-500'
                         : 'bg-red-500';
 
-                      const badgeIcon = isExcellent ? '🟢' : isRecovered ? '🟡' : '🔴';
                       const statusLabel = isExcellent ? '一発正解' : isRecovered ? 'リカバリー' : '不正解';
-                      const badgeSymbol = isExcellent ? '○' : isRecovered ? '△' : '×';
-                      const badgeSizeClass = isExcellent ? 'text-3xl leading-none' : isRecovered ? 'text-sm leading-none' : 'text-xl leading-none';
-                      const circleOffsetY = -1;
-                      const triangleOffsetY = 0;
-                      const crossOffsetY = -1;
-                      const badgeSymbolOffsetStyle = isExcellent
-                        ? { transform: `translateY(${circleOffsetY}px)` }
-                        : isRecovered
-                        ? { transform: `translateY(${triangleOffsetY}px)` }
-                        : { transform: `translateY(${crossOffsetY}px)` };
 
                     return (
                       <div
@@ -1261,10 +1252,16 @@ export default function AIDrillTrainer({
                           className="w-full p-3 flex items-center justify-between text-left"
                         >
                           <div className="flex items-center gap-2">
-                              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-white font-bold ${badgeStyle}`}>
-                                <span style={badgeSymbolOffsetStyle} className={badgeSizeClass}>
-                                  {badgeSymbol}
-                                </span>
+                              <span className={`w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] flex-shrink-0 rounded-full flex items-center justify-center text-white font-bold ${badgeStyle}`}>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                  {isExcellent ? (
+                                    <circle cx="12" cy="12" r="9" />
+                                  ) : isRecovered ? (
+                                    <polygon points="12,3 22,21 2,21" />
+                                  ) : (
+                                    <><line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" /></>
+                                  )}
+                                </svg>
                               </span>
                             <span className="text-gray-800 font-semibold text-sm line-clamp-1">
                               Q{index + 1}. {result.questionJa}
@@ -1296,7 +1293,7 @@ export default function AIDrillTrainer({
                                       disabled={isTTSSpeaking}
                                       className="w-7 h-7 bg-orange-200 text-orange-600 rounded-full flex items-center justify-center hover:bg-orange-300 disabled:opacity-50 text-xs"
                                     >
-                                      ▶
+                                      <PlayIcon />
                                     </button>
                                   )}
                                 </div>
@@ -1318,7 +1315,7 @@ export default function AIDrillTrainer({
                                     disabled={isTTSSpeaking}
                                     className="w-7 h-7 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 disabled:opacity-50 text-xs"
                                   >
-                                    ▶
+                                    <PlayIcon />
                                   </button>
                                 )}
                               </div>
@@ -1357,7 +1354,7 @@ export default function AIDrillTrainer({
                                   disabled={isTTSSpeaking}
                                   className="w-7 h-7 bg-green-100 text-green-600 rounded-full flex items-center justify-center hover:bg-green-200 disabled:opacity-50 text-xs"
                                 >
-                                  ▶
+                                  <PlayIcon />
                                 </button>
                               </div>
                               <p className="text-sm text-green-700 font-semibold">
@@ -1502,7 +1499,7 @@ export default function AIDrillTrainer({
                         disabled={isTTSSpeaking}
                         className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 disabled:opacity-50 transition-all shrink-0 ml-3"
                       >
-                        ▶
+                        <PlayIcon />
                       </button>
                     </div>
                   </div>
@@ -1634,7 +1631,7 @@ export default function AIDrillTrainer({
                 onClick={() => displayQuestion && speakJapanese(displayQuestion)}
                 className="w-full max-w-xs mx-auto flex items-center justify-center gap-2 py-4 px-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full mb-8 hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg"
               >
-                <span className="text-xl">🔊</span>
+                <SpeakerIcon size={20} />
                 <span>日本語を聞く</span>
               </button>
 
@@ -1731,7 +1728,7 @@ export default function AIDrillTrainer({
                   onClick={() => displayQuestion && speakJapanese(displayQuestion)}
                   className="mt-3 inline-flex items-center justify-center gap-2 py-2 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all shadow-md text-sm"
                 >
-                  <span>🔊</span>
+                  <SpeakerIcon size={14} />
                   <span>日本語を聞く</span>
                 </button>
               </div>
@@ -1754,7 +1751,7 @@ export default function AIDrillTrainer({
                         onClick={() => expectedAnswer && speakEnglish(expectedAnswer)}
                         className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-all text-sm font-semibold"
                       >
-                        ▶ 発音を聞く
+                        <><PlayIcon size={14} className="inline-block" /> 発音を聞く</>
                       </button>
                     </div>
                   </div>
@@ -1838,7 +1835,7 @@ export default function AIDrillTrainer({
                   onClick={() => displayQuestion && speakJapanese(displayQuestion)}
                   className="inline-flex items-center justify-center gap-2 py-2 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all shadow-md text-sm"
                 >
-                  <span>🔊</span>
+                  <SpeakerIcon size={14} />
                   <span>日本語を聞く</span>
                 </button>
               </div>
@@ -1916,7 +1913,7 @@ export default function AIDrillTrainer({
                           onClick={() => speakEnglish(modelAnswersList[answerExampleIndex])}
                           className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-all text-sm font-semibold"
                         >
-                          ▶ 発音を聞く
+                          <><PlayIcon size={14} className="inline-block" /> 発音を聞く</>
                         </button>
                       </div>
                     </div>
@@ -2064,7 +2061,7 @@ export default function AIDrillTrainer({
                             onClick={() => speakEnglish(correctionTarget)}
                             className="ml-3 w-10 h-10 bg-teal-500 text-white rounded-full flex items-center justify-center hover:bg-teal-600 transition-all flex-shrink-0"
                           >
-                            ▶
+                            <PlayIcon />
                           </button>
                         </div>
                       </div>

@@ -214,7 +214,7 @@ export default function HomePage() {
             {!canAccessConversation && (
               <div className="absolute -top-2 -right-2 z-20">
                 <span className="px-2 py-1 bg-gray-800 text-white text-xs font-bold rounded-full shadow-lg flex items-center gap-1">
-                  <span>🔒</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
                   Proプラン
                 </span>
               </div>

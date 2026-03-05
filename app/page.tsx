@@ -40,62 +40,48 @@ export default function WelcomePage() {
       {/* メインコンテンツ */}
       <div className="flex-1 flex flex-col items-center px-6 relative z-10">
         {/* 上部スペーサー */}
-        <div className="flex-[2]" />
+        <div className="flex-[1.5]" />
 
-        {/* キツネ */}
-        <Image
-          src="/images/mascot/fox_top.png"
-          alt="Bivox マスコット"
-          width={240}
-          height={240}
-          className="drop-shadow-lg"
-          priority
-        />
-
-        {/* ロゴ */}
-        <div className="mt-1 mb-6">
+        {/* ウェルカム画像（キツネ+ロゴ一体） */}
+        <div className="w-[calc(100%+96px)] -mx-12">
           <Image
-            src="/images/bivox-logo-welcome.png"
-            alt="Bivox"
-            width={300}
-            height={160}
-            className="drop-shadow-md"
+            src="/images/bivox-welcome.png"
+            alt="Bivox 瞬間英会話"
+            width={4961}
+            height={3508}
+            className="w-full h-auto"
             priority
           />
         </div>
 
-        {/* アクションボタン */}
-        <div className="w-full space-y-3">
-          {/* メインアクションボタン: 濃い茶色テキスト + 強めのシャドウ */}
-          <HardNavLink
-            href="/auth/register"
-            className="block w-full py-4 bg-white text-[#5D4037] text-center font-black text-lg rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.2)] transition-all active:scale-[0.98]"
-          >
-            無料で始める
-          </HardNavLink>
-          {/* サブアクションボタン: 濃い茶色の枠線とテキスト */}
-          <HardNavLink
-            href="/auth/login"
-            className="block w-full py-4 bg-white/20 backdrop-blur-sm text-[#5D4037] text-center font-bold text-lg rounded-2xl border-2 border-[#5D4037]/60 hover:bg-white/30 hover:border-[#5D4037]/80 transition-all active:scale-[0.98]"
-          >
-            ログイン
-          </HardNavLink>
-        </div>
+        {/* 中央スペーサー */}
+        <div className="flex-[0.5]" />
 
-        {/* 下部スペーサー */}
-        <div className="flex-[1]" />
-      </div>
-
-      {/* フッター - セーフエリアを考慮した余白 */}
-      <div className="pb-12 pt-4 px-6 relative z-10" style={{ paddingBottom: 'max(3rem, env(safe-area-inset-bottom, 3rem))' }}>
-        <div className="flex items-center justify-center gap-4 text-[#5D4037]/70 text-xs">
-          <a href="/terms" className="hover:text-[#5D4037] transition-colors py-2 px-1">
-            利用規約
-          </a>
-          <span className="text-[#5D4037]/50">|</span>
-          <a href="/privacy" className="hover:text-[#5D4037] transition-colors py-2 px-1">
-            プライバシーポリシー
-          </a>
+        {/* 下部グループ: ボタン + フッター */}
+        <div className="w-full pb-4" style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom, 1rem))' }}>
+          <div className="space-y-4 mb-6">
+            <HardNavLink
+              href="/auth/register"
+              className="block w-full py-4 bg-white text-[#5D4037] text-center font-black text-lg rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.12)] transition-all active:scale-[0.98]"
+            >
+              無料で始める
+            </HardNavLink>
+            <HardNavLink
+              href="/auth/login"
+              className="block w-full py-4 bg-transparent text-white text-center font-bold text-lg rounded-2xl border-[1.5px] border-white/80 hover:bg-white/10 transition-all active:scale-[0.98]"
+            >
+              ログイン
+            </HardNavLink>
+          </div>
+          <div className="flex items-center justify-center gap-4 text-white/60 text-xs">
+            <a href="/terms" className="hover:text-white/90 transition-colors py-2 px-1">
+              利用規約
+            </a>
+            <span className="text-white/40">|</span>
+            <a href="/privacy" className="hover:text-white/90 transition-colors py-2 px-1">
+              プライバシーポリシー
+            </a>
+          </div>
         </div>
       </div>
     </div>

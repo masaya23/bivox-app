@@ -20,7 +20,7 @@ export default function LifeRecoveryWidget({ className = '' }: LifeRecoveryWidge
     return (
       <div className={`bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl shadow-lg p-5 text-white ${className}`}>
         <div className="flex items-center gap-3 mb-3">
-          <span className="text-2xl">❤️</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#ef4444"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
           <h3 className="font-bold text-lg">スタミナ</h3>
           <span className="ml-auto px-3 py-1 bg-white/20 rounded-full text-sm font-bold">
             無制限
@@ -80,7 +80,7 @@ export default function LifeRecoveryWidget({ className = '' }: LifeRecoveryWidge
       {/* ヘッダー */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <span className={`text-2xl ${currentLife === 0 ? 'grayscale opacity-50' : ''}`}>❤️</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#ef4444" className={currentLife === 0 ? 'grayscale opacity-50' : ''}><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
           <h3 className="font-bold text-gray-800">スタミナ</h3>
         </div>
         {isFull ? (

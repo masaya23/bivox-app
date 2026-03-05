@@ -444,6 +444,12 @@ export default function HelpPage() {
                 ベーシックモードはオフラインでも利用可能です。スピーキング・AI応用ドリル・AIフリー英会話はインターネット接続が必要です。
               </p>
             </div>
+            <div>
+              <h3 className="font-bold text-gray-800 text-sm mb-1">問題生成や解説・音声に時間がかかる</h3>
+              <p className="text-xs text-gray-600">
+                AI応用ドリルの問題生成、スピーキングモードの解説作成、音声の読み上げなどはサーバーで処理を行うため、通信状況やサーバーの混雑状況によって数秒〜数分かかることがあります。処理中は画面を閉じずにお待ちください。
+              </p>
+            </div>
           </div>
         </HelpCard>
 

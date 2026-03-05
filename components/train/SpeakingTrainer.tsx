@@ -13,6 +13,8 @@ import MascotComment from '@/components/MascotComment';
 import ResultHeader from './ResultHeader';
 import type { Sentence } from '@/types/sentence';
 import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
+import PlayIcon from '@/components/icons/PlayIcon';
+import SpeakerIcon from '@/components/icons/SpeakerIcon';
 
 // ダミーデータ（10問）- unit1-p1のセンテンスを使用（MP3ファイルと対応）
 const DUMMY_SENTENCES: Sentence[] = [
@@ -1076,7 +1078,7 @@ export default function SpeakingTrainer({
                           disabled={isPlayingEnglish}
                           className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 disabled:opacity-50 transition-all"
                         >
-                          ▶
+                          <PlayIcon />
                         </button>
                       </div>
                     </div>
@@ -1288,18 +1290,7 @@ export default function SpeakingTrainer({
                       ? 'bg-yellow-500'
                       : 'bg-red-500';
 
-                    const badgeIcon = isExcellent ? '🟢' : isRecovered ? '🟡' : '🔴';
                     const statusLabel = isExcellent ? '一発正解' : isRecovered ? 'リカバリー' : '不正解';
-                    const badgeSymbol = isExcellent ? '○' : isRecovered ? '△' : '×';
-                    const badgeSizeClass = isExcellent ? 'text-3xl leading-none' : isRecovered ? 'text-sm leading-none' : 'text-xl leading-none';
-                    const circleOffsetY = -1;
-                    const triangleOffsetY = 0;
-                    const crossOffsetY = 0;
-                    const badgeSymbolOffsetStyle = isExcellent
-                      ? { transform: `translateY(${circleOffsetY}px)` }
-                      : isRecovered
-                      ? { transform: `translateY(${triangleOffsetY}px)` }
-                      : { transform: `translateY(${crossOffsetY}px)` };
 
                     return (
                       <div
@@ -1312,10 +1303,16 @@ export default function SpeakingTrainer({
                           className="w-full p-3 flex items-center justify-between text-left"
                         >
                           <div className="flex items-center gap-2">
-                            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-white font-bold ${badgeStyle}`}>
-                              <span style={badgeSymbolOffsetStyle} className={badgeSizeClass}>
-                                {badgeSymbol}
-                              </span>
+                            <span className={`w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] flex-shrink-0 rounded-full flex items-center justify-center text-white font-bold ${badgeStyle}`}>
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                {isExcellent ? (
+                                  <circle cx="12" cy="12" r="9" />
+                                ) : isRecovered ? (
+                                  <polygon points="12,3 22,21 2,21" />
+                                ) : (
+                                  <><line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" /></>
+                                )}
+                              </svg>
                             </span>
                             <span className="text-gray-800 font-semibold text-sm line-clamp-1">
                               {result.sentence.jp}
@@ -1351,7 +1348,7 @@ export default function SpeakingTrainer({
                                       disabled={isPlayingEnglish}
                                       className="w-7 h-7 bg-orange-200 text-orange-600 rounded-full flex items-center justify-center hover:bg-orange-300 disabled:opacity-50 text-xs"
                                     >
-                                      ▶
+                                      <PlayIcon />
                                     </button>
                                   )}
                                 </div>
@@ -1375,7 +1372,7 @@ export default function SpeakingTrainer({
                                     disabled={isPlayingEnglish}
                                     className="w-7 h-7 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 disabled:opacity-50 text-xs"
                                   >
-                                    ▶
+                                    <PlayIcon />
                                   </button>
                                 )}
                               </div>
@@ -1413,7 +1410,7 @@ export default function SpeakingTrainer({
                                   disabled={isPlayingEnglish}
                                   className="w-7 h-7 bg-green-100 text-green-600 rounded-full flex items-center justify-center hover:bg-green-200 disabled:opacity-50 text-xs"
                                 >
-                                  ▶
+                                  <PlayIcon />
                                 </button>
                               </div>
                               {resultWordDiff && !isExcellent ? (
@@ -1452,7 +1449,7 @@ export default function SpeakingTrainer({
                                         disabled={isPlayingEnglish}
                                         className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 disabled:opacity-50 text-xs"
                                       >
-                                        ▶
+                                        <PlayIcon />
                                       </button>
                                     </li>
                                   ))}
@@ -1556,7 +1553,7 @@ export default function SpeakingTrainer({
           disabled={isPlayingJapanese}
           className="w-full max-w-xs mx-auto flex items-center justify-center gap-2 py-4 px-8 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-bold rounded-full mb-8 hover:from-purple-600 hover:to-blue-600 disabled:opacity-50 transition-all shadow-lg"
         >
-          <span className="text-xl">🔊</span>
+          <SpeakerIcon size={20} />
           <span>{isPlayingJapanese ? '再生中...' : '日本語を聞く'}</span>
         </button>
 
@@ -1655,7 +1652,7 @@ export default function SpeakingTrainer({
                   disabled={isPlayingEnglish}
                   className="mt-3 px-4 py-2 bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 disabled:opacity-50 transition-all"
                 >
-                  {isPlayingEnglish ? '再生中...' : '▶ 発音を聞く'}
+                  {isPlayingEnglish ? '再生中...' : <><PlayIcon size={14} className="inline-block align-middle mr-1" />発音を聞く</>}
                 </button>
               </div>
               {!isAiLoading && (
@@ -1783,7 +1780,7 @@ export default function SpeakingTrainer({
                       disabled={isTTSSpeaking || isPlayingEnglish}
                       className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 disabled:opacity-50 transition-all text-sm font-semibold"
                     >
-                      <span>{isPlayingEnglish ? '🔊' : '▶'}</span>
+                      <span>{isPlayingEnglish ? <SpeakerIcon /> : <PlayIcon size={14} />}</span>
                       <span>{isPlayingEnglish ? '再生中...' : '発音を聞く'}</span>
                     </button>
                   </div>
@@ -1951,7 +1948,7 @@ export default function SpeakingTrainer({
                           disabled={isPlayingEnglish}
                           className="ml-3 w-10 h-10 bg-teal-500 text-white rounded-full flex items-center justify-center hover:bg-teal-600 disabled:opacity-50 transition-all flex-shrink-0"
                         >
-                          ▶
+                          <PlayIcon />
                         </button>
                       </div>
                     </div>

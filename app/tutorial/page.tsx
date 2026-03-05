@@ -245,8 +245,8 @@ function MockBasicModeUI({
               </span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-red-500 text-sm">❤️ 5</span>
-              <span className="text-gray-400">⚙️</span>
+              <span className="text-red-500 text-sm flex items-center gap-0.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 5</span>
+              <span className="text-gray-400"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
             </div>
           </div>
         </header>
@@ -493,15 +493,15 @@ export default function TutorialPage() {
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 p-3 bg-green-50 rounded-xl">
-                    <span className="text-3xl">🎯</span>
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
                     <span className="text-base text-gray-800 font-bold leading-relaxed">中学英語をマスター</span>
                   </div>
                   <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl">
-                    <span className="text-3xl">🔊</span>
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                     <span className="text-base text-gray-800 font-bold leading-relaxed">音声で聞いて、声に出す</span>
                   </div>
                   <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-xl">
-                    <span className="text-3xl">🔄</span>
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8A5.87 5.87 0 016 12c0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
                     <span className="text-base text-gray-800 font-bold leading-relaxed">繰り返しで英語脳を作る</span>
                   </div>
                 </div>
@@ -630,7 +630,7 @@ export default function TutorialPage() {
         <div className="flex-1 flex flex-col items-center justify-center px-4 pt-16 pb-48">
           <div className="bg-white rounded-3xl shadow-2xl p-6 w-full max-w-sm animate-fadeIn">
             <div className="text-center mb-6">
-              <div className="text-6xl mb-4">🎉</div>
+              <div className="text-5xl mb-4 flex justify-center"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z" fill="%23FFD700" stroke="%23FFD700"/><path d="M5 16l1 3 3-1" stroke="%23FF6B6B" strokeWidth="2"/><path d="M19 16l-1 3-3-1" stroke="%234ECDC4" strokeWidth="2"/><path d="M8 20l.5 2" stroke="%2345B7D1" strokeWidth="2"/><path d="M16 20l-.5 2" stroke="%23DDA0DD" strokeWidth="2"/></svg></div>
               <h2 className="text-2xl font-black text-gray-800 mb-2">チュートリアル完了！</h2>
               <p className="text-gray-600 text-sm">
                 準備は整ったよ！<br />
@@ -640,7 +640,7 @@ export default function TutorialPage() {
 
             <div className="bg-gradient-to-r from-[#FFF7CC] to-[#FFE8A0] rounded-xl p-4 border border-yellow-200">
               <div className="flex items-start gap-3">
-                <span className="text-xl">💡</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="%23F59E0B"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
                 <p className="text-sm text-gray-700">
                   毎日少しずつ続けることが上達のコツ！
                   間違えても気にしないで、どんどん挑戦しよう！

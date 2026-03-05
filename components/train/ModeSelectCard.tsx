@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useSubscription, TrainingMode, MODE_REQUIRED_PLAN, PLAN_NAMES } from '@/contexts/SubscriptionContext';
 import TeaserModal from '@/components/subscription/TeaserModal';
+import LockIcon from '@/components/icons/LockIcon';
 import PaywallScreen from '@/components/subscription/PaywallScreen';
 import HardNavLink from '@/components/HardNavLink';
 
@@ -23,24 +24,23 @@ interface ModeSelectCardProps {
 function ModeSelectCardSkeleton() {
   return (
     <div className="p-5 rounded-2xl border-2 border-gray-200 bg-gray-50 animate-pulse">
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-2.5">
         {/* アイコン */}
-        <div className="w-12 h-12 rounded-2xl bg-gray-200 flex-shrink-0" />
+        <div className="w-10 h-10 rounded-xl bg-gray-200 flex-shrink-0" />
         <div className="flex-1 min-w-0">
           {/* タイトル */}
-          <div className="h-6 bg-gray-200 rounded w-32 mb-2" />
+          <div className="h-5 bg-gray-200 rounded w-32 mb-2" />
           {/* 説明 */}
-          <div className="h-4 bg-gray-200 rounded w-48 mb-1" />
-          <div className="h-4 bg-gray-200 rounded w-40 mb-3" />
+          <div className="h-3 bg-gray-200 rounded w-48 mb-2" />
           {/* 機能リスト */}
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <div className="h-3 bg-gray-200 rounded w-44" />
             <div className="h-3 bg-gray-200 rounded w-36" />
             <div className="h-3 bg-gray-200 rounded w-40" />
           </div>
         </div>
         {/* 矢印ボタン */}
-        <div className="w-10 h-10 rounded-full bg-gray-200" />
+        <div className="w-8 h-8 rounded-full bg-gray-200" />
       </div>
     </div>
   );
@@ -89,7 +89,7 @@ export default function ModeSelectCard({
         {!hasAccess && (
           <div className="absolute -top-2 -right-2 z-10">
             <span className="px-3 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-full shadow-lg flex items-center gap-1">
-              <span>🔒</span>
+              <LockIcon size={14} />
               {PLAN_NAMES[requiredPlan]}
             </span>
           </div>
@@ -105,35 +105,36 @@ export default function ModeSelectCard({
             ${hasAccess ? 'active:scale-[0.98] hover:shadow-lg' : 'opacity-70'}
           `}
         >
-          <div className="relative flex items-start gap-3">
-            <div className={`w-12 h-12 rounded-2xl ${iconBg} text-white font-bold text-lg flex items-center justify-center flex-shrink-0 shadow-md`}>
-              {icon}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1 pr-10">
-                <h2 className="text-lg font-black text-gray-800">
+          <div>
+            {/* 上段: アイコン + タイトル + →ボタン */}
+            <div className="relative flex items-center gap-2.5 mb-1.5">
+              <div className={`w-10 h-10 rounded-xl ${iconBg} text-white font-bold text-sm flex items-center justify-center flex-shrink-0 shadow-md`}>
+                {icon}
+              </div>
+              <div className="flex items-center gap-2 flex-1 min-w-0 pr-9">
+                <h2 className="text-base font-black text-gray-800">
                   {title}
                 </h2>
                 {!hasAccess && (
-                  <span className="text-gray-400">🔒</span>
+                  <span className="text-gray-400"><LockIcon size={14} /></span>
                 )}
               </div>
-              <p className="text-gray-600 text-sm mb-3 whitespace-pre-line">
-                {description.replace(/\\n/g, '\n')}
-              </p>
-              <div className="space-y-1.5">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex items-start gap-2 text-xs sm:text-sm text-gray-600">
-                    <span className={`${accentColor} font-bold flex-shrink-0`}>✓</span>
-                    <span className="whitespace-pre-line">
-                      {feature}
-                    </span>
-                  </div>
-                ))}
+              <div className={`absolute top-0 right-0 w-8 h-8 rounded-full ${hasAccess ? iconBg : 'bg-gray-200'} flex items-center justify-center text-white font-bold text-sm`}>
+                {hasAccess ? '→' : <LockIcon size={14} />}
               </div>
             </div>
-            <div className={`absolute top-0 right-0 w-10 h-10 rounded-full ${hasAccess ? iconBg : 'bg-gray-200'} flex items-center justify-center text-white font-bold`}>
-              {hasAccess ? '→' : '🔒'}
+            {/* 説明文（フル幅） */}
+            <p className="text-gray-600 text-xs mb-2">
+              {description}
+            </p>
+            {/* features（フル幅） */}
+            <div className="space-y-1">
+              {features.map((feature, index) => (
+                <div key={index} className="flex items-start gap-1.5 text-xs text-gray-600">
+                  <span className={`${accentColor} font-bold flex-shrink-0`}>✓</span>
+                  <span>{feature}</span>
+                </div>
+              ))}
             </div>
           </div>
         </HardNavLink>

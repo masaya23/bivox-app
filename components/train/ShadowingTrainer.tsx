@@ -13,6 +13,7 @@ import LifeOutModal from '@/components/life/LifeOutModal';
 import { useLife } from '@/contexts/LifeContext';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import type { Sentence } from '@/types/sentence';
+import PlayIcon from '@/components/icons/PlayIcon';
 import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
 import { recordSession } from '@/utils/sessionLog';
 
@@ -592,7 +593,7 @@ export default function ShadowingTrainer({
                         aria-label="英語音声を再生"
                         className="w-7 h-7 bg-green-100 text-green-600 rounded-full flex items-center justify-center hover:bg-green-200 disabled:opacity-50 text-xs transition-all"
                       >
-                        ▶
+                        <PlayIcon />
                       </button>
                     </div>
                   </div>

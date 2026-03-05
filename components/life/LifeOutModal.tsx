@@ -56,7 +56,7 @@ export default function LifeOutModal({
           {adWatched ? (
             <div className="p-8 text-center">
               <div className="w-20 h-20 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-4xl">🎉</span>
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z" fill="#22c55e"/><path d="M5 16l1 3 3-1M19 16l-1 3-3-1" strokeWidth="1.5"/></svg>
               </div>
               <h3 className="text-xl font-black text-gray-800 mb-2">
                 ライフ回復！
@@ -70,7 +70,7 @@ export default function LifeOutModal({
               {/* ヘッダー */}
               <div className="bg-gradient-to-r from-red-400 to-pink-400 px-6 py-8 text-center">
                 <div className="w-20 h-20 bg-white/20 backdrop-blur rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-4xl grayscale">❤️</span>
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="#9ca3af"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                 </div>
                 <h2 className="text-2xl font-black text-white mb-2">
                   スタミナがなくなりました
@@ -97,7 +97,7 @@ export default function LifeOutModal({
                   className="w-full mb-4 p-4 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl text-white active:scale-[0.98] transition-transform"
                 >
                   <div className="flex items-center justify-center gap-3">
-                    <span className="text-2xl">👑</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm0 2h14v2H5v-2z"/></svg>
                     <div className="text-left">
                       <p className="font-bold text-base">プレミアムにアップグレード</p>
                       <p className="text-xs text-white/80">スタミナ無制限で練習し放題</p>

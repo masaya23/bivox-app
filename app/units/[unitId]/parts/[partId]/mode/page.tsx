@@ -61,7 +61,7 @@ function PartPracticeModeSelectContent() {
           </div>
           <div className="px-4 py-8">
             <div className="bg-white rounded-3xl shadow-xl p-8 text-center border-4 border-white/50">
-              <div className="text-4xl mb-4">😢</div>
+              <div className="text-4xl mb-4">!</div>
               <h2 className="text-xl font-bold text-gray-800 mb-4">
                 Partが見つかりません
               </h2>

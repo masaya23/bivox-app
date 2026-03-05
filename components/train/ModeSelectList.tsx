@@ -22,10 +22,10 @@ export default function ModeSelectList({ unitId, partId, shuffleMode, grade }: M
         icon="BS"
         iconBg="bg-green-500"
         title="ベーシックモード"
-        description="音声を聞いて真似する\n基本トレーニング"
+        description="音声を聞いて真似する基本トレーニング"
         features={[
           '日本語 → 一時停止 → 英語音声',
-          '一時停止の間に\n声に出して英作文する',
+          '一時停止の間に声に出して英作文する',
           '「分かる」から「出来る」に',
         ]}
         gradient="bg-gradient-to-r from-green-50 to-blue-50"
@@ -40,7 +40,7 @@ export default function ModeSelectList({ unitId, partId, shuffleMode, grade }: M
         icon="SP"
         iconBg="bg-orange-500"
         title="スピーキングモード"
-        description="音声入力で自動判定し間違いは\n解説してくれるモード"
+        description="音声入力で自動判定し間違いは解説してくれるモード"
         features={[
           '日本語 → 音声入力 → 自動判定',
           '間違いの分析と解説',
@@ -58,7 +58,7 @@ export default function ModeSelectList({ unitId, partId, shuffleMode, grade }: M
         icon="AI"
         iconBg="bg-purple-500"
         title="AI応用ドリル"
-        description="問題はAIが生成する問題で\n応用力を鍛える"
+        description="AIが生成する問題で応用力を鍛える"
         features={[
           'スピーキングモードの応用',
           '同じ文法レベルで新問題生成',

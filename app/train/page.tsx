@@ -32,7 +32,7 @@ export default function TrainModePage() {
             className="block p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl border-2 border-green-200 active:scale-[0.98] transition-transform"
           >
             <div className="flex items-start gap-3">
-              <div className="text-4xl">👂</div>
+              <div className="w-10 h-10"><svg viewBox="0 0 24 24" fill="#16a34a"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg></div>
               <div className="flex-1">
                 <h2 className="text-lg font-bold text-gray-800 mb-1">
                   シャドーイングモード
@@ -65,7 +65,7 @@ export default function TrainModePage() {
             className="block p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 active:scale-[0.98] transition-transform"
           >
             <div className="flex items-start gap-3">
-              <div className="text-4xl">🎤</div>
+              <div className="w-10 h-10"><svg viewBox="0 0 24 24" fill="#9333ea"><rect x="9" y="2" width="6" height="11" rx="3" /><path d="M5 10a7 7 0 0014 0" fill="none" stroke="#9333ea" strokeWidth="2" /><path d="M12 17v4M8 21h8" fill="none" stroke="#9333ea" strokeWidth="2" /></svg></div>
               <div className="flex-1">
                 <h2 className="text-lg font-bold text-gray-800 mb-1">
                   スピーキングモード
