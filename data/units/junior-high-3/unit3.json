@@ -8,145 +8,145 @@
     {
       "id": "unit3-p1",
       "partNumber": 1,
-      "title": "従属節を導く接続詞 — 1",
-      "description": "till, until, while, as などの使い方を練習",
+      "title": "現在完了①（経験）",
+      "description": "現在完了 — 経験の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p1-s1",
-          "jp": "雨が止むまで待ちましょう。",
-          "en": "Let's wait until it stops raining.",
+          "jp": "私は北海道へ行ったことがあります。",
+          "en": "I have been to Hokkaido.",
           "tags": [
-            "従属節を導く接続詞 — 1"
+            "現在完了①（経験）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p1-s2",
-          "jp": "あなたが勉強している間、彼はテレビを見ていましたか？",
-          "en": "Was he watching TV while you were studying?",
+          "jp": "彼女は以前、英語の本を読んだことがあります。",
+          "en": "She has read an English book before.",
           "tags": [
-            "従属節を導く接続詞 — 1"
+            "現在完了①（経験）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p1-s3",
-          "jp": "私は家に帰るとすぐに手を洗います。",
-          "en": "As soon as I get home, I wash my hands.",
+          "jp": "私たちは京都へ行ったことがあります。",
+          "en": "We have been to Kyoto.",
           "tags": [
-            "従属節を導く接続詞 — 1"
+            "現在完了①（経験）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p1-s4",
-          "jp": "暗くなる前に家に帰りなさい。",
-          "en": "Come home before it gets dark.",
+          "jp": "彼は今までにコアラを見たことがありますか？",
+          "en": "Has he ever seen a koala?",
           "tags": [
-            "従属節を導く接続詞 — 1"
+            "現在完了①（経験）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p1-s5",
-          "jp": "あなたは彼が来るまでここにいますか？",
-          "en": "Will you stay here until he comes?",
+          "jp": "あなたは今までにアメリカに住んだことがありますか？",
+          "en": "Have you ever lived in America?",
           "tags": [
-            "従属節を導く接続詞 — 1"
+            "現在完了①（経験）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p1-s6",
-          "jp": "母が夕食を作っている間、私は父と話しました。",
-          "en": "I talked to my father while my mother was cooking dinner.",
+          "jp": "私はこの料理を一度も食べたことがありません。",
+          "en": "I have never eaten this dish.",
           "tags": [
-            "従属節を導く接続詞 — 1"
+            "現在完了①（経験）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p1-s7",
-          "jp": "あなたは宿題をした後で、テレビを見ることができます。",
-          "en": "You can watch TV after you do your homework.",
+          "jp": "彼女は3回、沖縄へ行ったことがあります。",
+          "en": "She has been to Okinawa three times.",
           "tags": [
-            "従属節を導く接続詞 — 1"
+            "現在完了①（経験）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p1-s8",
-          "jp": "私は年をとるにつれて、早起きが好きになりました。",
-          "en": "As I got older, I started to like getting up early.",
+          "jp": "私たちは以前、その歌を歌ったことがあります。",
+          "en": "We have sung that song before.",
           "tags": [
-            "従属節を導く接続詞 — 1"
+            "現在完了①（経験）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p1-s9",
-          "jp": "ベルが鳴るまで席を立ってはいけません。",
-          "en": "Don't stand up until the bell rings.",
+          "jp": "あなたは今までにそのゲームをしたことがありますか？ ― はい、一度あります。",
+          "en": "Have you ever played that game? - Yes, I have.",
           "tags": [
-            "従属節を導く接続詞 — 1"
+            "現在完了①（経験）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p1-s10",
-          "jp": "私はお風呂に入っている間に、良いアイデアを思いつきました。",
-          "en": "I had a good idea while I was taking a bath.",
+          "jp": "私は一度もその男性に会ったことがありません。",
+          "en": "I have never met that man.",
           "tags": [
-            "従属節を導く接続詞 — 1"
+            "現在完了①（経験）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "A",
-      "weight": 3
+      ]
     },
     {
       "id": "unit3-p2",
       "partNumber": 2,
-      "title": "従属節を導く接続詞 — 2",
-      "description": "if, because, though などの使い方を練習",
+      "title": "SVOC（補語を目的語に置く文）",
+      "description": "call / make / keep + A + B の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p2-s1",
-          "jp": "もし明日晴れたら、私たちはピクニックに行きます。",
-          "en": "If it is sunny tomorrow, we will go on a picnic.",
+          "jp": "私たちは彼をケンと呼びます。",
+          "en": "We call him Ken.",
           "tags": [
-            "従属節を導く接続詞 — 2"
+            "SVOC（補語を目的語に置く文）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -155,10 +155,10 @@
         },
         {
           "id": "unit3-p2-s2",
-          "jp": "とても疲れていたのに、彼は一生懸命勉強しました。",
-          "en": "Although he was very tired, he studied hard.",
+          "jp": "そのニュースは私を幸せにしました。",
+          "en": "The news made me happy.",
           "tags": [
-            "従属節を導く接続詞 — 2"
+            "SVOC（補語を目的語に置く文）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -167,10 +167,10 @@
         },
         {
           "id": "unit3-p2-s3",
-          "jp": "雨が降っていたので、私は家にいました。",
-          "en": "I stayed home because it was raining.",
+          "jp": "部屋をきれいに保ちなさい。",
+          "en": "Keep your room clean.",
           "tags": [
-            "従属節を導く接続詞 — 2"
+            "SVOC（補語を目的語に置く文）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -179,10 +179,10 @@
         },
         {
           "id": "unit3-p2-s4",
-          "jp": "もしあなたが忙しいなら、私がそれをやります。",
-          "en": "If you are busy, I will do it.",
+          "jp": "その手紙はあなたを悲しくさせましたか？",
+          "en": "Did the letter make you sad?",
           "tags": [
-            "従属節を導く接続詞 — 2"
+            "SVOC（補語を目的語に置く文）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -191,10 +191,10 @@
         },
         {
           "id": "unit3-p2-s5",
-          "jp": "彼女は病気だったのに、学校に来ました。",
-          "en": "Although she was sick, she came to school.",
+          "jp": "彼らはその犬をポチと名付けましたか？",
+          "en": "Did they name the dog Pochi?",
           "tags": [
-            "従属節を導く接続詞 — 2"
+            "SVOC（補語を目的語に置く文）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -203,10 +203,10 @@
         },
         {
           "id": "unit3-p2-s6",
-          "jp": "面白いので、私はその本が好きです。",
-          "en": "I like the book because it is interesting.",
+          "jp": "その映画は彼を有名にしました。",
+          "en": "The movie made him famous.",
           "tags": [
-            "従属節を導く接続詞 — 2"
+            "SVOC（補語を目的語に置く文）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -215,10 +215,10 @@
         },
         {
           "id": "unit3-p2-s7",
-          "jp": "もし彼に会ったら、こんにちはと言ってください。",
-          "en": "If you see him, please say hello.",
+          "jp": "窓を開けたままにしてはいけません。",
+          "en": "Don't leave the window open.",
           "tags": [
-            "従属節を導く接続詞 — 2"
+            "SVOC（補語を目的語に置く文）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -227,10 +227,10 @@
         },
         {
           "id": "unit3-p2-s8",
-          "jp": "そのテストは難しかったのに、私は良い点を取りました。",
-          "en": "Though the test was difficult, I got a good score.",
+          "jp": "あなたはその本をおもしろいと思いましたか？",
+          "en": "Did you find the book interesting?",
           "tags": [
-            "従属節を導く接続詞 — 2"
+            "SVOC（補語を目的語に置く文）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -239,10 +239,10 @@
         },
         {
           "id": "unit3-p2-s9",
-          "jp": "眠かったので、私は早く寝ました。",
-          "en": "I went to bed early because I was sleepy.",
+          "jp": "何があなたを怒らせたのですか？",
+          "en": "What made you angry?",
           "tags": [
-            "従属節を導く接続詞 — 2"
+            "SVOC（補語を目的語に置く文）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -251,422 +251,418 @@
         },
         {
           "id": "unit3-p2-s10",
-          "jp": "もし時間があれば、手伝ってくれませんか？",
-          "en": "If you have time, could you help me?",
+          "jp": "彼は壁を白く塗りましたか？",
+          "en": "Did he paint the wall white?",
           "tags": [
-            "従属節を導く接続詞 — 2"
+            "SVOC（補語を目的語に置く文）"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "A",
-      "weight": 3
+      ]
     },
     {
       "id": "unit3-p3",
       "partNumber": 3,
-      "title": "間接疑問文",
-      "description": "「〜かどうか」「どこで〜か」などの使い方を練習",
+      "title": "現在完了②（完了）",
+      "description": "現在完了 — 完了の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p3-s1",
-          "jp": "私は彼が誰なのか知りません。",
-          "en": "I don't know who he is.",
+          "jp": "心配しないで。私はもう宿題を終えたので、今手伝えます。",
+          "en": "I have already finished my homework, so I can help you now.",
           "tags": [
-            "間接疑問文"
+            "現在完了②（完了）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p3-s2",
-          "jp": "彼女がどこに住んでいるか教えてください。",
-          "en": "Please tell me where she lives.",
+          "jp": "彼はもう夕食を食べたので、おなかがすいていません。",
+          "en": "He has already eaten dinner, so he isn’t hungry.",
           "tags": [
-            "間接疑問文"
+            "現在完了②（完了）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p3-s3",
-          "jp": "今、何時か知っていますか？",
-          "en": "Do you know what time it is?",
+          "jp": "私たちは今、駅に着いたところです。どこにいますか？",
+          "en": "We have just arrived at the station. Where are you?",
           "tags": [
-            "間接疑問文"
+            "現在完了②（完了）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p3-s4",
-          "jp": "私は彼がなぜ泣いているのか不思議です。",
-          "en": "I wonder why he is crying.",
+          "jp": "彼女はもうその手紙を書き終えたので、今送れます。",
+          "en": "She has already finished writing the letter, so she can send it now.",
           "tags": [
-            "間接疑問文"
+            "現在完了②（完了）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p3-s5",
-          "jp": "ケンがいつ来るか知っていますか？",
-          "en": "Do you know when Ken will come?",
+          "jp": "私はちょうどその本を読み終えたところです。今返してもいいですか？ ― もちろんです。ありがとう。",
+          "en": "I have just finished reading the book. Can I return it now? - Of course. Thank you.",
           "tags": [
-            "間接疑問文"
+            "現在完了②（完了）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p3-s6",
-          "jp": "私は彼女が何が好きなのか知りたいです。",
-          "en": "I want to know what she likes.",
+          "jp": "彼らはもうそのチケットを買ったので、中に入れます。",
+          "en": "They have already bought the tickets, so they can go inside.",
           "tags": [
-            "間接疑問文"
+            "現在完了②（完了）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p3-s7",
-          "jp": "あなたが何を買ったか私に見せてください。",
-          "en": "Please show me what you bought.",
+          "jp": "あなたはもう部屋を掃除しましたか？",
+          "en": "Have you cleaned your room yet?",
           "tags": [
-            "間接疑問文"
+            "現在完了②（完了）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p3-s8",
-          "jp": "彼が来るかどうか分かりません。",
-          "en": "I don't know if he will come.",
+          "jp": "父はまだ家に帰ってきていません。",
+          "en": "My father hasn’t come home yet.",
           "tags": [
-            "間接疑問文"
+            "現在完了②（完了）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p3-s9",
-          "jp": "私たちは何をすべきか分かりませんでした。",
-          "en": "We didn't know what we should do.",
+          "jp": "私はまだ朝ごはんを食べていないので、とてもおなかがすいています。 ― 何か食べるものを買いに行きましょう。",
+          "en": "I haven’t eaten breakfast yet, so I’m very hungry. - Let’s go buy something to eat.",
           "tags": [
-            "間接疑問文"
+            "現在完了②（完了）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p3-s10",
-          "jp": "その店がどこにあるか知っていますか？",
-          "en": "Do you know where the shop is?",
+          "jp": "そのバスはちょうど出発したところなので、もう乗れません。",
+          "en": "The bus has just left, so we can’t get on it.",
           "tags": [
-            "間接疑問文"
+            "現在完了②（完了）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p4",
       "partNumber": 4,
-      "title": "疑問詞 + to 不定詞",
-      "description": "how to, what to などの使い方を練習",
+      "title": "現在完了③（継続）",
+      "description": "現在完了 — 継続の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p4-s1",
-          "jp": "泳ぎ方が分かりません。",
-          "en": "I don't know how to swim.",
+          "jp": "私はここに3年間住んでいます。",
+          "en": "I have lived here for three years.",
           "tags": [
-            "疑問詞 + to 不定詞"
+            "現在完了③（継続）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p4-s2",
-          "jp": "何をすべきか教えてくれますか？",
-          "en": "Can you tell me what to do?",
+          "jp": "彼は5年間ずっとあなたの友達ですか？",
+          "en": "Has he been your friend for five years?",
           "tags": [
-            "疑問詞 + to 不定詞"
+            "現在完了③（継続）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p4-s3",
-          "jp": "私はどこへ行けばよいか分かりませんでした。",
-          "en": "I didn't know where to go.",
+          "jp": "私たちは昨日からこの本を読んでいます。",
+          "en": "We have been reading this book since yesterday.",
           "tags": [
-            "疑問詞 + to 不定詞"
+            "現在完了③（継続）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p4-s4",
-          "jp": "彼はそのマシンの使い方を知っています。",
-          "en": "He knows how to use the machine.",
+          "jp": "彼女はその犬を2ヶ月飼っています。",
+          "en": "She has had that dog for two months.",
           "tags": [
-            "疑問詞 + to 不定詞"
+            "現在完了③（継続）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p4-s5",
-          "jp": "いつ出発すればよいか教えてくれますか？",
-          "en": "Can you tell me when to leave?",
+          "jp": "あなたはその映画を見てからずっとその話をしていますか？",
+          "en": "Have you been talking about that movie since you saw it?",
           "tags": [
-            "疑問詞 + to 不定詞"
+            "現在完了③（継続）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p4-s6",
-          "jp": "私はどちらの本を買えばよいか分かりません。",
-          "en": "I don't know which book to buy.",
+          "jp": "弟は朝からずっとテレビを見ています。",
+          "en": "My brother has been watching TV since this morning.",
           "tags": [
-            "疑問詞 + to 不定詞"
+            "現在完了③（継続）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p4-s7",
-          "jp": "彼女はチケットの入手方法を知りたがっています。",
-          "en": "She wants to know how to get a ticket.",
+          "jp": "彼らは去年からずっとお互いを知っています。",
+          "en": "They have known each other since last year.",
           "tags": [
-            "疑問詞 + to 不定詞"
+            "現在完了③（継続）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p4-s8",
-          "jp": "何と言えばいいか分かりません。",
-          "en": "I don't know what to say.",
+          "jp": "私は英語を3年間勉強しています。",
+          "en": "I have been studying English for three years.",
           "tags": [
-            "疑問詞 + to 不定詞"
+            "現在完了③（継続）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p4-s9",
-          "jp": "駅への行き方を知っていますか？",
-          "en": "Do you know how to get to the station?",
+          "jp": "彼はこの2年間、毎週末ずっと自転車に乗り続けています。",
+          "en": "He has been riding his bike every weekend for the past two years.",
           "tags": [
-            "疑問詞 + to 不定詞"
+            "現在完了③（継続）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p4-s10",
-          "jp": "どのバスに乗ればよいか教えてください。",
-          "en": "Please tell me which bus to take.",
+          "jp": "私は先週からずっと忙しいです。",
+          "en": "I have been busy since last week.",
           "tags": [
-            "疑問詞 + to 不定詞"
+            "現在完了③（継続）"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p5",
       "partNumber": 5,
-      "title": "形式主語の it",
-      "description": "It is ... (for A) to ... の使い方を練習",
+      "title": "現在完了進行形",
+      "description": "現在完了進行形の使い方を練習",
+      "priority": "C",
       "sentences": [
         {
           "id": "unit3-p5-s1",
-          "jp": "英語を話すことは難しいです。",
-          "en": "It is difficult to speak English.",
+          "jp": "私は長い間ずっとこの本を読んでいます。",
+          "en": "I have been reading this book for a long time.",
           "tags": [
-            "形式主語の it"
+            "現在完了進行形"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p5-s2",
-          "jp": "毎日勉強することは大切です。",
-          "en": "It is important to study every day.",
+          "jp": "彼女は2時間ずっとピアノを弾いています。",
+          "en": "She has been playing the piano for two hours.",
           "tags": [
-            "形式主語の it"
+            "現在完了進行形"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p5-s3",
-          "jp": "彼の名前を覚えるのは簡単ですか？",
-          "en": "Is it easy to remember his name?",
+          "jp": "私たちは3時間ずっとサッカーをしています。",
+          "en": "We have been playing soccer for three hours.",
           "tags": [
-            "形式主語の it"
+            "現在完了進行形"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p5-s4",
-          "jp": "自然を守ることは私たちにとって必要です。",
-          "en": "It is necessary for us to protect nature.",
+          "jp": "彼は今朝からずっと宿題をしています。",
+          "en": "He has been doing his homework since this morning.",
           "tags": [
-            "形式主語の it"
+            "現在完了進行形"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p5-s5",
-          "jp": "彼女にとってひとりで旅行することは危険ですか？",
-          "en": "Is it dangerous for her to travel alone?",
+          "jp": "あなたはどのくらいの間、このコンピュータを使っていますか？",
+          "en": "How long have you been using this computer?",
           "tags": [
-            "形式主語の it"
+            "現在完了進行形"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p5-s6",
-          "jp": "旅行のときは、地図を持っておくと便利です。",
-          "en": "It is useful to have a map when you travel.",
+          "jp": "彼らは1時間以上ここで待っています。",
+          "en": "They have been waiting here for over an hour.",
           "tags": [
-            "形式主語の it"
+            "現在完了進行形"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p5-s7",
-          "jp": "お会いできてうれしいです。",
-          "en": "It is nice to see you.",
+          "jp": "兄は昼食後からずっとテレビを見ています。",
+          "en": "My brother has been watching TV since lunch.",
           "tags": [
-            "形式主語の it"
+            "現在完了進行形"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p5-s8",
-          "jp": "歴史を学ぶことはおもしろいです。",
-          "en": "It is interesting to learn history.",
+          "jp": "あなたは今朝からずっと部屋を掃除しているのですか？",
+          "en": "Have you been cleaning your room since this morning?",
           "tags": [
-            "形式主語の it"
+            "現在完了進行形"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p5-s9",
-          "jp": "川で泳ぐのは危険です。",
-          "en": "It is dangerous to swim in the river.",
+          "jp": "私たちは長い間ずっといっしょに練習しています。",
+          "en": "We have been practicing together for a long time.",
           "tags": [
-            "形式主語の it"
+            "現在完了進行形"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         },
         {
           "id": "unit3-p5-s10",
-          "jp": "将来のために、外国語を学ぶのは私たちにとってよいことですか？",
-          "en": "Is it good for us to learn foreign languages for the future?",
+          "jp": "今日は朝からずっと雨が降っています。",
+          "en": "It has been raining since this morning.",
           "tags": [
-            "形式主語の it"
+            "現在完了進行形"
           ],
-          "level": "B1",
+          "level": "A2",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p6",
       "partNumber": 6,
-      "title": "SVO + to 不定詞",
+      "title": "SVO + to不定詞（人に～するように言う・頼む）",
       "description": "ask / tell / want + 人 + to ... の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p6-s1",
           "jp": "私はあなたにここに来てほしいです。",
           "en": "I want you to come here.",
           "tags": [
-            "SVO + to 不定詞"
+            "SVO + to不定詞（人に～するように言う・頼む）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -678,7 +674,7 @@
           "jp": "お父さんはあなたに車を洗うように言いましたか？",
           "en": "Did your father tell you to wash the car?",
           "tags": [
-            "SVO + to 不定詞"
+            "SVO + to不定詞（人に～するように言う・頼む）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -690,7 +686,7 @@
           "jp": "彼は私に宿題を手伝ってほしいと頼みました。",
           "en": "He asked me to help him with his homework.",
           "tags": [
-            "SVO + to 不定詞"
+            "SVO + to不定詞（人に～するように言う・頼む）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -702,7 +698,7 @@
           "jp": "私はケンに窓を開けるように言いました。",
           "en": "I told Ken to open the window.",
           "tags": [
-            "SVO + to 不定詞"
+            "SVO + to不定詞（人に～するように言う・頼む）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -714,7 +710,7 @@
           "jp": "彼女はあなたたちに静かにするように頼みましたか？",
           "en": "Did she ask you to be quiet?",
           "tags": [
-            "SVO + to 不定詞"
+            "SVO + to不定詞（人に～するように言う・頼む）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -726,7 +722,7 @@
           "jp": "先生は生徒たちに座るように言いました。",
           "en": "The teacher told the students to sit down.",
           "tags": [
-            "SVO + to 不定詞"
+            "SVO + to不定詞（人に～するように言う・頼む）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -738,7 +734,7 @@
           "jp": "あなたは私に何をしてほしいですか？",
           "en": "What do you want me to do?",
           "tags": [
-            "SVO + to 不定詞"
+            "SVO + to不定詞（人に～するように言う・頼む）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -750,7 +746,7 @@
           "jp": "私はあなたにその本を読んでほしくありません。",
           "en": "I don't want you to read that book.",
           "tags": [
-            "SVO + to 不定詞"
+            "SVO + to不定詞（人に～するように言う・頼む）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -762,7 +758,7 @@
           "jp": "母は私に遅れないように言いました。",
           "en": "My mother told me not to be late.",
           "tags": [
-            "SVO + to 不定詞"
+            "SVO + to不定詞（人に～するように言う・頼む）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -774,29 +770,28 @@
           "jp": "彼は私に英語を教えてほしいと頼みました。",
           "en": "He asked me to teach him English.",
           "tags": [
-            "SVO + to 不定詞"
+            "SVO + to不定詞（人に～するように言う・頼む）"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p7",
       "partNumber": 7,
-      "title": "SVOC",
-      "description": "call / make / keep + A + B の使い方を練習",
+      "title": "原形不定詞①（知覚）",
+      "description": "see / hear + 人 + 原形 の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p7-s1",
-          "jp": "私たちは彼をケンと呼びます。",
-          "en": "We call him Ken.",
+          "jp": "私は彼が部屋に入るのを見ました。",
+          "en": "I saw him enter the room.",
           "tags": [
-            "SVOC"
+            "原形不定詞①（知覚）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -805,10 +800,10 @@
         },
         {
           "id": "unit3-p7-s2",
-          "jp": "そのニュースは私を幸せにしました。",
-          "en": "The news made me happy.",
+          "jp": "私たちは彼女がピアノを弾くのを聞きました。",
+          "en": "We heard her play the piano.",
           "tags": [
-            "SVOC"
+            "原形不定詞①（知覚）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -817,10 +812,10 @@
         },
         {
           "id": "unit3-p7-s3",
-          "jp": "部屋をきれいに保ちなさい。",
-          "en": "Keep your room clean.",
+          "jp": "あなたはケンが公園を走るのを見ましたか。",
+          "en": "Did you see Ken run in the park?",
           "tags": [
-            "SVOC"
+            "原形不定詞①（知覚）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -829,10 +824,10 @@
         },
         {
           "id": "unit3-p7-s4",
-          "jp": "その手紙はあなたを悲しくさせましたか？",
-          "en": "Did the letter make you sad?",
+          "jp": "私は鳥が飛ぶのを見ました。",
+          "en": "I saw a bird fly away.",
           "tags": [
-            "SVOC"
+            "原形不定詞①（知覚）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -841,10 +836,10 @@
         },
         {
           "id": "unit3-p7-s5",
-          "jp": "彼らはその犬をポチと名付けましたか？",
-          "en": "Did they name the dog Pochi?",
+          "jp": "私はだれかが私の名前を呼ぶのを聞きました。",
+          "en": "I heard someone call my name.",
           "tags": [
-            "SVOC"
+            "原形不定詞①（知覚）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -853,10 +848,10 @@
         },
         {
           "id": "unit3-p7-s6",
-          "jp": "その映画は彼を有名にしました。",
-          "en": "The movie made him famous.",
+          "jp": "彼は彼女が通りを渡るのを見ました。",
+          "en": "He saw her cross the street.",
           "tags": [
-            "SVOC"
+            "原形不定詞①（知覚）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -865,10 +860,10 @@
         },
         {
           "id": "unit3-p7-s7",
-          "jp": "窓を開けたままにしてはいけません。",
-          "en": "Don't leave the window open.",
+          "jp": "私たちは彼が英語の歌を歌うのを聞きました。",
+          "en": "We heard him sing an English song.",
           "tags": [
-            "SVOC"
+            "原形不定詞①（知覚）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -877,10 +872,10 @@
         },
         {
           "id": "unit3-p7-s8",
-          "jp": "あなたはその本をおもしろいと思いましたか？",
-          "en": "Did you find the book interesting?",
+          "jp": "私は地面が揺れるのを感じました。",
+          "en": "I felt the ground shake.",
           "tags": [
-            "SVOC"
+            "原形不定詞①（知覚）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -889,10 +884,10 @@
         },
         {
           "id": "unit3-p7-s9",
-          "jp": "何があなたを怒らせたのですか？",
-          "en": "What made you angry?",
+          "jp": "あなたは彼らが家を出るのを見ましたか。",
+          "en": "Did you see them leave the house?",
           "tags": [
-            "SVOC"
+            "原形不定詞①（知覚）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -901,32 +896,31 @@
         },
         {
           "id": "unit3-p7-s10",
-          "jp": "彼は壁を白く塗りましたか？",
-          "en": "Did he paint the wall white?",
+          "jp": "私は子どもたちが公園で遊ぶのを見ました。",
+          "en": "I watched the children play in the park.",
           "tags": [
-            "SVOC"
+            "原形不定詞①（知覚）"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p8",
       "partNumber": 8,
-      "title": "現在分詞修飾",
-      "description": "名詞を後ろから修飾する現在分詞（-ing）の使い方を練習",
+      "title": "原形不定詞②（使役）",
+      "description": "make / let + 人 + 原形 の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p8-s1",
-          "jp": "あそこで走っている少年はケンです。",
-          "en": "The boy running over there is Ken.",
+          "jp": "そのニュースは彼女を泣かせました。",
+          "en": "The news made her cry.",
           "tags": [
-            "現在分詞修飾"
+            "原形不定詞②（使役）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -935,10 +929,10 @@
         },
         {
           "id": "unit3-p8-s2",
-          "jp": "あなたはステージで歌っている少女を知っていますか？",
-          "en": "Do you know the girl singing on stage?",
+          "jp": "行かせてください。",
+          "en": "Please let me go.",
           "tags": [
-            "現在分詞修飾"
+            "原形不定詞②（使役）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -947,10 +941,10 @@
         },
         {
           "id": "unit3-p8-s3",
-          "jp": "私はベンチで寝ている男性を見ました。",
-          "en": "I saw a man sleeping on a bench.",
+          "jp": "父は私に部屋を掃除させました。",
+          "en": "My father made me clean my room.",
           "tags": [
-            "現在分詞修飾"
+            "原形不定詞②（使役）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -959,10 +953,10 @@
         },
         {
           "id": "unit3-p8-s4",
-          "jp": "図書館で勉強している生徒たちは静かです。",
-          "en": "The students studying in the library are quiet.",
+          "jp": "彼はあなたにパソコンを使わせてくれましたか？",
+          "en": "Did he let you use his computer?",
           "tags": [
-            "現在分詞修飾"
+            "原形不定詞②（使役）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -971,10 +965,10 @@
         },
         {
           "id": "unit3-p8-s5",
-          "jp": "今、駅を出発するバスは混んでいます。",
-          "en": "The bus leaving the station now is crowded.",
+          "jp": "先生はあなたたちを走らせましたか？",
+          "en": "Did the teacher make you run?",
           "tags": [
-            "現在分詞修飾"
+            "原形不定詞②（使役）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -983,10 +977,10 @@
         },
         {
           "id": "unit3-p8-s6",
-          "jp": "向こうでテニスをしている女性は私の姉です。",
-          "en": "The woman playing tennis over there is my sister.",
+          "jp": "あとで知らせます。",
+          "en": "I will let you know later.",
           "tags": [
-            "現在分詞修飾"
+            "原形不定詞②（使役）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -995,10 +989,10 @@
         },
         {
           "id": "unit3-p8-s7",
-          "jp": "あなたはピアノを弾いている男の子が見えますか？",
-          "en": "Can you see the boy playing the piano?",
+          "jp": "その映画はみんなを笑わせました。",
+          "en": "The movie made everyone laugh.",
           "tags": [
-            "現在分詞修飾"
+            "原形不定詞②（使役）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1007,10 +1001,10 @@
         },
         {
           "id": "unit3-p8-s8",
-          "jp": "私は駅で私を待っている人たちを見つけました。",
-          "en": "I found the people waiting for me at the station.",
+          "jp": "お母さんはあなたに宿題をさせましたか？",
+          "en": "Did your mother make you do your homework?",
           "tags": [
-            "現在分詞修飾"
+            "原形不定詞②（使役）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1019,10 +1013,10 @@
         },
         {
           "id": "unit3-p8-s9",
-          "jp": "木の下に立っている男性は誰ですか？",
-          "en": "Who is the man standing under the tree?",
+          "jp": "考えさせてください。",
+          "en": "Let me think.",
           "tags": [
-            "現在分詞修飾"
+            "原形不定詞②（使役）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1031,32 +1025,31 @@
         },
         {
           "id": "unit3-p8-s10",
-          "jp": "車を洗っている男性は私の父です。",
-          "en": "The man washing the car is my father.",
+          "jp": "やらせてください。",
+          "en": "Please let me do it.",
           "tags": [
-            "現在分詞修飾"
+            "原形不定詞②（使役）"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p9",
       "partNumber": 9,
-      "title": "過去分詞修飾",
-      "description": "名詞を後ろから修飾する過去分詞（-ed）の使い方を練習",
+      "title": "間接疑問文",
+      "description": "「〜かどうか」「どこで〜か」などの使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p9-s1",
-          "jp": "これは夏目漱石によって書かれた本です。",
-          "en": "This is a book written by Natsume Soseki.",
+          "jp": "私は彼が誰なのか知りません。",
+          "en": "I don't know who he is.",
           "tags": [
-            "過去分詞修飾"
+            "間接疑問文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1065,10 +1058,10 @@
         },
         {
           "id": "unit3-p9-s2",
-          "jp": "あなたはドイツで作られた車を持っていますか？",
-          "en": "Do you have a car made in Germany?",
+          "jp": "彼女がどこに住んでいるか教えてください。",
+          "en": "Please tell me where she lives.",
           "tags": [
-            "過去分詞修飾"
+            "間接疑問文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1077,10 +1070,10 @@
         },
         {
           "id": "unit3-p9-s3",
-          "jp": "英語は世界中で話されている言語です。",
-          "en": "English is a language spoken around the world.",
+          "jp": "今、何時か知っていますか？",
+          "en": "Do you know what time it is?",
           "tags": [
-            "過去分詞修飾"
+            "間接疑問文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1089,10 +1082,10 @@
         },
         {
           "id": "unit3-p9-s4",
-          "jp": "ケンという名前の少年がここに来ました。",
-          "en": "A boy named Ken came here.",
+          "jp": "私は彼がなぜ泣いているのか不思議です。",
+          "en": "I wonder why he is crying.",
           "tags": [
-            "過去分詞修飾"
+            "間接疑問文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1101,10 +1094,10 @@
         },
         {
           "id": "unit3-p9-s5",
-          "jp": "あなたは英語で書かれた手紙を受け取りましたか？",
-          "en": "Did you receive a letter written in English?",
+          "jp": "ケンがいつ来るか知っていますか？",
+          "en": "Do you know when Ken will come?",
           "tags": [
-            "過去分詞修飾"
+            "間接疑問文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1113,10 +1106,10 @@
         },
         {
           "id": "unit3-p9-s6",
-          "jp": "私は100年前に建てられた家に住んでいます。",
-          "en": "I live in a house built 100 years ago.",
+          "jp": "私は彼女が何が好きなのか知りたいです。",
+          "en": "I want to know what she likes.",
           "tags": [
-            "過去分詞修飾"
+            "間接疑問文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1125,10 +1118,10 @@
         },
         {
           "id": "unit3-p9-s7",
-          "jp": "彼はみんなに愛されている歌手です。",
-          "en": "He is a singer loved by everyone.",
+          "jp": "あなたが何を買ったか私に見せてください。",
+          "en": "Please show me what you bought.",
           "tags": [
-            "過去分詞修飾"
+            "間接疑問文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1137,10 +1130,10 @@
         },
         {
           "id": "unit3-p9-s8",
-          "jp": "その店で売られているカメラは高いです。",
-          "en": "The cameras sold at that store are expensive.",
+          "jp": "彼が来るかどうか分かりません。",
+          "en": "I don't know if he will come.",
           "tags": [
-            "過去分詞修飾"
+            "間接疑問文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1149,10 +1142,10 @@
         },
         {
           "id": "unit3-p9-s9",
-          "jp": "私は沖縄で撮られた写真を見ました。",
-          "en": "I saw pictures taken in Okinawa.",
+          "jp": "私たちは何をすべきか分かりませんでした。",
+          "en": "We didn't know what we should do.",
           "tags": [
-            "過去分詞修飾"
+            "間接疑問文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1161,32 +1154,31 @@
         },
         {
           "id": "unit3-p9-s10",
-          "jp": "これはアメリカで使われている教科書ですか？",
-          "en": "Is this a textbook used in America?",
+          "jp": "その店がどこにあるか知っていますか？",
+          "en": "Do you know where the shop is?",
           "tags": [
-            "過去分詞修飾"
+            "間接疑問文"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p10",
       "partNumber": 10,
-      "title": "関係代名詞・主格（人）",
-      "description": "who / that の使い方を練習",
+      "title": "現在分詞で名詞を修飾",
+      "description": "名詞を後ろから修飾する現在分詞（-ing）の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p10-s1",
-          "jp": "私にはロンドンに住んでいて、日本語も話す友達がいます。",
-          "en": "I have a friend who lives in London and speaks Japanese.",
+          "jp": "あそこで走っている少年はケンです。",
+          "en": "The boy running over there is Ken.",
           "tags": [
-            "関係代名詞・主格（人）"
+            "現在分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1195,10 +1187,10 @@
         },
         {
           "id": "unit3-p10-s2",
-          "jp": "その窓を割った少年はケンですか？",
-          "en": "Is the boy who broke the window Ken?",
+          "jp": "あなたはステージで歌っている少女を知っていますか？",
+          "en": "Do you know the girl singing on stage?",
           "tags": [
-            "関係代名詞・主格（人）"
+            "現在分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1207,10 +1199,10 @@
         },
         {
           "id": "unit3-p10-s3",
-          "jp": "毎日早く学校に来る少女はエミです。",
-          "en": "The girl who comes to school early every day is Emi.",
+          "jp": "私はベンチで寝ている男性を見ました。",
+          "en": "I saw a man sleeping on a bench.",
           "tags": [
-            "関係代名詞・主格（人）"
+            "現在分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1219,10 +1211,10 @@
         },
         {
           "id": "unit3-p10-s4",
-          "jp": "彼は英語をとても上手に話せる先生ですか？",
-          "en": "Is he a teacher who can speak English very well?",
+          "jp": "図書館で勉強している生徒たちは静かです。",
+          "en": "The students studying in the library are quiet.",
           "tags": [
-            "関係代名詞・主格（人）"
+            "現在分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1231,10 +1223,10 @@
         },
         {
           "id": "unit3-p10-s5",
-          "jp": "動物が好きな人々は優しいです。",
-          "en": "People who like animals are kind.",
+          "jp": "今、駅を出発するバスは混んでいます。",
+          "en": "The bus leaving the station now is crowded.",
           "tags": [
-            "関係代名詞・主格（人）"
+            "現在分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1243,10 +1235,10 @@
         },
         {
           "id": "unit3-p10-s6",
-          "jp": "あなたにはサッカーが上手な兄がいますか？",
-          "en": "Do you have a brother who is good at soccer?",
+          "jp": "向こうでテニスをしている女性は私の姉です。",
+          "en": "The woman playing tennis over there is my sister.",
           "tags": [
-            "関係代名詞・主格（人）"
+            "現在分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1255,10 +1247,10 @@
         },
         {
           "id": "unit3-p10-s7",
-          "jp": "その本を書いた男性は有名です。",
-          "en": "The man who wrote the book is famous.",
+          "jp": "あなたはピアノを弾いている男の子が見えますか？",
+          "en": "Can you see the boy playing the piano?",
           "tags": [
-            "関係代名詞・主格（人）"
+            "現在分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1267,10 +1259,10 @@
         },
         {
           "id": "unit3-p10-s8",
-          "jp": "私は毎日一生懸命働く人々を尊敬します。",
-          "en": "I respect people who work hard every day.",
+          "jp": "私は駅で私を待っている人たちを見つけました。",
+          "en": "I found the people waiting for me at the station.",
           "tags": [
-            "関係代名詞・主格（人）"
+            "現在分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1279,10 +1271,10 @@
         },
         {
           "id": "unit3-p10-s9",
-          "jp": "昨日ここに来た女性はあなたの叔母ですか？",
-          "en": "Is the woman who came here yesterday your aunt?",
+          "jp": "木の下に立っている男性は誰ですか？",
+          "en": "Who is the man standing under the tree?",
           "tags": [
-            "関係代名詞・主格（人）"
+            "現在分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1291,32 +1283,31 @@
         },
         {
           "id": "unit3-p10-s10",
-          "jp": "あなたは新しい自転車が欲しい少年を知っていますか？",
-          "en": "Do you know the boy who wants a new bike?",
+          "jp": "車を洗っている男性は私の父です。",
+          "en": "The man washing the car is my father.",
           "tags": [
-            "関係代名詞・主格（人）"
+            "現在分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p11",
       "partNumber": 11,
-      "title": "関係代名詞・主格（人以外）",
-      "description": "which / that の使い方を練習",
+      "title": "過去分詞で名詞を修飾",
+      "description": "名詞を後ろから修飾する過去分詞（-ed）の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p11-s1",
-          "jp": "これは駅へ行くバスです。",
-          "en": "This is a bus which goes to the station.",
+          "jp": "これは夏目漱石によって書かれた本です。",
+          "en": "This is a book written by Natsume Soseki.",
           "tags": [
-            "関係代名詞・主格（人以外）"
+            "過去分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1325,10 +1316,10 @@
         },
         {
           "id": "unit3-p11-s2",
-          "jp": "私は長い耳を持つ犬を飼っています。",
-          "en": "I have a dog which has long ears.",
+          "jp": "あなたはドイツで作られた車を持っていますか？",
+          "en": "Do you have a car made in Germany?",
           "tags": [
-            "関係代名詞・主格（人以外）"
+            "過去分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1337,10 +1328,10 @@
         },
         {
           "id": "unit3-p11-s3",
-          "jp": "机の上にあった本はどこですか？",
-          "en": "Where is the book that was on the desk?",
+          "jp": "英語は世界中で話されている言語です。",
+          "en": "English is a language spoken around the world.",
           "tags": [
-            "関係代名詞・主格（人以外）"
+            "過去分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1349,10 +1340,10 @@
         },
         {
           "id": "unit3-p11-s4",
-          "jp": "丘の上に立っている家を見てください。",
-          "en": "Look at the house which stands on the hill.",
+          "jp": "ケンという名前の少年がここに来ました。",
+          "en": "A boy named Ken came here.",
           "tags": [
-            "関係代名詞・主格（人以外）"
+            "過去分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1361,10 +1352,10 @@
         },
         {
           "id": "unit3-p11-s5",
-          "jp": "彼は速く走る車を買いたいと思っています。",
-          "en": "He wants to buy a car that runs fast.",
+          "jp": "あなたは英語で書かれた手紙を受け取りましたか？",
+          "en": "Did you receive a letter written in English?",
           "tags": [
-            "関係代名詞・主格（人以外）"
+            "過去分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1373,10 +1364,10 @@
         },
         {
           "id": "unit3-p11-s6",
-          "jp": "その庭で咲いている花は美しいです。",
-          "en": "The flowers which are blooming in the garden are beautiful.",
+          "jp": "私は100年前に建てられた家に住んでいます。",
+          "en": "I live in a house built 100 years ago.",
           "tags": [
-            "関係代名詞・主格（人以外）"
+            "過去分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1385,10 +1376,10 @@
         },
         {
           "id": "unit3-p11-s7",
-          "jp": "私は人々を幸せにする映画が好きです。",
-          "en": "I like movies that make people happy.",
+          "jp": "彼はみんなに愛されている歌手です。",
+          "en": "He is a singer loved by everyone.",
           "tags": [
-            "関係代名詞・主格（人以外）"
+            "過去分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1397,10 +1388,10 @@
         },
         {
           "id": "unit3-p11-s8",
-          "jp": "公園へ行く道はどれですか？",
-          "en": "Which is the road that goes to the park?",
+          "jp": "その店で売られているカメラは高いです。",
+          "en": "The cameras sold at that store are expensive.",
           "tags": [
-            "関係代名詞・主格（人以外）"
+            "過去分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1409,10 +1400,10 @@
         },
         {
           "id": "unit3-p11-s9",
-          "jp": "私たちは10時に出発する電車に乗りました。",
-          "en": "We took a train which left at ten.",
+          "jp": "私は沖縄で撮られた写真を見ました。",
+          "en": "I saw pictures taken in Okinawa.",
           "tags": [
-            "関係代名詞・主格（人以外）"
+            "過去分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1421,32 +1412,31 @@
         },
         {
           "id": "unit3-p11-s10",
-          "jp": "日本語を話すロボットがいます。",
-          "en": "There is a robot that speaks Japanese.",
+          "jp": "これはアメリカで使われている教科書ですか？",
+          "en": "Is this a textbook used in America?",
           "tags": [
-            "関係代名詞・主格（人以外）"
+            "過去分詞で名詞を修飾"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p12",
       "partNumber": 12,
-      "title": "関係代名詞・所有格 whose",
-      "description": "whose の使い方を練習",
+      "title": "関係代名詞①・主格（人）",
+      "description": "who / that の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p12-s1",
-          "jp": "私にはお父さんが医者の友達がいます。",
-          "en": "I have a friend whose father is a doctor.",
+          "jp": "私にはロンドンに住んでいて、日本語も話す友達がいます。",
+          "en": "I have a friend who lives in London and speaks Japanese.",
           "tags": [
-            "関係代名詞・所有格 whose"
+            "関係代名詞①・主格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1455,10 +1445,10 @@
         },
         {
           "id": "unit3-p12-s2",
-          "jp": "私にはお兄さんがプロサッカー選手の友達がいます。",
-          "en": "I have a friend whose brother is a professional soccer player.",
+          "jp": "その窓を割った少年はケンですか？",
+          "en": "Is the boy who broke the window Ken?",
           "tags": [
-            "関係代名詞・所有格 whose"
+            "関係代名詞①・主格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1467,10 +1457,10 @@
         },
         {
           "id": "unit3-p12-s3",
-          "jp": "私はお母さんが英語の先生である男の子を知っています。",
-          "en": "I know a boy whose mother is an English teacher.",
+          "jp": "毎日早く学校に来る少女はエミです。",
+          "en": "The girl who comes to school early every day is Emi.",
           "tags": [
-            "関係代名詞・所有格 whose"
+            "関係代名詞①・主格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1479,10 +1469,10 @@
         },
         {
           "id": "unit3-p12-s4",
-          "jp": "これはパソコンが壊れてしまった生徒の話です。",
-          "en": "This is a story about a student whose computer broke down.",
+          "jp": "彼は英語をとても上手に話せる先生ですか？",
+          "en": "Is he a teacher who can speak English very well?",
           "tags": [
-            "関係代名詞・所有格 whose"
+            "関係代名詞①・主格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1491,10 +1481,10 @@
         },
         {
           "id": "unit3-p12-s5",
-          "jp": "あなたは本が人気の作家を知っていますか？",
-          "en": "Do you know a writer whose books are popular?",
+          "jp": "動物が好きな人々は優しいです。",
+          "en": "People who like animals are kind.",
           "tags": [
-            "関係代名詞・所有格 whose"
+            "関係代名詞①・主格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1503,10 +1493,10 @@
         },
         {
           "id": "unit3-p12-s6",
-          "jp": "彼女は名前が分からない花を買いました。",
-          "en": "She bought a flower whose name she didn't know.",
+          "jp": "あなたにはサッカーが上手な兄がいますか？",
+          "en": "Do you have a brother who is good at soccer?",
           "tags": [
-            "関係代名詞・所有格 whose"
+            "関係代名詞①・主格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1515,10 +1505,10 @@
         },
         {
           "id": "unit3-p12-s7",
-          "jp": "あれは車が故障してしまった男性です。",
-          "en": "That is the man whose car broke down.",
+          "jp": "その本を書いた男性は有名です。",
+          "en": "The man who wrote the book is famous.",
           "tags": [
-            "関係代名詞・所有格 whose"
+            "関係代名詞①・主格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1527,10 +1517,10 @@
         },
         {
           "id": "unit3-p12-s8",
-          "jp": "私たちはキャプテンがケンであるチームを応援しています。",
-          "en": "We are cheering for the team whose captain is Ken.",
+          "jp": "私は毎日一生懸命働く人々を尊敬します。",
+          "en": "I respect people who work hard every day.",
           "tags": [
-            "関係代名詞・所有格 whose"
+            "関係代名詞①・主格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1539,10 +1529,10 @@
         },
         {
           "id": "unit3-p12-s9",
-          "jp": "私は絵がコンテストで優勝した生徒と話しました。",
-          "en": "I spoke to the student whose painting won the contest.",
+          "jp": "昨日ここに来た女性はあなたの叔母ですか？",
+          "en": "Is the woman who came here yesterday your aunt?",
           "tags": [
-            "関係代名詞・所有格 whose"
+            "関係代名詞①・主格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1551,32 +1541,31 @@
         },
         {
           "id": "unit3-p12-s10",
-          "jp": "私は家が海の近くにある友達を訪ねたいです。",
-          "en": "I want to visit a friend whose house is near the sea.",
+          "jp": "あなたは新しい自転車が欲しい少年を知っていますか？",
+          "en": "Do you know the boy who wants a new bike?",
           "tags": [
-            "関係代名詞・所有格 whose"
+            "関係代名詞①・主格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "C",
-      "weight": 1
+      ]
     },
     {
       "id": "unit3-p13",
       "partNumber": 13,
-      "title": "関係代名詞・目的格（人）",
-      "description": "who / whom / that の使い方を練習",
+      "title": "関係代名詞②・主格（人以外）",
+      "description": "which / that の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p13-s1",
-          "jp": "彼は私が昨日会った男性です。",
-          "en": "He is the man I met yesterday.",
+          "jp": "これは駅へ行くバスです。",
+          "en": "This is a bus which goes to the station.",
           "tags": [
-            "関係代名詞・目的格（人）"
+            "関係代名詞②・主格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1585,10 +1574,10 @@
         },
         {
           "id": "unit3-p13-s2",
-          "jp": "彼女はケンが好きな女の子ですか？",
-          "en": "Is she the girl Ken likes?",
+          "jp": "私は長い耳を持つ犬を飼っています。",
+          "en": "I have a dog which has long ears.",
           "tags": [
-            "関係代名詞・目的格（人）"
+            "関係代名詞②・主格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1597,10 +1586,10 @@
         },
         {
           "id": "unit3-p13-s3",
-          "jp": "彼は私が招待した男性です。",
-          "en": "He is the man I invited.",
+          "jp": "机の上にあった本はどこですか？",
+          "en": "Where is the book that was on the desk?",
           "tags": [
-            "関係代名詞・目的格（人）"
+            "関係代名詞②・主格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1609,10 +1598,10 @@
         },
         {
           "id": "unit3-p13-s4",
-          "jp": "こちらはあなたが尊敬している人々ですか？",
-          "en": "Are these the people you respect?",
+          "jp": "丘の上に立っている家を見てください。",
+          "en": "Look at the house which stands on the hill.",
           "tags": [
-            "関係代名詞・目的格（人）"
+            "関係代名詞②・主格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1621,10 +1610,10 @@
         },
         {
           "id": "unit3-p13-s5",
-          "jp": "彼女はみんなが知っている歌手です。",
-          "en": "She is the singer everyone knows.",
+          "jp": "彼は速く走る車を買いたいと思っています。",
+          "en": "He wants to buy a car that runs fast.",
           "tags": [
-            "関係代名詞・目的格（人）"
+            "関係代名詞②・主格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1633,10 +1622,10 @@
         },
         {
           "id": "unit3-p13-s6",
-          "jp": "私が手助けした少年は、私にお礼を言いました。",
-          "en": "The boy I helped thanked me.",
+          "jp": "その庭で咲いている花は美しいです。",
+          "en": "The flowers which are blooming in the garden are beautiful.",
           "tags": [
-            "関係代名詞・目的格（人）"
+            "関係代名詞②・主格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1645,10 +1634,10 @@
         },
         {
           "id": "unit3-p13-s7",
-          "jp": "トムが一番好きな作家はだれですか？",
-          "en": "Who is the writer Tom likes the best?",
+          "jp": "私は人々を幸せにする映画が好きです。",
+          "en": "I like movies that make people happy.",
           "tags": [
-            "関係代名詞・目的格（人）"
+            "関係代名詞②・主格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1657,10 +1646,10 @@
         },
         {
           "id": "unit3-p13-s8",
-          "jp": "彼女は私たちがパーティーで会った女性です。",
-          "en": "She is the woman we met at the party.",
+          "jp": "公園へ行く道はどれですか？",
+          "en": "Which is the road that goes to the park?",
           "tags": [
-            "関係代名詞・目的格（人）"
+            "関係代名詞②・主格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1669,10 +1658,10 @@
         },
         {
           "id": "unit3-p13-s9",
-          "jp": "あなたが探している男性はあちらです。",
-          "en": "The man you are looking for is over there.",
+          "jp": "私たちは10時に出発する電車に乗りました。",
+          "en": "We took a train which left at ten.",
           "tags": [
-            "関係代名詞・目的格（人）"
+            "関係代名詞②・主格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1681,32 +1670,31 @@
         },
         {
           "id": "unit3-p13-s10",
-          "jp": "彼らは私がよく電話をする友達です。",
-          "en": "They are the friends I often call.",
+          "jp": "日本語を話すロボットがいます。",
+          "en": "There is a robot that speaks Japanese.",
           "tags": [
-            "関係代名詞・目的格（人）"
+            "関係代名詞②・主格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p14",
       "partNumber": 14,
-      "title": "関係代名詞・目的格（人以外）",
-      "description": "which / that の使い方を練習",
+      "title": "関係代名詞③・目的格（人）",
+      "description": "who / whom / that の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p14-s1",
-          "jp": "これは私が昨日買った本です。",
-          "en": "This is the book I bought yesterday.",
+          "jp": "彼は私が昨日会った男性です。",
+          "en": "He is the man I met yesterday.",
           "tags": [
-            "関係代名詞・目的格（人以外）"
+            "関係代名詞③・目的格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1715,10 +1703,10 @@
         },
         {
           "id": "unit3-p14-s2",
-          "jp": "あれは彼が撮った写真ですか？",
-          "en": "Is that the picture he took?",
+          "jp": "彼女はケンが好きな女の子ですか？",
+          "en": "Is she the girl Ken likes?",
           "tags": [
-            "関係代名詞・目的格（人以外）"
+            "関係代名詞③・目的格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1727,10 +1715,10 @@
         },
         {
           "id": "unit3-p14-s3",
-          "jp": "母が作ったケーキはおいしかったです。",
-          "en": "The cake my mother made was delicious.",
+          "jp": "彼は私が招待した男性です。",
+          "en": "He is the man I invited.",
           "tags": [
-            "関係代名詞・目的格（人以外）"
+            "関係代名詞③・目的格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1739,10 +1727,10 @@
         },
         {
           "id": "unit3-p14-s4",
-          "jp": "私は父がくれた時計をなくしました。",
-          "en": "I lost the watch my father gave me.",
+          "jp": "こちらはあなたが尊敬している人々ですか？",
+          "en": "Are these the people you respect?",
           "tags": [
-            "関係代名詞・目的格（人以外）"
+            "関係代名詞③・目的格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1751,10 +1739,10 @@
         },
         {
           "id": "unit3-p14-s5",
-          "jp": "これが彼が見たい映画です。",
-          "en": "This is the movie he wants to see.",
+          "jp": "彼女はみんなが知っている歌手です。",
+          "en": "She is the singer everyone knows.",
           "tags": [
-            "関係代名詞・目的格（人以外）"
+            "関係代名詞③・目的格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1763,10 +1751,10 @@
         },
         {
           "id": "unit3-p14-s6",
-          "jp": "彼女が書いた手紙を読みましたか？",
-          "en": "Did you read the letter she wrote?",
+          "jp": "私が手助けした少年は、私にお礼を言いました。",
+          "en": "The boy I helped thanked me.",
           "tags": [
-            "関係代名詞・目的格（人以外）"
+            "関係代名詞③・目的格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1775,10 +1763,10 @@
         },
         {
           "id": "unit3-p14-s7",
-          "jp": "私が住んでいる家は古いです。",
-          "en": "The house I live in is old.",
+          "jp": "トムが一番好きな作家はだれですか？",
+          "en": "Who is the writer Tom likes the best?",
           "tags": [
-            "関係代名詞・目的格（人以外）"
+            "関係代名詞③・目的格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1787,10 +1775,10 @@
         },
         {
           "id": "unit3-p14-s8",
-          "jp": "英語は彼が話す言語です。",
-          "en": "English is the language he speaks.",
+          "jp": "彼女は私たちがパーティーで会った女性です。",
+          "en": "She is the woman we met at the party.",
           "tags": [
-            "関係代名詞・目的格（人以外）"
+            "関係代名詞③・目的格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1799,10 +1787,10 @@
         },
         {
           "id": "unit3-p14-s9",
-          "jp": "これらは私が撮った写真です。",
-          "en": "These are the pictures I took.",
+          "jp": "あなたが探している男性はあちらです。",
+          "en": "The man you are looking for is over there.",
           "tags": [
-            "関係代名詞・目的格（人以外）"
+            "関係代名詞③・目的格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1811,32 +1799,31 @@
         },
         {
           "id": "unit3-p14-s10",
-          "jp": "これが私が使っている辞書です。",
-          "en": "This is the dictionary I use.",
+          "jp": "彼らは私がよく電話をする友達です。",
+          "en": "They are the friends I often call.",
           "tags": [
-            "関係代名詞・目的格（人以外）"
+            "関係代名詞③・目的格（人）"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p15",
       "partNumber": 15,
-      "title": "先行詞を含む関係代名詞 what",
-      "description": "「〜するもの（こと）」の使い方を練習",
+      "title": "関係代名詞④・目的格（人以外）",
+      "description": "which / that の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p15-s1",
-          "jp": "これが私が欲しかったものです。",
-          "en": "This is what I wanted.",
+          "jp": "これは私が昨日買った本です。",
+          "en": "This is the book I bought yesterday.",
           "tags": [
-            "先行詞を含む関係代名詞 what"
+            "関係代名詞④・目的格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1845,10 +1832,10 @@
         },
         {
           "id": "unit3-p15-s2",
-          "jp": "彼の言ったことが信じられません。",
-          "en": "I can't believe what he said.",
+          "jp": "あれは彼が撮った写真ですか？",
+          "en": "Is that the picture he took?",
           "tags": [
-            "先行詞を含む関係代名詞 what"
+            "関係代名詞④・目的格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1857,10 +1844,10 @@
         },
         {
           "id": "unit3-p15-s3",
-          "jp": "彼女がしたことは正しかった。",
-          "en": "What she did was right.",
+          "jp": "母が作ったケーキはおいしかったです。",
+          "en": "The cake my mother made was delicious.",
           "tags": [
-            "先行詞を含む関係代名詞 what"
+            "関係代名詞④・目的格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1869,10 +1856,10 @@
         },
         {
           "id": "unit3-p15-s4",
-          "jp": "私たちに必要なのは水です。",
-          "en": "What we need is water.",
+          "jp": "私は父がくれた時計をなくしました。",
+          "en": "I lost the watch my father gave me.",
           "tags": [
-            "先行詞を含む関係代名詞 what"
+            "関係代名詞④・目的格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1881,10 +1868,10 @@
         },
         {
           "id": "unit3-p15-s5",
-          "jp": "私が興味があるのは歴史です。",
-          "en": "What I am interested in is history.",
+          "jp": "これが彼が見たい映画です。",
+          "en": "This is the movie he wants to see.",
           "tags": [
-            "先行詞を含む関係代名詞 what"
+            "関係代名詞④・目的格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1893,10 +1880,10 @@
         },
         {
           "id": "unit3-p15-s6",
-          "jp": "あなたは私が作ったものを食べたいですか？",
-          "en": "Do you want to eat what I made?",
+          "jp": "彼女が書いた手紙を読みましたか？",
+          "en": "Did you read the letter she wrote?",
           "tags": [
-            "先行詞を含む関係代名詞 what"
+            "関係代名詞④・目的格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1905,10 +1892,10 @@
         },
         {
           "id": "unit3-p15-s7",
-          "jp": "大切なのは愛です。",
-          "en": "What is important is love.",
+          "jp": "私が住んでいる家は古いです。",
+          "en": "The house I live in is old.",
           "tags": [
-            "先行詞を含む関係代名詞 what"
+            "関係代名詞④・目的格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1917,10 +1904,10 @@
         },
         {
           "id": "unit3-p15-s8",
-          "jp": "彼は私が見たものを信じませんでした。",
-          "en": "He didn't believe what I saw.",
+          "jp": "英語は彼が話す言語です。",
+          "en": "English is the language he speaks.",
           "tags": [
-            "先行詞を含む関係代名詞 what"
+            "関係代名詞④・目的格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1929,10 +1916,10 @@
         },
         {
           "id": "unit3-p15-s9",
-          "jp": "これがあなたの言いたいことですか？",
-          "en": "Is this what you want to say?",
+          "jp": "これらは私が撮った写真です。",
+          "en": "These are the pictures I took.",
           "tags": [
-            "先行詞を含む関係代名詞 what"
+            "関係代名詞④・目的格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1941,32 +1928,31 @@
         },
         {
           "id": "unit3-p15-s10",
-          "jp": "今日起こったことを教えてください。",
-          "en": "Please tell me what happened today.",
+          "jp": "これが私が使っている辞書です。",
+          "en": "This is the dictionary I use.",
           "tags": [
-            "先行詞を含む関係代名詞 what"
+            "関係代名詞④・目的格（人以外）"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p16",
       "partNumber": 16,
-      "title": "too 〜 to 〜",
-      "description": "「〜すぎて…できない」の使い方を練習",
+      "title": "関係代名詞⑤・whose（だれの／何の）",
+      "description": "whose の使い方を練習",
+      "priority": "C",
       "sentences": [
         {
           "id": "unit3-p16-s1",
-          "jp": "私は忙しすぎてあなたと行けません。",
-          "en": "I am too busy to go with you.",
+          "jp": "私にはお父さんが医者の友達がいます。",
+          "en": "I have a friend whose father is a doctor.",
           "tags": [
-            "too 〜 to 〜"
+            "関係代名詞⑤・whose（だれの／何の）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1975,10 +1961,10 @@
         },
         {
           "id": "unit3-p16-s2",
-          "jp": "このお茶は熱すぎて飲めません。",
-          "en": "This tea is too hot to drink.",
+          "jp": "私にはお兄さんがプロサッカー選手の友達がいます。",
+          "en": "I have a friend whose brother is a professional soccer player.",
           "tags": [
-            "too 〜 to 〜"
+            "関係代名詞⑤・whose（だれの／何の）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1987,10 +1973,10 @@
         },
         {
           "id": "unit3-p16-s3",
-          "jp": "彼は疲れすぎて走れませんでした。",
-          "en": "He was too tired to run.",
+          "jp": "私はお母さんが英語の先生である男の子を知っています。",
+          "en": "I know a boy whose mother is an English teacher.",
           "tags": [
-            "too 〜 to 〜"
+            "関係代名詞⑤・whose（だれの／何の）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -1999,10 +1985,10 @@
         },
         {
           "id": "unit3-p16-s4",
-          "jp": "その石は重すぎて動かせません。",
-          "en": "The stone is too heavy to move.",
+          "jp": "これはパソコンが壊れてしまった生徒の話です。",
+          "en": "This is a story about a student whose computer broke down.",
           "tags": [
-            "too 〜 to 〜"
+            "関係代名詞⑤・whose（だれの／何の）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2011,10 +1997,10 @@
         },
         {
           "id": "unit3-p16-s5",
-          "jp": "この本は私には難しすぎて読めません。",
-          "en": "This book is too difficult for me to read.",
+          "jp": "あなたは本が人気の作家を知っていますか？",
+          "en": "Do you know a writer whose books are popular?",
           "tags": [
-            "too 〜 to 〜"
+            "関係代名詞⑤・whose（だれの／何の）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2023,10 +2009,10 @@
         },
         {
           "id": "unit3-p16-s6",
-          "jp": "外は寒すぎて遊べません。",
-          "en": "It is too cold outside to play.",
+          "jp": "彼女は名前が分からない花を買いました。",
+          "en": "She bought a flower whose name she didn't know.",
           "tags": [
-            "too 〜 to 〜"
+            "関係代名詞⑤・whose（だれの／何の）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2035,10 +2021,10 @@
         },
         {
           "id": "unit3-p16-s7",
-          "jp": "彼女は眠すぎて勉強できません。",
-          "en": "She is too sleepy to study.",
+          "jp": "あれは車が故障してしまった男性です。",
+          "en": "That is the man whose car broke down.",
           "tags": [
-            "too 〜 to 〜"
+            "関係代名詞⑤・whose（だれの／何の）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2047,10 +2033,10 @@
         },
         {
           "id": "unit3-p16-s8",
-          "jp": "そのシャツは高すぎて買えませんでした。",
-          "en": "The shirt was too expensive to buy.",
+          "jp": "私たちはキャプテンがケンであるチームを応援しています。",
+          "en": "We are cheering for the team whose captain is Ken.",
           "tags": [
-            "too 〜 to 〜"
+            "関係代名詞⑤・whose（だれの／何の）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2059,10 +2045,10 @@
         },
         {
           "id": "unit3-p16-s9",
-          "jp": "この問題は難しすぎて解けません。",
-          "en": "This problem is too difficult to solve.",
+          "jp": "私は絵がコンテストで優勝した生徒と話しました。",
+          "en": "I spoke to the student whose painting won the contest.",
           "tags": [
-            "too 〜 to 〜"
+            "関係代名詞⑤・whose（だれの／何の）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2071,32 +2057,31 @@
         },
         {
           "id": "unit3-p16-s10",
-          "jp": "その箱は大きすぎて運べません。",
-          "en": "The box is too big to carry.",
+          "jp": "私は家が海の近くにある友達を訪ねたいです。",
+          "en": "I want to visit a friend whose house is near the sea.",
           "tags": [
-            "too 〜 to 〜"
+            "関係代名詞⑤・whose（だれの／何の）"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "A",
-      "weight": 3
+      ]
     },
     {
       "id": "unit3-p17",
       "partNumber": 17,
-      "title": "enough to 〜",
-      "description": "「…するのに十分〜」の使い方を練習",
+      "title": "関係代名詞⑥・what（～のこと・もの）",
+      "description": "「〜するもの（こと）」の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p17-s1",
-          "jp": "彼はその車を買えるほどお金持ちです。",
-          "en": "He is rich enough to buy the car.",
+          "jp": "これが私が欲しかったものです。",
+          "en": "This is what I wanted.",
           "tags": [
-            "enough to 〜"
+            "関係代名詞⑥・what（～のこと・もの）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2105,10 +2090,10 @@
         },
         {
           "id": "unit3-p17-s2",
-          "jp": "彼女は一人で旅行できる年齢です。",
-          "en": "She is old enough to travel alone.",
+          "jp": "彼の言ったことが信じられません。",
+          "en": "I can't believe what he said.",
           "tags": [
-            "enough to 〜"
+            "関係代名詞⑥・what（～のこと・もの）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2117,10 +2102,10 @@
         },
         {
           "id": "unit3-p17-s3",
-          "jp": "この部屋は私たちが寝られるほど広いです。",
-          "en": "This room is large enough for us to sleep in.",
+          "jp": "彼女がしたことは正しかった。",
+          "en": "What she did was right.",
           "tags": [
-            "enough to 〜"
+            "関係代名詞⑥・what（～のこと・もの）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2129,10 +2114,10 @@
         },
         {
           "id": "unit3-p17-s4",
-          "jp": "彼は私を手伝ってくれるほど親切でした。",
-          "en": "He was kind enough to help me.",
+          "jp": "私たちに必要なのは水です。",
+          "en": "What we need is water.",
           "tags": [
-            "enough to 〜"
+            "関係代名詞⑥・what（～のこと・もの）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2141,10 +2126,10 @@
         },
         {
           "id": "unit3-p17-s5",
-          "jp": "私は始発に間に合うように、十分早く起きました。",
-          "en": "I got up early enough to catch the first train.",
+          "jp": "私が興味があるのは歴史です。",
+          "en": "What I am interested in is history.",
           "tags": [
-            "enough to 〜"
+            "関係代名詞⑥・what（～のこと・もの）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2153,10 +2138,10 @@
         },
         {
           "id": "unit3-p17-s6",
-          "jp": "この本は子どもが読めるほど簡単です。",
-          "en": "This book is easy enough for children to read.",
+          "jp": "あなたは私が作ったものを食べたいですか？",
+          "en": "Do you want to eat what I made?",
           "tags": [
-            "enough to 〜"
+            "関係代名詞⑥・what（～のこと・もの）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2165,10 +2150,10 @@
         },
         {
           "id": "unit3-p17-s7",
-          "jp": "ケンはバスケットボール選手になれるほど背が高いです。",
-          "en": "Ken is tall enough to be a basketball player.",
+          "jp": "大切なのは愛です。",
+          "en": "What is important is love.",
           "tags": [
-            "enough to 〜"
+            "関係代名詞⑥・what（～のこと・もの）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2177,10 +2162,10 @@
         },
         {
           "id": "unit3-p17-s8",
-          "jp": "今日は泳ぐには十分暖かいです。",
-          "en": "It is warm enough for us to swim.",
+          "jp": "彼は私が見たものを信じませんでした。",
+          "en": "He didn't believe what I saw.",
           "tags": [
-            "enough to 〜"
+            "関係代名詞⑥・what（～のこと・もの）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2189,10 +2174,10 @@
         },
         {
           "id": "unit3-p17-s9",
-          "jp": "彼はその箱を持ち上げられるだけの力があります。",
-          "en": "He is strong enough to lift the box.",
+          "jp": "これがあなたの言いたいことですか？",
+          "en": "Is this what you want to say?",
           "tags": [
-            "enough to 〜"
+            "関係代名詞⑥・what（～のこと・もの）"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2201,32 +2186,31 @@
         },
         {
           "id": "unit3-p17-s10",
-          "jp": "彼女はその問題を解けるほど賢かったです。",
-          "en": "She was smart enough to solve the problem.",
+          "jp": "今日起こったことを教えてください。",
+          "en": "Please tell me what happened today.",
           "tags": [
-            "enough to 〜"
+            "関係代名詞⑥・what（～のこと・もの）"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "A",
-      "weight": 3
+      ]
     },
     {
       "id": "unit3-p18",
       "partNumber": 18,
-      "title": "so 〜 that ⋯",
-      "description": "「とても〜なので…」の使い方を練習",
+      "title": "関係副詞①・where",
+      "description": "「〜する場所」の where の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p18-s1",
-          "jp": "私はとても疲れていたので、早く寝ました。",
-          "en": "I was so tired that I went to bed early.",
+          "jp": "ここは私が生まれた町です。",
+          "en": "This is the town where I was born.",
           "tags": [
-            "so 〜 that ⋯"
+            "関係副詞①・where"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2235,10 +2219,10 @@
         },
         {
           "id": "unit3-p18-s2",
-          "jp": "昨日はとても寒かったので、家にいました。",
-          "en": "It was so cold yesterday that I stayed home.",
+          "jp": "あれは彼が住んでいる家ですか？",
+          "en": "Is that the house where he lives?",
           "tags": [
-            "so 〜 that ⋯"
+            "関係副詞①・where"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2247,10 +2231,10 @@
         },
         {
           "id": "unit3-p18-s3",
-          "jp": "その映画はとてもおもしろかったので、2回見ました。",
-          "en": "The movie was so interesting that I watched it twice.",
+          "jp": "これは私たちがよく遊んだ公園です。",
+          "en": "This is the park where we often played.",
           "tags": [
-            "so 〜 that ⋯"
+            "関係副詞①・where"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2259,10 +2243,10 @@
         },
         {
           "id": "unit3-p18-s4",
-          "jp": "彼はとても速く走ったので、バスに間に合いました。",
-          "en": "He ran so fast that he caught the bus.",
+          "jp": "ここは私たちが昼ご飯を食べる部屋です。",
+          "en": "This is the room where we have lunch.",
           "tags": [
-            "so 〜 that ⋯"
+            "関係副詞①・where"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2271,10 +2255,10 @@
         },
         {
           "id": "unit3-p18-s5",
-          "jp": "この本はとても難しいので、理解できません。",
-          "en": "This book is so difficult that I can't understand it.",
+          "jp": "ここはあなたがカバンを買った店ですか？",
+          "en": "Is this the shop where you bought the bag?",
           "tags": [
-            "so 〜 that ⋯"
+            "関係副詞①・where"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2283,10 +2267,10 @@
         },
         {
           "id": "unit3-p18-s6",
-          "jp": "彼女はとても親切なので、みんな彼女が好きです。",
-          "en": "She is so kind that everyone likes her.",
+          "jp": "これは私が勉強する部屋です。",
+          "en": "This is the room where I study.",
           "tags": [
-            "so 〜 that ⋯"
+            "関係副詞①・where"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2295,10 +2279,10 @@
         },
         {
           "id": "unit3-p18-s7",
-          "jp": "彼はとても忙しかったので、昼食を食べられませんでした。",
-          "en": "He was so busy that he couldn't eat lunch.",
+          "jp": "私はおいしいケーキが買える店を知っています。",
+          "en": "I know a shop where you can buy delicious cakes.",
           "tags": [
-            "so 〜 that ⋯"
+            "関係副詞①・where"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2307,10 +2291,10 @@
         },
         {
           "id": "unit3-p18-s8",
-          "jp": "その箱はとても重かったので、動かせませんでした。",
-          "en": "The box was so heavy that I couldn't move it.",
+          "jp": "京都は古いお寺をたくさん見られる都市です。",
+          "en": "Kyoto is a city where you can see many old temples.",
           "tags": [
-            "so 〜 that ⋯"
+            "関係副詞①・where"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2319,10 +2303,10 @@
         },
         {
           "id": "unit3-p18-s9",
-          "jp": "私はとても興奮していたので、眠れませんでした。",
-          "en": "I was so excited that I couldn't sleep.",
+          "jp": "あれは彼が働いている病院です。",
+          "en": "That is the hospital where he works.",
           "tags": [
-            "so 〜 that ⋯"
+            "関係副詞①・where"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2331,32 +2315,31 @@
         },
         {
           "id": "unit3-p18-s10",
-          "jp": "私はとてもおなかがすいていたので、ハンバーガーを3つ食べました。",
-          "en": "I was so hungry that I ate three hamburgers.",
+          "jp": "あなたたちは初めて会った場所に行きましたか？",
+          "en": "Did you go to the place where you first met?",
           "tags": [
-            "so 〜 that ⋯"
+            "関係副詞①・where"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "A",
-      "weight": 3
+      ]
     },
     {
       "id": "unit3-p19",
       "partNumber": 19,
-      "title": "原形不定詞・知覚",
-      "description": "see / hear + 人 + 原形 の使い方を練習",
+      "title": "関係副詞②・when",
+      "description": "「〜する時」の when の使い方を練習",
+      "priority": "B",
       "sentences": [
         {
           "id": "unit3-p19-s1",
-          "jp": "私は彼が部屋に入るのを見ました。",
-          "en": "I saw him enter the room.",
+          "jp": "私は彼女に初めて会った日を覚えています。",
+          "en": "I remember the day when I first met her.",
           "tags": [
-            "原形不定詞・知覚"
+            "関係副詞②・when"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2365,10 +2348,10 @@
         },
         {
           "id": "unit3-p19-s2",
-          "jp": "私たちは彼女がピアノを弾くのを聞きました。",
-          "en": "We heard her play the piano.",
+          "jp": "日曜日は私が部屋を掃除する日です。",
+          "en": "Sunday is the day when I clean my room.",
           "tags": [
-            "原形不定詞・知覚"
+            "関係副詞②・when"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2377,10 +2360,10 @@
         },
         {
           "id": "unit3-p19-s3",
-          "jp": "あなたはケンが公園を走るのを見ましたか。",
-          "en": "Did you see Ken run in the park?",
+          "jp": "春は桜が咲く季節です。",
+          "en": "Spring is the season when cherry blossoms bloom.",
           "tags": [
-            "原形不定詞・知覚"
+            "関係副詞②・when"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2389,10 +2372,10 @@
         },
         {
           "id": "unit3-p19-s4",
-          "jp": "私は鳥が飛ぶのを見ました。",
-          "en": "I saw a bird fly away.",
+          "jp": "7時はあなたが起きる時間ですか？",
+          "en": "Is seven o'clock the time when you get up?",
           "tags": [
-            "原形不定詞・知覚"
+            "関係副詞②・when"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2401,10 +2384,10 @@
         },
         {
           "id": "unit3-p19-s5",
-          "jp": "私はだれかが私の名前を呼ぶのを聞きました。",
-          "en": "I heard someone call my name.",
+          "jp": "2018年はあなたがこの町に引っ越した年ですか？",
+          "en": "Was 2018 the year when you moved to this town?",
           "tags": [
-            "原形不定詞・知覚"
+            "関係副詞②・when"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2413,10 +2396,10 @@
         },
         {
           "id": "unit3-p19-s6",
-          "jp": "彼は彼女が通りを渡るのを見ました。",
-          "en": "He saw her cross the street.",
+          "jp": "私は私たちが一緒に遊んだ夏を決して忘れません。",
+          "en": "I will never forget the summer when we played together.",
           "tags": [
-            "原形不定詞・知覚"
+            "関係副詞②・when"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2425,10 +2408,10 @@
         },
         {
           "id": "unit3-p19-s7",
-          "jp": "私たちは彼が英語の歌を歌うのを聞きました。",
-          "en": "We heard him sing an English song.",
+          "jp": "1月は雪がたくさん降る月です。",
+          "en": "January is the month when it snows a lot.",
           "tags": [
-            "原形不定詞・知覚"
+            "関係副詞②・when"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2437,10 +2420,10 @@
         },
         {
           "id": "unit3-p19-s8",
-          "jp": "私は地面が揺れるのを感じました。",
-          "en": "I felt the ground shake.",
+          "jp": "夜は私が英語を勉強する時間です。",
+          "en": "Night is the time when I study English.",
           "tags": [
-            "原形不定詞・知覚"
+            "関係副詞②・when"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2449,10 +2432,10 @@
         },
         {
           "id": "unit3-p19-s9",
-          "jp": "あなたは彼らが家を出るのを見ましたか。",
-          "en": "Did you see them leave the house?",
+          "jp": "土曜日は彼女が買い物に行ける唯一の日ですか？",
+          "en": "Is Saturday the only day when she can go shopping?",
           "tags": [
-            "原形不定詞・知覚"
+            "関係副詞②・when"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2461,32 +2444,31 @@
         },
         {
           "id": "unit3-p19-s10",
-          "jp": "私は子どもたちが公園で遊ぶのを見ました。",
-          "en": "I watched the children play in the park.",
+          "jp": "夏は私たちが泳ぎに行く季節です。",
+          "en": "Summer is the season when we go swimming.",
           "tags": [
-            "原形不定詞・知覚"
+            "関係副詞②・when"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p20",
       "partNumber": 20,
-      "title": "原形不定詞・使役",
-      "description": "make / let + 人 + 原形 の使い方を練習",
+      "title": "too ～ to ～ 構文",
+      "description": "「〜すぎて…できない」の使い方を練習",
+      "priority": "A",
       "sentences": [
         {
           "id": "unit3-p20-s1",
-          "jp": "そのニュースは彼女を泣かせました。",
-          "en": "The news made her cry.",
+          "jp": "私は忙しすぎてあなたと行けません。",
+          "en": "I am too busy to go with you.",
           "tags": [
-            "原形不定詞・使役"
+            "too ～ to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2495,10 +2477,10 @@
         },
         {
           "id": "unit3-p20-s2",
-          "jp": "行かせてください。",
-          "en": "Please let me go.",
+          "jp": "このお茶は熱すぎて飲めません。",
+          "en": "This tea is too hot to drink.",
           "tags": [
-            "原形不定詞・使役"
+            "too ～ to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2507,10 +2489,10 @@
         },
         {
           "id": "unit3-p20-s3",
-          "jp": "父は私に部屋を掃除させました。",
-          "en": "My father made me clean my room.",
+          "jp": "彼は疲れすぎて走れませんでした。",
+          "en": "He was too tired to run.",
           "tags": [
-            "原形不定詞・使役"
+            "too ～ to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2519,10 +2501,10 @@
         },
         {
           "id": "unit3-p20-s4",
-          "jp": "彼はあなたにパソコンを使わせてくれましたか？",
-          "en": "Did he let you use his computer?",
+          "jp": "その石は重すぎて動かせません。",
+          "en": "The stone is too heavy to move.",
           "tags": [
-            "原形不定詞・使役"
+            "too ～ to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2531,10 +2513,10 @@
         },
         {
           "id": "unit3-p20-s5",
-          "jp": "先生はあなたたちを走らせましたか？",
-          "en": "Did the teacher make you run?",
+          "jp": "この本は私には難しすぎて読めません。",
+          "en": "This book is too difficult for me to read.",
           "tags": [
-            "原形不定詞・使役"
+            "too ～ to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2543,10 +2525,10 @@
         },
         {
           "id": "unit3-p20-s6",
-          "jp": "あとで知らせます。",
-          "en": "I will let you know later.",
+          "jp": "外は寒すぎて遊べません。",
+          "en": "It is too cold outside to play.",
           "tags": [
-            "原形不定詞・使役"
+            "too ～ to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2555,10 +2537,10 @@
         },
         {
           "id": "unit3-p20-s7",
-          "jp": "その映画はみんなを笑わせました。",
-          "en": "The movie made everyone laugh.",
+          "jp": "彼女は眠すぎて勉強できません。",
+          "en": "She is too sleepy to study.",
           "tags": [
-            "原形不定詞・使役"
+            "too ～ to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2567,10 +2549,10 @@
         },
         {
           "id": "unit3-p20-s8",
-          "jp": "お母さんはあなたに宿題をさせましたか？",
-          "en": "Did your mother make you do your homework?",
+          "jp": "そのシャツは高すぎて買えませんでした。",
+          "en": "The shirt was too expensive to buy.",
           "tags": [
-            "原形不定詞・使役"
+            "too ～ to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2579,10 +2561,10 @@
         },
         {
           "id": "unit3-p20-s9",
-          "jp": "考えさせてください。",
-          "en": "Let me think.",
+          "jp": "この問題は難しすぎて解けません。",
+          "en": "This problem is too difficult to solve.",
           "tags": [
-            "原形不定詞・使役"
+            "too ～ to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2591,32 +2573,31 @@
         },
         {
           "id": "unit3-p20-s10",
-          "jp": "やらせてください。",
-          "en": "Please let me do it.",
+          "jp": "その箱は大きすぎて運べません。",
+          "en": "The box is too big to carry.",
           "tags": [
-            "原形不定詞・使役"
+            "too ～ to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p21",
       "partNumber": 21,
-      "title": "関係副詞・where",
-      "description": "「〜する場所」の where の使い方を練習",
+      "title": "enough to ～ 構文",
+      "description": "「…するのに十分〜」の使い方を練習",
+      "priority": "A",
       "sentences": [
         {
           "id": "unit3-p21-s1",
-          "jp": "ここは私が生まれた町です。",
-          "en": "This is the town where I was born.",
+          "jp": "彼はその車を買えるほどお金持ちです。",
+          "en": "He is rich enough to buy the car.",
           "tags": [
-            "関係副詞・where"
+            "enough to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2625,10 +2606,10 @@
         },
         {
           "id": "unit3-p21-s2",
-          "jp": "あれは彼が住んでいる家ですか？",
-          "en": "Is that the house where he lives?",
+          "jp": "彼女は一人で旅行できる年齢です。",
+          "en": "She is old enough to travel alone.",
           "tags": [
-            "関係副詞・where"
+            "enough to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2637,10 +2618,10 @@
         },
         {
           "id": "unit3-p21-s3",
-          "jp": "これは私たちがよく遊んだ公園です。",
-          "en": "This is the park where we often played.",
+          "jp": "この部屋は私たちが寝られるほど広いです。",
+          "en": "This room is large enough for us to sleep in.",
           "tags": [
-            "関係副詞・where"
+            "enough to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2649,10 +2630,10 @@
         },
         {
           "id": "unit3-p21-s4",
-          "jp": "ここは私たちが昼ご飯を食べる部屋です。",
-          "en": "This is the room where we have lunch.",
+          "jp": "彼は私を手伝ってくれるほど親切でした。",
+          "en": "He was kind enough to help me.",
           "tags": [
-            "関係副詞・where"
+            "enough to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2661,10 +2642,10 @@
         },
         {
           "id": "unit3-p21-s5",
-          "jp": "ここはあなたがカバンを買った店ですか？",
-          "en": "Is this the shop where you bought the bag?",
+          "jp": "私は始発に間に合うように、十分早く起きました。",
+          "en": "I got up early enough to catch the first train.",
           "tags": [
-            "関係副詞・where"
+            "enough to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2673,10 +2654,10 @@
         },
         {
           "id": "unit3-p21-s6",
-          "jp": "これは私が勉強する部屋です。",
-          "en": "This is the room where I study.",
+          "jp": "この本は子どもが読めるほど簡単です。",
+          "en": "This book is easy enough for children to read.",
           "tags": [
-            "関係副詞・where"
+            "enough to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2685,10 +2666,10 @@
         },
         {
           "id": "unit3-p21-s7",
-          "jp": "私はおいしいケーキが買える店を知っています。",
-          "en": "I know a shop where you can buy delicious cakes.",
+          "jp": "ケンはバスケットボール選手になれるほど背が高いです。",
+          "en": "Ken is tall enough to be a basketball player.",
           "tags": [
-            "関係副詞・where"
+            "enough to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2697,10 +2678,10 @@
         },
         {
           "id": "unit3-p21-s8",
-          "jp": "京都は古いお寺をたくさん見られる都市です。",
-          "en": "Kyoto is a city where you can see many old temples.",
+          "jp": "今日は泳ぐには十分暖かいです。",
+          "en": "It is warm enough for us to swim.",
           "tags": [
-            "関係副詞・where"
+            "enough to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2709,10 +2690,10 @@
         },
         {
           "id": "unit3-p21-s9",
-          "jp": "あれは彼が働いている病院です。",
-          "en": "That is the hospital where he works.",
+          "jp": "彼はその箱を持ち上げられるだけの力があります。",
+          "en": "He is strong enough to lift the box.",
           "tags": [
-            "関係副詞・where"
+            "enough to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2721,32 +2702,31 @@
         },
         {
           "id": "unit3-p21-s10",
-          "jp": "あなたたちは初めて会った場所に行きましたか？",
-          "en": "Did you go to the place where you first met?",
+          "jp": "彼女はその問題を解けるほど賢かったです。",
+          "en": "She was smart enough to solve the problem.",
           "tags": [
-            "関係副詞・where"
+            "enough to ～ 構文"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     },
     {
       "id": "unit3-p22",
       "partNumber": 22,
-      "title": "関係副詞・when",
-      "description": "「〜する時」の when の使い方を練習",
+      "title": "so ～ that … 構文",
+      "description": "「とても〜なので…」の使い方を練習",
+      "priority": "A",
       "sentences": [
         {
           "id": "unit3-p22-s1",
-          "jp": "私は彼女に初めて会った日を覚えています。",
-          "en": "I remember the day when I first met her.",
+          "jp": "私はとても疲れていたので、早く寝ました。",
+          "en": "I was so tired that I went to bed early.",
           "tags": [
-            "関係副詞・when"
+            "so ～ that … 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2755,10 +2735,10 @@
         },
         {
           "id": "unit3-p22-s2",
-          "jp": "日曜日は私が部屋を掃除する日です。",
-          "en": "Sunday is the day when I clean my room.",
+          "jp": "昨日はとても寒かったので、家にいました。",
+          "en": "It was so cold yesterday that I stayed home.",
           "tags": [
-            "関係副詞・when"
+            "so ～ that … 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2767,10 +2747,10 @@
         },
         {
           "id": "unit3-p22-s3",
-          "jp": "春は桜が咲く季節です。",
-          "en": "Spring is the season when cherry blossoms bloom.",
+          "jp": "その映画はとてもおもしろかったので、2回見ました。",
+          "en": "The movie was so interesting that I watched it twice.",
           "tags": [
-            "関係副詞・when"
+            "so ～ that … 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2779,10 +2759,10 @@
         },
         {
           "id": "unit3-p22-s4",
-          "jp": "7時はあなたが起きる時間ですか？",
-          "en": "Is seven o'clock the time when you get up?",
+          "jp": "彼はとても速く走ったので、バスに間に合いました。",
+          "en": "He ran so fast that he caught the bus.",
           "tags": [
-            "関係副詞・when"
+            "so ～ that … 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2791,10 +2771,10 @@
         },
         {
           "id": "unit3-p22-s5",
-          "jp": "2018年はあなたがこの町に引っ越した年ですか？",
-          "en": "Was 2018 the year when you moved to this town?",
+          "jp": "この本はとても難しいので、理解できません。",
+          "en": "This book is so difficult that I can't understand it.",
           "tags": [
-            "関係副詞・when"
+            "so ～ that … 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2803,10 +2783,10 @@
         },
         {
           "id": "unit3-p22-s6",
-          "jp": "私は私たちが一緒に遊んだ夏を決して忘れません。",
-          "en": "I will never forget the summer when we played together.",
+          "jp": "彼女はとても親切なので、みんな彼女が好きです。",
+          "en": "She is so kind that everyone likes her.",
           "tags": [
-            "関係副詞・when"
+            "so ～ that … 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2815,10 +2795,10 @@
         },
         {
           "id": "unit3-p22-s7",
-          "jp": "1月は雪がたくさん降る月です。",
-          "en": "January is the month when it snows a lot.",
+          "jp": "彼はとても忙しかったので、昼食を食べられませんでした。",
+          "en": "He was so busy that he couldn't eat lunch.",
           "tags": [
-            "関係副詞・when"
+            "so ～ that … 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2827,10 +2807,10 @@
         },
         {
           "id": "unit3-p22-s8",
-          "jp": "夜は私が英語を勉強する時間です。",
-          "en": "Night is the time when I study English.",
+          "jp": "その箱はとても重かったので、動かせませんでした。",
+          "en": "The box was so heavy that I couldn't move it.",
           "tags": [
-            "関係副詞・when"
+            "so ～ that … 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2839,10 +2819,10 @@
         },
         {
           "id": "unit3-p22-s9",
-          "jp": "土曜日は彼女が買い物に行ける唯一の日ですか？",
-          "en": "Is Saturday the only day when she can go shopping?",
+          "jp": "私はとても興奮していたので、眠れませんでした。",
+          "en": "I was so excited that I couldn't sleep.",
           "tags": [
-            "関係副詞・when"
+            "so ～ that … 構文"
           ],
           "level": "B1",
           "nextDue": 0,
@@ -2851,19 +2831,17 @@
         },
         {
           "id": "unit3-p22-s10",
-          "jp": "夏は私たちが泳ぎに行く季節です。",
-          "en": "Summer is the season when we go swimming.",
+          "jp": "私はとてもおなかがすいていたので、ハンバーガーを3つ食べました。",
+          "en": "I was so hungry that I ate three hamburgers.",
           "tags": [
-            "関係副詞・when"
+            "so ～ that … 構文"
           ],
           "level": "B1",
           "nextDue": 0,
           "correctCount": 0,
           "incorrectCount": 0
         }
-      ],
-      "priority": "B",
-      "weight": 2
+      ]
     }
   ]
 }
