@@ -13,6 +13,7 @@ const isNative = (() => {
     return false;
   }
 })();
+import { warmupServer, startKeepAlive, stopKeepAlive, setupVisibilityWarmup } from '@/utils/serverWarmup';
 import TeaserModal from '@/components/subscription/TeaserModal';
 import PaywallScreen from '@/components/subscription/PaywallScreen';
 import { FixedAdBanner } from '@/components/ads/AdBanner';
@@ -146,6 +147,19 @@ export default function HomePage() {
       router.replace('/');
     }
   }, [isLoading, isAuthenticated, router]);
+
+  // サーバーウォームアップ＆キープアライブ
+  useEffect(() => {
+    if (isAuthenticated) {
+      warmupServer();
+      startKeepAlive();
+      const cleanupVisibility = setupVisibilityWarmup();
+      return () => {
+        stopKeepAlive();
+        cleanupVisibility();
+      };
+    }
+  }, [isAuthenticated]);
 
   // 認証チェック中はローディング表示
   if (isLoading || !isAuthenticated) {

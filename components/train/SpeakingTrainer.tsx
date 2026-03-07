@@ -431,25 +431,33 @@ export default function SpeakingTrainer({
         mistakeAnalysis: '',
       };
 
-      try {
-        const response = await apiFetch('/api/evaluate-speaking', {
-          method: 'POST',
-          body: JSON.stringify({
-            japaneseText: currentSentence.jp,
-            correctAnswer: currentSentence.en,
-            userAnswer: '（未回答・無音）',
-            partTitle,
-          }),
-        });
-        const data = await response.json();
+      // リトライ付きAPI呼び出し（最大3回）
+      for (let attempt = 0; attempt <= 2; attempt++) {
+        try {
+          const response = await apiFetch('/api/evaluate-speaking', {
+            method: 'POST',
+            body: JSON.stringify({
+              japaneseText: currentSentence.jp,
+              correctAnswer: currentSentence.en,
+              userAnswer: '（未回答・無音）',
+              partTitle,
+            }),
+          });
+          const data = await response.json();
 
-        if (!response.ok || !data.success) {
-          throw new Error(data.error || 'AI評価に失敗しました');
+          if (!response.ok || !data.success) {
+            throw new Error(data.error || 'AI評価に失敗しました');
+          }
+
+          evaluation = data.evaluation;
+          break; // 成功したらループを抜ける
+        } catch (err) {
+          console.error(`未回答評価エラー (試行${attempt + 1}/3):`, err);
+          if (attempt < 2) {
+            await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+          }
+          // fallback already set
         }
-
-        evaluation = data.evaluation;
-      } catch {
-        // fallback already set
       }
 
       setAiEvaluation(evaluation);
@@ -524,71 +532,113 @@ export default function SpeakingTrainer({
     setIsAiLoading(true);
     setHasJudged(true);
 
-    try {
-      const response = await apiFetch('/api/evaluate-speaking', {
-        method: 'POST',
-        body: JSON.stringify({
-          japaneseText: currentSentence.jp,
-          correctAnswer: currentSentence.en,
-          userAnswer: editableText,
-          partTitle,
-        }),
-      });
-      const data = await response.json();
+    // リトライ付きAPI呼び出し（最大3回）
+    const MAX_RETRIES = 2;
+    let lastError: Error | null = null;
 
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || 'AI評価に失敗しました');
-      }
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const response = await apiFetch('/api/evaluate-speaking', {
+          method: 'POST',
+          body: JSON.stringify({
+            japaneseText: currentSentence.jp,
+            correctAnswer: currentSentence.en,
+            userAnswer: editableText,
+            partTitle,
+          }),
+        });
+        const data = await response.json();
 
-      setAiEvaluation(data.evaluation);
-      setSimilarity(data.evaluation.score);
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || 'AI評価に失敗しました');
+        }
 
-      // 判定直後に結果を保存（やり直し時も含む）
-      const currentIsCorrect = data.evaluation.isCorrect ?? data.evaluation.score >= 70;
-      const currentStatus: 'correct' | 'incorrect' = currentIsCorrect ? 'correct' : 'incorrect';
+        setAiEvaluation(data.evaluation);
+        setSimilarity(data.evaluation.score);
 
-      setQuestionResults((prev) => {
-        // 既にこの問題の結果がある場合 → リトライなのでfinalStatusのみ更新
-        if (prev.length > currentIndex) {
-          const updated = [...prev];
-          updated[currentIndex] = {
-            ...updated[currentIndex],
+        // 判定直後に結果を保存（やり直し時も含む）
+        const currentIsCorrect = data.evaluation.isCorrect ?? data.evaluation.score >= 70;
+        const currentStatus: 'correct' | 'incorrect' = currentIsCorrect ? 'correct' : 'incorrect';
+
+        setQuestionResults((prev) => {
+          // 既にこの問題の結果がある場合 → リトライなのでfinalStatusのみ更新
+          if (prev.length > currentIndex) {
+            const updated = [...prev];
+            updated[currentIndex] = {
+              ...updated[currentIndex],
+              finalStatus: currentStatus,
+              finalUserAnswer: editableText,
+              finalAiEvaluation: data.evaluation,
+            };
+            return updated;
+          }
+          // 初回回答 → initialStatusとfinalStatusの両方を設定
+          const currentResult: QuestionResult = {
+            sentence: currentSentence,
+            userAnswer: editableText,
+            aiEvaluation: data.evaluation,
+            initialStatus: currentStatus,
             finalStatus: currentStatus,
             finalUserAnswer: editableText,
             finalAiEvaluation: data.evaluation,
+            isNoSpeech: false,
           };
-          return updated;
+          return [...prev, currentResult];
+        });
+
+        setIsAiLoading(false);
+        return; // 成功したらここで終了
+      } catch (error) {
+        lastError = error instanceof Error ? error : new Error('AI評価に失敗しました');
+        console.error(`AI評価エラー (試行${attempt + 1}/${MAX_RETRIES + 1}):`, error);
+        if (attempt < MAX_RETRIES) {
+          // リトライ前に少し待つ
+          await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
         }
-        // 初回回答 → initialStatusとfinalStatusの両方を設定
-        const currentResult: QuestionResult = {
-          sentence: currentSentence,
-          userAnswer: editableText,
-          aiEvaluation: data.evaluation,
-          initialStatus: currentStatus,
-          finalStatus: currentStatus,
-          finalUserAnswer: editableText,
-          finalAiEvaluation: data.evaluation,
-          isNoSpeech: false,
-        };
-        return [...prev, currentResult];
-      });
-    } catch (error) {
-      console.error('AI評価エラー:', error);
-      const errorMessage = error instanceof Error ? error.message : 'AI評価に失敗しました';
-      setAiEvaluation({
-        score: 0,
-        isCorrect: false,
-        meaningCorrect: false,
-        grammarCorrect: false,
-        feedback: `エラー: ${errorMessage}。「やり直す」ボタンで再度お試しください。`,
-        correction: currentSentence.en,
-        explanation: '',
-        encouragement: '',
-      });
-      setSimilarity(null); // エラー時はスコアをnullにして0%と表示しない
-    } finally {
-      setIsAiLoading(false);
+      }
     }
+
+    // 全リトライ失敗 → フォールバック解説を生成
+    const fallbackEvaluation: AIEvaluation = {
+      score: 0,
+      isCorrect: false,
+      meaningCorrect: false,
+      grammarCorrect: false,
+      feedback: '通信エラーが発生しました。「やり直す」ボタンで再度お試しください。',
+      correction: currentSentence.en,
+      explanation: '',
+      encouragement: '通信状況を確認して、もう一度チャレンジしてみましょう！',
+      grammarRule: `正解は「${currentSentence.en}」です。`,
+      mistakeAnalysis: '',
+    };
+    setAiEvaluation(fallbackEvaluation);
+    setSimilarity(null);
+
+    // エラー時も結果として記録（やり直し可能にする）
+    setQuestionResults((prev) => {
+      if (prev.length > currentIndex) {
+        const updated = [...prev];
+        updated[currentIndex] = {
+          ...updated[currentIndex],
+          finalStatus: 'incorrect',
+          finalUserAnswer: editableText,
+          finalAiEvaluation: fallbackEvaluation,
+        };
+        return updated;
+      }
+      return [...prev, {
+        sentence: currentSentence,
+        userAnswer: editableText,
+        aiEvaluation: fallbackEvaluation,
+        initialStatus: 'incorrect' as const,
+        finalStatus: 'incorrect' as const,
+        finalUserAnswer: editableText,
+        finalAiEvaluation: fallbackEvaluation,
+        isNoSpeech: false,
+      }];
+    });
+
+    setIsAiLoading(false);
   };
 
   const handleRetry = () => {

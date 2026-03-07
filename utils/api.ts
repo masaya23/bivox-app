@@ -155,10 +155,26 @@ export async function apiFetch(
     ...(options.headers as Record<string, string>),
   };
 
-  const response = await fetch(url, {
-    ...options,
-    headers,
-  });
+  // タイムアウト設定（30秒）- 既存のsignalがなければ追加
+  const timeoutMs = 30000;
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  let signal = options.signal;
+  if (!signal && typeof AbortController !== 'undefined') {
+    const controller = new AbortController();
+    signal = controller.signal;
+    timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  }
+
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      ...options,
+      headers,
+      signal,
+    });
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
 
   // 日次上限到達時の通知
   if (response.status === 429) {

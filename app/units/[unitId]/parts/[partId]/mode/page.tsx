@@ -2,10 +2,11 @@
 'use client';
 
 import { useParams, useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import HardNavLink from '@/components/HardNavLink';
 import { getUnitById, getPartById } from '@/utils/units';
 import ModeSelectList from '@/components/train/ModeSelectList';
+import { warmupServer } from '@/utils/serverWarmup';
 
 // unitIdから学年を判定
 function getGradeFromUnitId(unitId: string): string {
@@ -41,6 +42,9 @@ function PartPracticeModeSelectContent() {
 
   const unit = getUnitById(unitId);
   const part = unit ? getPartById(unitId, partId) : undefined;
+
+  // モード選択画面でサーバーを事前にウォームアップ
+  useEffect(() => { warmupServer(); }, []);
 
   // 戻り先を決定
   const grade = gradeParam || getGradeFromUnitId(unitId);

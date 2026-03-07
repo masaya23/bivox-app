@@ -362,6 +362,9 @@ export default function AIDrillTrainer({
     setShowAnswer(false);
     setIsNoSpeech(false);
 
+    // リトライ付き問題生成（最大3回）
+    const MAX_RETRIES = 2;
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
       const samples = getRandomSamples(4);
       const response = await apiFetch('/api/ai-drill/generate', {
@@ -466,9 +469,15 @@ export default function AIDrillTrainer({
         throw new Error('問題生成に失敗しました');
       }
     } catch (err) {
-      console.error('問題生成エラー:', err);
-      setError(err instanceof Error ? err.message : '問題生成に失敗しました');
+      console.error(`問題生成エラー (試行${attempt + 1}/${MAX_RETRIES + 1}):`, err);
+      if (attempt < MAX_RETRIES) {
+        await new Promise(resolve => setTimeout(resolve, 1500 * (attempt + 1)));
+        continue;
+      }
+      setError(err instanceof Error ? err.message : '問題生成に失敗しました。通信状況を確認してください。');
       setPhaseWithRef('question');
+    }
+    break; // 成功またはリトライ上限に達した場合ループを抜ける
     }
   }, [getRandomSamples, partTitle, grammarTags, startQuestion]);
 
@@ -647,18 +656,23 @@ export default function AIDrillTrainer({
     setAiEvaluation(null);
     setSimilarity(null);
 
-    try {
-      const response = await apiFetch('/api/evaluate-speaking', {
-        method: 'POST',
-        body: JSON.stringify({
-          japaneseText: currentQuestion.questionJa,
-          correctAnswer: currentQuestion.expectedEn,
-          userAnswer: answer,
-          partTitle,
-        }),
-      });
+    // リトライ付きAPI呼び出し（最大3回）
+    const MAX_RETRIES = 2;
+    let lastError: Error | null = null;
 
-      const data = await response.json();
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const response = await apiFetch('/api/evaluate-speaking', {
+          method: 'POST',
+          body: JSON.stringify({
+            japaneseText: currentQuestion.questionJa,
+            correctAnswer: currentQuestion.expectedEn,
+            userAnswer: answer,
+            partTitle,
+          }),
+        });
+
+        const data = await response.json();
 
         if (!data.success) {
           if (data.error && String(data.error).includes('リクエスト制限')) {
@@ -676,79 +690,106 @@ export default function AIDrillTrainer({
             });
             setSimilarity(0);
             setPhaseWithRef('result');
+            setIsAiLoading(false);
             return;
           }
           throw new Error(data.error || '判定に失敗しました');
         }
 
-      const evaluation: AIEvaluation = data.evaluation;
-      const isCorrect = evaluation?.isCorrect ?? (evaluation?.score ?? 0) >= 70;
-      // 正解文は常に問題データのexpectedEnを使用（AI生成の表記揺れを防止）
-      const correctEn = currentQuestion.expectedEn;
-      const explanation = evaluation?.grammarRule || evaluation?.mistakeAnalysis || evaluation?.feedback || '';
+        const evaluation: AIEvaluation = data.evaluation;
+        const isCorrect = evaluation?.isCorrect ?? (evaluation?.score ?? 0) >= 70;
+        // 正解文は常に問題データのexpectedEnを使用（AI生成の表記揺れを防止）
+        const correctEn = currentQuestion.expectedEn;
+        const explanation = evaluation?.grammarRule || evaluation?.mistakeAnalysis || evaluation?.feedback || '';
 
-      const result = {
-        isCorrect,
-        correctEn,
-        explanation,
-      };
+        const result = {
+          isCorrect,
+          correctEn,
+          explanation,
+        };
 
-      setJudgeResult(result);
-      setAiEvaluation(evaluation);
-      setSimilarity(evaluation?.score ?? 0);
-      setAnswerExampleIndex(0);
+        setJudgeResult(result);
+        setAiEvaluation(evaluation);
+        setSimilarity(evaluation?.score ?? 0);
+        setAnswerExampleIndex(0);
 
-      const newQuestion: AIDrillQuestion = {
-        id: `q${session.currentIndex + 1}`,
-        questionJa: currentQuestion.questionJa,
-        correctEn,
-        userAnswerEn: answer,
-        isCorrect,
-        explanation,
-      };
+        const newQuestion: AIDrillQuestion = {
+          id: `q${session.currentIndex + 1}`,
+          questionJa: currentQuestion.questionJa,
+          correctEn,
+          userAnswerEn: answer,
+          isCorrect,
+          explanation,
+        };
 
-      setSession(prev => ({
-        ...prev,
-        history: [...prev.history, newQuestion],
-      }));
+        setSession(prev => ({
+          ...prev,
+          history: [...prev.history, newQuestion],
+        }));
 
-      // 判定直後に結果を保存（やり直し時も含む）
-      const currentStatus: 'correct' | 'incorrect' = isCorrect ? 'correct' : 'incorrect';
-      setQuestionResults(prev => {
-        // 既にこの問題の結果がある場合 → リトライなのでfinalStatusのみ更新
-        if (prev.length > session.currentIndex) {
-          const updated = [...prev];
-          updated[session.currentIndex] = {
-            ...updated[session.currentIndex],
+        // 判定直後に結果を保存（やり直し時も含む）
+        const currentStatus: 'correct' | 'incorrect' = isCorrect ? 'correct' : 'incorrect';
+        setQuestionResults(prev => {
+          // 既にこの問題の結果がある場合 → リトライなのでfinalStatusのみ更新
+          if (prev.length > session.currentIndex) {
+            const updated = [...prev];
+            updated[session.currentIndex] = {
+              ...updated[session.currentIndex],
+              finalStatus: currentStatus,
+              finalUserAnswer: answer,
+              finalAiEvaluation: evaluation,
+            };
+            return updated;
+          }
+          // 初回回答 → initialStatusとfinalStatusの両方を設定
+          const currentResult: QuestionResult = {
+            questionJa: currentQuestion.questionJa,
+            correctEn,
+            userAnswer: answer,
+            aiEvaluation: evaluation,
+            initialStatus: currentStatus,
             finalStatus: currentStatus,
             finalUserAnswer: answer,
             finalAiEvaluation: evaluation,
+            isNoSpeech: false,
           };
-          return updated;
-        }
-        // 初回回答 → initialStatusとfinalStatusの両方を設定
-        const currentResult: QuestionResult = {
-          questionJa: currentQuestion.questionJa,
-          correctEn,
-          userAnswer: answer,
-          aiEvaluation: evaluation,
-          initialStatus: currentStatus,
-          finalStatus: currentStatus,
-          finalUserAnswer: answer,
-          finalAiEvaluation: evaluation,
-          isNoSpeech: false,
-        };
-        return [...prev, currentResult];
-      });
+          return [...prev, currentResult];
+        });
 
-      setPhaseWithRef('result');
-    } catch (err) {
-      console.error('判定エラー:', err);
-      setError(err instanceof Error ? err.message : '判定に失敗しました');
-      setPhaseWithRef('question');
-    } finally {
-      setIsAiLoading(false);
+        setPhaseWithRef('result');
+        setIsAiLoading(false);
+        return; // 成功したらここで終了
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error('判定に失敗しました');
+        console.error(`判定エラー (試行${attempt + 1}/${MAX_RETRIES + 1}):`, err);
+        if (attempt < MAX_RETRIES) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+        }
+      }
     }
+
+    // 全リトライ失敗 → フォールバック
+    const fallbackEvaluation: AIEvaluation = {
+      score: 0,
+      isCorrect: false,
+      meaningCorrect: false,
+      grammarCorrect: false,
+      feedback: '通信エラーが発生しました。「やり直す」ボタンで再度お試しください。',
+      correction: currentQuestion.expectedEn,
+      explanation: '',
+      encouragement: '通信状況を確認して、もう一度チャレンジしてみましょう！',
+      grammarRule: `正解は「${currentQuestion.expectedEn}」です。`,
+      mistakeAnalysis: '',
+    };
+    setJudgeResult({
+      isCorrect: false,
+      correctEn: currentQuestion.expectedEn,
+      explanation: fallbackEvaluation.grammarRule || '',
+    });
+    setAiEvaluation(fallbackEvaluation);
+    setSimilarity(null);
+    setPhaseWithRef('result');
+    setIsAiLoading(false);
   };
 
   const handleJudge = async () => {

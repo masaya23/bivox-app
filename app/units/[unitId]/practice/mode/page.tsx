@@ -2,17 +2,20 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages */
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { getUnitById } from '@/utils/units';
 import { GRADE_THEMES } from '@/utils/gradeTheme';
 import ModeSelectCard from '@/components/train/ModeSelectCard';
+import { warmupServer } from '@/utils/serverWarmup';
 
 function UnitPracticeModeSelectPageContent() {
   const params = useParams();
   const searchParams = useSearchParams();
 
   const unitId = params.unitId as string;
+
+  useEffect(() => { warmupServer(); }, []);
   const count = searchParams.get('count') || '10';
   const seed = searchParams.get('seed') || '0';
   const shuffleMode = true;
