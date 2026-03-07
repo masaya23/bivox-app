@@ -43,7 +43,7 @@ const DESIGN = {
   },
   spacing: {
     buttonGap: 'gap-3',
-    containerPadding: 'px-4 pt-5 pb-28',
+    containerPadding: 'px-4 pt-5 pb-36',
   },
 } as const;
 

@@ -1,908 +1,902 @@
 # Unit 3 - Unit 3
-## Part 1: 従属節を導く接続詞 — 1
-unit3-p1-s1 Tags: 従属節を導く接続詞 — 1
-JP: 雨が止むまで待ちましょう。
-EN: Let's wait until it stops raining.
+## Part 1: 現在完了①（経験）
+unit3-p1-s1 Tags: 現在完了①（経験）
+JP: 私は北海道へ行ったことがあります。
+EN: I have been to Hokkaido.
 
-unit3-p1-s2 Tags: 従属節を導く接続詞 — 1
-JP: あなたが勉強している間、彼はテレビを見ていましたか？
-EN: Was he watching TV while you were studying?
+unit3-p1-s2 Tags: 現在完了①（経験）
+JP: 彼女は以前、英語の本を読んだことがあります。
+EN: She has read an English book before.
 
-unit3-p1-s3 Tags: 従属節を導く接続詞 — 1
-JP: 私は家に帰るとすぐに手を洗います。
-EN: As soon as I get home, I wash my hands.
+unit3-p1-s3 Tags: 現在完了①（経験）
+JP: 私たちは京都へ行ったことがあります。
+EN: We have been to Kyoto.
 
-unit3-p1-s4 Tags: 従属節を導く接続詞 — 1
-JP: 暗くなる前に家に帰りなさい。
-EN: Come home before it gets dark.
+unit3-p1-s4 Tags: 現在完了①（経験）
+JP: 彼は今までにコアラを見たことがありますか？
+EN: Has he ever seen a koala?
 
-unit3-p1-s5 Tags: 従属節を導く接続詞 — 1
-JP: あなたは彼が来るまでここにいますか？
-EN: Will you stay here until he comes?
+unit3-p1-s5 Tags: 現在完了①（経験）
+JP: あなたは今までにアメリカに住んだことがありますか？
+EN: Have you ever lived in America?
 
-unit3-p1-s6 Tags: 従属節を導く接続詞 — 1
-JP: 母が夕食を作っている間、私は父と話しました。
-EN: I talked to my father while my mother was cooking dinner.
+unit3-p1-s6 Tags: 現在完了①（経験）
+JP: 私はこの料理を一度も食べたことがありません。
+EN: I have never eaten this dish.
 
-unit3-p1-s7 Tags: 従属節を導く接続詞 — 1
-JP: あなたは宿題をした後で、テレビを見ることができます。
-EN: You can watch TV after you do your homework.
+unit3-p1-s7 Tags: 現在完了①（経験）
+JP: 彼女は3回、沖縄へ行ったことがあります。
+EN: She has been to Okinawa three times.
 
-unit3-p1-s8 Tags: 従属節を導く接続詞 — 1
-JP: 私は年をとるにつれて、早起きが好きになりました。
-EN: As I got older, I started to like getting up early.
+unit3-p1-s8 Tags: 現在完了①（経験）
+JP: 私たちは以前、その歌を歌ったことがあります。
+EN: We have sung that song before.
 
-unit3-p1-s9 Tags: 従属節を導く接続詞 — 1
-JP: ベルが鳴るまで席を立ってはいけません。
-EN: Don't stand up until the bell rings.
+unit3-p1-s9 Tags: 現在完了①（経験）
+JP: あなたは今までにそのゲームをしたことがありますか？ ― はい、一度あります。
+EN: Have you ever played that game? - Yes, I have.
 
-unit3-p1-s10 Tags: 従属節を導く接続詞 — 1
-JP: 私はお風呂に入っている間に、良いアイデアを思いつきました。
-EN: I had a good idea while I was taking a bath.
+unit3-p1-s10 Tags: 現在完了①（経験）
+JP: 私は一度もその男性に会ったことがありません。
+EN: I have never met that man.
 
-## Part 2: 従属節を導く接続詞 — 2
-unit3-p2-s1 Tags: 従属節を導く接続詞 — 2
-JP: もし明日晴れたら、私たちはピクニックに行きます。
-EN: If it is sunny tomorrow, we will go on a picnic.
-
-unit3-p2-s2 Tags: 従属節を導く接続詞 — 2
-JP: とても疲れていたのに、彼は一生懸命勉強しました。
-EN: Although he was very tired, he studied hard.
-
-unit3-p2-s3 Tags: 従属節を導く接続詞 — 2
-JP: 雨が降っていたので、私は家にいました。
-EN: I stayed home because it was raining.
-
-unit3-p2-s4 Tags: 従属節を導く接続詞 — 2
-JP: もしあなたが忙しいなら、私がそれをやります。
-EN: If you are busy, I will do it.
-
-unit3-p2-s5 Tags: 従属節を導く接続詞 — 2
-JP: 彼女は病気だったのに、学校に来ました。
-EN: Although she was sick, she came to school.
-
-unit3-p2-s6 Tags: 従属節を導く接続詞 — 2
-JP: 面白いので、私はその本が好きです。
-EN: I like the book because it is interesting.
-
-unit3-p2-s7 Tags: 従属節を導く接続詞 — 2
-JP: もし彼に会ったら、こんにちはと言ってください。
-EN: If you see him, please say hello.
-
-unit3-p2-s8 Tags: 従属節を導く接続詞 — 2
-JP: そのテストは難しかったのに、私は良い点を取りました。
-EN: Though the test was difficult, I got a good score.
-
-unit3-p2-s9 Tags: 従属節を導く接続詞 — 2
-JP: 眠かったので、私は早く寝ました。
-EN: I went to bed early because I was sleepy.
-
-unit3-p2-s10 Tags: 従属節を導く接続詞 — 2
-JP: もし時間があれば、手伝ってくれませんか？
-EN: If you have time, could you help me?
-
-## Part 3: 間接疑問文
-unit3-p3-s1 Tags: 間接疑問文
-JP: 私は彼が誰なのか知りません。
-EN: I don't know who he is.
-
-unit3-p3-s2 Tags: 間接疑問文
-JP: 彼女がどこに住んでいるか教えてください。
-EN: Please tell me where she lives.
-
-unit3-p3-s3 Tags: 間接疑問文
-JP: 今、何時か知っていますか？
-EN: Do you know what time it is?
-
-unit3-p3-s4 Tags: 間接疑問文
-JP: 私は彼がなぜ泣いているのか不思議です。
-EN: I wonder why he is crying.
-
-unit3-p3-s5 Tags: 間接疑問文
-JP: ケンがいつ来るか知っていますか？
-EN: Do you know when Ken will come?
-
-unit3-p3-s6 Tags: 間接疑問文
-JP: 私は彼女が何が好きなのか知りたいです。
-EN: I want to know what she likes.
-
-unit3-p3-s7 Tags: 間接疑問文
-JP: あなたが何を買ったか私に見せてください。
-EN: Please show me what you bought.
-
-unit3-p3-s8 Tags: 間接疑問文
-JP: 彼が来るかどうか分かりません。
-EN: I don't know if he will come.
-
-unit3-p3-s9 Tags: 間接疑問文
-JP: 私たちは何をすべきか分かりませんでした。
-EN: We didn't know what we should do.
-
-unit3-p3-s10 Tags: 間接疑問文
-JP: その店がどこにあるか知っていますか？
-EN: Do you know where the shop is?
-
-## Part 4: 疑問詞 + to 不定詞
-unit3-p4-s1 Tags: 疑問詞 + to 不定詞
-JP: 泳ぎ方が分かりません。
-EN: I don't know how to swim.
-
-unit3-p4-s2 Tags: 疑問詞 + to 不定詞
-JP: 何をすべきか教えてくれますか？
-EN: Can you tell me what to do?
-
-unit3-p4-s3 Tags: 疑問詞 + to 不定詞
-JP: 私はどこへ行けばよいか分かりませんでした。
-EN: I didn't know where to go.
-
-unit3-p4-s4 Tags: 疑問詞 + to 不定詞
-JP: 彼はそのマシンの使い方を知っています。
-EN: He knows how to use the machine.
-
-unit3-p4-s5 Tags: 疑問詞 + to 不定詞
-JP: いつ出発すればよいか教えてくれますか？
-EN: Can you tell me when to leave?
-
-unit3-p4-s6 Tags: 疑問詞 + to 不定詞
-JP: 私はどちらの本を買えばよいか分かりません。
-EN: I don't know which book to buy.
-
-unit3-p4-s7 Tags: 疑問詞 + to 不定詞
-JP: 彼女はチケットの入手方法を知りたがっています。
-EN: She wants to know how to get a ticket.
-
-unit3-p4-s8 Tags: 疑問詞 + to 不定詞
-JP: 何と言えばいいか分かりません。
-EN: I don't know what to say.
-
-unit3-p4-s9 Tags: 疑問詞 + to 不定詞
-JP: 駅への行き方を知っていますか？
-EN: Do you know how to get to the station?
-
-unit3-p4-s10 Tags: 疑問詞 + to 不定詞
-JP: どのバスに乗ればよいか教えてください。
-EN: Please tell me which bus to take.
-
-## Part 5: 形式主語の it
-unit3-p5-s1 Tags: 形式主語の it
-JP: 英語を話すことは難しいです。
-EN: It is difficult to speak English.
-
-unit3-p5-s2 Tags: 形式主語の it
-JP: 毎日勉強することは大切です。
-EN: It is important to study every day.
-
-unit3-p5-s3 Tags: 形式主語の it
-JP: 彼の名前を覚えるのは簡単ですか？
-EN: Is it easy to remember his name?
-
-unit3-p5-s4 Tags: 形式主語の it
-JP: 自然を守ることは私たちにとって必要です。
-EN: It is necessary for us to protect nature.
-
-unit3-p5-s5 Tags: 形式主語の it
-JP: 彼女にとってひとりで旅行することは危険ですか？
-EN: Is it dangerous for her to travel alone?
-
-unit3-p5-s6 Tags: 形式主語の it
-JP: 旅行のときは、地図を持っておくと便利です。
-EN: It is useful to have a map when you travel.
-
-unit3-p5-s7 Tags: 形式主語の it
-JP: お会いできてうれしいです。
-EN: It is nice to see you.
-
-unit3-p5-s8 Tags: 形式主語の it
-JP: 歴史を学ぶことはおもしろいです。
-EN: It is interesting to learn history.
-
-unit3-p5-s9 Tags: 形式主語の it
-JP: 川で泳ぐのは危険です。
-EN: It is dangerous to swim in the river.
-
-unit3-p5-s10 Tags: 形式主語の it
-JP: 将来のために、外国語を学ぶのは私たちにとってよいことですか？
-EN: Is it good for us to learn foreign languages for the future?
-
-## Part 6: SVO + to 不定詞
-unit3-p6-s1 Tags: SVO + to 不定詞
-JP: 私はあなたにここに来てほしいです。
-EN: I want you to come here.
-
-unit3-p6-s2 Tags: SVO + to 不定詞
-JP: お父さんはあなたに車を洗うように言いましたか？
-EN: Did your father tell you to wash the car?
-
-unit3-p6-s3 Tags: SVO + to 不定詞
-JP: 彼は私に宿題を手伝ってほしいと頼みました。
-EN: He asked me to help him with his homework.
-
-unit3-p6-s4 Tags: SVO + to 不定詞
-JP: 私はケンに窓を開けるように言いました。
-EN: I told Ken to open the window.
-
-unit3-p6-s5 Tags: SVO + to 不定詞
-JP: 彼女はあなたたちに静かにするように頼みましたか？
-EN: Did she ask you to be quiet?
-
-unit3-p6-s6 Tags: SVO + to 不定詞
-JP: 先生は生徒たちに座るように言いました。
-EN: The teacher told the students to sit down.
-
-unit3-p6-s7 Tags: SVO + to 不定詞
-JP: あなたは私に何をしてほしいですか？
-EN: What do you want me to do?
-
-unit3-p6-s8 Tags: SVO + to 不定詞
-JP: 私はあなたにその本を読んでほしくありません。
-EN: I don't want you to read that book.
-
-unit3-p6-s9 Tags: SVO + to 不定詞
-JP: 母は私に遅れないように言いました。
-EN: My mother told me not to be late.
-
-unit3-p6-s10 Tags: SVO + to 不定詞
-JP: 彼は私に英語を教えてほしいと頼みました。
-EN: He asked me to teach him English.
-
-## Part 7: SVOC
-unit3-p7-s1 Tags: SVOC
+## Part 2: SVOC（補語を目的語に置く文）
+unit3-p2-s1 Tags: SVOC（補語を目的語に置く文）
 JP: 私たちは彼をケンと呼びます。
 EN: We call him Ken.
 
-unit3-p7-s2 Tags: SVOC
+unit3-p2-s2 Tags: SVOC（補語を目的語に置く文）
 JP: そのニュースは私を幸せにしました。
 EN: The news made me happy.
 
-unit3-p7-s3 Tags: SVOC
+unit3-p2-s3 Tags: SVOC（補語を目的語に置く文）
 JP: 部屋をきれいに保ちなさい。
 EN: Keep your room clean.
 
-unit3-p7-s4 Tags: SVOC
+unit3-p2-s4 Tags: SVOC（補語を目的語に置く文）
 JP: その手紙はあなたを悲しくさせましたか？
 EN: Did the letter make you sad?
 
-unit3-p7-s5 Tags: SVOC
+unit3-p2-s5 Tags: SVOC（補語を目的語に置く文）
 JP: 彼らはその犬をポチと名付けましたか？
 EN: Did they name the dog Pochi?
 
-unit3-p7-s6 Tags: SVOC
+unit3-p2-s6 Tags: SVOC（補語を目的語に置く文）
 JP: その映画は彼を有名にしました。
 EN: The movie made him famous.
 
-unit3-p7-s7 Tags: SVOC
+unit3-p2-s7 Tags: SVOC（補語を目的語に置く文）
 JP: 窓を開けたままにしてはいけません。
 EN: Don't leave the window open.
 
-unit3-p7-s8 Tags: SVOC
+unit3-p2-s8 Tags: SVOC（補語を目的語に置く文）
 JP: あなたはその本をおもしろいと思いましたか？
 EN: Did you find the book interesting?
 
-unit3-p7-s9 Tags: SVOC
+unit3-p2-s9 Tags: SVOC（補語を目的語に置く文）
 JP: 何があなたを怒らせたのですか？
 EN: What made you angry?
 
-unit3-p7-s10 Tags: SVOC
+unit3-p2-s10 Tags: SVOC（補語を目的語に置く文）
 JP: 彼は壁を白く塗りましたか？
 EN: Did he paint the wall white?
 
-## Part 8: 現在分詞修飾
-プロの英語教材作成者として、提示されたリストを精査しました。
-
-今回のリストは、文法事項（現在分詞の後置修飾）の用法、日本語の自然さ、および翻訳ツールによる客観的検証のすべてにおいて、極めて高い完成度に達しています。中学3年生の学習レベル（Unit 3）としても非常に適切です。
-
-したがって、すべての問題を**【維持】**と判定し、そのまま出力します。
-
-unit3-p8-s1 Tags: 現在分詞修飾
-JP: あそこで走っている少年はケンです。
-EN: The boy running over there is Ken.
-
-unit3-p8-s2 Tags: 現在分詞修飾
-JP: あなたはステージで歌っている少女を知っていますか？
-EN: Do you know the girl singing on stage?
-
-unit3-p8-s3 Tags: 現在分詞修飾
-JP: 私はベンチで寝ている男性を見ました。
-EN: I saw a man sleeping on a bench.
-
-unit3-p8-s4 Tags: 現在分詞修飾
-JP: 図書館で勉強している生徒たちは静かです。
-EN: The students studying in the library are quiet.
-
-unit3-p8-s5 Tags: 現在分詞修飾
-JP: 今、駅を出発するバスは混んでいます。
-EN: The bus leaving the station now is crowded.
-
-unit3-p8-s6 Tags: 現在分詞修飾
-JP: 向こうでテニスをしている女性は私の姉です。
-EN: The woman playing tennis over there is my sister.
-
-unit3-p8-s7 Tags: 現在分詞修飾
-JP: あなたはピアノを弾いている男の子が見えますか？
-EN: Can you see the boy playing the piano?
-
-unit3-p8-s8 Tags: 現在分詞修飾
-JP: 私は駅で私を待っている人たちを見つけました。
-EN: I found the people waiting for me at the station.
-
-unit3-p8-s9 Tags: 現在分詞修飾
-JP: 木の下に立っている男性は誰ですか？
-EN: Who is the man standing under the tree?
-
-unit3-p8-s10 Tags: 現在分詞修飾
-JP: 車を洗っている男性は私の父です。
-EN: The man washing the car is my father.
-
-## Part 9: 過去分詞修飾
-unit3-p9-s1 Tags: 過去分詞修飾
-JP: これは夏目漱石によって書かれた本です。
-EN: This is a book written by Natsume Soseki.
-
-unit3-p9-s2 Tags: 過去分詞修飾
-JP: あなたはドイツで作られた車を持っていますか？
-EN: Do you have a car made in Germany?
-
-unit3-p9-s3 Tags: 過去分詞修飾
-JP: 英語は世界中で話されている言語です。
-EN: English is a language spoken around the world.
-
-unit3-p9-s4 Tags: 過去分詞修飾
-JP: ケンという名前の少年がここに来ました。
-EN: A boy named Ken came here.
-
-unit3-p9-s5 Tags: 過去分詞修飾
-JP: あなたは英語で書かれた手紙を受け取りましたか？
-EN: Did you receive a letter written in English?
-
-unit3-p9-s6 Tags: 過去分詞修飾
-JP: 私は100年前に建てられた家に住んでいます。
-EN: I live in a house built 100 years ago.
-
-unit3-p9-s7 Tags: 過去分詞修飾
-JP: 彼はみんなに愛されている歌手です。
-EN: He is a singer loved by everyone.
-
-unit3-p9-s8 Tags: 過去分詞修飾
-JP: その店で売られているカメラは高いです。
-EN: The cameras sold at that store are expensive.
-
-unit3-p9-s9 Tags: 過去分詞修飾
-JP: 私は沖縄で撮られた写真を見ました。
-EN: I saw pictures taken in Okinawa.
-
-unit3-p9-s10 Tags: 過去分詞修飾
-JP: これはアメリカで使われている教科書ですか？
-EN: Is this a textbook used in America?
-
-## Part 10: 関係代名詞・主格（人）
-unit3-p10-s1 Tags: 関係代名詞・主格（人）
-JP: 私にはロンドンに住んでいて、日本語も話す友達がいます。
-EN: I have a friend who lives in London and speaks Japanese.
-
-unit3-p10-s2 Tags: 関係代名詞・主格（人）
-JP: その窓を割った少年はケンですか？
-EN: Is the boy who broke the window Ken?
-
-unit3-p10-s3 Tags: 関係代名詞・主格（人）
-JP: 毎日早く学校に来る少女はエミです。
-EN: The girl who comes to school early every day is Emi.
-
-unit3-p10-s4 Tags: 関係代名詞・主格（人）
-JP: 彼は英語をとても上手に話せる先生ですか？
-EN: Is he a teacher who can speak English very well?
-
-unit3-p10-s5 Tags: 関係代名詞・主格（人）
-JP: 動物が好きな人々は優しいです。
-EN: People who like animals are kind.
-
-unit3-p10-s6 Tags: 関係代名詞・主格（人）
-JP: あなたにはサッカーが上手な兄がいますか？
-EN: Do you have a brother who is good at soccer?
-
-unit3-p10-s7 Tags: 関係代名詞・主格（人）
-JP: その本を書いた男性は有名です。
-EN: The man who wrote the book is famous.
-
-unit3-p10-s8 Tags: 関係代名詞・主格（人）
-JP: 私は毎日一生懸命働く人々を尊敬します。
-EN: I respect people who work hard every day.
-
-unit3-p10-s9 Tags: 関係代名詞・主格（人）
-JP: 昨日ここに来た女性はあなたの叔母ですか？
-EN: Is the woman who came here yesterday your aunt?
-
-unit3-p10-s10 Tags: 関係代名詞・主格（人）
-JP: あなたは新しい自転車が欲しい少年を知っていますか？
-EN: Do you know the boy who wants a new bike?
-
-## Part 11: 関係代名詞・主格（人以外）
-unit3-p12-s1 Tags: 関係代名詞・所有格 whose
-JP: 私にはお父さんが医者の友達がいます。
-EN: I have a friend whose father is a doctor.
-
-unit3-p12-s2 Tags: 関係代名詞・所有格 whose
-JP: 私にはお兄さんがプロのサッカー選手の友達がいます。
-EN: I have a friend whose brother is a professional soccer player.
-
-unit3-p12-s3 Tags: 関係代名詞・所有格 whose
-JP: 私はお母さんが英語の先生の男の子を知っています。
-EN: I know a boy whose mother is an English teacher.
-
-unit3-p12-s4 Tags: 関係代名詞・所有格 whose
-JP: これはパソコンが壊れてしまった生徒の話です。
-EN: This is a story about a student whose computer broke down.
-
-unit3-p12-s5 Tags: 関係代名詞・所有格 whose
-JP: あなたは本が人気の作家を知っていますか？
-EN: Do you know a writer whose books are popular?
-
-unit3-p12-s6 Tags: 関係代名詞・所有格 whose
-JP: 彼女は名前を知らない花を買いました。
-EN: She bought a flower whose name she didn't know.
-
-unit3-p12-s7 Tags: 関係代名詞・所有格 whose
-JP: あれは車が故障してしまった男性ですか？
-EN: Is that the man whose car broke down?
-
-unit3-p12-s8 Tags: 関係代名詞・所有格 whose
-JP: 私たちはキャプテンがケンのチームを応援しています。
-EN: We are cheering for the team whose captain is Ken.
-
-unit3-p12-s9 Tags: 関係代名詞・所有格 whose
-JP: 私は絵がコンテストで優勝した生徒と話しました。
-EN: I spoke to the student whose painting won the contest.
-
-unit3-p12-s10 Tags: 関係代名詞・所有格 whose
-JP: 私は家が海の近くにある友達を訪ねたいです。
-EN: I want to visit a friend whose house is near the sea.
-
-## Part 12: 関係代名詞・所有格 whose
-unit3-p12-s1 Tags: 関係代名詞・所有格 whose
-JP: 私にはお父さんが医者の友達がいます。
-EN: I have a friend whose father is a doctor.
-
-unit3-p12-s2 Tags: 関係代名詞・所有格 whose
-JP: 私にはお兄さんがプロサッカー選手の友達がいます。
-EN: I have a friend whose brother is a professional soccer player.
-
-unit3-p12-s3 Tags: 関係代名詞・所有格 whose
-JP: 私はお母さんが英語の先生である男の子を知っています。
-EN: I know a boy whose mother is an English teacher.
-
-unit3-p12-s4 Tags: 関係代名詞・所有格 whose
-JP: これはパソコンが壊れてしまった生徒の話です。
-EN: This is a story about a student whose computer broke down.
-
-unit3-p12-s5 Tags: 関係代名詞・所有格 whose
-JP: あなたは本が人気の作家を知っていますか？
-EN: Do you know a writer whose books are popular?
-
-unit3-p12-s6 Tags: 関係代名詞・所有格 whose
-JP: 彼女は名前が分からない花を買いました。
-EN: She bought a flower whose name she didn't know.
-
-unit3-p12-s7 Tags: 関係代名詞・所有格 whose
-JP: あれは車が故障してしまった男性です。
-EN: That is the man whose car broke down.
-
-unit3-p12-s8 Tags: 関係代名詞・所有格 whose
-JP: 私たちはキャプテンがケンであるチームを応援しています。
-EN: We are cheering for the team whose captain is Ken.
-
-unit3-p12-s9 Tags: 関係代名詞・所有格 whose
-JP: 私は絵がコンテストで優勝した生徒と話しました。
-EN: I spoke to the student whose painting won the contest.
-
-unit3-p12-s10 Tags: 関係代名詞・所有格 whose
-JP: 私は家が海の近くにある友達を訪ねたいです。
-EN: I want to visit a friend whose house is near the sea.
-
-## Part 13: 関係代名詞・目的格（人）
-unit3-p13-s1 Tags: 関係代名詞・目的格（人）
-JP: 彼は私が昨日会った男性です。
-EN: He is the man I met yesterday.
-
-unit3-p13-s2 Tags: 関係代名詞・目的格（人）
-JP: 彼女はケンが好きな女の子ですか？
-EN: Is she the girl Ken likes?
-
-unit3-p13-s3 Tags: 関係代名詞・目的格（人）
-JP: 彼は私が招待した男性です。
-EN: He is the man I invited.
-
-unit3-p13-s4 Tags: 関係代名詞・目的格（人）
-JP: こちらはあなたが尊敬している人々ですか？
-EN: Are these the people you respect?
-
-unit3-p13-s5 Tags: 関係代名詞・目的格（人）
-JP: 彼女はみんなが知っている歌手です。
-EN: She is the singer everyone knows.
-
-unit3-p13-s6 Tags: 関係代名詞・目的格（人）
-JP: 私が手助けした少年は、私にお礼を言いました。
-EN: The boy I helped thanked me.
-
-unit3-p13-s7 Tags: 関係代名詞・目的格（人）
-JP: トムが一番好きな作家はだれですか？
-EN: Who is the writer Tom likes the best?
-
-unit3-p13-s8 Tags: 関係代名詞・目的格（人）
-JP: 彼女は私たちがパーティーで会った女性です。
-EN: She is the woman we met at the party.
-
-unit3-p13-s9 Tags: 関係代名詞・目的格（人）
-JP: あなたが探している男性はあちらです。
-EN: The man you are looking for is over there.
-
-unit3-p13-s10 Tags: 関係代名詞・目的格（人）
-JP: 彼らは私がよく電話をする友達です。
-EN: They are the friends I often call.
-
-## Part 14: 関係代名詞・目的格（人以外）
-unit3-p14-s1 Tags: 関係代名詞・目的格（人以外）
-JP: これは私が昨日買った本です。
-EN: This is the book I bought yesterday.
-
-unit3-p14-s2 Tags: 関係代名詞・目的格（人以外）
-JP: あれは彼が撮った写真ですか？
-EN: Is that the picture he took?
-
-unit3-p14-s3 Tags: 関係代名詞・目的格（人以外）
-JP: 母が作ったケーキはおいしかったです。
-EN: The cake my mother made was delicious.
-
-unit3-p14-s4 Tags: 関係代名詞・目的格（人以外）
-JP: 私は父がくれた時計をなくしました。
-EN: I lost the watch my father gave me.
-
-unit3-p14-s5 Tags: 関係代名詞・目的格（人以外）
-JP: これが彼が見たい映画です。
-EN: This is the movie he wants to see.
-
-unit3-p14-s6 Tags: 関係代名詞・目的格（人以外）
-JP: 彼女が書いた手紙を読みましたか？
-EN: Did you read the letter she wrote?
-
-unit3-p14-s7 Tags: 関係代名詞・目的格（人以外）
-JP: 私が住んでいる家は古いです。
-EN: The house I live in is old.
-
-unit3-p14-s8 Tags: 関係代名詞・目的格（人以外）
-JP: 英語は彼が話す言語です。
-EN: English is the language he speaks.
-
-unit3-p14-s9 Tags: 関係代名詞・目的格（人以外）
-JP: これらは私が撮った写真です。
-EN: These are the pictures I took.
-
-unit3-p14-s10 Tags: 関係代名詞・目的格（人以外）
-JP: これが私が使っている辞書です。
-EN: This is the dictionary I use.
-
-## Part 15: 先行詞を含む関係代名詞 what
-unit3-p15-s1 Tags: 先行詞を含む関係代名詞 what
-JP: これが私が欲しかったものです。
-EN: This is what I wanted.
-
-unit3-p15-s2 Tags: 先行詞を含む関係代名詞 what
-JP: 彼の言ったことが信じられません。
-EN: I can't believe what he said.
-
-unit3-p15-s3 Tags: 先行詞を含む関係代名詞 what
-JP: 彼女がしたことは正しかった。
-EN: What she did was right.
-
-unit3-p15-s4 Tags: 先行詞を含む関係代名詞 what
-JP: 私たちに必要なのは水です。
-EN: What we need is water.
-
-unit3-p15-s5 Tags: 先行詞を含む関係代名詞 what
-JP: 私が興味があるのは歴史です。
-EN: What I am interested in is history.
-
-unit3-p15-s6 Tags: 先行詞を含む関係代名詞 what
-JP: あなたは私が作ったものを食べたいですか？
-EN: Do you want to eat what I made?
-
-unit3-p15-s7 Tags: 先行詞を含む関係代名詞 what
-JP: 大切なのは愛です。
-EN: What is important is love.
-
-unit3-p15-s8 Tags: 先行詞を含む関係代名詞 what
-JP: 彼は私が見たものを信じませんでした。
-EN: He didn't believe what I saw.
-
-unit3-p15-s9 Tags: 先行詞を含む関係代名詞 what
-JP: これがあなたの言いたいことですか？
-EN: Is this what you want to say?
-
-unit3-p15-s10 Tags: 先行詞を含む関係代名詞 what
-JP: 今日起こったことを教えてください。
-EN: Please tell me what happened today.
-
-## Part 16: too 〜 to 〜
-unit3-p16-s1 Tags: too 〜 to 〜
-JP: 私は忙しすぎてあなたと行けません。
-EN: I am too busy to go with you.
-
-unit3-p16-s2 Tags: too 〜 to 〜
-JP: このお茶は熱すぎて飲めません。
-EN: This tea is too hot to drink.
-
-unit3-p16-s3 Tags: too 〜 to 〜
-JP: 彼は疲れすぎて走れませんでした。
-EN: He was too tired to run.
-
-unit3-p16-s4 Tags: too 〜 to 〜
-JP: その石は重すぎて動かせません。
-EN: The stone is too heavy to move.
-
-unit3-p16-s5 Tags: too 〜 to 〜
-JP: この本は私には難しすぎて読めません。
-EN: This book is too difficult for me to read.
-
-unit3-p16-s6 Tags: too 〜 to 〜
-JP: 外は寒すぎて遊べません。
-EN: It is too cold outside to play.
-
-unit3-p16-s7 Tags: too 〜 to 〜
-JP: 彼女は眠すぎて勉強できません。
-EN: She is too sleepy to study.
-
-unit3-p16-s8 Tags: too 〜 to 〜
-JP: そのシャツは高すぎて買えませんでした。
-EN: The shirt was too expensive to buy.
-
-unit3-p16-s9 Tags: too 〜 to 〜
-JP: この問題は難しすぎて解けません。
-EN: This problem is too difficult to solve.
-
-unit3-p16-s10 Tags: too 〜 to 〜
-JP: その箱は大きすぎて運べません。
-EN: The box is too big to carry.
-
-## Part 17: enough to 〜
-unit3-p17-s1 Tags: enough to 〜
-JP: 彼はその車を買えるほどお金持ちです。
-EN: He is rich enough to buy the car.
-
-unit3-p17-s2 Tags: enough to 〜
-JP: 彼女は一人で旅行できる年齢です。
-EN: She is old enough to travel alone.
-
-unit3-p17-s3 Tags: enough to 〜
-JP: この部屋は私たちが寝られるほど広いです。
-EN: This room is large enough for us to sleep in.
-
-unit3-p17-s4 Tags: enough to 〜
-JP: 彼は私を手伝ってくれるほど親切でした。
-EN: He was kind enough to help me.
-
-unit3-p17-s5 Tags: enough to 〜
-JP: 私は始発に間に合うように、十分早く起きました。
-EN: I got up early enough to catch the first train.
-
-unit3-p17-s6 Tags: enough to 〜
-JP: この本は子どもが読めるほど簡単です。
-EN: This book is easy enough for children to read.
-
-unit3-p17-s7 Tags: enough to 〜
-JP: ケンはバスケットボール選手になれるほど背が高いです。
-EN: Ken is tall enough to be a basketball player.
-
-unit3-p17-s8 Tags: enough to 〜
-JP: 今日は泳ぐには十分暖かいです。
-EN: It is warm enough for us to swim.
-
-unit3-p17-s9 Tags: enough to 〜
-JP: 彼はその箱を持ち上げられるだけの力があります。
-EN: He is strong enough to lift the box.
-
-unit3-p17-s10 Tags: enough to 〜
-JP: 彼女はその問題を解けるほど賢かったです。
-EN: She was smart enough to solve the problem.
-
-## Part 18: so 〜 that ⋯
-unit3-p18-s1 Tags: so 〜 that ⋯
-JP: 私はとても疲れていたので、早く寝ました。
-EN: I was so tired that I went to bed early.
-
-unit3-p18-s2 Tags: so 〜 that ⋯
-JP: 昨日はとても寒かったので、家にいました。
-EN: It was so cold yesterday that I stayed home.
-
-unit3-p18-s3 Tags: so 〜 that ⋯
-JP: その映画はとてもおもしろかったので、2回見ました。
-EN: The movie was so interesting that I watched it twice.
-
-unit3-p18-s4 Tags: so 〜 that ⋯
-JP: 彼はとても速く走ったので、バスに間に合いました。
-EN: He ran so fast that he caught the bus.
-
-unit3-p18-s5 Tags: so 〜 that ⋯
-JP: この本はとても難しいので、理解できません。
-EN: This book is so difficult that I can't understand it.
-
-unit3-p18-s6 Tags: so 〜 that ⋯
-JP: 彼女はとても親切なので、みんな彼女が好きです。
-EN: She is so kind that everyone likes her.
-
-unit3-p18-s7 Tags: so 〜 that ⋯
-JP: 彼はとても忙しかったので、昼食を食べられませんでした。
-EN: He was so busy that he couldn't eat lunch.
-
-unit3-p18-s8 Tags: so 〜 that ⋯
-JP: その箱はとても重かったので、動かせませんでした。
-EN: The box was so heavy that I couldn't move it.
-
-unit3-p18-s9 Tags: so 〜 that ⋯
-JP: 私はとても興奮していたので、眠れませんでした。
-EN: I was so excited that I couldn't sleep.
-
-unit3-p18-s10 Tags: so 〜 that ⋯
-JP: 私はとてもおなかがすいていたので、ハンバーガーを3つ食べました。
-EN: I was so hungry that I ate three hamburgers.
-
-## Part 19: 原形不定詞・知覚
-unit3-p19-s1 Tags: 原形不定詞・知覚
+## Part 3: 現在完了②（完了）
+unit3-p3-s1 Tags: 現在完了②（完了）
+JP: 心配しないで。私はもう宿題を終えたので、今手伝えます。
+EN: I have already finished my homework, so I can help you now.
+
+unit3-p3-s2 Tags: 現在完了②（完了）
+JP: 彼はもう夕食を食べたので、おなかがすいていません。
+EN: He has already eaten dinner, so he isn’t hungry.
+
+unit3-p3-s3 Tags: 現在完了②（完了）
+JP: 私たちは今、駅に着いたところです。どこにいますか？
+EN: We have just arrived at the station. Where are you?
+
+unit3-p3-s4 Tags: 現在完了②（完了）
+JP: 彼女はもうその手紙を書き終えたので、今送れます。
+EN: She has already finished writing the letter, so she can send it now.
+
+unit3-p3-s5 Tags: 現在完了②（完了）
+JP: 私はちょうどその本を読み終えたところです。今返してもいいですか？ ― もちろんです。ありがとう。
+EN: I have just finished reading the book. Can I return it now? - Of course. Thank you.
+
+unit3-p3-s6 Tags: 現在完了②（完了）
+JP: 彼らはもうそのチケットを買ったので、中に入れます。
+EN: They have already bought the tickets, so they can go inside.
+
+unit3-p3-s7 Tags: 現在完了②（完了）
+JP: あなたはもう部屋を掃除しましたか？
+EN: Have you cleaned your room yet?
+
+unit3-p3-s8 Tags: 現在完了②（完了）
+JP: 父はまだ家に帰ってきていません。
+EN: My father hasn’t come home yet.
+
+unit3-p3-s9 Tags: 現在完了②（完了）
+JP: 私はまだ朝ごはんを食べていないので、とてもおなかがすいています。 ― 何か食べるものを買いに行きましょう。
+EN: I haven’t eaten breakfast yet, so I’m very hungry. - Let’s go buy something to eat.
+
+unit3-p3-s10 Tags: 現在完了②（完了）
+JP: そのバスはちょうど出発したところなので、もう乗れません。
+EN: The bus has just left, so we can’t get on it.
+
+## Part 4: 現在完了③（継続）
+unit3-p4-s1 Tags: 現在完了③（継続）
+JP: 私はここに3年間住んでいます。
+EN: I have lived here for three years.
+
+unit3-p4-s2 Tags: 現在完了③（継続）
+JP: 彼は5年間ずっとあなたの友達ですか？
+EN: Has he been your friend for five years?
+
+unit3-p4-s3 Tags: 現在完了③（継続）
+JP: 私たちは昨日からこの本を読んでいます。
+EN: We have been reading this book since yesterday.
+
+unit3-p4-s4 Tags: 現在完了③（継続）
+JP: 彼女はその犬を2ヶ月飼っています。
+EN: She has had that dog for two months.
+
+unit3-p4-s5 Tags: 現在完了③（継続）
+JP: あなたはその映画を見てからずっとその話をしていますか？
+EN: Have you been talking about that movie since you saw it?
+
+unit3-p4-s6 Tags: 現在完了③（継続）
+JP: 弟は朝からずっとテレビを見ています。
+EN: My brother has been watching TV since this morning.
+
+unit3-p4-s7 Tags: 現在完了③（継続）
+JP: 彼らは去年からずっとお互いを知っています。
+EN: They have known each other since last year.
+
+unit3-p4-s8 Tags: 現在完了③（継続）
+JP: 私は英語を3年間勉強しています。
+EN: I have been studying English for three years.
+
+unit3-p4-s9 Tags: 現在完了③（継続）
+JP: 彼はこの2年間、毎週末ずっと自転車に乗り続けています。
+EN: He has been riding his bike every weekend for the past two years.
+
+unit3-p4-s10 Tags: 現在完了③（継続）
+JP: 私は先週からずっと忙しいです。
+EN: I have been busy since last week.
+
+## Part 5: 現在完了進行形
+unit3-p5-s1 Tags: 現在完了進行形
+JP: 私は長い間ずっとこの本を読んでいます。
+EN: I have been reading this book for a long time.
+
+unit3-p5-s2 Tags: 現在完了進行形
+JP: 彼女は2時間ずっとピアノを弾いています。
+EN: She has been playing the piano for two hours.
+
+unit3-p5-s3 Tags: 現在完了進行形
+JP: 私たちは3時間ずっとサッカーをしています。
+EN: We have been playing soccer for three hours.
+
+unit3-p5-s4 Tags: 現在完了進行形
+JP: 彼は今朝からずっと宿題をしています。
+EN: He has been doing his homework since this morning.
+
+unit3-p5-s5 Tags: 現在完了進行形
+JP: あなたはどのくらいの間、このコンピュータを使っていますか？
+EN: How long have you been using this computer?
+
+unit3-p5-s6 Tags: 現在完了進行形
+JP: 彼らは1時間以上ここで待っています。
+EN: They have been waiting here for over an hour.
+
+unit3-p5-s7 Tags: 現在完了進行形
+JP: 兄は昼食後からずっとテレビを見ています。
+EN: My brother has been watching TV since lunch.
+
+unit3-p5-s8 Tags: 現在完了進行形
+JP: あなたは今朝からずっと部屋を掃除しているのですか？
+EN: Have you been cleaning your room since this morning?
+
+unit3-p5-s9 Tags: 現在完了進行形
+JP: 私たちは長い間ずっといっしょに練習しています。
+EN: We have been practicing together for a long time.
+
+unit3-p5-s10 Tags: 現在完了進行形
+JP: 今日は朝からずっと雨が降っています。
+EN: It has been raining since this morning.
+
+## Part 6: SVO + to不定詞（人に～するように言う・頼む）
+unit3-p6-s1 Tags: SVO + to不定詞（人に～するように言う・頼む）
+JP: 私はあなたにここに来てほしいです。
+EN: I want you to come here.
+
+unit3-p6-s2 Tags: SVO + to不定詞（人に～するように言う・頼む）
+JP: お父さんはあなたに車を洗うように言いましたか？
+EN: Did your father tell you to wash the car?
+
+unit3-p6-s3 Tags: SVO + to不定詞（人に～するように言う・頼む）
+JP: 彼は私に宿題を手伝ってほしいと頼みました。
+EN: He asked me to help him with his homework.
+
+unit3-p6-s4 Tags: SVO + to不定詞（人に～するように言う・頼む）
+JP: 私はケンに窓を開けるように言いました。
+EN: I told Ken to open the window.
+
+unit3-p6-s5 Tags: SVO + to不定詞（人に～するように言う・頼む）
+JP: 彼女はあなたたちに静かにするように頼みましたか？
+EN: Did she ask you to be quiet?
+
+unit3-p6-s6 Tags: SVO + to不定詞（人に～するように言う・頼む）
+JP: 先生は生徒たちに座るように言いました。
+EN: The teacher told the students to sit down.
+
+unit3-p6-s7 Tags: SVO + to不定詞（人に～するように言う・頼む）
+JP: あなたは私に何をしてほしいですか？
+EN: What do you want me to do?
+
+unit3-p6-s8 Tags: SVO + to不定詞（人に～するように言う・頼む）
+JP: 私はあなたにその本を読んでほしくありません。
+EN: I don't want you to read that book.
+
+unit3-p6-s9 Tags: SVO + to不定詞（人に～するように言う・頼む）
+JP: 母は私に遅れないように言いました。
+EN: My mother told me not to be late.
+
+unit3-p6-s10 Tags: SVO + to不定詞（人に～するように言う・頼む）
+JP: 彼は私に英語を教えてほしいと頼みました。
+EN: He asked me to teach him English.
+
+## Part 7: 原形不定詞①（知覚）
+unit3-p7-s1 Tags: 原形不定詞①（知覚）
 JP: 私は彼が部屋に入るのを見ました。
 EN: I saw him enter the room.
 
-unit3-p19-s2 Tags: 原形不定詞・知覚
+unit3-p7-s2 Tags: 原形不定詞①（知覚）
 JP: 私たちは彼女がピアノを弾くのを聞きました。
 EN: We heard her play the piano.
 
-unit3-p19-s3 Tags: 原形不定詞・知覚
+unit3-p7-s3 Tags: 原形不定詞①（知覚）
 JP: あなたはケンが公園を走るのを見ましたか。
 EN: Did you see Ken run in the park?
 
-unit3-p19-s4 Tags: 原形不定詞・知覚
+unit3-p7-s4 Tags: 原形不定詞①（知覚）
 JP: 私は鳥が飛ぶのを見ました。
 EN: I saw a bird fly away.
 
-unit3-p19-s5 Tags: 原形不定詞・知覚
+unit3-p7-s5 Tags: 原形不定詞①（知覚）
 JP: 私はだれかが私の名前を呼ぶのを聞きました。
 EN: I heard someone call my name.
 
-unit3-p19-s6 Tags: 原形不定詞・知覚
+unit3-p7-s6 Tags: 原形不定詞①（知覚）
 JP: 彼は彼女が通りを渡るのを見ました。
 EN: He saw her cross the street.
 
-unit3-p19-s7 Tags: 原形不定詞・知覚
+unit3-p7-s7 Tags: 原形不定詞①（知覚）
 JP: 私たちは彼が英語の歌を歌うのを聞きました。
 EN: We heard him sing an English song.
 
-unit3-p19-s8 Tags: 原形不定詞・知覚
+unit3-p7-s8 Tags: 原形不定詞①（知覚）
 JP: 私は地面が揺れるのを感じました。
 EN: I felt the ground shake.
 
-unit3-p19-s9 Tags: 原形不定詞・知覚
+unit3-p7-s9 Tags: 原形不定詞①（知覚）
 JP: あなたは彼らが家を出るのを見ましたか。
 EN: Did you see them leave the house?
 
-unit3-p19-s10 Tags: 原形不定詞・知覚
+unit3-p7-s10 Tags: 原形不定詞①（知覚）
 JP: 私は子どもたちが公園で遊ぶのを見ました。
 EN: I watched the children play in the park.
 
-## Part 20: 原形不定詞・使役
-unit3-p20-s1 Tags: 原形不定詞・使役
+## Part 8: 原形不定詞②（使役）
+unit3-p8-s1 Tags: 原形不定詞②（使役）
 JP: そのニュースは彼女を泣かせました。
 EN: The news made her cry.
 
-unit3-p20-s2 Tags: 原形不定詞・使役
+unit3-p8-s2 Tags: 原形不定詞②（使役）
 JP: 行かせてください。
 EN: Please let me go.
 
-unit3-p20-s3 Tags: 原形不定詞・使役
+unit3-p8-s3 Tags: 原形不定詞②（使役）
 JP: 父は私に部屋を掃除させました。
 EN: My father made me clean my room.
 
-unit3-p20-s4 Tags: 原形不定詞・使役
+unit3-p8-s4 Tags: 原形不定詞②（使役）
 JP: 彼はあなたにパソコンを使わせてくれましたか？
 EN: Did he let you use his computer?
 
-unit3-p20-s5 Tags: 原形不定詞・使役
+unit3-p8-s5 Tags: 原形不定詞②（使役）
 JP: 先生はあなたたちを走らせましたか？
 EN: Did the teacher make you run?
 
-unit3-p20-s6 Tags: 原形不定詞・使役
+unit3-p8-s6 Tags: 原形不定詞②（使役）
 JP: あとで知らせます。
 EN: I will let you know later.
 
-unit3-p20-s7 Tags: 原形不定詞・使役
+unit3-p8-s7 Tags: 原形不定詞②（使役）
 JP: その映画はみんなを笑わせました。
 EN: The movie made everyone laugh.
 
-unit3-p20-s8 Tags: 原形不定詞・使役
+unit3-p8-s8 Tags: 原形不定詞②（使役）
 JP: お母さんはあなたに宿題をさせましたか？
 EN: Did your mother make you do your homework?
 
-unit3-p20-s9 Tags: 原形不定詞・使役
+unit3-p8-s9 Tags: 原形不定詞②（使役）
 JP: 考えさせてください。
 EN: Let me think.
 
-unit3-p20-s10 Tags: 原形不定詞・使役
+unit3-p8-s10 Tags: 原形不定詞②（使役）
 JP: やらせてください。
 EN: Please let me do it.
 
-## Part 21: 関係副詞・where
-unit3-p21-s1 Tags: 関係副詞・where
+## Part 9: 間接疑問文
+unit3-p9-s1 Tags: 間接疑問文
+JP: 私は彼が誰なのか知りません。
+EN: I don't know who he is.
+
+unit3-p9-s2 Tags: 間接疑問文
+JP: 彼女がどこに住んでいるか教えてください。
+EN: Please tell me where she lives.
+
+unit3-p9-s3 Tags: 間接疑問文
+JP: 今、何時か知っていますか？
+EN: Do you know what time it is?
+
+unit3-p9-s4 Tags: 間接疑問文
+JP: 私は彼がなぜ泣いているのか不思議です。
+EN: I wonder why he is crying.
+
+unit3-p9-s5 Tags: 間接疑問文
+JP: ケンがいつ来るか知っていますか？
+EN: Do you know when Ken will come?
+
+unit3-p9-s6 Tags: 間接疑問文
+JP: 私は彼女が何が好きなのか知りたいです。
+EN: I want to know what she likes.
+
+unit3-p9-s7 Tags: 間接疑問文
+JP: あなたが何を買ったか私に見せてください。
+EN: Please show me what you bought.
+
+unit3-p9-s8 Tags: 間接疑問文
+JP: 彼が来るかどうか分かりません。
+EN: I don't know if he will come.
+
+unit3-p9-s9 Tags: 間接疑問文
+JP: 私たちは何をすべきか分かりませんでした。
+EN: We didn't know what we should do.
+
+unit3-p9-s10 Tags: 間接疑問文
+JP: その店がどこにあるか知っていますか？
+EN: Do you know where the shop is?
+
+## Part 10: 現在分詞で名詞を修飾
+unit3-p10-s1 Tags: 現在分詞で名詞を修飾
+JP: あそこで走っている少年はケンです。
+EN: The boy running over there is Ken.
+
+unit3-p10-s2 Tags: 現在分詞で名詞を修飾
+JP: あなたはステージで歌っている少女を知っていますか？
+EN: Do you know the girl singing on stage?
+
+unit3-p10-s3 Tags: 現在分詞で名詞を修飾
+JP: 私はベンチで寝ている男性を見ました。
+EN: I saw a man sleeping on a bench.
+
+unit3-p10-s4 Tags: 現在分詞で名詞を修飾
+JP: 図書館で勉強している生徒たちは静かです。
+EN: The students studying in the library are quiet.
+
+unit3-p10-s5 Tags: 現在分詞で名詞を修飾
+JP: 今、駅を出発するバスは混んでいます。
+EN: The bus leaving the station now is crowded.
+
+unit3-p10-s6 Tags: 現在分詞で名詞を修飾
+JP: 向こうでテニスをしている女性は私の姉です。
+EN: The woman playing tennis over there is my sister.
+
+unit3-p10-s7 Tags: 現在分詞で名詞を修飾
+JP: あなたはピアノを弾いている男の子が見えますか？
+EN: Can you see the boy playing the piano?
+
+unit3-p10-s8 Tags: 現在分詞で名詞を修飾
+JP: 私は駅で私を待っている人たちを見つけました。
+EN: I found the people waiting for me at the station.
+
+unit3-p10-s9 Tags: 現在分詞で名詞を修飾
+JP: 木の下に立っている男性は誰ですか？
+EN: Who is the man standing under the tree?
+
+unit3-p10-s10 Tags: 現在分詞で名詞を修飾
+JP: 車を洗っている男性は私の父です。
+EN: The man washing the car is my father.
+
+## Part 11: 過去分詞で名詞を修飾
+unit3-p11-s1 Tags: 過去分詞で名詞を修飾
+JP: これは夏目漱石によって書かれた本です。
+EN: This is a book written by Natsume Soseki.
+
+unit3-p11-s2 Tags: 過去分詞で名詞を修飾
+JP: あなたはドイツで作られた車を持っていますか？
+EN: Do you have a car made in Germany?
+
+unit3-p11-s3 Tags: 過去分詞で名詞を修飾
+JP: 英語は世界中で話されている言語です。
+EN: English is a language spoken around the world.
+
+unit3-p11-s4 Tags: 過去分詞で名詞を修飾
+JP: ケンという名前の少年がここに来ました。
+EN: A boy named Ken came here.
+
+unit3-p11-s5 Tags: 過去分詞で名詞を修飾
+JP: あなたは英語で書かれた手紙を受け取りましたか？
+EN: Did you receive a letter written in English?
+
+unit3-p11-s6 Tags: 過去分詞で名詞を修飾
+JP: 私は100年前に建てられた家に住んでいます。
+EN: I live in a house built 100 years ago.
+
+unit3-p11-s7 Tags: 過去分詞で名詞を修飾
+JP: 彼はみんなに愛されている歌手です。
+EN: He is a singer loved by everyone.
+
+unit3-p11-s8 Tags: 過去分詞で名詞を修飾
+JP: その店で売られているカメラは高いです。
+EN: The cameras sold at that store are expensive.
+
+unit3-p11-s9 Tags: 過去分詞で名詞を修飾
+JP: 私は沖縄で撮られた写真を見ました。
+EN: I saw pictures taken in Okinawa.
+
+unit3-p11-s10 Tags: 過去分詞で名詞を修飾
+JP: これはアメリカで使われている教科書ですか？
+EN: Is this a textbook used in America?
+
+## Part 12: 関係代名詞①・主格（人）
+unit3-p12-s1 Tags: 関係代名詞①・主格（人）
+JP: 私にはロンドンに住んでいて、日本語も話す友達がいます。
+EN: I have a friend who lives in London and speaks Japanese.
+
+unit3-p12-s2 Tags: 関係代名詞①・主格（人）
+JP: その窓を割った少年はケンですか？
+EN: Is the boy who broke the window Ken?
+
+unit3-p12-s3 Tags: 関係代名詞①・主格（人）
+JP: 毎日早く学校に来る少女はエミです。
+EN: The girl who comes to school early every day is Emi.
+
+unit3-p12-s4 Tags: 関係代名詞①・主格（人）
+JP: 彼は英語をとても上手に話せる先生ですか？
+EN: Is he a teacher who can speak English very well?
+
+unit3-p12-s5 Tags: 関係代名詞①・主格（人）
+JP: 動物が好きな人々は優しいです。
+EN: People who like animals are kind.
+
+unit3-p12-s6 Tags: 関係代名詞①・主格（人）
+JP: あなたにはサッカーが上手な兄がいますか？
+EN: Do you have a brother who is good at soccer?
+
+unit3-p12-s7 Tags: 関係代名詞①・主格（人）
+JP: その本を書いた男性は有名です。
+EN: The man who wrote the book is famous.
+
+unit3-p12-s8 Tags: 関係代名詞①・主格（人）
+JP: 私は毎日一生懸命働く人々を尊敬します。
+EN: I respect people who work hard every day.
+
+unit3-p12-s9 Tags: 関係代名詞①・主格（人）
+JP: 昨日ここに来た女性はあなたの叔母ですか？
+EN: Is the woman who came here yesterday your aunt?
+
+unit3-p12-s10 Tags: 関係代名詞①・主格（人）
+JP: あなたは新しい自転車が欲しい少年を知っていますか？
+EN: Do you know the boy who wants a new bike?
+
+## Part 13: 関係代名詞②・主格（人以外）
+unit3-p13-s1 Tags: 関係代名詞②・主格（人以外）
+JP: これは駅へ行くバスです。
+EN: This is a bus which goes to the station.
+
+unit3-p13-s2 Tags: 関係代名詞②・主格（人以外）
+JP: 私は長い耳を持つ犬を飼っています。
+EN: I have a dog which has long ears.
+
+unit3-p13-s3 Tags: 関係代名詞②・主格（人以外）
+JP: 机の上にあった本はどこですか？
+EN: Where is the book that was on the desk?
+
+unit3-p13-s4 Tags: 関係代名詞②・主格（人以外）
+JP: 丘の上に立っている家を見てください。
+EN: Look at the house which stands on the hill.
+
+unit3-p13-s5 Tags: 関係代名詞②・主格（人以外）
+JP: 彼は速く走る車を買いたいと思っています。
+EN: He wants to buy a car that runs fast.
+
+unit3-p13-s6 Tags: 関係代名詞②・主格（人以外）
+JP: その庭で咲いている花は美しいです。
+EN: The flowers which are blooming in the garden are beautiful.
+
+unit3-p13-s7 Tags: 関係代名詞②・主格（人以外）
+JP: 私は人々を幸せにする映画が好きです。
+EN: I like movies that make people happy.
+
+unit3-p13-s8 Tags: 関係代名詞②・主格（人以外）
+JP: 公園へ行く道はどれですか？
+EN: Which is the road that goes to the park?
+
+unit3-p13-s9 Tags: 関係代名詞②・主格（人以外）
+JP: 私たちは10時に出発する電車に乗りました。
+EN: We took a train which left at ten.
+
+unit3-p13-s10 Tags: 関係代名詞②・主格（人以外）
+JP: 日本語を話すロボットがいます。
+EN: There is a robot that speaks Japanese.
+
+## Part 14: 関係代名詞③・目的格（人）
+unit3-p14-s1 Tags: 関係代名詞③・目的格（人）
+JP: 彼は私が昨日会った男性です。
+EN: He is the man I met yesterday.
+
+unit3-p14-s2 Tags: 関係代名詞③・目的格（人）
+JP: 彼女はケンが好きな女の子ですか？
+EN: Is she the girl Ken likes?
+
+unit3-p14-s3 Tags: 関係代名詞③・目的格（人）
+JP: 彼は私が招待した男性です。
+EN: He is the man I invited.
+
+unit3-p14-s4 Tags: 関係代名詞③・目的格（人）
+JP: こちらはあなたが尊敬している人々ですか？
+EN: Are these the people you respect?
+
+unit3-p14-s5 Tags: 関係代名詞③・目的格（人）
+JP: 彼女はみんなが知っている歌手です。
+EN: She is the singer everyone knows.
+
+unit3-p14-s6 Tags: 関係代名詞③・目的格（人）
+JP: 私が手助けした少年は、私にお礼を言いました。
+EN: The boy I helped thanked me.
+
+unit3-p14-s7 Tags: 関係代名詞③・目的格（人）
+JP: トムが一番好きな作家はだれですか？
+EN: Who is the writer Tom likes the best?
+
+unit3-p14-s8 Tags: 関係代名詞③・目的格（人）
+JP: 彼女は私たちがパーティーで会った女性です。
+EN: She is the woman we met at the party.
+
+unit3-p14-s9 Tags: 関係代名詞③・目的格（人）
+JP: あなたが探している男性はあちらです。
+EN: The man you are looking for is over there.
+
+unit3-p14-s10 Tags: 関係代名詞③・目的格（人）
+JP: 彼らは私がよく電話をする友達です。
+EN: They are the friends I often call.
+
+## Part 15: 関係代名詞④・目的格（人以外）
+unit3-p15-s1 Tags: 関係代名詞④・目的格（人以外）
+JP: これは私が昨日買った本です。
+EN: This is the book I bought yesterday.
+
+unit3-p15-s2 Tags: 関係代名詞④・目的格（人以外）
+JP: あれは彼が撮った写真ですか？
+EN: Is that the picture he took?
+
+unit3-p15-s3 Tags: 関係代名詞④・目的格（人以外）
+JP: 母が作ったケーキはおいしかったです。
+EN: The cake my mother made was delicious.
+
+unit3-p15-s4 Tags: 関係代名詞④・目的格（人以外）
+JP: 私は父がくれた時計をなくしました。
+EN: I lost the watch my father gave me.
+
+unit3-p15-s5 Tags: 関係代名詞④・目的格（人以外）
+JP: これが彼が見たい映画です。
+EN: This is the movie he wants to see.
+
+unit3-p15-s6 Tags: 関係代名詞④・目的格（人以外）
+JP: 彼女が書いた手紙を読みましたか？
+EN: Did you read the letter she wrote?
+
+unit3-p15-s7 Tags: 関係代名詞④・目的格（人以外）
+JP: 私が住んでいる家は古いです。
+EN: The house I live in is old.
+
+unit3-p15-s8 Tags: 関係代名詞④・目的格（人以外）
+JP: 英語は彼が話す言語です。
+EN: English is the language he speaks.
+
+unit3-p15-s9 Tags: 関係代名詞④・目的格（人以外）
+JP: これらは私が撮った写真です。
+EN: These are the pictures I took.
+
+unit3-p15-s10 Tags: 関係代名詞④・目的格（人以外）
+JP: これが私が使っている辞書です。
+EN: This is the dictionary I use.
+
+## Part 16: 関係代名詞⑤・whose（だれの／何の）
+unit3-p16-s1 Tags: 関係代名詞⑤・whose（だれの／何の）
+JP: 私にはお父さんが医者の友達がいます。
+EN: I have a friend whose father is a doctor.
+
+unit3-p16-s2 Tags: 関係代名詞⑤・whose（だれの／何の）
+JP: 私にはお兄さんがプロサッカー選手の友達がいます。
+EN: I have a friend whose brother is a professional soccer player.
+
+unit3-p16-s3 Tags: 関係代名詞⑤・whose（だれの／何の）
+JP: 私はお母さんが英語の先生である男の子を知っています。
+EN: I know a boy whose mother is an English teacher.
+
+unit3-p16-s4 Tags: 関係代名詞⑤・whose（だれの／何の）
+JP: これはパソコンが壊れてしまった生徒の話です。
+EN: This is a story about a student whose computer broke down.
+
+unit3-p16-s5 Tags: 関係代名詞⑤・whose（だれの／何の）
+JP: あなたは本が人気の作家を知っていますか？
+EN: Do you know a writer whose books are popular?
+
+unit3-p16-s6 Tags: 関係代名詞⑤・whose（だれの／何の）
+JP: 彼女は名前が分からない花を買いました。
+EN: She bought a flower whose name she didn't know.
+
+unit3-p16-s7 Tags: 関係代名詞⑤・whose（だれの／何の）
+JP: あれは車が故障してしまった男性です。
+EN: That is the man whose car broke down.
+
+unit3-p16-s8 Tags: 関係代名詞⑤・whose（だれの／何の）
+JP: 私たちはキャプテンがケンであるチームを応援しています。
+EN: We are cheering for the team whose captain is Ken.
+
+unit3-p16-s9 Tags: 関係代名詞⑤・whose（だれの／何の）
+JP: 私は絵がコンテストで優勝した生徒と話しました。
+EN: I spoke to the student whose painting won the contest.
+
+unit3-p16-s10 Tags: 関係代名詞⑤・whose（だれの／何の）
+JP: 私は家が海の近くにある友達を訪ねたいです。
+EN: I want to visit a friend whose house is near the sea.
+
+## Part 17: 関係代名詞⑥・what（～のこと・もの）
+unit3-p17-s1 Tags: 関係代名詞⑥・what（～のこと・もの）
+JP: これが私が欲しかったものです。
+EN: This is what I wanted.
+
+unit3-p17-s2 Tags: 関係代名詞⑥・what（～のこと・もの）
+JP: 彼の言ったことが信じられません。
+EN: I can't believe what he said.
+
+unit3-p17-s3 Tags: 関係代名詞⑥・what（～のこと・もの）
+JP: 彼女がしたことは正しかった。
+EN: What she did was right.
+
+unit3-p17-s4 Tags: 関係代名詞⑥・what（～のこと・もの）
+JP: 私たちに必要なのは水です。
+EN: What we need is water.
+
+unit3-p17-s5 Tags: 関係代名詞⑥・what（～のこと・もの）
+JP: 私が興味があるのは歴史です。
+EN: What I am interested in is history.
+
+unit3-p17-s6 Tags: 関係代名詞⑥・what（～のこと・もの）
+JP: あなたは私が作ったものを食べたいですか？
+EN: Do you want to eat what I made?
+
+unit3-p17-s7 Tags: 関係代名詞⑥・what（～のこと・もの）
+JP: 大切なのは愛です。
+EN: What is important is love.
+
+unit3-p17-s8 Tags: 関係代名詞⑥・what（～のこと・もの）
+JP: 彼は私が見たものを信じませんでした。
+EN: He didn't believe what I saw.
+
+unit3-p17-s9 Tags: 関係代名詞⑥・what（～のこと・もの）
+JP: これがあなたの言いたいことですか？
+EN: Is this what you want to say?
+
+unit3-p17-s10 Tags: 関係代名詞⑥・what（～のこと・もの）
+JP: 今日起こったことを教えてください。
+EN: Please tell me what happened today.
+
+## Part 18: 関係副詞①・where
+unit3-p18-s1 Tags: 関係副詞①・where
 JP: ここは私が生まれた町です。
 EN: This is the town where I was born.
 
-unit3-p21-s2 Tags: 関係副詞・where
+unit3-p18-s2 Tags: 関係副詞①・where
 JP: あれは彼が住んでいる家ですか？
 EN: Is that the house where he lives?
 
-unit3-p21-s3 Tags: 関係副詞・where
+unit3-p18-s3 Tags: 関係副詞①・where
 JP: これは私たちがよく遊んだ公園です。
 EN: This is the park where we often played.
 
-unit3-p21-s4 Tags: 関係副詞・where
+unit3-p18-s4 Tags: 関係副詞①・where
 JP: ここは私たちが昼ご飯を食べる部屋です。
 EN: This is the room where we have lunch.
 
-unit3-p21-s5 Tags: 関係副詞・where
+unit3-p18-s5 Tags: 関係副詞①・where
 JP: ここはあなたがカバンを買った店ですか？
 EN: Is this the shop where you bought the bag?
 
-unit3-p21-s6 Tags: 関係副詞・where
+unit3-p18-s6 Tags: 関係副詞①・where
 JP: これは私が勉強する部屋です。
 EN: This is the room where I study.
 
-unit3-p21-s7 Tags: 関係副詞・where
+unit3-p18-s7 Tags: 関係副詞①・where
 JP: 私はおいしいケーキが買える店を知っています。
 EN: I know a shop where you can buy delicious cakes.
 
-unit3-p21-s8 Tags: 関係副詞・where
+unit3-p18-s8 Tags: 関係副詞①・where
 JP: 京都は古いお寺をたくさん見られる都市です。
 EN: Kyoto is a city where you can see many old temples.
 
-unit3-p21-s9 Tags: 関係副詞・where
+unit3-p18-s9 Tags: 関係副詞①・where
 JP: あれは彼が働いている病院です。
 EN: That is the hospital where he works.
 
-unit3-p21-s10 Tags: 関係副詞・where
+unit3-p18-s10 Tags: 関係副詞①・where
 JP: あなたたちは初めて会った場所に行きましたか？
 EN: Did you go to the place where you first met?
 
-## Part 22: 関係副詞・when
-unit3-p22-s1 Tags: 関係副詞・when
+## Part 19: 関係副詞②・when
+unit3-p19-s1 Tags: 関係副詞②・when
 JP: 私は彼女に初めて会った日を覚えています。
 EN: I remember the day when I first met her.
 
-unit3-p22-s2 Tags: 関係副詞・when
+unit3-p19-s2 Tags: 関係副詞②・when
 JP: 日曜日は私が部屋を掃除する日です。
 EN: Sunday is the day when I clean my room.
 
-unit3-p22-s3 Tags: 関係副詞・when
+unit3-p19-s3 Tags: 関係副詞②・when
 JP: 春は桜が咲く季節です。
 EN: Spring is the season when cherry blossoms bloom.
 
-unit3-p22-s4 Tags: 関係副詞・when
+unit3-p19-s4 Tags: 関係副詞②・when
 JP: 7時はあなたが起きる時間ですか？
 EN: Is seven o'clock the time when you get up?
 
-unit3-p22-s5 Tags: 関係副詞・when
+unit3-p19-s5 Tags: 関係副詞②・when
 JP: 2018年はあなたがこの町に引っ越した年ですか？
 EN: Was 2018 the year when you moved to this town?
 
-unit3-p22-s6 Tags: 関係副詞・when
+unit3-p19-s6 Tags: 関係副詞②・when
 JP: 私は私たちが一緒に遊んだ夏を決して忘れません。
 EN: I will never forget the summer when we played together.
 
-unit3-p22-s7 Tags: 関係副詞・when
+unit3-p19-s7 Tags: 関係副詞②・when
 JP: 1月は雪がたくさん降る月です。
 EN: January is the month when it snows a lot.
 
-unit3-p22-s8 Tags: 関係副詞・when
+unit3-p19-s8 Tags: 関係副詞②・when
 JP: 夜は私が英語を勉強する時間です。
 EN: Night is the time when I study English.
 
-unit3-p22-s9 Tags: 関係副詞・when
+unit3-p19-s9 Tags: 関係副詞②・when
 JP: 土曜日は彼女が買い物に行ける唯一の日ですか？
 EN: Is Saturday the only day when she can go shopping?
 
-unit3-p22-s10 Tags: 関係副詞・when
+unit3-p19-s10 Tags: 関係副詞②・when
 JP: 夏は私たちが泳ぎに行く季節です。
 EN: Summer is the season when we go swimming.
+
+## Part 20: too ～ to ～ 構文
+unit3-p20-s1 Tags: too ～ to ～ 構文
+JP: 私は忙しすぎてあなたと行けません。
+EN: I am too busy to go with you.
+
+unit3-p20-s2 Tags: too ～ to ～ 構文
+JP: このお茶は熱すぎて飲めません。
+EN: This tea is too hot to drink.
+
+unit3-p20-s3 Tags: too ～ to ～ 構文
+JP: 彼は疲れすぎて走れませんでした。
+EN: He was too tired to run.
+
+unit3-p20-s4 Tags: too ～ to ～ 構文
+JP: その石は重すぎて動かせません。
+EN: The stone is too heavy to move.
+
+unit3-p20-s5 Tags: too ～ to ～ 構文
+JP: この本は私には難しすぎて読めません。
+EN: This book is too difficult for me to read.
+
+unit3-p20-s6 Tags: too ～ to ～ 構文
+JP: 外は寒すぎて遊べません。
+EN: It is too cold outside to play.
+
+unit3-p20-s7 Tags: too ～ to ～ 構文
+JP: 彼女は眠すぎて勉強できません。
+EN: She is too sleepy to study.
+
+unit3-p20-s8 Tags: too ～ to ～ 構文
+JP: そのシャツは高すぎて買えませんでした。
+EN: The shirt was too expensive to buy.
+
+unit3-p20-s9 Tags: too ～ to ～ 構文
+JP: この問題は難しすぎて解けません。
+EN: This problem is too difficult to solve.
+
+unit3-p20-s10 Tags: too ～ to ～ 構文
+JP: その箱は大きすぎて運べません。
+EN: The box is too big to carry.
+
+## Part 21: enough to ～ 構文
+unit3-p21-s1 Tags: enough to ～ 構文
+JP: 彼はその車を買えるほどお金持ちです。
+EN: He is rich enough to buy the car.
+
+unit3-p21-s2 Tags: enough to ～ 構文
+JP: 彼女は一人で旅行できる年齢です。
+EN: She is old enough to travel alone.
+
+unit3-p21-s3 Tags: enough to ～ 構文
+JP: この部屋は私たちが寝られるほど広いです。
+EN: This room is large enough for us to sleep in.
+
+unit3-p21-s4 Tags: enough to ～ 構文
+JP: 彼は私を手伝ってくれるほど親切でした。
+EN: He was kind enough to help me.
+
+unit3-p21-s5 Tags: enough to ～ 構文
+JP: 私は始発に間に合うように、十分早く起きました。
+EN: I got up early enough to catch the first train.
+
+unit3-p21-s6 Tags: enough to ～ 構文
+JP: この本は子どもが読めるほど簡単です。
+EN: This book is easy enough for children to read.
+
+unit3-p21-s7 Tags: enough to ～ 構文
+JP: ケンはバスケットボール選手になれるほど背が高いです。
+EN: Ken is tall enough to be a basketball player.
+
+unit3-p21-s8 Tags: enough to ～ 構文
+JP: 今日は泳ぐには十分暖かいです。
+EN: It is warm enough for us to swim.
+
+unit3-p21-s9 Tags: enough to ～ 構文
+JP: 彼はその箱を持ち上げられるだけの力があります。
+EN: He is strong enough to lift the box.
+
+unit3-p21-s10 Tags: enough to ～ 構文
+JP: 彼女はその問題を解けるほど賢かったです。
+EN: She was smart enough to solve the problem.
+
+## Part 22: so ～ that … 構文
+unit3-p22-s1 Tags: so ～ that … 構文
+JP: 私はとても疲れていたので、早く寝ました。
+EN: I was so tired that I went to bed early.
+
+unit3-p22-s2 Tags: so ～ that … 構文
+JP: 昨日はとても寒かったので、家にいました。
+EN: It was so cold yesterday that I stayed home.
+
+unit3-p22-s3 Tags: so ～ that … 構文
+JP: その映画はとてもおもしろかったので、2回見ました。
+EN: The movie was so interesting that I watched it twice.
+
+unit3-p22-s4 Tags: so ～ that … 構文
+JP: 彼はとても速く走ったので、バスに間に合いました。
+EN: He ran so fast that he caught the bus.
+
+unit3-p22-s5 Tags: so ～ that … 構文
+JP: この本はとても難しいので、理解できません。
+EN: This book is so difficult that I can't understand it.
+
+unit3-p22-s6 Tags: so ～ that … 構文
+JP: 彼女はとても親切なので、みんな彼女が好きです。
+EN: She is so kind that everyone likes her.
+
+unit3-p22-s7 Tags: so ～ that … 構文
+JP: 彼はとても忙しかったので、昼食を食べられませんでした。
+EN: He was so busy that he couldn't eat lunch.
+
+unit3-p22-s8 Tags: so ～ that … 構文
+JP: その箱はとても重かったので、動かせませんでした。
+EN: The box was so heavy that I couldn't move it.
+
+unit3-p22-s9 Tags: so ～ that … 構文
+JP: 私はとても興奮していたので、眠れませんでした。
+EN: I was so excited that I couldn't sleep.
+
+unit3-p22-s10 Tags: so ～ that … 構文
+JP: 私はとてもおなかがすいていたので、ハンバーガーを3つ食べました。
+EN: I was so hungry that I ate three hamburgers.

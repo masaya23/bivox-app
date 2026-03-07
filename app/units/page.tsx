@@ -60,7 +60,7 @@ function UnitsPageContent() {
           </h1>
         </div>
 
-        <div className="px-4 py-4">
+        <div className="px-4 py-4 pb-32">
         {/* まとめて練習ボタン */}
         {totalSentences > 0 && (
           <HardNavLink

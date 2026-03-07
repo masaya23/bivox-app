@@ -52,7 +52,7 @@ export default function MobileLayout({
   }
 
   // 広告表示時はナビゲーションバー + 広告の高さ分のパディングが必要
-  const bottomPadding = showBottomNav ? (showAds ? 'pb-[118px]' : 'pb-20') : '';
+  const bottomPadding = showBottomNav ? (showAds ? 'pb-[140px]' : 'pb-20') : '';
 
   return (
     <div className={`min-h-screen bg-[#F5F7FA] flex flex-col max-w-[430px] mx-auto relative shadow-xl ${isNative ? 'capacitor-app' : ''} ${className}`}>

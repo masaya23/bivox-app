@@ -244,7 +244,7 @@ export default function PaywallScreen({
           </div>
         </div>
 
-        <div className="px-4 py-6">
+        <div className="px-4 py-6 pb-32">
           {/* キャッチコピー */}
           <div className="text-center mb-6">
             <h2 className="text-2xl font-black text-gray-800 mb-2">
