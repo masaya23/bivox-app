@@ -2107,7 +2107,7 @@ export default function AIDrillTrainer({
                           </div>
                           <button
                             onClick={() => speakEnglish(correctionTarget)}
-                            className="ml-3 w-10 h-10 bg-teal-500 text-white rounded-full flex items-center justify-center hover:bg-teal-600 transition-all flex-shrink-0"
+                            className="ml-3 w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] bg-teal-500 text-white rounded-full flex items-center justify-center hover:bg-teal-600 transition-all flex-shrink-0"
                           >
                             <PlayIcon />
                           </button>

@@ -1463,7 +1463,7 @@ export default function SpeakingTrainer({
                                           speakEnglish(sid, 'en', undefined, answer).catch(() => {});
                                         }}
                                         disabled={isPlayingEnglish}
-                                        className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 disabled:opacity-50 text-xs"
+                                        className="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] flex-shrink-0 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 disabled:opacity-50 text-xs"
                                       >
                                         <PlayIcon />
                                       </button>
@@ -1978,7 +1978,7 @@ export default function SpeakingTrainer({
                             speakEnglish(currentSentence.id, 'en', undefined, correctionTarget).catch(() => {});
                           }}
                           disabled={isPlayingEnglish}
-                          className="ml-3 w-10 h-10 bg-teal-500 text-white rounded-full flex items-center justify-center hover:bg-teal-600 disabled:opacity-50 transition-all flex-shrink-0"
+                          className="ml-3 w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] bg-teal-500 text-white rounded-full flex items-center justify-center hover:bg-teal-600 disabled:opacity-50 transition-all flex-shrink-0"
                         >
                           <PlayIcon />
                         </button>

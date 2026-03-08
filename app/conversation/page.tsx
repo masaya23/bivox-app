@@ -405,7 +405,7 @@ export default function ConversationPage() {
                           </p>
                           <button
                             onClick={() => speak(message.correction!.corrected)}
-                            className="flex-shrink-0 w-7 h-7 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors"
+                            className="flex-shrink-0 w-7 h-7 min-w-[1.75rem] min-h-[1.75rem] bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors"
                             aria-label="添削を読み上げ"
                           >
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
@@ -454,7 +454,7 @@ export default function ConversationPage() {
           <button
             onClick={isRecording ? stopRecording : startRecording}
             disabled={isProcessing || isTranscribing || editingMessageId !== null}
-            className={`w-16 h-16 rounded-full font-bold text-white text-xl transition-all transform ${
+            className={`w-16 h-16 rounded-full font-bold text-white text-xl transition-all transform flex items-center justify-center ${
               isRecording
                 ? 'bg-red-500 animate-pulse scale-110'
                 : 'bg-gradient-to-r from-green-500 to-blue-500 hover:scale-105'
