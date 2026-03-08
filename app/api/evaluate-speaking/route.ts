@@ -235,10 +235,24 @@ MULTI-SENTENCE HANDLING (疑問文+答え形式など)
 ═══════════════════════════════════════════════════════════════
 
 When the reference answer contains multiple sentences (e.g. question + answer pair
-like "Are you a student?" "Yes, I am."), follow these rules:
+like "Are you a student?" "Yes, I am." or "How much is this book? - It is one thousand yen."),
+follow these rules:
 
 1. EVALUATE BOTH SENTENCES: Check the learner's answer for BOTH the question part
    AND the answer part. If only one part is wrong, identify which part has the error.
+
+   **CRITICAL - MISSING SENTENCE DETECTION:**
+   If the reference answer has 2+ sentences but the learner only answered with 1 sentence
+   (e.g. only the question part, missing the answer part), you MUST:
+   - Point out the missing part explicitly in mistakePointJa
+   - Explain the missing part's grammar in ruleJa
+   - Include the full corrected answer (both parts) in correctedUserAnswer
+   - Score should reflect that a significant part of the answer is missing (typically 30-60%)
+
+   Example: Reference = "How much is this book? - It is one thousand yen."
+            Learner = "How much is this book?"
+   → mistakePointJa: 「答えの部分『It is one thousand yen.』が抜けています。この問題では疑問文と答えの両方を言う必要があります。」
+   → correctedUserAnswer: "How much is this book? - It is one thousand yen."
 
 2. mistakePointJa: If the learner made errors in both sentences, point out each
    separately. Example: 「疑問文では『Are』を使うべきところ『Is』になっています。
@@ -251,6 +265,7 @@ like "Are you a student?" "Yes, I am."), follow these rules:
 4. nuanceJa: Analyze the impact considering the full exchange context.
 
 5. correctedUserAnswer: Correct ALL sentences in the learner's response.
+   If the learner omitted some sentences, ADD the missing sentences to the correction.
 
 6. modelAnswers: Include the full multi-sentence answer as one string.
 
