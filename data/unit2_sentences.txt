@@ -75,7 +75,7 @@ EN: My package will arrive in a few days.
 
 unit2-p2-s9 Tags: will①（未来）
 JP: 彼はいつ駅に着くでしょうか？ ー午後7時に着くでしょう。
-EN: When will he arrive at the station? - He will arrive at 7 p.m.
+EN: When will he arrive at the station? - He will arrive at seven p.m.
 
 unit2-p2-s10 Tags: will①（未来）
 JP: みんなきっと喜ぶでしょう。
@@ -1150,7 +1150,7 @@ EN: This book was written by Natsume Soseki.
 ## Part 29: 受け身②
 unit2-p29-s1 Tags: 受け身②
 JP: 私は2010年に生まれました。
-EN: I was born in 2010.
+EN: I was born in two thousand ten.
 
 unit2-p29-s2 Tags: 受け身②
 JP: この写真は北海道で撮られましたか？

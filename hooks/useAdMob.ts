@@ -9,6 +9,8 @@ const ADMOB_CONFIG = {
   BANNER_ID_IOS: process.env.NEXT_PUBLIC_ADMOB_BANNER_ID_IOS || 'ca-app-pub-3992336575084323/9456507288',
   REWARDED_ID_ANDROID: process.env.NEXT_PUBLIC_ADMOB_REWARDED_ID_ANDROID || 'ca-app-pub-3992336575084323/4587323980',
   REWARDED_ID_IOS: process.env.NEXT_PUBLIC_ADMOB_REWARDED_ID_IOS || 'ca-app-pub-3992336575084323/7261588786',
+  INTERSTITIAL_ID_ANDROID: process.env.NEXT_PUBLIC_ADMOB_INTERSTITIAL_ID_ANDROID || 'ca-app-pub-3992336575084323/1234567890',
+  INTERSTITIAL_ID_IOS: process.env.NEXT_PUBLIC_ADMOB_INTERSTITIAL_ID_IOS || 'ca-app-pub-3992336575084323/0987654321',
 };
 
 export type BannerPosition = 'TOP' | 'BOTTOM';
@@ -22,6 +24,8 @@ interface UseAdMobReturn {
   // リワード広告
   showRewardedAd: () => Promise<boolean>;
   isRewardedAdLoading: boolean;
+  // インタースティシャル広告
+  showInterstitialAd: () => Promise<boolean>;
 }
 
 export function useAdMob(): UseAdMobReturn {
@@ -88,6 +92,59 @@ export function useAdMob(): UseAdMobReturn {
       await admobRef.current.hideBanner();
     } catch (error) {
       console.error('Failed to hide banner ad:', error);
+    }
+  }, [isNative]);
+
+  // インタースティシャル広告表示
+  const showInterstitialAd = useCallback(async (): Promise<boolean> => {
+    if (!isNative || !admobRef.current) return false;
+
+    try {
+      const { AdMob, InterstitialAdPluginEvents } = await import('@capacitor-community/admob');
+      const adId = Capacitor.getPlatform() === 'ios'
+        ? ADMOB_CONFIG.INTERSTITIAL_ID_IOS
+        : ADMOB_CONFIG.INTERSTITIAL_ID_ANDROID;
+
+      await AdMob.prepareInterstitial({
+        adId,
+        isTesting: true, // 本番リリース時にfalseに変更
+      });
+
+      const shown = await new Promise<boolean>((resolve) => {
+        let resolved = false;
+        const safeResolve = (value: boolean) => {
+          if (!resolved) {
+            resolved = true;
+            resolve(value);
+          }
+        };
+
+        AdMob.addListener(InterstitialAdPluginEvents.Dismissed, () => {
+          safeResolve(true);
+        });
+
+        AdMob.addListener(InterstitialAdPluginEvents.FailedToLoad, () => {
+          safeResolve(false);
+        });
+
+        AdMob.addListener(InterstitialAdPluginEvents.FailedToShow, () => {
+          safeResolve(false);
+        });
+
+        AdMob.showInterstitial().catch(() => {
+          safeResolve(false);
+        });
+
+        // 30秒タイムアウト
+        setTimeout(() => {
+          safeResolve(false);
+        }, 30000);
+      });
+
+      return shown;
+    } catch (error) {
+      console.error('Failed to show interstitial ad:', error);
+      return false;
     }
   }, [isNative]);
 
@@ -165,6 +222,7 @@ export function useAdMob(): UseAdMobReturn {
     hideBanner,
     showRewardedAd,
     isRewardedAdLoading,
+    showInterstitialAd,
   };
 }
 

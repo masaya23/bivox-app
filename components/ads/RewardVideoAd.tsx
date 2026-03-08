@@ -5,6 +5,42 @@ import { Capacitor } from '@capacitor/core';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useAdMob } from '@/hooks/useAdMob';
 
+// リワード広告の1日あたり視聴回数制限
+const DAILY_REWARD_AD_LIMIT = 3;
+const REWARD_AD_STORAGE_KEY = 'reward_ad_daily_count';
+
+function getTodayJST(): string {
+  const now = new Date();
+  const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+  return jst.toISOString().slice(0, 10);
+}
+
+function getDailyAdCount(): number {
+  try {
+    const data = localStorage.getItem(REWARD_AD_STORAGE_KEY);
+    if (!data) return 0;
+    const parsed = JSON.parse(data);
+    if (parsed.date !== getTodayJST()) return 0;
+    return parsed.count || 0;
+  } catch {
+    return 0;
+  }
+}
+
+function incrementDailyAdCount(): void {
+  const today = getTodayJST();
+  const current = getDailyAdCount();
+  localStorage.setItem(REWARD_AD_STORAGE_KEY, JSON.stringify({ date: today, count: current + 1 }));
+}
+
+function canWatchRewardAd(): boolean {
+  return getDailyAdCount() < DAILY_REWARD_AD_LIMIT;
+}
+
+function getRemainingAdCount(): number {
+  return Math.max(0, DAILY_REWARD_AD_LIMIT - getDailyAdCount());
+}
+
 interface RewardVideoAdProps {
   onRewardEarned?: () => void;
   onAdClosed?: () => void;
@@ -34,11 +70,15 @@ export default function RewardVideoAd({
   const handleWatchAd = useCallback(async () => {
     if (disabled || adState !== 'idle' || !showAds) return;
 
+    // 1日の視聴回数制限チェック
+    if (!canWatchRewardAd()) return;
+
     // ネイティブ環境：AdMobリワード広告を表示
     if (isNative) {
       setAdState('loading');
       const earned = await showRewardedAd();
       if (earned) {
+        incrementDailyAdCount();
         setAdState('completed');
         onRewardEarned?.();
         setTimeout(() => {
@@ -69,6 +109,7 @@ export default function RewardVideoAd({
 
         if (elapsed >= duration) {
           clearInterval(timer);
+          incrementDailyAdCount();
           setAdState('completed');
           onRewardEarned?.();
 
@@ -82,9 +123,21 @@ export default function RewardVideoAd({
     }, 1000);
   }, [disabled, adState, onRewardEarned, onAdClosed, showAds, isNative, showRewardedAd]);
 
+  const remaining = getRemainingAdCount();
+  const limitReached = remaining <= 0;
+
   // プレミアムユーザーには表示しない
   if (!showAds) {
     return null;
+  }
+
+  // 1日の上限に達した場合
+  if (limitReached) {
+    return (
+      <div className={`w-full py-3 px-4 rounded-xl font-bold text-sm bg-gray-300 text-gray-500 text-center ${className}`}>
+        本日の広告視聴回数に達しました（{DAILY_REWARD_AD_LIMIT}回/日）
+      </div>
+    );
   }
 
   // カスタムトリガー要素がある場合
@@ -112,7 +165,7 @@ export default function RewardVideoAd({
       {adState === 'idle' && (
         <>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
-          {triggerText}
+          {triggerText}（残り{remaining}回）
         </>
       )}
       {adState === 'loading' && (

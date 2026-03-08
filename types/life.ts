@@ -3,7 +3,7 @@
 // ライフ設定定数
 export const LIFE_CONFIG = {
   // 最大ライフ
-  MAX_LIFE: 30,
+  MAX_LIFE: 50,
   // 1ライフ回復にかかる時間（分）
   RECOVERY_INTERVAL_MINUTES: 48,
   // 1問あたりの消費ライフ

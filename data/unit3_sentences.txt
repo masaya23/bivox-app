@@ -432,7 +432,7 @@ EN: Did you receive a letter written in English?
 
 unit3-p11-s6 Tags: 過去分詞で名詞を修飾
 JP: 私は100年前に建てられた家に住んでいます。
-EN: I live in a house built 100 years ago.
+EN: I live in a house built one hundred years ago.
 
 unit3-p11-s7 Tags: 過去分詞で名詞を修飾
 JP: 彼はみんなに愛されている歌手です。
@@ -756,7 +756,7 @@ EN: Is seven o'clock the time when you get up?
 
 unit3-p19-s5 Tags: 関係副詞②・when
 JP: 2018年はあなたがこの町に引っ越した年ですか？
-EN: Was 2018 the year when you moved to this town?
+EN: Was two thousand eighteen the year when you moved to this town?
 
 unit3-p19-s6 Tags: 関係副詞②・when
 JP: 私は私たちが一緒に遊んだ夏を決して忘れません。

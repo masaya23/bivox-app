@@ -15,6 +15,7 @@ import type { Sentence } from '@/types/sentence';
 import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
 import PlayIcon from '@/components/icons/PlayIcon';
 import SpeakerIcon from '@/components/icons/SpeakerIcon';
+import { useInterstitialOnComplete } from '@/hooks/useInterstitialOnComplete';
 
 // ダミーデータ（10問）- unit1-p1のセンテンスを使用（MP3ファイルと対応）
 const DUMMY_SENTENCES: Sentence[] = [
@@ -164,6 +165,9 @@ export default function SpeakingTrainer({
   isTutorialMode = false,
   autoStart = true,
 }: SpeakingTrainerProps) {
+  // レッスン完了時インタースティシャル広告
+  const { showLessonCompleteAd } = useInterstitialOnComplete();
+
   const [sentences, setSentences] = useState<Sentence[]>(
     initialSentences && initialSentences.length > 0 ? initialSentences : DUMMY_SENTENCES
   );
@@ -776,6 +780,8 @@ export default function SpeakingTrainer({
       recordLearningTime(elapsedMinutes);
       recordSession('スピーキング', sentences.length, { gradeId, partLabel });
       startTimeRef.current = null; // リセット
+      // インタースティシャル広告を表示
+      showLessonCompleteAd();
       // チュートリアルモードの場合、onCompleteコールバックを呼び出す
       if (onComplete) {
         onComplete();

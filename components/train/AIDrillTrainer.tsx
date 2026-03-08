@@ -16,6 +16,7 @@ import type { AIDrillSession, AIDrillQuestion, AIDrillPhase } from '@/types/aiDr
 import PlayIcon from '@/components/icons/PlayIcon';
 import SpeakerIcon from '@/components/icons/SpeakerIcon';
 import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
+import { useInterstitialOnComplete } from '@/hooks/useInterstitialOnComplete';
 
 interface AIDrillTrainerProps {
   partSentences: Sentence[];
@@ -153,6 +154,9 @@ export default function AIDrillTrainer({
   partLabel,
   onComplete,
 }: AIDrillTrainerProps) {
+  // レッスン完了時インタースティシャル広告
+  const { showLessonCompleteAd } = useInterstitialOnComplete();
+
   const [session, setSession] = useState<AIDrillSession>({
     totalQuestions: TOTAL_QUESTIONS,
     currentIndex: 0,
@@ -860,6 +864,8 @@ export default function AIDrillTrainer({
       const elapsedMinutes = Math.max(1, Math.ceil((Date.now() - startTimeRef.current) / 60000));
       recordLearningTime(elapsedMinutes);
       recordSession('AI応用ドリル', totalQuestions, { gradeId, partLabel });
+      // インタースティシャル広告を表示
+      showLessonCompleteAd();
       onComplete?.();
     } else {
       setSession(prev => ({ ...prev, currentIndex: nextIndex }));

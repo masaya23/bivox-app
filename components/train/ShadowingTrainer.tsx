@@ -16,6 +16,7 @@ import type { Sentence } from '@/types/sentence';
 import PlayIcon from '@/components/icons/PlayIcon';
 import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
 import { recordSession } from '@/utils/sessionLog';
+import { useInterstitialOnComplete } from '@/hooks/useInterstitialOnComplete';
 
 // ダミーデータ（10問）- unit1-p1のセンテンスを使用（MP3ファイルと対応）
 const DUMMY_SENTENCES: Sentence[] = [
@@ -62,6 +63,9 @@ export default function ShadowingTrainer({
 
   // サブスクリプション（バックグラウンド再生判定用）
   const { isPremium } = useSubscription();
+
+  // レッスン完了時インタースティシャル広告
+  const { showLessonCompleteAd } = useInterstitialOnComplete();
 
   const formatHeaderTitle = (title?: string, currentPartId?: string) => {
     const partMatch = currentPartId?.match(/-p(\d+)/i);
@@ -284,6 +288,8 @@ export default function ShadowingTrainer({
             recordLearningTime(elapsedMinutes);
             recordSession('ベーシック', sentences.length, { gradeId, partLabel });
             startTimeRef.current = null; // リセット
+            // インタースティシャル広告を表示
+            showLessonCompleteAd();
         } else {
           // ライフが0になった場合は次の問題に進まずモーダルを表示
           if (!isUnlimited && remainingLifeAfterConsume <= 0) {

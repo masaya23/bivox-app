@@ -424,11 +424,11 @@ EN: How old are those students? - They are thirteen.
 
 unit1-p11-s4 Tags: How old / tall ～ ?
 JP: あなたのお姉さんは身長何センチですか？ ー155センチです。
-EN: How tall is your sister? - She is 155 centimeters tall.
+EN: How tall is your sister? - She is one hundred fifty-five centimeters tall.
 
 unit1-p11-s5 Tags: How old / tall ～ ?
 JP: マイクは身長何センチですか？ ー180センチです。
-EN: How tall is Mike? - He is 180 centimeters tall.
+EN: How tall is Mike? - He is one hundred eighty centimeters tall.
 
 unit1-p11-s6 Tags: How old / tall ～ ?
 JP: あの木の高さはどれくらいですか？ ー10メートル以上あります。
