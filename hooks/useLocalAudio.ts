@@ -154,15 +154,30 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
           };
           pendingResolveRef.current = safeResolve;
 
-          audio.onended = () => {
+          // 安全タイムアウト: 15秒以内に再生が完了しない場合は強制解決
+          const safetyTimeout = setTimeout(() => {
             if (mountedRef.current) {
               setIsSpeaking(false);
             }
             cleanupAudio();
             safeResolve();
+          }, 15000);
+
+          const safeResolveWithCleanup = () => {
+            clearTimeout(safetyTimeout);
+            safeResolve();
+          };
+
+          audio.onended = () => {
+            if (mountedRef.current) {
+              setIsSpeaking(false);
+            }
+            cleanupAudio();
+            safeResolveWithCleanup();
           };
 
           audio.onerror = async () => {
+            clearTimeout(safetyTimeout);
             if (currentTokenRef.current !== token || audio.src === '') {
               if (mountedRef.current) {
                 setIsSpeaking(false);
@@ -186,6 +201,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
 
           // キャンセルチェック
           if (currentTokenRef.current !== token) {
+            clearTimeout(safetyTimeout);
             if (mountedRef.current) {
               setIsSpeaking(false);
             }
@@ -199,6 +215,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
             if (started) return;
             started = true;
             if (currentTokenRef.current !== token) {
+              clearTimeout(safetyTimeout);
               if (mountedRef.current) {
                 setIsSpeaking(false);
               }
@@ -216,6 +233,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
               await audio.play();
             } catch (err) {
               // 再生失敗時もTTSにフォールバック
+              clearTimeout(safetyTimeout);
               cleanupAudio();
               if (fallbackText) {
                 await speakWithServerTTS(fallbackText, ttsLang);
@@ -232,12 +250,26 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
             startPlayback();
           } else {
             audio.addEventListener('canplaythrough', startPlayback, { once: true });
-            // タイムアウトフォールバック
+            // タイムアウトフォールバック: 読み込み待ち
             setTimeout(() => {
-              if (audio.readyState >= 2 && currentTokenRef.current === token) {
-                startPlayback();
+              if (!started && currentTokenRef.current === token) {
+                if (audio.readyState >= 2) {
+                  startPlayback();
+                } else {
+                  // 音声が全く読み込めない場合はTTSフォールバック
+                  clearTimeout(safetyTimeout);
+                  cleanupAudio();
+                  if (fallbackText) {
+                    speakWithServerTTS(fallbackText, ttsLang).then(safeResolve);
+                  } else {
+                    if (mountedRef.current) {
+                      setIsSpeaking(false);
+                    }
+                    safeResolve();
+                  }
+                }
               }
-            }, 300);
+            }, 3000);
           }
         });
       } catch (error) {

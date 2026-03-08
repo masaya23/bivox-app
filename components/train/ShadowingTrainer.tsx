@@ -648,7 +648,7 @@ export default function ShadowingTrainer({
               {/* ライフインジケーター（タイマーなし） */}
               <LifeIndicator variant="compact" showTimer={false} />
               <button
-                onClick={() => setShowSettings(true)}
+                onClick={() => { cancelPlayback(); setShowSettings(true); }}
                 aria-label="設定"
                 className="w-8 h-8 flex items-center justify-center"
               >
