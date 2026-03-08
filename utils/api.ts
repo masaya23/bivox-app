@@ -155,8 +155,8 @@ export async function apiFetch(
     ...(options.headers as Record<string, string>),
   };
 
-  // タイムアウト設定（30秒）- 既存のsignalがなければ追加
-  const timeoutMs = 30000;
+  // タイムアウト設定（60秒）- コールドスタート+API処理を考慮
+  const timeoutMs = 60000;
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
   let signal = options.signal;
   if (!signal && typeof AbortController !== 'undefined') {

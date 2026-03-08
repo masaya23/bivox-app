@@ -180,6 +180,8 @@ export default function AIDrillTrainer({
   const [recognitionError, setRecognitionError] = useState<string | null>(null);
   const [editableText, setEditableText] = useState('');
   const [isAiLoading, setIsAiLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState<string | null>(null);
+  const [apiRetryFn, setApiRetryFn] = useState<(() => void) | null>(null);
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
   const [historyPage, setHistoryPage] = useState(0);
@@ -653,15 +655,19 @@ export default function AIDrillTrainer({
     setPhaseWithRef('judging');
     setIsAiLoading(true);
     setError(null);
+    setApiRetryFn(null);
     setAiEvaluation(null);
     setSimilarity(null);
 
-    // リトライ付きAPI呼び出し（最大3回）
-    const MAX_RETRIES = 2;
+    // リトライ付きAPI呼び出し（最大6回）
+    const MAX_RETRIES = 5;
     let lastError: Error | null = null;
 
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
       try {
+        if (attempt > 0) {
+          setLoadingMessage(`サーバー接続中...（リトライ ${attempt}/${MAX_RETRIES}）`);
+        }
         const response = await apiFetch('/api/evaluate-speaking', {
           method: 'POST',
           body: JSON.stringify({
@@ -758,38 +764,23 @@ export default function AIDrillTrainer({
 
         setPhaseWithRef('result');
         setIsAiLoading(false);
+        setLoadingMessage(null);
         return; // 成功したらここで終了
       } catch (err) {
         lastError = err instanceof Error ? err : new Error('判定に失敗しました');
         console.error(`判定エラー (試行${attempt + 1}/${MAX_RETRIES + 1}):`, err);
         if (attempt < MAX_RETRIES) {
-          await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+          // リトライ前に待機（コールドスタート回復を待つ）
+          await new Promise(resolve => setTimeout(resolve, 2000));
         }
       }
     }
 
-    // 全リトライ失敗 → フォールバック
-    const fallbackEvaluation: AIEvaluation = {
-      score: 0,
-      isCorrect: false,
-      meaningCorrect: false,
-      grammarCorrect: false,
-      feedback: '通信エラーが発生しました。「やり直す」ボタンで再度お試しください。',
-      correction: currentQuestion.expectedEn,
-      explanation: '',
-      encouragement: '通信状況を確認して、もう一度チャレンジしてみましょう！',
-      grammarRule: `正解は「${currentQuestion.expectedEn}」です。`,
-      mistakeAnalysis: '',
-    };
-    setJudgeResult({
-      isCorrect: false,
-      correctEn: currentQuestion.expectedEn,
-      explanation: fallbackEvaluation.grammarRule || '',
-    });
-    setAiEvaluation(fallbackEvaluation);
-    setSimilarity(null);
-    setPhaseWithRef('result');
+    // 全リトライ失敗 → リトライボタンを表示（フォールバック解説は出さない）
     setIsAiLoading(false);
+    setLoadingMessage(null);
+    const savedAnswer = answer;
+    setApiRetryFn(() => () => judgeAnswer(savedAnswer));
   };
 
   const handleJudge = async () => {
@@ -1855,12 +1846,28 @@ export default function AIDrillTrainer({
           )}
 
           {/* 判定中 */}
-          {phase === 'judging' && (
+          {phase === 'judging' && !apiRetryFn && (
             <div className="bg-white rounded-2xl shadow-lg p-8 mb-4">
               <div className="flex flex-col items-center justify-center">
                 <div className="w-16 h-16 border-4 border-purple-200 border-t-purple-500 rounded-full animate-spin mb-4"></div>
-                <p className="text-lg font-bold text-gray-700">判定中...</p>
-                <p className="text-sm text-gray-500 mt-2">AIがあなたの回答を評価しています</p>
+                <p className="text-lg font-bold text-gray-700">{loadingMessage || '判定中...'}</p>
+                <p className="text-sm text-gray-500 mt-2">{loadingMessage ? 'しばらくお待ちください' : 'AIがあなたの回答を評価しています'}</p>
+              </div>
+            </div>
+          )}
+
+          {/* 通信エラー時のリトライボタン */}
+          {phase === 'judging' && apiRetryFn && !isAiLoading && (
+            <div className="bg-white rounded-2xl shadow-lg p-8 mb-4">
+              <div className="flex flex-col items-center justify-center">
+                <p className="text-lg font-bold text-red-600 mb-2">通信エラー</p>
+                <p className="text-sm text-gray-500 mb-4">サーバーに接続できませんでした</p>
+                <button
+                  onClick={() => { const fn = apiRetryFn; setApiRetryFn(null); fn(); }}
+                  className="px-6 py-3 bg-purple-500 text-white rounded-xl font-bold text-lg shadow-md hover:bg-purple-600 active:bg-purple-700 transition-colors"
+                >
+                  再試行
+                </button>
               </div>
             </div>
           )}

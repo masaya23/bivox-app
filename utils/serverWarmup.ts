@@ -11,11 +11,21 @@ export async function warmupServer(): Promise<void> {
   if (isWarmedUp) return;
 
   const url = getApiUrl('/api/health');
-  try {
-    await fetch(url, { method: 'GET' });
-    isWarmedUp = true;
-  } catch {
-    // サーバーが起動中の場合は失敗するが、リクエスト自体がサーバーを起こすトリガーになる
+  // 成功するまで最大5回リトライ（コールドスタート対策）
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+      await fetch(url, { method: 'GET', signal: controller.signal });
+      clearTimeout(timeoutId);
+      isWarmedUp = true;
+      return;
+    } catch {
+      // リトライ前に待機（最初のリクエストでサーバーが起動を開始する）
+      if (attempt < 4) {
+        await new Promise(resolve => setTimeout(resolve, 3000));
+      }
+    }
   }
 }
 

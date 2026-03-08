@@ -40,7 +40,9 @@ MULTI-SENTENCE HANDLING:
   2) Only add alternatives IF they are natural AND same/lower grammar complexity.
   3) Do NOT add unnatural expressions just to fill the array.
   4) 1 item is fine if no good alternatives exist.
+  5) Punctuation-only differences (dash, comma, spacing) are NOT valid alternatives.
   ❌ Bad: ["I am a student.", "I study as a student."]
+  ❌ Bad: ["How are you? - I'm fine.", "How are you? I'm fine."] (only dash difference)
   ⭕ Good: ["I am a student."] or ["I am a student.", "I'm a student."]
 - Use simple Japanese.
 - Keep each field concise but educational (like a professional learning app).`;
@@ -258,10 +260,14 @@ IMPORTANT - Multiple Model Answers (STRICT QUALITY RULES):
   - Only add 2nd/3rd alternatives IF ALL conditions are met:
     a) The expression is commonly used by native speakers
     b) It does NOT deviate from the original Japanese meaning
-    c) It uses clearly different structure/words (not just contractions)
+    c) It uses clearly different structure/words (not just contractions or punctuation)
   - If no good alternatives exist, return ONLY 1 answer. Do NOT pad with unnatural phrases.
-  - ❌ Bad: ["I am a student.", "I study as a student."] (unnatural padding)
+  - Punctuation-only differences are NOT valid alternatives:
+    ❌ Bad: ["How are you? - I'm fine.", "How are you? I'm fine."] (only dash difference)
+    ❌ Bad: ["I am a student.", "I study as a student."] (unnatural padding)
+    ❌ Bad: ["Yes, I do.", "Yes I do."] (only comma difference)
   - ⭕ Good: ["I am a student."] (single answer is fine)
+  - ⭕ Good: ["I have five pens.", "I've got five pens."] (genuinely different expression)
 
   RULE 2 - Complexity Ceiling (Grammar Level Limit):
   - Use the provided reference answer as the GRAMMAR COMPLEXITY CEILING.
@@ -354,6 +360,29 @@ ${graderPromptBody}`;
 };
 
 // 静的な部分（partTitle不要時用）
+/**
+ * 句読点・ダッシュ・スペースのみの違いしかない回答例を重複排除
+ * AIが「How are you? - I'm fine.」と「How are you? I'm fine.」のように
+ * 実質同じ回答を複数返すケースを防ぐ
+ */
+function deduplicateModelAnswers(answers: string[]): string[] {
+  if (!answers || answers.length <= 1) return answers;
+
+  const normalize = (s: string) =>
+    s.toLowerCase().replace(/[\s\-–—,;:.!?'"]/g, '').trim();
+
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const answer of answers) {
+    const key = normalize(answer);
+    if (!seen.has(key)) {
+      seen.add(key);
+      result.push(answer);
+    }
+  }
+  return result;
+}
+
 const graderSystemPromptStatic = `You are a Japanese tutor for English learners (A1–B1).
 Write explanations like a professional language learning app.
 
@@ -524,8 +553,8 @@ Explain why the bestAnswer is correct for this JP sentence.`,
             grammarCorrect: false,
             correction: explanation.bestAnswer || correctAnswer,
             correctedUserAnswer: '',
-            modelAnswers: explanation.alsoAcceptable || [correctAnswer],
-            naturalExpressions: explanation.alsoAcceptable || [correctAnswer],
+            modelAnswers: deduplicateModelAnswers(explanation.alsoAcceptable || [correctAnswer]),
+            naturalExpressions: deduplicateModelAnswers(explanation.alsoAcceptable || [correctAnswer]),
             // 未回答専用フィールド
             patternJa: explanation.patternJa || '',
             breakdownJa: explanation.breakdownJa || '',
@@ -671,11 +700,13 @@ Evaluate the learner's answer. Replace {LEARNER_ANSWER} with "${userAnswer}" and
         correctedUserAnswer: graderResult.correctedUserAnswer || '',
         explanation: '',
         encouragement: graderResult.encouragement || '',
-        // 複数の回答例（modelAnswersを優先、なければbestAnswerを含む配列）
-        modelAnswers: graderResult.modelAnswers && graderResult.modelAnswers.length > 0
-          ? graderResult.modelAnswers
-          : [graderResult.bestAnswer || correctAnswer],
-        naturalExpressions: graderResult.modelAnswers || [correctAnswer],
+        // 複数の回答例（句読点のみの違いは重複排除）
+        modelAnswers: deduplicateModelAnswers(
+          graderResult.modelAnswers && graderResult.modelAnswers.length > 0
+            ? graderResult.modelAnswers
+            : [graderResult.bestAnswer || correctAnswer]
+        ),
+        naturalExpressions: deduplicateModelAnswers(graderResult.modelAnswers || [correctAnswer]),
         grammarRule: graderResult.ruleJa || '',
         nuanceDifference: graderResult.nuanceJa || '',
         mistakeAnalysis: graderResult.mistakePointJa || '',

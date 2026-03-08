@@ -182,6 +182,8 @@ export default function SpeakingTrainer({
   // AI評価
   const [aiEvaluation, setAiEvaluation] = useState<AIEvaluation | null>(null);
   const [isAiLoading, setIsAiLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState<string | null>(null);
+  const [apiRetryFn, setApiRetryFn] = useState<(() => void) | null>(null);
 
   // 回答例のナビゲーション
   const [answerExampleIndex, setAnswerExampleIndex] = useState(0);
@@ -417,23 +419,15 @@ export default function SpeakingTrainer({
       setIsAiLoading(true);
       setHasJudged(true);
       setEditableText('（未回答）');
+      setApiRetryFn(null);
 
-      let evaluation: AIEvaluation = {
-        score: 0,
-        isCorrect: false,
-        meaningCorrect: false,
-        grammarCorrect: false,
-        feedback: '回答がありませんでした。正解を確認して、声に出して練習してみましょう！',
-        correction: currentSentence.en,
-        explanation: '',
-        encouragement: '次は声に出してチャレンジしてみましょう！',
-        grammarRule: '',
-        mistakeAnalysis: '',
-      };
-
-      // リトライ付きAPI呼び出し（最大3回）
-      for (let attempt = 0; attempt <= 2; attempt++) {
+      // リトライ付きAPI呼び出し（最大6回）
+      const MAX_NS_RETRIES = 5;
+      for (let attempt = 0; attempt <= MAX_NS_RETRIES; attempt++) {
         try {
+          if (attempt > 0) {
+            setLoadingMessage(`サーバー接続中...（リトライ ${attempt}/${MAX_NS_RETRIES}）`);
+          }
           const response = await apiFetch('/api/evaluate-speaking', {
             method: 'POST',
             body: JSON.stringify({
@@ -449,47 +443,51 @@ export default function SpeakingTrainer({
             throw new Error(data.error || 'AI評価に失敗しました');
           }
 
-          evaluation = data.evaluation;
-          break; // 成功したらループを抜ける
+          const evaluation = data.evaluation;
+          setLoadingMessage(null);
+          setAiEvaluation(evaluation);
+          setSimilarity(0);
+
+          // 無音（未回答）も結果として保存
+          setQuestionResults((prev) => {
+            if (prev.length > currentIndex) {
+              const updated = [...prev];
+              updated[currentIndex] = {
+                ...updated[currentIndex],
+                finalStatus: 'incorrect',
+                finalUserAnswer: '（未回答）',
+                finalAiEvaluation: evaluation,
+                isNoSpeech: true,
+              };
+              return updated;
+            }
+            const currentResult: QuestionResult = {
+              sentence: currentSentence,
+              userAnswer: '（未回答）',
+              aiEvaluation: evaluation,
+              initialStatus: 'incorrect',
+              finalStatus: 'incorrect',
+              finalUserAnswer: '（未回答）',
+              finalAiEvaluation: evaluation,
+              isNoSpeech: true,
+            };
+            return [...prev, currentResult];
+          });
+
+          setIsAiLoading(false);
+          return; // 成功
         } catch (err) {
-          console.error(`未回答評価エラー (試行${attempt + 1}/3):`, err);
-          if (attempt < 2) {
-            await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+          console.error(`未回答評価エラー (試行${attempt + 1}/${MAX_NS_RETRIES + 1}):`, err);
+          if (attempt < MAX_NS_RETRIES) {
+            await new Promise(resolve => setTimeout(resolve, 2000));
           }
-          // fallback already set
         }
       }
 
-      setAiEvaluation(evaluation);
-      setSimilarity(0);
-
-      // 無音（未回答）も結果として保存
-      setQuestionResults((prev) => {
-        if (prev.length > currentIndex) {
-          const updated = [...prev];
-          updated[currentIndex] = {
-            ...updated[currentIndex],
-            finalStatus: 'incorrect',
-            finalUserAnswer: '（未回答）',
-            finalAiEvaluation: evaluation,
-            isNoSpeech: true,
-          };
-          return updated;
-        }
-        const currentResult: QuestionResult = {
-          sentence: currentSentence,
-          userAnswer: '（未回答）',
-          aiEvaluation: evaluation,
-          initialStatus: 'incorrect',
-          finalStatus: 'incorrect',
-          finalUserAnswer: '（未回答）',
-          finalAiEvaluation: evaluation,
-          isNoSpeech: true,
-        };
-        return [...prev, currentResult];
-      });
-
+      // 全リトライ失敗 → リトライボタンを表示
       setIsAiLoading(false);
+      setLoadingMessage(null);
+      setApiRetryFn(() => () => getNoSpeechEvaluation());
     };
 
     getNoSpeechEvaluation();
@@ -531,13 +529,17 @@ export default function SpeakingTrainer({
     setIsListening(false);
     setIsAiLoading(true);
     setHasJudged(true);
+    setApiRetryFn(null);
 
-    // リトライ付きAPI呼び出し（最大3回）
-    const MAX_RETRIES = 2;
+    // リトライ付きAPI呼び出し（最大6回）
+    const MAX_RETRIES = 5;
     let lastError: Error | null = null;
 
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
       try {
+        if (attempt > 0) {
+          setLoadingMessage(`サーバー接続中...（リトライ ${attempt}/${MAX_RETRIES}）`);
+        }
         const response = await apiFetch('/api/evaluate-speaking', {
           method: 'POST',
           body: JSON.stringify({
@@ -587,58 +589,22 @@ export default function SpeakingTrainer({
         });
 
         setIsAiLoading(false);
+        setLoadingMessage(null);
         return; // 成功したらここで終了
       } catch (error) {
         lastError = error instanceof Error ? error : new Error('AI評価に失敗しました');
         console.error(`AI評価エラー (試行${attempt + 1}/${MAX_RETRIES + 1}):`, error);
         if (attempt < MAX_RETRIES) {
-          // リトライ前に少し待つ
-          await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+          // リトライ前に待機（コールドスタート回復を待つ）
+          await new Promise(resolve => setTimeout(resolve, 2000));
         }
       }
     }
 
-    // 全リトライ失敗 → フォールバック解説を生成
-    const fallbackEvaluation: AIEvaluation = {
-      score: 0,
-      isCorrect: false,
-      meaningCorrect: false,
-      grammarCorrect: false,
-      feedback: '通信エラーが発生しました。「やり直す」ボタンで再度お試しください。',
-      correction: currentSentence.en,
-      explanation: '',
-      encouragement: '通信状況を確認して、もう一度チャレンジしてみましょう！',
-      grammarRule: `正解は「${currentSentence.en}」です。`,
-      mistakeAnalysis: '',
-    };
-    setAiEvaluation(fallbackEvaluation);
-    setSimilarity(null);
-
-    // エラー時も結果として記録（やり直し可能にする）
-    setQuestionResults((prev) => {
-      if (prev.length > currentIndex) {
-        const updated = [...prev];
-        updated[currentIndex] = {
-          ...updated[currentIndex],
-          finalStatus: 'incorrect',
-          finalUserAnswer: editableText,
-          finalAiEvaluation: fallbackEvaluation,
-        };
-        return updated;
-      }
-      return [...prev, {
-        sentence: currentSentence,
-        userAnswer: editableText,
-        aiEvaluation: fallbackEvaluation,
-        initialStatus: 'incorrect' as const,
-        finalStatus: 'incorrect' as const,
-        finalUserAnswer: editableText,
-        finalAiEvaluation: fallbackEvaluation,
-        isNoSpeech: false,
-      }];
-    });
-
+    // 全リトライ失敗 → リトライボタンを表示（フォールバック解説は出さない）
     setIsAiLoading(false);
+    setLoadingMessage(null);
+    setApiRetryFn(() => () => handleJudge());
   };
 
   const handleRetry = () => {
@@ -1734,14 +1700,30 @@ export default function SpeakingTrainer({
           <div className="bg-white rounded-2xl shadow-lg p-8 mb-4">
             <div className="flex flex-col items-center justify-center">
               <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin mb-4"></div>
-              <p className="text-lg font-bold text-gray-700">判定中...</p>
-              <p className="text-sm text-gray-500 mt-2">AIがあなたの回答を評価しています</p>
+              <p className="text-lg font-bold text-gray-700">{loadingMessage || '判定中...'}</p>
+              <p className="text-sm text-gray-500 mt-2">{loadingMessage ? 'しばらくお待ちください' : 'AIがあなたの回答を評価しています'}</p>
+            </div>
+          </div>
+        )}
+
+        {/* 通信エラー時のリトライボタン */}
+        {apiRetryFn && !isAiLoading && (
+          <div className="bg-white rounded-2xl shadow-lg p-8 mb-4">
+            <div className="flex flex-col items-center justify-center">
+              <p className="text-lg font-bold text-red-600 mb-2">通信エラー</p>
+              <p className="text-sm text-gray-500 mb-4">サーバーに接続できませんでした</p>
+              <button
+                onClick={() => { const fn = apiRetryFn; setApiRetryFn(null); fn(); }}
+                className="px-6 py-3 bg-blue-500 text-white rounded-xl font-bold text-lg shadow-md hover:bg-blue-600 active:bg-blue-700 transition-colors"
+              >
+                再試行
+              </button>
             </div>
           </div>
         )}
 
         {/* 判定結果 */}
-        {hasJudged && aiEvaluation && !isAiLoading && (
+        {hasJudged && aiEvaluation && !isAiLoading && !apiRetryFn && (
           <>
             {/* 回答例カルーセル */}
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg p-4 mb-3 border border-blue-100">
