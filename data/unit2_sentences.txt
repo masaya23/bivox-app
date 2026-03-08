@@ -702,7 +702,7 @@ JP: あなたは毎日走ることが好きですか？
 EN: Do you like running every day?
 
 unit2-p18-s2 Tags: 動名詞（～ing形）
-JP: 彼女は映画を見るのを楽しみますか？
+JP: 彼女は映画鑑賞を楽しみますか？
 EN: Does she enjoy watching movies?
 
 unit2-p18-s3 Tags: 動名詞（～ing形）
@@ -718,7 +718,7 @@ JP: 彼は日本語を勉強するのをやめました。
 EN: He stopped studying Japanese.
 
 unit2-p18-s6 Tags: 動名詞（～ing形）
-JP: 雨が降りやみました。
+JP: 雨がやみました。
 EN: It stopped raining.
 
 unit2-p18-s7 Tags: 動名詞（～ing形）
