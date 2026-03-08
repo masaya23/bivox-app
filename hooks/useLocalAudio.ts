@@ -17,17 +17,32 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
   const currentTokenRef = useRef<number | null>(null);
   const pendingResolveRef = useRef<(() => void) | null>(null);
   const mountedRef = useRef(true);
+  const safetyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const loadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     mountedRef.current = true;
     return () => {
       mountedRef.current = false;
-      // クリーンアップ
+      // クリーンアップ: タイムアウトとオーディオを全て解放
+      if (safetyTimeoutRef.current) clearTimeout(safetyTimeoutRef.current);
+      if (loadTimeoutRef.current) clearTimeout(loadTimeoutRef.current);
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
     };
+  }, []);
+
+  const clearPendingTimeouts = useCallback(() => {
+    if (safetyTimeoutRef.current) {
+      clearTimeout(safetyTimeoutRef.current);
+      safetyTimeoutRef.current = null;
+    }
+    if (loadTimeoutRef.current) {
+      clearTimeout(loadTimeoutRef.current);
+      loadTimeoutRef.current = null;
+    }
   }, []);
 
   const cleanupAudio = useCallback(() => {
@@ -111,6 +126,9 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
       const token = playToken ?? Date.now();
       currentTokenRef.current = token;
 
+      // 前回のタイムアウトをクリア（古いタイムアウトが新しい音声を殺すのを防止）
+      clearPendingTimeouts();
+
       if (pendingResolveRef.current) {
         pendingResolveRef.current();
         pendingResolveRef.current = null;
@@ -155,7 +173,10 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
           pendingResolveRef.current = safeResolve;
 
           // 安全タイムアウト: 15秒以内に再生が完了しない場合は強制解決
-          const safetyTimeout = setTimeout(() => {
+          safetyTimeoutRef.current = setTimeout(() => {
+            // トークンが変わっていたら別の再生が開始されているので何もしない
+            if (currentTokenRef.current !== token) return;
+            safetyTimeoutRef.current = null;
             if (mountedRef.current) {
               setIsSpeaking(false);
             }
@@ -164,7 +185,10 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
           }, 15000);
 
           const safeResolveWithCleanup = () => {
-            clearTimeout(safetyTimeout);
+            if (safetyTimeoutRef.current) {
+              clearTimeout(safetyTimeoutRef.current);
+              safetyTimeoutRef.current = null;
+            }
             safeResolve();
           };
 
@@ -177,13 +201,12 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
           };
 
           audio.onerror = async () => {
-            clearTimeout(safetyTimeout);
             if (currentTokenRef.current !== token || audio.src === '') {
               if (mountedRef.current) {
                 setIsSpeaking(false);
               }
               cleanupAudio();
-              safeResolve();
+              safeResolveWithCleanup();
               return;
             }
 
@@ -196,17 +219,16 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
                 setIsSpeaking(false);
               }
             }
-            safeResolve();
+            safeResolveWithCleanup();
           };
 
           // キャンセルチェック
           if (currentTokenRef.current !== token) {
-            clearTimeout(safetyTimeout);
             if (mountedRef.current) {
               setIsSpeaking(false);
             }
             cleanupAudio();
-            safeResolve();
+            safeResolveWithCleanup();
             return;
           }
 
@@ -215,12 +237,11 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
             if (started) return;
             started = true;
             if (currentTokenRef.current !== token) {
-              clearTimeout(safetyTimeout);
               if (mountedRef.current) {
                 setIsSpeaking(false);
               }
               cleanupAudio();
-              safeResolve();
+              safeResolveWithCleanup();
               return;
             }
 
@@ -233,7 +254,6 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
               await audio.play();
             } catch (err) {
               // 再生失敗時もTTSにフォールバック
-              clearTimeout(safetyTimeout);
               cleanupAudio();
               if (fallbackText) {
                 await speakWithServerTTS(fallbackText, ttsLang);
@@ -242,7 +262,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
                   setIsSpeaking(false);
                 }
               }
-              safeResolve();
+              safeResolveWithCleanup();
             }
           };
 
@@ -251,21 +271,21 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
           } else {
             audio.addEventListener('canplaythrough', startPlayback, { once: true });
             // タイムアウトフォールバック: 読み込み待ち
-            setTimeout(() => {
+            loadTimeoutRef.current = setTimeout(() => {
+              loadTimeoutRef.current = null;
               if (!started && currentTokenRef.current === token) {
                 if (audio.readyState >= 2) {
                   startPlayback();
                 } else {
                   // 音声が全く読み込めない場合はTTSフォールバック
-                  clearTimeout(safetyTimeout);
                   cleanupAudio();
                   if (fallbackText) {
-                    speakWithServerTTS(fallbackText, ttsLang).then(safeResolve);
+                    speakWithServerTTS(fallbackText, ttsLang).then(() => safeResolveWithCleanup());
                   } else {
                     if (mountedRef.current) {
                       setIsSpeaking(false);
                     }
-                    safeResolve();
+                    safeResolveWithCleanup();
                   }
                 }
               }
@@ -284,7 +304,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
         }
       }
     },
-    [lang, cleanupAudio, speakWithServerTTS]
+    [lang, cleanupAudio, clearPendingTimeouts, speakWithServerTTS]
   );
 
   /**
@@ -303,6 +323,8 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
 
   const stop = useCallback(() => {
     currentTokenRef.current = null;
+    // 全てのタイムアウトをクリア（古いタイムアウトが新しい音声を殺すのを防止）
+    clearPendingTimeouts();
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       window.speechSynthesis.cancel();
     }
@@ -314,7 +336,7 @@ export function useLocalAudio(options: LocalAudioOptions = {}) {
     if (mountedRef.current) {
       setIsSpeaking(false);
     }
-  }, [cleanupAudio]);
+  }, [cleanupAudio, clearPendingTimeouts]);
 
   return {
     speak,
