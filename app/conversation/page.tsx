@@ -454,7 +454,7 @@ export default function ConversationPage() {
           <button
             onClick={isRecording ? stopRecording : startRecording}
             disabled={isProcessing || isTranscribing || editingMessageId !== null}
-            className={`w-16 h-16 rounded-full font-bold text-white text-xl transition-all transform flex items-center justify-center ${
+            className={`w-16 h-16 mx-auto rounded-full font-bold text-white text-xl transition-all transform flex items-center justify-center ${
               isRecording
                 ? 'bg-red-500 animate-pulse scale-110'
                 : 'bg-gradient-to-r from-green-500 to-blue-500 hover:scale-105'
