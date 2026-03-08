@@ -40,10 +40,12 @@ MULTI-SENTENCE HANDLING:
   2) Only add alternatives IF they are natural AND same/lower grammar complexity.
   3) Do NOT add unnatural expressions just to fill the array.
   4) 1 item is fine if no good alternatives exist.
-  5) Punctuation-only differences (dash, comma, spacing) are NOT valid alternatives.
-  ❌ Bad: ["I am a student.", "I study as a student."]
+  5) Punctuation-only or contraction-only differences are NOT valid alternatives.
+  ❌ Bad: ["I am a student.", "I'm a student."] (only contraction difference)
+  ❌ Bad: ["I am a student.", "I study as a student."] (unnatural)
   ❌ Bad: ["How are you? - I'm fine.", "How are you? I'm fine."] (only dash difference)
-  ⭕ Good: ["I am a student."] or ["I am a student.", "I'm a student."]
+  ⭕ Good: ["I am a student."] (single answer is fine)
+  ⭕ Good: ["I have five pens.", "I've got five pens."] (genuinely different expression)
 - Use simple Japanese.
 - Keep each field concise but educational (like a professional learning app).`;
 
@@ -262,6 +264,9 @@ IMPORTANT - Multiple Model Answers (STRICT QUALITY RULES):
     b) It does NOT deviate from the original Japanese meaning
     c) It uses clearly different structure/words (not just contractions or punctuation)
   - If no good alternatives exist, return ONLY 1 answer. Do NOT pad with unnatural phrases.
+  - Contraction-only differences are NOT valid alternatives:
+    ❌ Bad: ["I am a student.", "I'm a student."] (only contraction difference)
+    ❌ Bad: ["She is happy.", "She's happy."] (only contraction difference)
   - Punctuation-only differences are NOT valid alternatives:
     ❌ Bad: ["How are you? - I'm fine.", "How are you? I'm fine."] (only dash difference)
     ❌ Bad: ["I am a student.", "I study as a student."] (unnatural padding)
@@ -361,15 +366,34 @@ ${graderPromptBody}`;
 
 // 静的な部分（partTitle不要時用）
 /**
- * 句読点・ダッシュ・スペースのみの違いしかない回答例を重複排除
- * AIが「How are you? - I'm fine.」と「How are you? I'm fine.」のように
- * 実質同じ回答を複数返すケースを防ぐ
+ * 句読点・ダッシュ・短縮形のみの違いしかない回答例を重複排除
+ * 例: "I'm a student." と "I am a student." → 1つだけ残す
+ * 例: "How are you? - I'm fine." と "How are you? I'm fine." → 1つだけ残す
  */
 function deduplicateModelAnswers(answers: string[]): string[] {
   if (!answers || answers.length <= 1) return answers;
 
+  const expandContractions = (s: string) => {
+    let t = s;
+    t = t.replace(/\bwon't\b/gi, 'will not');
+    t = t.replace(/\bcan't\b/gi, 'can not');
+    t = t.replace(/\bshan't\b/gi, 'shall not');
+    t = t.replace(/\blet's\b/gi, 'let us');
+    t = t.replace(/n't\b/gi, ' not');
+    t = t.replace(/'re\b/gi, ' are');
+    t = t.replace(/'ve\b/gi, ' have');
+    t = t.replace(/'ll\b/gi, ' will');
+    t = t.replace(/'m\b/gi, ' am');
+    t = t.replace(/'d\b/gi, ' would');
+    t = t.replace(/'s\b/gi, ' is');
+    return t;
+  };
+
   const normalize = (s: string) =>
-    s.toLowerCase().replace(/[\s\-–—,;:.!?'"]/g, '').trim();
+    expandContractions(s)
+      .toLowerCase()
+      .replace(/[\s\-–—,;:.!?'"]/g, '')
+      .trim();
 
   const seen = new Set<string>();
   const result: string[] = [];
