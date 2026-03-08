@@ -597,7 +597,7 @@ export default function ShadowingTrainer({
                         }}
                         disabled={isPlayingEnglish}
                         aria-label="英語音声を再生"
-                        className="w-7 h-7 bg-green-100 text-green-600 rounded-full flex items-center justify-center hover:bg-green-200 disabled:opacity-50 text-xs transition-all"
+                        className="w-7 h-7 min-w-[1.75rem] min-h-[1.75rem] flex-shrink-0 bg-green-100 text-green-600 rounded-full flex items-center justify-center hover:bg-green-200 disabled:opacity-50 text-xs transition-all"
                       >
                         <PlayIcon />
                       </button>

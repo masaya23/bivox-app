@@ -652,7 +652,7 @@ JP: これらは私のノートではありません。
 EN: These are not my notebooks.
 
 unit1-p16-s10 Tags: these / those
-JP: あれらは何ですか？ ーあのかばんたちです。
+JP: あれらは何ですか？ ーあれらはカバンです。
 EN: What are those? - Those are bags.
 
 ## Part 17: 不定詞①（名詞的用法）

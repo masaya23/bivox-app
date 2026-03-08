@@ -1092,7 +1092,7 @@ export default function SpeakingTrainer({
                         <button
                           onClick={() => { stopEnglish(); speakEnglish(currentReviewQuestion.sentence.id, 'en', undefined, correctAnswer).catch(() => {}); }}
                           disabled={isPlayingEnglish}
-                          className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 disabled:opacity-50 transition-all"
+                          className="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] flex-shrink-0 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 disabled:opacity-50 transition-all"
                         >
                           <PlayIcon />
                         </button>
@@ -1362,7 +1362,7 @@ export default function SpeakingTrainer({
                                         speakEnglish(result.sentence.id, 'en', undefined, result.userAnswer).catch(() => {});
                                       }}
                                       disabled={isPlayingEnglish}
-                                      className="w-7 h-7 bg-orange-200 text-orange-600 rounded-full flex items-center justify-center hover:bg-orange-300 disabled:opacity-50 text-xs"
+                                      className="w-7 h-7 min-w-[1.75rem] min-h-[1.75rem] flex-shrink-0 bg-orange-200 text-orange-600 rounded-full flex items-center justify-center hover:bg-orange-300 disabled:opacity-50 text-xs"
                                     >
                                       <PlayIcon />
                                     </button>
@@ -1386,7 +1386,7 @@ export default function SpeakingTrainer({
                                       speakEnglish(result.sentence.id, 'en', undefined, displayAnswer).catch(() => {});
                                     }}
                                     disabled={isPlayingEnglish}
-                                    className="w-7 h-7 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 disabled:opacity-50 text-xs"
+                                    className="w-7 h-7 min-w-[1.75rem] min-h-[1.75rem] flex-shrink-0 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 disabled:opacity-50 text-xs"
                                   >
                                     <PlayIcon />
                                   </button>
@@ -1424,7 +1424,7 @@ export default function SpeakingTrainer({
                                     speakEnglish(result.sentence.id, 'en', undefined, textToSpeak).catch(() => {});
                                   }}
                                   disabled={isPlayingEnglish}
-                                  className="w-7 h-7 bg-green-100 text-green-600 rounded-full flex items-center justify-center hover:bg-green-200 disabled:opacity-50 text-xs"
+                                  className="w-7 h-7 min-w-[1.75rem] min-h-[1.75rem] flex-shrink-0 bg-green-100 text-green-600 rounded-full flex items-center justify-center hover:bg-green-200 disabled:opacity-50 text-xs"
                                 >
                                   <PlayIcon />
                                 </button>
