@@ -40,11 +40,11 @@ MULTI-SENTENCE HANDLING:
   2) Only add alternatives IF they are natural AND same/lower grammar complexity.
   3) Do NOT add unnatural expressions just to fill the array.
   4) 1 item is fine if no good alternatives exist.
-  5) Punctuation-only or contraction-only differences are NOT valid alternatives.
-  ❌ Bad: ["I am a student.", "I'm a student."] (only contraction difference)
-  ❌ Bad: ["I am a student.", "I study as a student."] (unnatural)
+  5) If you include a contraction variant, you MUST also include a genuinely different expression.
+  ❌ Bad: ["I am a student.", "I'm a student."] (ONLY contraction, no different expression)
   ❌ Bad: ["How are you? - I'm fine.", "How are you? I'm fine."] (only dash difference)
   ⭕ Good: ["I am a student."] (single answer is fine)
+  ⭕ Good: ["I am a student.", "I'm a student.", "I'm a pupil."] (contraction + different expression)
   ⭕ Good: ["I have five pens.", "I've got five pens."] (genuinely different expression)
 - Use simple Japanese.
 - Keep each field concise but educational (like a professional learning app).`;
@@ -255,24 +255,28 @@ like "Are you a student?" "Yes, I am."), follow these rules:
 6. modelAnswers: Include the full multi-sentence answer as one string.
 
 IMPORTANT - Multiple Model Answers (STRICT QUALITY RULES):
-- modelAnswers: Generate 1-3 natural ways to express the same meaning.
-  The array length is VARIABLE (1 to 3) - do NOT force multiple answers.
+- modelAnswers: Generate model answer variations. Each entry must use DIFFERENT vocabulary or structure.
+
+  RULE 0 - Mandatory Structure:
+  - The FIRST entry is always the basic form (基本形) = the reference answer.
+  - If you include a contraction variant (e.g. "I'm" for "I am"), you MUST ALSO include
+    a genuinely different expression as an additional entry. Never show ONLY basic + contraction.
+  - Examples:
+    ⭕ Good: ["I am a student.", "I'm a student.", "I'm a pupil."] (basic + contraction + different expression)
+    ⭕ Good: ["I am a student."] (single answer - no contraction variant, no different expression needed)
+    ⭕ Good: ["I have five pens.", "I've got five pens."] (genuinely different expression)
+    ❌ Bad: ["I am a student.", "I'm a student."] (ONLY contraction difference, no different expression)
 
   RULE 1 - Quality over Quantity:
-  - Only add 2nd/3rd alternatives IF ALL conditions are met:
+  - Only add alternatives IF ALL conditions are met:
     a) The expression is commonly used by native speakers
     b) It does NOT deviate from the original Japanese meaning
-    c) It uses clearly different structure/words (not just contractions or punctuation)
-  - If no good alternatives exist, return ONLY 1 answer. Do NOT pad with unnatural phrases.
-  - Contraction-only differences are NOT valid alternatives:
-    ❌ Bad: ["I am a student.", "I'm a student."] (only contraction difference)
-    ❌ Bad: ["She is happy.", "She's happy."] (only contraction difference)
+    c) At least one alternative uses different vocabulary or structure (not just contraction/punctuation)
   - Punctuation-only differences are NOT valid alternatives:
     ❌ Bad: ["How are you? - I'm fine.", "How are you? I'm fine."] (only dash difference)
-    ❌ Bad: ["I am a student.", "I study as a student."] (unnatural padding)
     ❌ Bad: ["Yes, I do.", "Yes I do."] (only comma difference)
-  - ⭕ Good: ["I am a student."] (single answer is fine)
-  - ⭕ Good: ["I have five pens.", "I've got five pens."] (genuinely different expression)
+  - If no genuinely different expression exists, return ONLY 1 answer (the basic form).
+    Do NOT add a contraction-only variant without also adding a different expression.
 
   RULE 2 - Complexity Ceiling (Grammar Level Limit):
   - Use the provided reference answer as the GRAMMAR COMPLEXITY CEILING.
@@ -366,9 +370,10 @@ ${graderPromptBody}`;
 
 // 静的な部分（partTitle不要時用）
 /**
- * 句読点・ダッシュ・短縮形のみの違いしかない回答例を重複排除
- * 例: "I'm a student." と "I am a student." → 1つだけ残す
- * 例: "How are you? - I'm fine." と "How are you? I'm fine." → 1つだけ残す
+ * 回答例を整理:
+ * 1. 句読点のみの違い（ダッシュ有無等）は重複排除
+ * 2. 短縮形ペアのみで異なる表現がない場合 → 1つ目だけ残す
+ *    （短縮形ペア + 異なる表現がある場合はそのまま全て残す）
  */
 function deduplicateModelAnswers(answers: string[]): string[] {
   if (!answers || answers.length <= 1) return answers;
@@ -389,22 +394,41 @@ function deduplicateModelAnswers(answers: string[]): string[] {
     return t;
   };
 
-  const normalize = (s: string) =>
+  // 句読点のみの正規化（短縮形は展開しない）
+  const normalizePunctuation = (s: string) =>
+    s.toLowerCase().replace(/[\s\-–—,;:.!?'"]/g, '').trim();
+
+  // 短縮形も展開した完全正規化
+  const normalizeFull = (s: string) =>
     expandContractions(s)
       .toLowerCase()
       .replace(/[\s\-–—,;:.!?'"]/g, '')
       .trim();
 
-  const seen = new Set<string>();
-  const result: string[] = [];
+  // Step 1: 句読点のみの重複を排除
+  const seenPunct = new Set<string>();
+  const punctDeduped: string[] = [];
   for (const answer of answers) {
-    const key = normalize(answer);
-    if (!seen.has(key)) {
-      seen.add(key);
-      result.push(answer);
+    const key = normalizePunctuation(answer);
+    if (!seenPunct.has(key)) {
+      seenPunct.add(key);
+      punctDeduped.push(answer);
     }
   }
-  return result;
+
+  if (punctDeduped.length <= 1) return punctDeduped;
+
+  // Step 2: 短縮形ペアのみかチェック
+  const fullKeys = punctDeduped.map(a => normalizeFull(a));
+  const uniqueFullKeys = new Set(fullKeys);
+
+  if (uniqueFullKeys.size === 1) {
+    // 全て短縮形の違いだけ → 1つ目だけ残す
+    return [punctDeduped[0]];
+  }
+
+  // 異なる表現が含まれている → 全て残す
+  return punctDeduped;
 }
 
 const graderSystemPromptStatic = `You are a Japanese tutor for English learners (A1–B1).
