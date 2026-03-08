@@ -637,7 +637,7 @@ EN: May I sit here? - No, you may not.
 
 unit2-p16-s6 Tags: must / may
 JP: 写真を撮ってもよろしいですか？ ーはい、いいですよ。
-EN: May I take a photo? - Sure.
+EN: May I take a photo? - Yes, you may.
 
 unit2-p16-s7 Tags: must / may
 JP: この部屋は放課後に使ってもよいです。
