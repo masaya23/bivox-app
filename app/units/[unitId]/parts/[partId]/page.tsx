@@ -3,10 +3,12 @@
 import { Suspense, useMemo } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useAppRouter } from '@/hooks/useAppRouter';
+import { useAuth } from '@/contexts/AuthContext';
 import ShadowingTrainer from '@/components/train/ShadowingTrainer';
 import SpeakingTrainer from '@/components/train/SpeakingTrainer';
 import AIDrillTrainer from '@/components/train/AIDrillTrainer';
 import { getUnitById, getPartById, getNextPart, shufflePartSentences } from '@/utils/units';
+import { canGuestAccessMode, canGuestAccessPart, isGuestUser } from '@/utils/guestAccess';
 
 // unitIdから学年を判定
 function getGradeFromUnitId(unitId: string): string {
@@ -20,6 +22,7 @@ function PartPracticePageContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useAppRouter();
+  const { user } = useAuth();
 
   const unitId = params.unitId as string;
   const partId = params.partId as string;
@@ -29,6 +32,7 @@ function PartPracticePageContent() {
 
   const unit = getUnitById(unitId);
   const part = unit ? getPartById(unitId, partId) : undefined;
+  const isGuest = isGuestUser(user);
 
   // useMemoでシャッフル結果を安定化（再レンダー時に再シャッフルされるのを防止）
   // Hooksは条件付きreturnの前に呼ぶ必要がある
@@ -43,6 +47,11 @@ function PartPracticePageContent() {
 
   if (!unit || !part) {
     router.push('/units');
+    return null;
+  }
+
+  if (isGuest && (!canGuestAccessPart(unitId, part.partNumber) || !canGuestAccessMode(mode))) {
+    router.replace('/auth/register');
     return null;
   }
 

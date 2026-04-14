@@ -4,11 +4,12 @@ import { useState, useRef, useEffect } from 'react';
 import type { ReactNode, ButtonHTMLAttributes } from 'react';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import MobileLayout from '@/components/MobileLayout';
+import { BudouXText } from '@/components/BudouXText';
 import PremiumSection from '@/components/subscription/PremiumSection';
 import {
   downloadBackup,
   importData,
-  clearAllData,
+  resetAllLocalData,
   BackupData,
 } from '@/utils/backup';
 import { useSubscription, PLAN_NAMES } from '@/contexts/SubscriptionContext';
@@ -17,7 +18,9 @@ import { useUsageLimit, USAGE_LIMITS } from '@/contexts/UsageLimitContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLife } from '@/contexts/LifeContext';
 import { useRevenueCat } from '@/hooks/useRevenueCat';
+import { useAdMob } from '@/hooks/useAdMob';
 import { clearTrialHistory } from '@/utils/trialPrevention';
+import { isGuestUser } from '@/utils/guestAccess';
 import HardNavLink from '@/components/HardNavLink';
 import { changeEmail as firebaseChangeEmail, changePassword as firebaseChangePassword } from '@/lib/firebase';
 import { TRIAL_CONFIG } from '@/types/auth';
@@ -36,18 +39,22 @@ const ICON_DANGER = 'text-red-500';
 /** セクション見出し */
 function SectionHeader({ title }: { title: string }) {
   return (
-    <p className="px-4 pt-6 pb-2 text-[11px] font-semibold text-gray-500 tracking-wide">
-      {title}
-    </p>
+    <BudouXText
+      as="p"
+      text={title}
+      className="px-4 pt-6 pb-2 text-[11px] font-semibold text-gray-500 tracking-wide"
+    />
   );
 }
 
 /** セクション見出し（補足テキスト付き） */
 function SectionFooter({ text }: { text: string }) {
   return (
-    <p className="px-4 pt-2 pb-1 text-[11px] text-gray-400">
-      {text}
-    </p>
+    <BudouXText
+      as="p"
+      text={text}
+      className="px-4 pt-2 pb-1 text-[11px] text-gray-400"
+    />
   );
 }
 
@@ -83,8 +90,8 @@ function RowLeading({
         {icon}
       </div>
       <div className="min-w-0">
-        <p className={`text-sm font-medium ${titleClassName}`}>{title}</p>
-        {subtitle && <p className="text-xs text-gray-500 truncate">{subtitle}</p>}
+        <BudouXText as="p" text={title} className={`text-sm font-medium ${titleClassName}`} />
+        {subtitle && <BudouXText as="p" text={subtitle} className="text-xs text-gray-500 truncate" />}
       </div>
     </div>
   );
@@ -304,6 +311,10 @@ export default function SettingsPage() {
   const [showExportSuccess, setShowExportSuccess] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+  const [showAccountDeleteConfirm, setShowAccountDeleteConfirm] = useState(false);
+  const [accountDeletePassword, setAccountDeletePassword] = useState('');
+  const [accountDeleteError, setAccountDeleteError] = useState('');
+  const [accountDeleteLoading, setAccountDeleteLoading] = useState(false);
   const [lifeSettings, setLifeSettings] = useState<LifeSettings>(DEFAULT_LIFE_SETTINGS);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -325,7 +336,8 @@ export default function SettingsPage() {
     isMasterAccount,
     debugOverridePlan,
     setDebugOverridePlan,
-    getEffectiveTier
+    getEffectiveTier,
+    syncNativeSubscription,
   } = useSubscription();
   const {
     shouldShowAds,
@@ -343,8 +355,10 @@ export default function SettingsPage() {
     resetAuth,
     startFreeTrial,
     signOut,
+    deleteAccount,
     useFirebase
   } = useAuth();
+  const isGuest = isGuestUser(user);
   const {
     currentLife,
     secondsToNextRecovery,
@@ -358,6 +372,13 @@ export default function SettingsPage() {
   } = useLife();
 
   const { restorePurchases, isLoading: isRestoringPurchase } = useRevenueCat();
+  const { isNative, isInitialized, showBanner, hideBanner } = useAdMob();
+  const hideAdsForSensitiveInput =
+    showDeleteConfirm ||
+    showDeleteSuccess ||
+    showAccountDeleteConfirm ||
+    showEmailChangeModal ||
+    showPasswordChangeModal;
 
   // 購入復元のステート
   const [restoreStatus, setRestoreStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -389,6 +410,26 @@ export default function SettingsPage() {
       // デフォルト設定を使用
     }
   }, []);
+
+  useEffect(() => {
+    if (!isNative || !isInitialized) return;
+
+    if (hideAdsForSensitiveInput) {
+      void hideBanner();
+      return;
+    }
+
+    if (shouldShowAds) {
+      void showBanner('BOTTOM');
+    }
+  }, [
+    hideAdsForSensitiveInput,
+    hideBanner,
+    isInitialized,
+    isNative,
+    shouldShowAds,
+    showBanner,
+  ]);
 
   // ライフ設定を更新
   const updateLifeSettings = (updates: Partial<LifeSettings>) => {
@@ -448,8 +489,8 @@ export default function SettingsPage() {
   };
 
   const handleDeleteConfirm = () => {
-    clearAllData();
     setShowDeleteConfirm(false);
+    resetAllLocalData();
     setShowDeleteSuccess(true);
   };
 
@@ -465,6 +506,30 @@ export default function SettingsPage() {
 
     if (result.success) {
       setAdminSecretKey(''); // 成功したらクリア
+    }
+  };
+
+  const handleAccountDelete = async () => {
+    if (!accountDeletePassword.trim()) {
+      setAccountDeleteError('パスワードを入力してください');
+      return;
+    }
+    setAccountDeleteLoading(true);
+    setAccountDeleteError('');
+    try {
+      const result = await deleteAccount(accountDeletePassword);
+      if (result.success) {
+        setShowAccountDeleteConfirm(false);
+        setAccountDeletePassword('');
+        resetAllLocalData();
+        router.push('/auth/login');
+      } else {
+        setAccountDeleteError(result.error || 'アカウントの削除に失敗しました');
+      }
+    } catch {
+      setAccountDeleteError('アカウントの削除に失敗しました');
+    } finally {
+      setAccountDeleteLoading(false);
     }
   };
 
@@ -623,7 +688,12 @@ export default function SettingsPage() {
   };
 
   return (
-    <MobileLayout showBottomNav={true} activeTab="settings" requireAuth={true}>
+    <MobileLayout
+      showBottomNav={true}
+      showAds={!hideAdsForSensitiveInput}
+      activeTab="settings"
+      requireAuth={true}
+    >
       {/* ──── ヘッダー（白背景・茶色文字） ──── */}
       <div className="bg-white px-4 py-4 sticky top-0 z-30 border-b border-gray-100">
         <div className="flex items-center justify-between">
@@ -633,7 +703,7 @@ export default function SettingsPage() {
           >
             ← ホーム
           </HardNavLink>
-          <h1 className="text-lg font-bold text-[#3E2723]">設定</h1>
+          <BudouXText as="h1" text="設定" className="text-lg font-bold text-[#3E2723]" />
           <div className="min-w-[60px]" />
         </div>
       </div>
@@ -650,7 +720,7 @@ export default function SettingsPage() {
         {/* ──────────────────────────────────── */}
         {/* セクション B: アカウント             */}
         {/* ──────────────────────────────────── */}
-        {isAuthenticated && (
+        {isAuthenticated && !isGuest && (
           <>
             <SectionHeader title="アカウント" />
             <SectionCard>
@@ -699,45 +769,49 @@ export default function SettingsPage() {
         {/* ──────────────────────────────────── */}
         {/* セクション C: データ管理             */}
         {/* ──────────────────────────────────── */}
-        <SectionHeader title="データ管理" />
-        <SectionCard>
-          <RowBase>
-            <RowLeading
-              icon={<IconDatabase className={ICON_BASE} />}
-              title="ストレージ使用量"
-            />
-            <span className="text-sm text-gray-500">{storageSize} KB</span>
-          </RowBase>
-          <Divider />
-          <RowButton
-            onClick={handleExport}
-          >
-            <RowLeading
-              icon={<IconDownload className={ICON_BASE} />}
-              title="バックアップを作成"
-            />
-            <ChevronRight />
-          </RowButton>
-          <Divider />
-          <RowButton
-            onClick={handleImportClick}
-          >
-            <RowLeading
-              icon={<IconUpload className={ICON_BASE} />}
-              title="バックアップから復元"
-            />
-            <ChevronRight />
-          </RowButton>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".json"
-            onChange={handleFileChange}
-            className="hidden"
-          />
-        </SectionCard>
-        {importStatus && (
-          <SectionFooter text={importStatus} />
+        {!isGuest && (
+          <>
+            <SectionHeader title="データ管理" />
+            <SectionCard>
+              <RowBase>
+                <RowLeading
+                  icon={<IconDatabase className={ICON_BASE} />}
+                  title="ストレージ使用量"
+                />
+                <span className="text-sm text-gray-500">{storageSize} KB</span>
+              </RowBase>
+              <Divider />
+              <RowButton
+                onClick={handleExport}
+              >
+                <RowLeading
+                  icon={<IconDownload className={ICON_BASE} />}
+                  title="バックアップを作成"
+                />
+                <ChevronRight />
+              </RowButton>
+              <Divider />
+              <RowButton
+                onClick={handleImportClick}
+              >
+                <RowLeading
+                  icon={<IconUpload className={ICON_BASE} />}
+                  title="バックアップから復元"
+                />
+                <ChevronRight />
+              </RowButton>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".json"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+            </SectionCard>
+            {importStatus && (
+              <SectionFooter text={importStatus} />
+            )}
+          </>
         )}
 
         {/* ──────────────────────────────────── */}
@@ -820,6 +894,9 @@ export default function SettingsPage() {
             onClick={async () => {
               setRestoreStatus('idle');
               const success = await restorePurchases();
+              if (success) {
+                await syncNativeSubscription();
+              }
               setRestoreStatus(success ? 'success' : 'error');
             }}
             disabled={isRestoringPurchase}
@@ -884,20 +961,40 @@ export default function SettingsPage() {
         {/* ──────────────────────────────────── */}
         {/* セクション E: 危険な操作（最下部）   */}
         {/* ──────────────────────────────────── */}
-        <SectionHeader title="危険な操作" />
-        <SectionCard>
-          <RowButton
-            onClick={handleClearData}
-          >
-            <RowLeading
-              icon={<IconTrash className={ICON_DANGER} />}
-              title="全データを削除"
-              titleClassName="text-red-500"
-            />
-          </RowButton>
-        </SectionCard>
-        <SectionFooter text="全ての学習データが削除されます。この操作は取り消せません。" />
+        {!isGuest && (
+          <>
+            <SectionHeader title="危険な操作" />
+            <SectionCard>
+              <RowButton
+                onClick={handleClearData}
+              >
+                <RowLeading
+                  icon={<IconTrash className={ICON_DANGER} />}
+                  title="全データを削除"
+                  titleClassName="text-red-500"
+                />
+              </RowButton>
+              {isAuthenticated && (
+                <>
+                  <Divider />
+                  <RowButton
+                    onClick={() => { setShowAccountDeleteConfirm(true); setAccountDeletePassword(''); setAccountDeleteError(''); }}
+                  >
+                    <RowLeading
+                      icon={<IconTrash className={ICON_DANGER} />}
+                      title="アカウントを削除"
+                      titleClassName="text-red-500"
+                    />
+                  </RowButton>
+                </>
+              )}
+            </SectionCard>
+            <SectionFooter text="全ての学習データが削除されます。この操作は取り消せません。" />
+          </>
+        )}
 
+        {isAdminEmailMatch && (
+          <>
         {/* ──────────────────────────────────── */}
         {/* デバッグ情報（開発用）               */}
         {/* ──────────────────────────────────── */}
@@ -1001,7 +1098,7 @@ export default function SettingsPage() {
         {/* 利用制限情報 */}
         <SectionCard className="mt-2">
           <div className="px-4 py-2">
-            <p className="text-xs font-medium text-gray-400 mb-1">本日の利用状況</p>
+            <BudouXText as="p" text="本日の利用状況" className="text-xs font-medium text-gray-400 mb-1" />
           </div>
           {tier !== 'free' && (
             <>
@@ -1082,7 +1179,7 @@ export default function SettingsPage() {
         {/* 設定定数 */}
         <SectionCard className="mt-2">
           <div className="px-4 py-3">
-            <p className="text-xs font-medium text-gray-400 mb-2">設定定数</p>
+            <BudouXText as="p" text="設定定数" className="text-xs font-medium text-gray-400 mb-2" />
             <div className="space-y-1 text-xs text-gray-500">
               <p>Plus スピーキング上限: {USAGE_LIMITS.PLUS_SPEAKING_DAILY_LIMIT}回/日</p>
               <p>Pro AI機能上限: {USAGE_LIMITS.PRO_AI_DAILY_LIMIT}回/日</p>
@@ -1090,23 +1187,33 @@ export default function SettingsPage() {
             </div>
           </div>
         </SectionCard>
+          </>
+        )}
 
         {/* 管理者認証（メールが一致する場合のみ表示） */}
         {isAdminEmailMatch && (
           <SectionCard className="mt-2">
             <div className="px-4 py-3">
-              <p className="text-xs font-medium text-gray-400 mb-2">管理者認証</p>
+              <BudouXText as="p" text="管理者認証" className="text-xs font-medium text-gray-400 mb-2" />
               {isMaster ? (
                 <div className="space-y-2">
-                  <p className="text-xs text-green-600 font-medium">マスターモードが有効です</p>
-                  <button
-                    onClick={handleDeactivateMaster}
-                    className="w-full py-2 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg active:bg-gray-200"
-                  >
-                    マスターモードを無効化
-                  </button>
+                  <BudouXText as="p" text="マスターモードが有効です" className="text-xs text-green-600 font-medium" />
+                  {useFirebase ? (
+                    <BudouXText
+                      as="p"
+                      text="Firebase Custom Claims により管理者権限が付与されています。"
+                      className="text-xs text-gray-500"
+                    />
+                  ) : (
+                    <button
+                      onClick={handleDeactivateMaster}
+                      className="w-full py-2 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg active:bg-gray-200"
+                    >
+                      マスターモードを無効化
+                    </button>
+                  )}
                 </div>
-              ) : (
+              ) : !useFirebase ? (
                 <div className="space-y-2">
                   <input
                     type="password"
@@ -1122,6 +1229,12 @@ export default function SettingsPage() {
                     認証
                   </button>
                 </div>
+              ) : (
+                <BudouXText
+                  as="p"
+                  text="Firebase 側で admin Custom Claim が付与されたアカウントのみ有効になります。"
+                  className="text-xs text-gray-500"
+                />
               )}
               {adminAuthMessage && (
                 <p className={`mt-2 text-xs ${
@@ -1138,11 +1251,11 @@ export default function SettingsPage() {
         {isMaster && (
           <SectionCard className="mt-2">
             <div className="px-4 py-3">
-              <p className="text-xs font-medium text-gray-400 mb-3">デバッグパネル</p>
+              <BudouXText as="p" text="デバッグパネル" className="text-xs font-medium text-gray-400 mb-3" />
 
               {/* A. プランの強制上書き */}
               <div className="mb-4">
-                <p className="text-xs font-medium text-gray-600 mb-2">プランの強制上書き</p>
+                <BudouXText as="p" text="プランの強制上書き" className="text-xs font-medium text-gray-600 mb-2" />
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs text-gray-500">現在の擬似プラン:</span>
                   <span className="text-xs font-medium text-[#5D4037]">{PLAN_NAMES[getEffectiveTier()]}</span>
@@ -1176,7 +1289,7 @@ export default function SettingsPage() {
 
               {/* B. ライフ操作 */}
               <div className="mb-4">
-                <p className="text-xs font-medium text-gray-600 mb-2">ライフ操作</p>
+                <BudouXText as="p" text="ライフ操作" className="text-xs font-medium text-gray-600 mb-2" />
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs text-gray-500">現在のモード:</span>
                   <span className="text-xs font-medium text-[#5D4037]">
@@ -1223,7 +1336,7 @@ export default function SettingsPage() {
 
               {/* C. 広告テスト */}
               <div>
-                <p className="text-xs font-medium text-gray-600 mb-2">広告テスト</p>
+                <BudouXText as="p" text="広告テスト" className="text-xs font-medium text-gray-600 mb-2" />
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs text-gray-500">バナー強制表示:</span>
                   <button
@@ -1259,19 +1372,15 @@ export default function SettingsPage() {
           <div className="bg-white w-full max-w-[400px] mx-4 rounded-2xl overflow-hidden shadow-2xl">
             <div className="p-6">
               <div className="text-center mb-4">
-                <h3 className="text-lg font-bold text-gray-800 mb-1">
-                  バックアップに含まれるデータ
-                </h3>
-                <p className="text-gray-400 text-xs">
-                  以下のデータがエクスポートされます
-                </p>
+                <BudouXText as="h3" text="バックアップに含まれるデータ" className="text-lg font-bold text-gray-800 mb-1" />
+                <BudouXText as="p" text="以下のデータがエクスポートされます" className="text-gray-400 text-xs" />
               </div>
 
               <ul className="text-sm text-gray-700 space-y-2 mb-6 bg-gray-50 rounded-xl p-4">
                 {['トレーニング履歴', '学習統計', '連続学習記録', 'SRSカード', 'アプリ設定'].map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <span className="text-[#FCC800]">✓</span>
-                    <span>{item}</span>
+                    <BudouXText as="span" text={item} />
                   </li>
                 ))}
               </ul>
@@ -1305,8 +1414,8 @@ export default function SettingsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-gray-800 mb-1">エクスポート完了</h3>
-              <p className="text-gray-400 text-sm mb-6">バックアップファイルを保存しました</p>
+              <BudouXText as="h3" text="エクスポート完了" className="text-lg font-bold text-gray-800 mb-1" />
+              <BudouXText as="p" text="バックアップファイルを保存しました" className="text-gray-400 text-sm mb-6" />
               <button
                 onClick={() => setShowExportSuccess(false)}
                 className="w-full py-3 bg-[#3E2723] text-white rounded-xl font-bold text-sm active:scale-[0.98] transition-transform"
@@ -1329,17 +1438,19 @@ export default function SettingsPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold text-gray-800 mb-1">全データを削除しますか？</h3>
-                <p className="text-gray-400 text-sm">この操作は取り消せません</p>
+                <BudouXText as="h3" text="全データを削除しますか？" className="text-lg font-bold text-gray-800 mb-1" />
+                <BudouXText as="p" text="この操作は取り消せません" className="text-gray-400 text-sm" />
               </div>
 
               <div className="bg-red-50 rounded-xl p-4 mb-6">
                 <ul className="text-sm text-red-600 space-y-1">
                   {['トレーニング履歴', '学習統計', '連続学習記録', 'SRSカード', 'アプリ設定'].map((item) => (
-                    <li key={item}>・{item}</li>
+                    <li key={item}>
+                      ・<BudouXText as="span" text={item} />
+                    </li>
                   ))}
                 </ul>
-                <p className="text-red-500 font-bold text-sm mt-2">全て削除されます</p>
+                <BudouXText as="p" text="全て削除されます" className="text-red-500 font-bold text-sm mt-2" />
               </div>
 
               <div className="space-y-2">
@@ -1371,8 +1482,8 @@ export default function SettingsPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-gray-800 mb-1">削除完了</h3>
-              <p className="text-gray-400 text-sm mb-6">全てのデータを削除しました</p>
+              <BudouXText as="h3" text="削除完了" className="text-lg font-bold text-gray-800 mb-1" />
+              <BudouXText as="p" text="全てのデータを削除しました" className="text-gray-400 text-sm mb-6" />
               <button
                 onClick={() => { setShowDeleteSuccess(false); window.location.reload(); }}
                 className="w-full py-3 bg-[#3E2723] text-white rounded-xl font-bold text-sm active:scale-[0.98] transition-transform"
@@ -1384,19 +1495,72 @@ export default function SettingsPage() {
         </div>
       )}
 
+      {/* アカウント削除確認モーダル */}
+      {showAccountDeleteConfirm && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white w-full max-w-[400px] mx-4 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="p-6">
+              <div className="text-center mb-4">
+                <div className="w-14 h-14 bg-red-50 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <svg className="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                </div>
+                <BudouXText as="h3" text="アカウントを削除しますか？" className="text-lg font-bold text-gray-800 mb-1" />
+                <BudouXText as="p" text="この操作は取り消せません。全ての学習データとアカウント情報が完全に削除されます。" className="text-gray-400 text-sm" />
+              </div>
+
+              <div className="mb-6">
+                <label className="block text-sm text-gray-600 mb-1">確認のためパスワードを入力</label>
+                <input
+                  type="password"
+                  value={accountDeletePassword}
+                  onChange={(e) => { setAccountDeletePassword(e.target.value); setAccountDeleteError(''); }}
+                  placeholder="パスワード"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-red-300"
+                  onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
+                />
+                {accountDeleteError && (
+                  <p className="text-red-500 text-xs mt-1">{accountDeleteError}</p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => { setShowAccountDeleteConfirm(false); setAccountDeletePassword(''); setAccountDeleteError(''); }}
+                  disabled={accountDeleteLoading}
+                  className="w-full py-4 bg-gray-100 text-gray-700 rounded-xl font-bold text-base active:scale-[0.98] transition-transform disabled:opacity-50"
+                >
+                  キャンセル
+                </button>
+                <button
+                  type="button"
+                  onClick={handleAccountDelete}
+                  disabled={accountDeleteLoading}
+                  className="w-full py-3 bg-red-500 text-white rounded-xl font-medium text-sm active:scale-[0.98] transition-transform disabled:opacity-50"
+                >
+                  {accountDeleteLoading ? '削除中...' : 'アカウントを削除する'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* メールアドレス変更モーダル */}
       {showEmailChangeModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white w-full max-w-[400px] mx-4 rounded-2xl overflow-hidden shadow-2xl">
             <div className="p-6">
               <div className="text-center mb-4">
-                <h3 className="text-lg font-bold text-gray-800 mb-1">メールアドレスの変更</h3>
+                <BudouXText as="h3" text="メールアドレスの変更" className="text-lg font-bold text-gray-800 mb-1" />
                 <p className="text-gray-400 text-xs">現在: {user?.email}</p>
               </div>
 
               <div className="space-y-3 mb-4">
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">新しいメールアドレス</label>
+                  <BudouXText as="label" text="新しいメールアドレス" className="block text-xs font-medium text-gray-500 mb-1" />
                   <input
                     type="email"
                     value={newEmail}
@@ -1406,7 +1570,7 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">現在のパスワード（確認用）</label>
+                  <BudouXText as="label" text="現在のパスワード（確認用）" className="block text-xs font-medium text-gray-500 mb-1" />
                   <input
                     type="password"
                     value={currentPassword}
@@ -1454,12 +1618,12 @@ export default function SettingsPage() {
           <div className="bg-white w-full max-w-[400px] mx-4 rounded-2xl overflow-hidden shadow-2xl">
             <div className="p-6">
               <div className="text-center mb-4">
-                <h3 className="text-lg font-bold text-gray-800 mb-1">パスワードの変更</h3>
+                <BudouXText as="h3" text="パスワードの変更" className="text-lg font-bold text-gray-800 mb-1" />
               </div>
 
               <div className="space-y-3 mb-4">
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">現在のパスワード</label>
+                  <BudouXText as="label" text="現在のパスワード" className="block text-xs font-medium text-gray-500 mb-1" />
                   <input
                     type="password"
                     value={currentPassword}
@@ -1469,7 +1633,7 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">新しいパスワード</label>
+                  <BudouXText as="label" text="新しいパスワード" className="block text-xs font-medium text-gray-500 mb-1" />
                   <input
                     type="password"
                     value={newPassword}
@@ -1479,7 +1643,7 @@ export default function SettingsPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">新しいパスワード（確認）</label>
+                  <BudouXText as="label" text="新しいパスワード（確認）" className="block text-xs font-medium text-gray-500 mb-1" />
                   <input
                     type="password"
                     value={confirmNewPassword}

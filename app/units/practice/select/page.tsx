@@ -6,11 +6,16 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getUnitsByFilter } from '@/utils/units';
 import { TabFilter } from '@/types/unit';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { useAuth } from '@/contexts/AuthContext';
+import { isGuestUser } from '@/utils/guestAccess';
 
 const QUESTION_COUNTS = [10, 25, 50, 75, 100];
 
 function AllUnitsPracticeSelectPageContent() {
   const searchParams = useSearchParams();
+  const router = useAppRouter();
+  const { user } = useAuth();
 
   const filter = (searchParams.get('filter') || 'all') as TabFilter;
   const shuffleMode = true;
@@ -23,6 +28,16 @@ function AllUnitsPracticeSelectPageContent() {
     setSeed(String(buffer[0]));
   }, [seed]);
 
+  useEffect(() => {
+    if (isGuestUser(user)) {
+      router.replace('/auth/register');
+    }
+  }, [router, user]);
+
+  if (isGuestUser(user)) {
+    return null;
+  }
+
   const units = getUnitsByFilter(filter);
   const totalSentences = units.reduce(
     (total, unit) =>
@@ -32,10 +47,10 @@ function AllUnitsPracticeSelectPageContent() {
 
   const getFilterName = (f: TabFilter): string => {
     const names: Record<TabFilter, string> = {
-      all: '全学年',
-      'junior-high-1': '中学1年',
-      'junior-high-2': '中学2年',
-      'junior-high-3': '中学3年',
+      all: '全てのUnit',
+      'junior-high-1': 'Unit 1',
+      'junior-high-2': 'Unit 2',
+      'junior-high-3': 'Unit 3',
     };
     return names[f];
   };

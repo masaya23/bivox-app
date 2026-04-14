@@ -20,6 +20,9 @@ import {
   ChartDataPoint,
   generateDummyData,
 } from '@/utils/learningTime';
+import { useAuth } from '@/contexts/AuthContext';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { isGuestUser } from '@/utils/guestAccess';
 
 // 期間タブの定義
 const PERIOD_TABS: { key: PeriodType; label: string }[] = [
@@ -52,18 +55,30 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
 }
 
 export default function LearningTimePage() {
+  const router = useAppRouter();
+  const { user } = useAuth();
   const [selectedPeriod, setSelectedPeriod] = useState<PeriodType>('week');
   const [chartData, setChartData] = useState<ChartDataPoint[]>([]);
   const [totalMinutes, setTotalMinutes] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const isGuest = isGuestUser(user);
 
   useEffect(() => {
+    if (isGuest) {
+      router.replace('/auth/register');
+      return;
+    }
+
     setMounted(true);
     // データ読み込み
     const data = getChartDataByPeriod(selectedPeriod);
     setChartData(data);
     setTotalMinutes(getTotalLearningTime(selectedPeriod));
-  }, [selectedPeriod]);
+  }, [isGuest, router, selectedPeriod]);
+
+  if (isGuest) {
+    return null;
+  }
 
   // 期間変更時
   const handlePeriodChange = (period: PeriodType) => {

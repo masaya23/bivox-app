@@ -18,6 +18,7 @@ import TeaserModal from '@/components/subscription/TeaserModal';
 import PaywallScreen from '@/components/subscription/PaywallScreen';
 import { FixedAdBanner } from '@/components/ads/AdBanner';
 import BottomNav from '@/components/BottomNav';
+import { canGuestAccessGrade, GUEST_LOCK_LABEL, isGuestUser } from '@/utils/guestAccess';
 
 // ========== デザイン定数 ==========
 const DESIGN = {
@@ -44,7 +45,7 @@ const DESIGN = {
   },
   spacing: {
     buttonGap: 'gap-3',
-    containerPadding: 'px-4 pt-5 pb-36',
+    containerPadding: 'px-4 pt-5 pb-44',
   },
 } as const;
 
@@ -137,9 +138,14 @@ export default function HomePage() {
   const [showTeaser, setShowTeaser] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
   const { canAccessMode } = useSubscription();
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
 
   const canAccessConversation = canAccessMode('ai-conversation');
+  const isGuest = isGuestUser(user);
+  const canAccessUnit2 = !isGuest || canGuestAccessGrade('junior-high-2');
+  const canAccessUnit3 = !isGuest || canGuestAccessGrade('junior-high-3');
+  const canAccessAllUnits = !isGuest || canGuestAccessGrade('all');
+  const conversationLockLabel = isGuest ? GUEST_LOCK_LABEL : 'Proプラン';
 
   // 認証チェック
   useEffect(() => {
@@ -203,25 +209,67 @@ export default function HomePage() {
       <div className={`flex-1 ${DESIGN.spacing.containerPadding} overflow-y-auto`}>
         {/* ボタン群（6つ） */}
         <div className={`flex flex-col ${DESIGN.spacing.buttonGap}`}>
-          {/* 中学1年 */}
+          {/* Unit 1 */}
           <MenuButton href="/units?grade=junior-high-1" color={DESIGN.buttonColors.juniorHigh1}>
-            <span className="text-lg">中学1年</span>
+            <span className="text-lg">Unit 1</span>
           </MenuButton>
 
-          {/* 中学2年 */}
-          <MenuButton href="/units?grade=junior-high-2" color={DESIGN.buttonColors.juniorHigh2}>
-            <span className="text-lg">中学2年</span>
-          </MenuButton>
+          {/* Unit 2 */}
+          <div className="relative">
+            {!canAccessUnit2 && (
+              <div className="absolute -top-2 -right-2 z-20">
+                <span className="px-2 py-1 bg-gray-800 text-white text-xs font-bold rounded-full shadow-lg flex items-center gap-1">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+                  {GUEST_LOCK_LABEL}
+                </span>
+              </div>
+            )}
+            <MenuButton
+              href={canAccessUnit2 ? "/units?grade=junior-high-2" : undefined}
+              onClick={canAccessUnit2 ? undefined : () => router.push('/auth/register')}
+              color={DESIGN.buttonColors.juniorHigh2}
+            >
+              <span className="text-lg">Unit 2</span>
+            </MenuButton>
+          </div>
 
-          {/* 中学3年 */}
-          <MenuButton href="/units?grade=junior-high-3" color={DESIGN.buttonColors.juniorHigh3}>
-            <span className="text-lg">中学3年</span>
-          </MenuButton>
+          {/* Unit 3 */}
+          <div className="relative">
+            {!canAccessUnit3 && (
+              <div className="absolute -top-2 -right-2 z-20">
+                <span className="px-2 py-1 bg-gray-800 text-white text-xs font-bold rounded-full shadow-lg flex items-center gap-1">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+                  {GUEST_LOCK_LABEL}
+                </span>
+              </div>
+            )}
+            <MenuButton
+              href={canAccessUnit3 ? "/units?grade=junior-high-3" : undefined}
+              onClick={canAccessUnit3 ? undefined : () => router.push('/auth/register')}
+              color={DESIGN.buttonColors.juniorHigh3}
+            >
+              <span className="text-lg">Unit 3</span>
+            </MenuButton>
+          </div>
 
-          {/* 全学年 */}
-          <MenuButton href="/units?grade=all" color={DESIGN.buttonColors.allGrades}>
-            <span className="text-lg">全学年</span>
-          </MenuButton>
+          {/* 全てのUnit */}
+          <div className="relative">
+            {!canAccessAllUnits && (
+              <div className="absolute -top-2 -right-2 z-20">
+                <span className="px-2 py-1 bg-gray-800 text-white text-xs font-bold rounded-full shadow-lg flex items-center gap-1">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+                  {GUEST_LOCK_LABEL}
+                </span>
+              </div>
+            )}
+            <MenuButton
+              href={canAccessAllUnits ? "/units?grade=all" : undefined}
+              onClick={canAccessAllUnits ? undefined : () => router.push('/auth/register')}
+              color={DESIGN.buttonColors.allGrades}
+            >
+              <span className="text-lg">全てのUnit</span>
+            </MenuButton>
+          </div>
 
           {/* AIと会話（ゴールドグラデーション） */}
           <div className="relative">
@@ -229,13 +277,13 @@ export default function HomePage() {
               <div className="absolute -top-2 -right-2 z-20">
                 <span className="px-2 py-1 bg-gray-800 text-white text-xs font-bold rounded-full shadow-lg flex items-center gap-1">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
-                  Proプラン
+                  {conversationLockLabel}
                 </span>
               </div>
             )}
             <MenuButton
               href={canAccessConversation ? "/conversation" : undefined}
-              onClick={canAccessConversation ? undefined : () => setShowTeaser(true)}
+              onClick={canAccessConversation ? undefined : () => isGuest ? router.push('/auth/register') : setShowTeaser(true)}
               bgStyle={DESIGN.aiGradient}
               shadowStyle={DESIGN.aiShadow}
             >

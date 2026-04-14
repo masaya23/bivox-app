@@ -131,16 +131,25 @@ export function importData(backupData: BackupData): boolean {
 }
 
 /**
- * 全データを削除（リセット）
+ * 全ローカルデータを削除
+ */
+export function resetAllLocalData(): void {
+  localStorage.clear();
+}
+
+/**
+ * 全データを削除（標準ダイアログ付き）
  */
 export function clearAllData(): void {
   if (
-    confirm(
+    !confirm(
       '全てのデータを削除します。この操作は取り消せません。よろしいですか？'
     )
   ) {
-    localStorage.clear();
-    alert('全データを削除しました。');
-    window.location.reload();
+    return;
   }
+
+  resetAllLocalData();
+  alert('全データを削除しました。');
+  window.location.reload();
 }

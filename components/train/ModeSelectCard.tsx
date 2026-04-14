@@ -2,10 +2,13 @@
 
 import { useState } from 'react';
 import { useSubscription, TrainingMode, MODE_REQUIRED_PLAN, PLAN_NAMES } from '@/contexts/SubscriptionContext';
+import { useAuth } from '@/contexts/AuthContext';
 import TeaserModal from '@/components/subscription/TeaserModal';
 import LockIcon from '@/components/icons/LockIcon';
 import PaywallScreen from '@/components/subscription/PaywallScreen';
 import HardNavLink from '@/components/HardNavLink';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { canGuestAccessMode, GUEST_LOCK_LABEL, isGuestUser } from '@/utils/guestAccess';
 
 interface ModeSelectCardProps {
   mode: TrainingMode;
@@ -58,6 +61,8 @@ export default function ModeSelectCard({
   borderColor,
   accentColor,
 }: ModeSelectCardProps) {
+  const router = useAppRouter();
+  const { user } = useAuth();
   const { canAccessMode, isLoading } = useSubscription();
   const [showTeaser, setShowTeaser] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
@@ -67,12 +72,19 @@ export default function ModeSelectCard({
     return <ModeSelectCardSkeleton />;
   }
 
-  const hasAccess = canAccessMode(mode);
+  const isGuest = isGuestUser(user);
+  const guestModeAccess = !isGuest || canGuestAccessMode(mode);
+  const hasAccess = canAccessMode(mode) && guestModeAccess;
   const requiredPlan = MODE_REQUIRED_PLAN[mode];
+  const lockLabel = isGuest && !guestModeAccess ? GUEST_LOCK_LABEL : PLAN_NAMES[requiredPlan];
 
   const handleClick = (e: React.MouseEvent) => {
     if (!hasAccess) {
       e.preventDefault();
+      if (isGuest) {
+        router.push('/auth/register');
+        return;
+      }
       setShowTeaser(true);
     }
   };
@@ -90,7 +102,7 @@ export default function ModeSelectCard({
           <div className="absolute -top-2 -right-2 z-10">
             <span className="px-3 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-full shadow-lg flex items-center gap-1">
               <LockIcon size={14} />
-              {PLAN_NAMES[requiredPlan]}
+              {lockLabel}
             </span>
           </div>
         )}

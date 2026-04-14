@@ -5,11 +5,16 @@
 import { Suspense, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { getUnitById } from '@/utils/units';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { useAuth } from '@/contexts/AuthContext';
+import { isGuestUser } from '@/utils/guestAccess';
 
 const QUESTION_COUNTS = [10, 25, 50, 75, 100];
 
 function UnitPracticeSelectPageContent() {
   const params = useParams();
+  const router = useAppRouter();
+  const { user } = useAuth();
   const unitId = params.unitId as string;
   const shuffleMode = true;
   const [seed, setSeed] = useState<string | null>(null);
@@ -20,6 +25,16 @@ function UnitPracticeSelectPageContent() {
     crypto.getRandomValues(buffer);
     setSeed(String(buffer[0]));
   }, [seed]);
+
+  useEffect(() => {
+    if (isGuestUser(user)) {
+      router.replace('/auth/register');
+    }
+  }, [router, user]);
+
+  if (isGuestUser(user)) {
+    return null;
+  }
 
   const unit = getUnitById(unitId);
 

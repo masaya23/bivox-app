@@ -3,16 +3,19 @@
 import { Suspense } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useAppRouter } from '@/hooks/useAppRouter';
+import { useAuth } from '@/contexts/AuthContext';
 import ShadowingTrainer from '@/components/train/ShadowingTrainer';
 import SpeakingTrainer from '@/components/train/SpeakingTrainer';
 import AIDrillTrainer from '@/components/train/AIDrillTrainer';
 import { getUnitById, selectSentencesWithPriority } from '@/utils/units';
 import type { Sentence } from '@/types/sentence';
+import { isGuestUser } from '@/utils/guestAccess';
 
 function UnitPracticePageContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useAppRouter();
+  const { user } = useAuth();
 
   const unitId = params.unitId as string;
   const questionCount = parseInt(searchParams.get('count') || '0', 10);
@@ -20,6 +23,11 @@ function UnitPracticePageContent() {
   const seed = seedParam ? Number(seedParam) : 0;
   const shuffleMode = true;
   const mode = searchParams.get('mode') || 'shadowing';
+
+  if (isGuestUser(user)) {
+    router.replace('/auth/register');
+    return null;
+  }
 
   const unit = getUnitById(unitId);
   if (!unit) {

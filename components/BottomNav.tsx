@@ -1,6 +1,8 @@
 'use client';
 
 import { Capacitor } from '@capacitor/core';
+import { useAuth } from '@/contexts/AuthContext';
+import { isGuestUser } from '@/utils/guestAccess';
 
 const isNative = (() => {
   try {
@@ -81,18 +83,23 @@ const NAV_ITEMS: NavItem[] = [
 function NavItemButton({
   item,
   isActive,
+  isGuest,
 }: {
   item: NavItem;
   isActive: boolean;
+  isGuest: boolean;
 }) {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (e.defaultPrevented) return;
     if (e.button !== 0) return;
     if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) return;
     e.preventDefault();
-    const targetHref = isNative && item.href !== '/' && !item.href.includes('.')
-      ? item.href + '.html'
+    const resolvedHref = isGuest && item.href === '/study-log'
+      ? '/auth/register'
       : item.href;
+    const targetHref = isNative && resolvedHref !== '/' && !resolvedHref.includes('.')
+      ? resolvedHref + '.html'
+      : resolvedHref;
     window.location.assign(targetHref);
   };
 
@@ -130,6 +137,9 @@ export default function BottomNav({
 }: {
   currentPath?: string;
 }) {
+  const { user } = useAuth();
+  const isGuest = isGuestUser(user);
+
   return (
     <nav
       className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-40"
@@ -145,6 +155,7 @@ export default function BottomNav({
             key={item.href}
             item={item}
             isActive={currentPath === item.href}
+            isGuest={isGuest}
           />
         ))}
       </div>

@@ -62,7 +62,7 @@ export default function MobileLayout({
       </div>
 
       {/* 固定広告バナー（無料ユーザーのみ） */}
-      {showBottomNav && showAds && <FixedAdBanner />}
+      {showBottomNav && <FixedAdBanner visible={showAds} />}
 
       {/* Bottom Navigation Bar */}
       {showBottomNav && (

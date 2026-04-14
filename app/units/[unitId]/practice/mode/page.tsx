@@ -8,17 +8,31 @@ import { getUnitById } from '@/utils/units';
 import { GRADE_THEMES } from '@/utils/gradeTheme';
 import ModeSelectCard from '@/components/train/ModeSelectCard';
 import { warmupServer } from '@/utils/serverWarmup';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { useAuth } from '@/contexts/AuthContext';
+import { isGuestUser } from '@/utils/guestAccess';
 
 function UnitPracticeModeSelectPageContent() {
   const params = useParams();
   const searchParams = useSearchParams();
+  const router = useAppRouter();
+  const { user } = useAuth();
 
   const unitId = params.unitId as string;
 
   useEffect(() => { warmupServer(); }, []);
+  useEffect(() => {
+    if (isGuestUser(user)) {
+      router.replace('/auth/register');
+    }
+  }, [router, user]);
   const count = searchParams.get('count') || '10';
   const seed = searchParams.get('seed') || '0';
   const shuffleMode = true;
+
+  if (isGuestUser(user)) {
+    return null;
+  }
 
   const unit = getUnitById(unitId);
 

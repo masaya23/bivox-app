@@ -5,9 +5,14 @@ import { useSearchParams } from 'next/navigation';
 import { TabFilter } from '@/types/unit';
 import { GRADE_THEMES } from '@/utils/gradeTheme';
 import ModeSelectCard from '@/components/train/ModeSelectCard';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { useAuth } from '@/contexts/AuthContext';
+import { isGuestUser } from '@/utils/guestAccess';
 
 function AllUnitsPracticeModeSelectPageContent() {
   const searchParams = useSearchParams();
+  const router = useAppRouter();
+  const { user } = useAuth();
 
   const filter = (searchParams.get('filter') || 'all') as TabFilter;
   const count = searchParams.get('count') || '10';
@@ -15,6 +20,11 @@ function AllUnitsPracticeModeSelectPageContent() {
   const shuffleMode = true;
 
   const baseHref = `/units/practice?filter=${filter}&count=${count}&shuffle=${shuffleMode}&seed=${seed}`;
+
+  if (isGuestUser(user)) {
+    router.replace('/auth/register');
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gray-200 flex justify-center">

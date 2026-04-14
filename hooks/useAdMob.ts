@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Capacitor } from '@capacitor/core';
 
+const IS_ADMOB_TEST_MODE = process.env.NEXT_PUBLIC_ADMOB_TEST_MODE === 'true';
+
 // AdMob広告ユニットID設定
 const ADMOB_CONFIG = {
   BANNER_ID_ANDROID: process.env.NEXT_PUBLIC_ADMOB_BANNER_ID_ANDROID || 'ca-app-pub-3992336575084323/3513915466',
@@ -12,6 +14,10 @@ const ADMOB_CONFIG = {
   INTERSTITIAL_ID_ANDROID: process.env.NEXT_PUBLIC_ADMOB_INTERSTITIAL_ID_ANDROID || 'ca-app-pub-3992336575084323/1234567890',
   INTERSTITIAL_ID_IOS: process.env.NEXT_PUBLIC_ADMOB_INTERSTITIAL_ID_IOS || 'ca-app-pub-3992336575084323/0987654321',
 };
+
+function hasValidInterstitialId(adId: string): boolean {
+  return !['ca-app-pub-3992336575084323/1234567890', 'ca-app-pub-3992336575084323/0987654321'].includes(adId);
+}
 
 export type BannerPosition = 'TOP' | 'BOTTOM';
 
@@ -47,8 +53,7 @@ export function useAdMob(): UseAdMobReturn {
         admobRef.current = AdMob;
 
         await AdMob.initialize({
-          // テストデバイスの場合
-          initializeForTesting: true,
+          initializeForTesting: IS_ADMOB_TEST_MODE,
         });
 
         setIsInitialized(true);
@@ -72,12 +77,15 @@ export function useAdMob(): UseAdMobReturn {
         ? ADMOB_CONFIG.BANNER_ID_IOS
         : ADMOB_CONFIG.BANNER_ID_ANDROID;
 
+      // 既存のバナーを削除してから再表示（位置リセットのため）
+      try { await admobRef.current.removeBanner(); } catch { /* ignore */ }
+
       await admobRef.current.showBanner({
         adId,
         adSize: BannerAdSize.ADAPTIVE_BANNER,
         position: position === 'TOP' ? BannerAdPosition.TOP_CENTER : BannerAdPosition.BOTTOM_CENTER,
         margin: position === 'BOTTOM' ? 68 : 0, // BottomNavの高さ分のマージン
-        isTesting: true, // 本番リリース時にfalseに変更
+        isTesting: IS_ADMOB_TEST_MODE,
       });
     } catch (error) {
       console.error('Failed to show banner ad:', error);
@@ -89,7 +97,12 @@ export function useAdMob(): UseAdMobReturn {
     if (!isNative || !admobRef.current) return;
 
     try {
-      await admobRef.current.hideBanner();
+      try {
+        await admobRef.current.hideBanner();
+      } catch {
+        // ignore and try removing the banner completely below
+      }
+      await admobRef.current.removeBanner();
     } catch (error) {
       console.error('Failed to hide banner ad:', error);
     }
@@ -105,9 +118,14 @@ export function useAdMob(): UseAdMobReturn {
         ? ADMOB_CONFIG.INTERSTITIAL_ID_IOS
         : ADMOB_CONFIG.INTERSTITIAL_ID_ANDROID;
 
+      if (!IS_ADMOB_TEST_MODE && !hasValidInterstitialId(adId)) {
+        console.warn('Interstitial ad unit ID is not configured for production build');
+        return false;
+      }
+
       await AdMob.prepareInterstitial({
         adId,
-        isTesting: true, // 本番リリース時にfalseに変更
+        isTesting: IS_ADMOB_TEST_MODE,
       });
 
       const shown = await new Promise<boolean>((resolve) => {
@@ -163,7 +181,7 @@ export function useAdMob(): UseAdMobReturn {
       // リワード広告を準備
       await AdMob.prepareRewardVideoAd({
         adId,
-        isTesting: true, // 本番リリース時にfalseに変更
+        isTesting: IS_ADMOB_TEST_MODE,
       });
 
       // リワード取得をPromiseで待機
@@ -227,3 +245,4 @@ export function useAdMob(): UseAdMobReturn {
 }
 
 export { ADMOB_CONFIG };
+export { IS_ADMOB_TEST_MODE };

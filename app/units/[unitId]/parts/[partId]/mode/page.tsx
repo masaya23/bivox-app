@@ -7,6 +7,9 @@ import HardNavLink from '@/components/HardNavLink';
 import { getUnitById, getPartById } from '@/utils/units';
 import ModeSelectList from '@/components/train/ModeSelectList';
 import { warmupServer } from '@/utils/serverWarmup';
+import { useAuth } from '@/contexts/AuthContext';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { canGuestAccessPart, isGuestUser } from '@/utils/guestAccess';
 
 // unitIdから学年を判定
 function getGradeFromUnitId(unitId: string): string {
@@ -34,6 +37,8 @@ function getGradientForGrade(grade: string): { gradient: string; bgGradient: str
 
 function PartPracticeModeSelectContent() {
   const params = useParams();
+  const router = useAppRouter();
+  const { user } = useAuth();
   const searchParams = useSearchParams();
   const unitId = params.unitId as string;
   const partId = params.partId as string;
@@ -42,9 +47,15 @@ function PartPracticeModeSelectContent() {
 
   const unit = getUnitById(unitId);
   const part = unit ? getPartById(unitId, partId) : undefined;
+  const isGuest = isGuestUser(user);
 
   // モード選択画面でサーバーを事前にウォームアップ
   useEffect(() => { warmupServer(); }, []);
+  useEffect(() => {
+    if (part && isGuest && !canGuestAccessPart(unitId, part.partNumber)) {
+      router.replace('/auth/register');
+    }
+  }, [isGuest, part, router, unitId]);
 
   // 戻り先を決定
   const grade = gradeParam || getGradeFromUnitId(unitId);
@@ -80,6 +91,10 @@ function PartPracticeModeSelectContent() {
         </div>
       </div>
     );
+  }
+
+  if (isGuest && !canGuestAccessPart(unitId, part.partNumber)) {
+    return null;
   }
 
   return (
@@ -138,4 +153,3 @@ export default function PartPracticeModeSelectPage() {
     </Suspense>
   );
 }
-

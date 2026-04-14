@@ -5,6 +5,9 @@ import { addDays, addMonths, endOfMonth, format, isSameDay, isSameMonth, startOf
 import { ja } from 'date-fns/locale';
 import MobileLayout, { PageHeader } from '@/components/MobileLayout';
 import { getSessionLogDates, getSessionLogsByDate, SessionLogItem } from '@/utils/sessionLog';
+import { useAuth } from '@/contexts/AuthContext';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { isGuestUser } from '@/utils/guestAccess';
 
 const formatLocalDate = (date: Date): string => {
   const year = date.getFullYear();
@@ -14,6 +17,8 @@ const formatLocalDate = (date: Date): string => {
 };
 
 export default function StudyLogHistoryPage() {
+  const router = useAppRouter();
+  const { user } = useAuth();
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [studiedDateStrs, setStudiedDateStrs] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -21,8 +26,14 @@ export default function StudyLogHistoryPage() {
   const TODAY_OUTER_CIRCLE_SIZE = 36;
   const TODAY_WHITE_CIRCLE_SIZE = TODAY_OUTER_CIRCLE_SIZE - 4;
   const TODAY_INNER_CIRCLE_SIZE = TODAY_OUTER_CIRCLE_SIZE - 8;
+  const isGuest = isGuestUser(user);
 
   useEffect(() => {
+    if (isGuest) {
+      router.replace('/auth/register');
+      return;
+    }
+
     const dates = getSessionLogDates();
     setStudiedDateStrs(dates);
     if (dates.length > 0) {
@@ -34,7 +45,7 @@ export default function StudyLogHistoryPage() {
       setCurrentMonth(initialDate);
       setSessions(getSessionLogsByDate(latest));
     }
-  }, []);
+  }, [isGuest, router]);
 
   const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
 
@@ -53,6 +64,10 @@ export default function StudyLogHistoryPage() {
   }, [currentMonth]);
 
   const isStudied = (date: Date) => studiedDateStrs.includes(formatLocalDate(date));
+
+  if (isGuest) {
+    return null;
+  }
 
   const handleSelectDate = (date: Date) => {
     const dateStr = formatLocalDate(date);

@@ -7,6 +7,9 @@ import {
   PLAN_PRICES,
   ANNUAL_PLAN_PRICES,
 } from '@/contexts/SubscriptionContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { isGuestUser } from '@/utils/guestAccess';
 import type { SubscriptionTier } from '@/contexts/SubscriptionContext';
 import PaywallScreen from './PaywallScreen';
 
@@ -87,8 +90,11 @@ function PlanIcon({ tier }: { tier: SubscriptionTier }) {
 }
 
 export default function PremiumSection() {
+  const router = useAppRouter();
+  const { user } = useAuth();
   const { tier, expiresAt, isPremium, billingPeriod } = useSubscription();
   const [showPaywall, setShowPaywall] = useState(false);
+  const isGuest = isGuestUser(user);
 
   const theme = PLAN_THEMES[tier];
 
@@ -192,9 +198,11 @@ export default function PremiumSection() {
             <div className="text-center mb-4">
               <p className="text-xs text-gray-400 mb-1">現在のプラン</p>
               <span className="inline-block px-3 py-1 bg-gray-100 text-gray-500 text-xs font-bold rounded-full mb-3">
-                フリープラン
+                {isGuest ? 'ゲスト利用中' : 'フリープラン'}
               </span>
-              <p className="text-base text-[#3E2723] font-bold">プレミアムで全機能をアンロック</p>
+              <p className="text-base text-[#3E2723] font-bold">
+                {isGuest ? '会員登録してプレミアムを利用' : 'プレミアムで全機能をアンロック'}
+              </p>
             </div>
 
             <div className="space-y-2 mb-4">
@@ -218,11 +226,23 @@ export default function PremiumSection() {
               </div>
             </div>
 
+            {isGuest && (
+              <p className="text-xs text-gray-500 text-center mb-3">
+                Plus / Pro への登録は、先に無料会員登録が必要です
+              </p>
+            )}
+
             <button
-              onClick={() => setShowPaywall(true)}
+              onClick={() => {
+                if (isGuest) {
+                  router.push('/auth/register');
+                  return;
+                }
+                setShowPaywall(true);
+              }}
               className="w-full py-3 bg-[#3E2723] text-white rounded-xl font-bold text-sm active:scale-[0.98] transition-transform"
             >
-              プレミアムを見る
+              {isGuest ? '無料会員登録へ' : 'プレミアムを見る'}
             </button>
           </div>
         </div>

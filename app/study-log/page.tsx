@@ -8,18 +8,25 @@ import LearningTimeWidget from '@/components/log/LearningTimeWidget';
 import LifeRecoveryWidget from '@/components/life/LifeRecoveryWidget';
 import { getTodaySessionLogs, SessionLogItem } from '@/utils/sessionLog';
 import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { isGuestUser } from '@/utils/guestAccess';
 
 // ライフ設定のローカルストレージキー
 const LIFE_SETTINGS_KEY = 'englishapp_life_settings';
 
 export default function StudyLogPage() {
+  const router = useAppRouter();
+  const { user } = useAuth();
   const [streakData, setStreakData] = useState<StreakData | null>(null);
   const [studiedDates, setStudiedDates] = useState<Date[]>([]);
   const [todaySessions, setTodaySessions] = useState<SessionLogItem[]>([]);
   const [showLifeWidget, setShowLifeWidget] = useState(true);
   const { tier } = useSubscription();
+  const isGuest = isGuestUser(user);
 
-  useEffect(() => {
+  // データ読み込み関数
+  const loadData = () => {
     setStreakData(getStreakData());
     setStudiedDates(getStudiedDates());
     setTodaySessions(getTodaySessionLogs());
@@ -34,7 +41,29 @@ export default function StudyLogPage() {
     } catch {
       // デフォルト設定を使用
     }
-  }, []);
+  };
+
+  // 初回マウント時 + ページ復帰時にデータを再読み込み
+  useEffect(() => {
+    if (isGuest) {
+      router.replace('/auth/register');
+      return;
+    }
+
+    loadData();
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        loadData();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [isGuest, router]);
+
+  if (isGuest) {
+    return null;
+  }
 
   return (
     <MobileLayout showBottomNav={true} activeTab="study-log" requireAuth={true}>

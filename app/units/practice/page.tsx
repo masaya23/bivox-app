@@ -3,23 +3,26 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useAppRouter } from '@/hooks/useAppRouter';
+import { useAuth } from '@/contexts/AuthContext';
 import ShadowingTrainer from '@/components/train/ShadowingTrainer';
 import SpeakingTrainer from '@/components/train/SpeakingTrainer';
 import AIDrillTrainer from '@/components/train/AIDrillTrainer';
 import { getUnitsByFilter, selectSentencesFromMultipleUnits } from '@/utils/units';
 import type { TabFilter } from '@/types/unit';
 import type { Sentence } from '@/types/sentence';
+import { isGuestUser } from '@/utils/guestAccess';
 
 const FILTER_NAMES: Record<TabFilter, string> = {
-  all: '全学年',
-  'junior-high-1': '中学1年',
-  'junior-high-2': '中学2年',
-  'junior-high-3': '中学3年',
+  all: '全てのUnit',
+  'junior-high-1': 'Unit 1',
+  'junior-high-2': 'Unit 2',
+  'junior-high-3': 'Unit 3',
 };
 
 function AllUnitsPracticePageContent() {
   const searchParams = useSearchParams();
   const router = useAppRouter();
+  const { user } = useAuth();
 
   const filter = (searchParams.get('filter') || 'all') as TabFilter;
   const questionCount = parseInt(searchParams.get('count') || '0', 10);
@@ -27,6 +30,11 @@ function AllUnitsPracticePageContent() {
   const seed = seedParam ? Number(seedParam) : 0;
   const shuffleMode = true;
   const mode = searchParams.get('mode') || 'shadowing';
+
+  if (isGuestUser(user)) {
+    router.replace('/auth/register');
+    return null;
+  }
 
   if (!questionCount) {
     router.push(`/units/practice/select?filter=${filter}&shuffle=${shuffleMode}`);

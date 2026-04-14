@@ -3,16 +3,28 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import HardNavLink from '@/components/HardNavLink';
+import LockIcon from '@/components/icons/LockIcon';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { useAuth } from '@/contexts/AuthContext';
 import {
   getPartsByGrade,
   getUnitIdByGrade,
 } from '@/utils/units';
 import { GRADE_TABS, getPartBadgeClassName, isGradeId } from '@/utils/gradeTheme';
 import type { TabFilter } from '@/types/unit';
+import {
+  canGuestAccessGrade,
+  canGuestAccessPart,
+  GUEST_ALLOWED_MAX_PART,
+  GUEST_LOCK_LABEL,
+  isGuestUser,
+} from '@/utils/guestAccess';
 
 const isValidGrade = (grade: string | null): grade is TabFilter => isGradeId(grade);
 
 function UnitsPageContent() {
+  const router = useAppRouter();
+  const { user } = useAuth();
   const searchParams = useSearchParams();
   const gradeParam = searchParams.get('grade');
   const initialGrade: TabFilter = isValidGrade(gradeParam) ? gradeParam : 'junior-high-1';
@@ -30,6 +42,9 @@ function UnitsPageContent() {
   const currentUnitId = getUnitIdByGrade(activeTab);
   const currentTabInfo = GRADE_TABS.find((tab) => tab.id === activeTab) || GRADE_TABS[0];
   const totalSentences = parts.reduce((sum, part) => sum + part.sentences.length, 0);
+  const isGuest = isGuestUser(user);
+  const canAccessActiveGrade = !isGuest || canGuestAccessGrade(activeTab);
+  const guestMessage = `ゲストでは Unit 1 の Part 1〜${GUEST_ALLOWED_MAX_PART} のベーシックモードまで利用できます。`;
 
   const getGradeFromPartId = (partId: string): string => {
     if (partId.startsWith('unit1')) return 'unit1';
@@ -61,34 +76,76 @@ function UnitsPageContent() {
         </div>
 
         <div className="px-4 py-4 pb-32">
+        {isGuest && (
+          <div className="mb-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3">
+            <p className="text-sm font-semibold text-amber-800">{guestMessage}</p>
+            <p className="mt-1 text-xs text-amber-700">他の Part や Unit は {GUEST_LOCK_LABEL} で解放されます。</p>
+          </div>
+        )}
+
         {/* まとめて練習ボタン */}
         {totalSentences > 0 && (
-          <HardNavLink
-            href={
-              activeTab === 'all'
-                ? '/units/practice/select?filter=all&shuffle=true'
-                : `/units/${currentUnitId}/practice/select?shuffle=true`
-            }
-            className={`block rounded-2xl p-4 mb-4 shadow-md transition-all active:scale-[0.98] bg-gradient-to-r ${currentTabInfo.gradient} text-white`}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="px-2.5 py-0.5 bg-white/20 rounded-full text-xs font-bold">
-                    シャッフル
-                  </span>
-                  <span className="text-white/80 text-xs">{totalSentences}問</span>
-                </div>
-                <h2 className="text-lg font-black">まとめて練習</h2>
-                <p className="text-xs text-white/80 mt-0.5">
-                  {activeTab === 'all'
-                    ? '全学年のPartをまとめて'
-                    : `${currentTabInfo.label}の全Partを`}
-                </p>
+          <div className="relative mb-4">
+            {isGuest && (
+              <div className="absolute -top-2 -right-2 z-10">
+                <span className="px-3 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-full shadow-lg flex items-center gap-1">
+                  <LockIcon size={14} />
+                  {GUEST_LOCK_LABEL}
+                </span>
               </div>
-              <div className="text-2xl ml-3">→</div>
-            </div>
-          </HardNavLink>
+            )}
+            {isGuest ? (
+              <button
+                onClick={() => router.push('/auth/register')}
+                className={`block w-full rounded-2xl p-4 shadow-md transition-all text-left bg-gradient-to-r ${currentTabInfo.gradient} text-white opacity-75`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="px-2.5 py-0.5 bg-white/20 rounded-full text-xs font-bold">
+                        シャッフル
+                      </span>
+                      <span className="text-white/80 text-xs">{totalSentences}問</span>
+                    </div>
+                    <h2 className="text-lg font-black">まとめて練習</h2>
+                    <p className="text-xs text-white/80 mt-0.5">
+                      {activeTab === 'all'
+                        ? '全てのUnitのPartをまとめて'
+                        : `${currentTabInfo.label}の全Partを`}
+                    </p>
+                  </div>
+                  <div className="ml-3 text-white"><LockIcon size={20} /></div>
+                </div>
+              </button>
+            ) : (
+              <HardNavLink
+                href={
+                  activeTab === 'all'
+                    ? '/units/practice/select?filter=all&shuffle=true'
+                    : `/units/${currentUnitId}/practice/select?shuffle=true`
+                }
+                className={`block rounded-2xl p-4 shadow-md transition-all active:scale-[0.98] bg-gradient-to-r ${currentTabInfo.gradient} text-white`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="px-2.5 py-0.5 bg-white/20 rounded-full text-xs font-bold">
+                        シャッフル
+                      </span>
+                      <span className="text-white/80 text-xs">{totalSentences}問</span>
+                    </div>
+                    <h2 className="text-lg font-black">まとめて練習</h2>
+                    <p className="text-xs text-white/80 mt-0.5">
+                      {activeTab === 'all'
+                        ? '全てのUnitのPartをまとめて'
+                        : `${currentTabInfo.label}の全Partを`}
+                    </p>
+                  </div>
+                  <div className="text-2xl ml-3">→</div>
+                </div>
+              </HardNavLink>
+            )}
+          </div>
         )}
 
         {/* Part一覧セクション */}
@@ -122,7 +179,7 @@ function UnitsPageContent() {
         <div className="space-y-3">
           {parts.length === 0 ? (
             <div className="text-center text-gray-500 py-8 bg-white rounded-2xl shadow-md">
-              この学年のデータがありません
+              このUnitのデータがありません
             </div>
           ) : (
             parts.map((part, index) => {
@@ -130,55 +187,102 @@ function UnitsPageContent() {
                 activeTab === 'all' ? getGradeFromPartId(part.id) : currentUnitId;
               // 全学年モードでは通し番号を使用
               const displayPartNumber = activeTab === 'all' ? index + 1 : part.partNumber;
+              const isLockedForGuest =
+                isGuest && (
+                  !canAccessActiveGrade ||
+                  !partUnitId ||
+                  !canGuestAccessPart(partUnitId, part.partNumber)
+                );
 
               return (
-                <HardNavLink
-                  key={part.id}
-                  href={`/units/${partUnitId}/parts/${part.id}/mode?shuffle=${shuffleMode}&from=units&grade=${activeTab}`}
-                  className="block bg-white rounded-2xl p-4 active:scale-[0.98] transition-transform shadow-md"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
-                        <span className={getPartBadgeClassName(activeTab)}>
-                          Part {displayPartNumber}
-                        </span>
-                        {activeTab === 'all' && (
-                          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
-                            {getGradeLabelFromPartId(part.id)}
-                          </span>
-                        )}
-                        <span className="text-gray-400 text-xs">
-                          {part.sentences.length}問
-                        </span>
-                        {part.priority && (
-                          <span
-                            className={`px-2 py-0.5 text-xs font-bold rounded-full ${
-                              part.priority === 'A'
-                                ? 'bg-red-100 text-red-700'
-                                : part.priority === 'B'
-                                ? 'bg-yellow-100 text-yellow-700'
-                                : 'bg-gray-100 text-gray-600'
-                            }`}
-                          >
-                            {part.priority === 'A'
-                              ? '重要'
-                              : part.priority === 'B'
-                              ? '標準'
-                              : '補足'}
-                          </span>
-                        )}
+                <div key={part.id} className="relative">
+                  {isLockedForGuest && (
+                    <div className="absolute -top-2 -right-2 z-10">
+                      <span className="px-3 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-full shadow-lg flex items-center gap-1">
+                        <LockIcon size={14} />
+                        {GUEST_LOCK_LABEL}
+                      </span>
+                    </div>
+                  )}
+                  {isLockedForGuest ? (
+                    <button
+                      onClick={() => router.push('/auth/register')}
+                      className="block w-full bg-white rounded-2xl p-4 text-left shadow-md opacity-75"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                            <span className={getPartBadgeClassName(activeTab)}>
+                              Part {displayPartNumber}
+                            </span>
+                            {activeTab === 'all' && (
+                              <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
+                                {getGradeLabelFromPartId(part.id)}
+                              </span>
+                            )}
+                            <span className="text-gray-400 text-xs">
+                              {part.sentences.length}問
+                            </span>
+                          </div>
+                          <h2 className="text-sm font-bold text-gray-800 truncate">{part.title}</h2>
+                          <p className="text-gray-500 text-xs mt-0.5 line-clamp-1">
+                            {part.description}
+                          </p>
+                        </div>
+                        <div className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 flex-shrink-0">
+                          <LockIcon size={16} />
+                        </div>
                       </div>
-                      <h2 className="text-sm font-bold text-gray-800 truncate">{part.title}</h2>
-                      <p className="text-gray-500 text-xs mt-0.5 line-clamp-1">
-                        {part.description}
-                      </p>
-                    </div>
-                    <div className={`w-9 h-9 rounded-full bg-gradient-to-r ${currentTabInfo.gradient} flex items-center justify-center text-white font-bold flex-shrink-0 text-sm`}>
-                      →
-                    </div>
-                  </div>
-                </HardNavLink>
+                    </button>
+                  ) : (
+                    <HardNavLink
+                      href={`/units/${partUnitId}/parts/${part.id}/mode?shuffle=${shuffleMode}&from=units&grade=${activeTab}`}
+                      className="block bg-white rounded-2xl p-4 active:scale-[0.98] transition-transform shadow-md"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                            <span className={getPartBadgeClassName(activeTab)}>
+                              Part {displayPartNumber}
+                            </span>
+                            {activeTab === 'all' && (
+                              <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
+                                {getGradeLabelFromPartId(part.id)}
+                              </span>
+                            )}
+                            <span className="text-gray-400 text-xs">
+                              {part.sentences.length}問
+                            </span>
+                            {part.priority && (
+                              <span
+                                className={`px-2 py-0.5 text-xs font-bold rounded-full ${
+                                  part.priority === 'A'
+                                    ? 'bg-red-100 text-red-700'
+                                    : part.priority === 'B'
+                                    ? 'bg-yellow-100 text-yellow-700'
+                                    : 'bg-gray-100 text-gray-600'
+                                }`}
+                              >
+                                {part.priority === 'A'
+                                  ? '重要'
+                                  : part.priority === 'B'
+                                  ? '標準'
+                                  : '補足'}
+                              </span>
+                            )}
+                          </div>
+                          <h2 className="text-sm font-bold text-gray-800 truncate">{part.title}</h2>
+                          <p className="text-gray-500 text-xs mt-0.5 line-clamp-1">
+                            {part.description}
+                          </p>
+                        </div>
+                        <div className={`w-9 h-9 rounded-full bg-gradient-to-r ${currentTabInfo.gradient} flex items-center justify-center text-white font-bold flex-shrink-0 text-sm`}>
+                          →
+                        </div>
+                      </div>
+                    </HardNavLink>
+                  )}
+                </div>
               );
             })
           )}

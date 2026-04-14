@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { Capacitor } from '@capacitor/core';
 import { useAdMob } from '@/hooks/useAdMob';
+import { usePathname } from 'next/navigation';
 
 interface AdBannerProps {
   position?: 'top' | 'bottom' | 'inline';
@@ -71,34 +72,30 @@ export default function AdBanner({
 // ネイティブではAdMobバナーを制御し、Webではプレースホルダーを表示
 interface FixedAdBannerProps {
   className?: string;
+  visible?: boolean;
 }
 
-export function FixedAdBanner({ className = '' }: FixedAdBannerProps) {
+export function FixedAdBanner({ className = '', visible = true }: FixedAdBannerProps) {
   const { shouldShowAds } = useSubscription();
   const { showBanner, hideBanner, isNative, isInitialized } = useAdMob();
-  const bannerShownRef = useRef(false);
+  const pathname = usePathname();
 
-  const showAds = shouldShowAds();
+  const showAds = visible && shouldShowAds();
 
-  // ネイティブ環境：AdMobバナーの表示/非表示を制御
+  // ネイティブ環境：ページ復帰時も含めて毎回BottomNav上に再配置する
   useEffect(() => {
     if (!isNative || !isInitialized) return;
 
-    if (showAds && !bannerShownRef.current) {
-      showBanner('BOTTOM');
-      bannerShownRef.current = true;
-    } else if (!showAds && bannerShownRef.current) {
-      hideBanner();
-      bannerShownRef.current = false;
+    if (showAds) {
+      void showBanner('BOTTOM');
+    } else {
+      void hideBanner();
     }
 
     return () => {
-      if (bannerShownRef.current) {
-        hideBanner();
-        bannerShownRef.current = false;
-      }
+      void hideBanner();
     };
-  }, [showAds, isNative, isInitialized, showBanner, hideBanner]);
+  }, [showAds, isNative, isInitialized, pathname, showBanner, hideBanner]);
 
   if (!showAds) {
     return null;
