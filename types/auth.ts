@@ -77,6 +77,7 @@ export const TRIAL_CONFIG = {
 // 管理者メールアドレスかどうかを判定（環境変数から取得）
 // 第1関門：メールアドレスの照合
 export function isAdminEmail(email: string): boolean {
+  if (process.env.NEXT_PUBLIC_ENABLE_MASTER_MODE !== 'true') return false;
   const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
   if (!adminEmail) return false;
   const normalizedEmail = email.toLowerCase().trim();
@@ -87,6 +88,7 @@ export function isAdminEmail(email: string): boolean {
 // 管理者秘密キーを検証（環境変数から取得）
 // 第2関門：秘密のコマンド入力
 export function verifyAdminSecretKey(inputKey: string): boolean {
+  if (process.env.NEXT_PUBLIC_ENABLE_MASTER_MODE !== 'true') return false;
   const secretKey = process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY;
   if (!secretKey) return false;
   return inputKey === secretKey;

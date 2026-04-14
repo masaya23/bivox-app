@@ -28,9 +28,11 @@ import {
   signUpWithEmail,
   signInWithEmail,
   signOut as firebaseSignOut,
+  deleteAccount as firebaseDeleteAccount,
   onAuthStateChange,
   isFirebaseConfigured,
   resendVerificationEmail,
+  getUserCustomClaims,
 } from '@/lib/firebase';
 import type { User as FirebaseUser } from 'firebase/auth';
 
@@ -39,6 +41,7 @@ const AUTH_KEY = 'englishapp_auth';
 const AUTH_USER_KEY = 'englishapp_auth_user';
 const REGISTERED_EMAILS_KEY = 'englishapp_registered_emails';
 const MASTER_MODE_KEY = 'englishapp_master_mode';
+const GUEST_USER_KEY = 'englishapp_guest_user';
 
 interface AuthContextType {
   // ユーザー状態
@@ -55,8 +58,9 @@ interface AuthContextType {
   // 認証アクション
   signUp: (email: string, password: string) => Promise<{ success: boolean; error?: AuthError; needsVerification?: boolean }>;
   signIn: (email: string, password: string) => Promise<{ success: boolean; error?: AuthError; needsVerification?: boolean }>;
+  signInAsGuest: () => Promise<{ success: boolean; error?: AuthError }>;
   signOut: () => Promise<void>;
-  deleteAccount: () => Promise<void>;
+  deleteAccount: (password: string) => Promise<{ success: boolean; error?: string }>;
   resendVerification: () => Promise<{ success: boolean; error?: string }>;
 
   // トライアル開始
@@ -101,6 +105,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
     daysRemaining: 0,
   });
 
+  const syncFirebaseAdminState = useCallback(async (fbUser: FirebaseUser, baseUser: AuthUser) => {
+    try {
+      const claims = await getUserCustomClaims(fbUser);
+      const hasAdminClaim = claims.admin === true || claims.master === true;
+      const updatedUser = { ...baseUser, isMaster: hasAdminClaim };
+      setUser(updatedUser);
+      setIsMasterMode(hasAdminClaim);
+
+      if (hasAdminClaim) {
+        localStorage.setItem(MASTER_MODE_KEY, 'firebase-admin');
+      } else {
+        localStorage.removeItem(MASTER_MODE_KEY);
+      }
+    } catch {
+      setUser(baseUser);
+      setIsMasterMode(false);
+      localStorage.removeItem(MASTER_MODE_KEY);
+    }
+  }, []);
+
   // Firebase認証状態の監視
   useEffect(() => {
     const firebaseEnabled = isFirebaseConfigured();
@@ -109,31 +133,64 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (firebaseEnabled) {
       // Firebase認証を使用
       const unsubscribe = onAuthStateChange((fbUser) => {
-        if (fbUser) {
-          const authUser: AuthUser = {
-            id: fbUser.uid,
-            email: fbUser.email || '',
-            emailHash: fbUser.uid,
-            provider: 'email',
-            createdAt: fbUser.metadata.creationTime || new Date().toISOString(),
-            isEmailVerified: fbUser.emailVerified,
-            isMaster: false,
-            linkedProviders: ['email'],
-          };
-          setUser(authUser);
-          setFirebaseUser(fbUser);
+        void (async () => {
+          setIsLoading(true);
 
-          // マスターモードの復元
-          const storedMasterMode = localStorage.getItem(MASTER_MODE_KEY);
-          if (storedMasterMode === 'true' && isAdminEmail(authUser.email)) {
-            setIsMasterMode(true);
+          if (fbUser) {
+            // Firebaseユーザーがいる場合はゲスト情報をクリア
+            localStorage.removeItem(GUEST_USER_KEY);
+            setFirebaseUser(fbUser);
+
+            // キャッシュが古い場合を考慮してサーバーから最新状態を取得
+            try {
+              await fbUser.reload();
+            } catch {
+              // ネットワークエラー時はキャッシュ値で続行
+            }
+
+            if (fbUser.emailVerified) {
+              const authUser: AuthUser = {
+                id: fbUser.uid,
+                email: fbUser.email || '',
+                emailHash: fbUser.uid,
+                provider: 'email',
+                createdAt: fbUser.metadata.creationTime || new Date().toISOString(),
+                isEmailVerified: true,
+                isMaster: false,
+                linkedProviders: ['email'],
+              };
+              await syncFirebaseAdminState(fbUser, authUser);
+            } else {
+              // メール未認証の場合は認証済みとして扱わない
+              setUser(null);
+              setIsMasterMode(false);
+            }
+          } else {
+            // Firebaseユーザーがいない場合、ゲストユーザーをチェック
+            const guestData = localStorage.getItem(GUEST_USER_KEY);
+            if (guestData) {
+              try {
+                const guestUser = JSON.parse(guestData) as AuthUser;
+                setUser(guestUser);
+                setFirebaseUser(null);
+                setIsMasterMode(false);
+              } catch {
+                setUser(null);
+                setFirebaseUser(null);
+                setIsMasterMode(false);
+                localStorage.removeItem(GUEST_USER_KEY);
+              }
+            } else {
+              setUser(null);
+              setFirebaseUser(null);
+              setIsMasterMode(false);
+              localStorage.removeItem(MASTER_MODE_KEY);
+            }
           }
-        } else {
-          setUser(null);
-          setFirebaseUser(null);
-        }
-        setTrialStatus(getCurrentTrialStatus());
-        setIsLoading(false);
+
+          setTrialStatus(getCurrentTrialStatus());
+          setIsLoading(false);
+        })();
       });
 
       return () => unsubscribe();
@@ -141,7 +198,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // ローカルストレージ認証（フォールバック）
       loadLocalUser();
     }
-  }, []);
+  }, [syncFirebaseAdminState]);
 
   // ローカルストレージからユーザーを読み込む（フォールバック）
   const loadLocalUser = () => {
@@ -286,13 +343,34 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // Firebase認証
       const result = await signInWithEmail(email, password);
       if (result.success && result.user) {
+        // 最新のemailVerified状態をサーバーから取得
+        try {
+          await result.user.reload();
+        } catch {
+          // ネットワークエラー時はキャッシュ値で続行
+        }
+
         logLogin('email');
         setUserId(result.user.uid);
 
         // メール未認証の場合
-        if (!result.emailVerified) {
+        if (!result.user.emailVerified) {
           return { success: true, needsVerification: true };
         }
+
+        const authUser: AuthUser = {
+          id: result.user.uid,
+          email: result.user.email || '',
+          emailHash: result.user.uid,
+          provider: 'email',
+          createdAt: result.user.metadata.creationTime || new Date().toISOString(),
+          isEmailVerified: result.user.emailVerified,
+          isMaster: false,
+          linkedProviders: ['email'],
+        };
+
+        setFirebaseUser(result.user);
+        await syncFirebaseAdminState(result.user, authUser);
 
         return { success: true };
       }
@@ -347,7 +425,30 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       return { success: true };
     }
-  }, [useFirebase, saveLocalUser]);
+  }, [useFirebase, saveLocalUser, syncFirebaseAdminState]);
+
+  // ゲストログイン
+  const signInAsGuest = useCallback(async (): Promise<{ success: boolean; error?: AuthError }> => {
+    const guestUser: AuthUser = {
+      id: `guest_${Date.now()}`,
+      email: '',
+      emailHash: '',
+      provider: 'anonymous',
+      createdAt: new Date().toISOString(),
+      isEmailVerified: false,
+      isMaster: false,
+      linkedProviders: ['anonymous'],
+    };
+
+    localStorage.setItem(GUEST_USER_KEY, JSON.stringify(guestUser));
+    setUser(guestUser);
+    setFirebaseUser(null);
+    setIsMasterMode(false);
+    setTrialStatus(getCurrentTrialStatus());
+    setUserId(guestUser.id);
+
+    return { success: true };
+  }, []);
 
   // サインアウト
   const signOut = useCallback(async () => {
@@ -357,6 +458,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     saveLocalUser(null);
     localStorage.removeItem(AUTH_KEY);
     localStorage.removeItem(MASTER_MODE_KEY);
+    localStorage.removeItem(GUEST_USER_KEY);
+    setUser(null);
     setIsMasterMode(false);
     setUserId(null);
   }, [useFirebase, saveLocalUser]);
@@ -373,6 +476,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const activateMasterMode = useCallback((secretKey: string): { success: boolean; message: string } => {
     if (!user) {
       return { success: false, message: 'ログインが必要です。' };
+    }
+
+    if (useFirebase) {
+      return { success: false, message: 'Firebase Custom Claimsで管理してください。' };
     }
 
     if (!isAdminEmail(user.email)) {
@@ -397,6 +504,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // マスターモード無効化
   const deactivateMasterMode = useCallback(() => {
+    if (useFirebase) {
+      return;
+    }
+
     setIsMasterMode(false);
     localStorage.removeItem(MASTER_MODE_KEY);
 
@@ -410,15 +521,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [user, useFirebase, saveLocalUser]);
 
   // アカウント削除
-  const deleteAccount = useCallback(async () => {
-    if (user) {
-      await preserveTrialHistoryOnDeletion(user.email);
-      if (useFirebase) {
-        // Firebase側の削除は別途実装が必要
-        await firebaseSignOut();
-      }
-      saveLocalUser(null);
+  const deleteAccount = useCallback(async (password: string): Promise<{ success: boolean; error?: string }> => {
+    if (!user) {
+      return { success: false, error: 'ログインが必要です' };
     }
+
+    await preserveTrialHistoryOnDeletion(user.email);
+
+    if (useFirebase) {
+      const result = await firebaseDeleteAccount(password);
+      if (!result.success) {
+        return result;
+      }
+    }
+
+    saveLocalUser(null);
+    localStorage.removeItem(AUTH_KEY);
+    localStorage.removeItem(MASTER_MODE_KEY);
+    setIsMasterMode(false);
+    setUserId(null);
+
+    return { success: true };
   }, [user, useFirebase, saveLocalUser]);
 
   // 無料トライアル開始
@@ -480,6 +603,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     trialStatus,
     signUp,
     signIn,
+    signInAsGuest,
     signOut,
     deleteAccount,
     resendVerification,
