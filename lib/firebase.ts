@@ -12,10 +12,14 @@ import {
   updatePassword,
   EmailAuthProvider,
   reauthenticateWithCredential,
+  deleteUser,
   onAuthStateChanged,
+  getIdTokenResult,
   User,
   Auth,
+  ActionCodeSettings,
 } from 'firebase/auth';
+import { Capacitor } from '@capacitor/core';
 
 // Firebase設定
 // 注意: これらの値はFirebase Consoleから取得してください
@@ -27,6 +31,57 @@ const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || '',
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || '',
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || '',
+};
+
+const PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/+$/, '') || '';
+let hasWarnedAboutMissingAppUrl = false;
+
+const isNativePlatform = (): boolean => {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  try {
+    return Capacitor.isNativePlatform();
+  } catch {
+    return false;
+  }
+};
+
+const getAuthEmailBaseUrl = (): string => {
+  if (PUBLIC_APP_URL) {
+    return PUBLIC_APP_URL;
+  }
+
+  if (typeof window !== 'undefined' && !isNativePlatform()) {
+    return window.location.origin.replace(/\/+$/, '');
+  }
+
+  const authDomain = process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN?.trim();
+  if (authDomain) {
+    if (!hasWarnedAboutMissingAppUrl) {
+      console.warn(
+        'NEXT_PUBLIC_APP_URL is not set. Falling back to NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN for auth email redirects.'
+      );
+      hasWarnedAboutMissingAppUrl = true;
+    }
+    return `https://${authDomain}`;
+  }
+
+  return '';
+};
+
+const buildActionCodeSettings = (path: string): ActionCodeSettings | undefined => {
+  const baseUrl = getAuthEmailBaseUrl();
+  if (!baseUrl) {
+    return undefined;
+  }
+
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return {
+    url: `${baseUrl}${normalizedPath}`,
+    handleCodeInApp: false,
+  };
 };
 
 // Firebaseアプリの初期化（重複初期化を防ぐ）
@@ -57,14 +112,6 @@ export const isFirebaseConfigured = (): boolean => {
   );
 };
 
-// アプリのベースURL（開発環境と本番環境で切り替え）
-const getAppBaseUrl = (): string => {
-  if (typeof window !== 'undefined') {
-    return window.location.origin;
-  }
-  return 'http://localhost:3000';
-};
-
 // 新規登録（メール認証付き）
 export const signUpWithEmail = async (
   email: string,
@@ -74,12 +121,12 @@ export const signUpWithEmail = async (
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // 確認メール送信時にリダイレクトURLを設定
-    const actionCodeSettings = {
-      url: `${getAppBaseUrl()}/auth/login?verified=true`,
-      handleCodeInApp: false,
-    };
-    await sendEmailVerification(user, actionCodeSettings);
+    const actionCodeSettings = buildActionCodeSettings('/auth/verified');
+    if (actionCodeSettings) {
+      await sendEmailVerification(user, actionCodeSettings);
+    } else {
+      await sendEmailVerification(user);
+    }
 
     return { success: true, user };
   } catch (error: unknown) {
@@ -162,12 +209,12 @@ export const resendVerificationEmail = async (): Promise<{ success: boolean; err
       return { success: false, error: 'ログインが必要です' };
     }
 
-    // 確認メール送信時にリダイレクトURLを設定
-    const actionCodeSettings = {
-      url: `${getAppBaseUrl()}/auth/login?verified=true`,
-      handleCodeInApp: false,
-    };
-    await sendEmailVerification(user, actionCodeSettings);
+    const actionCodeSettings = buildActionCodeSettings('/auth/verified');
+    if (actionCodeSettings) {
+      await sendEmailVerification(user, actionCodeSettings);
+    } else {
+      await sendEmailVerification(user);
+    }
     return { success: true };
   } catch (error: unknown) {
     const firebaseError = error as { code?: string; message?: string };
@@ -221,7 +268,12 @@ export const changeEmail = async (
 
     // 新しいメールアドレスに確認メールを送信
     // ユーザーがメール内のリンクをクリックするとメールアドレスが更新される
-    await verifyBeforeUpdateEmail(user, newEmail);
+    const actionCodeSettings = buildActionCodeSettings('/auth/verified');
+    if (actionCodeSettings) {
+      await verifyBeforeUpdateEmail(user, newEmail, actionCodeSettings);
+    } else {
+      await verifyBeforeUpdateEmail(user, newEmail);
+    }
 
     return { success: true };
   } catch (error: unknown) {
@@ -296,6 +348,43 @@ export const changePassword = async (
   }
 };
 
+// アカウント削除（再認証が必要）
+export const deleteAccount = async (
+  currentPassword: string
+): Promise<{ success: boolean; error?: string }> => {
+  try {
+    const user = auth.currentUser;
+    if (!user || !user.email) {
+      return { success: false, error: 'ログインが必要です' };
+    }
+
+    // 再認証
+    const credential = EmailAuthProvider.credential(user.email, currentPassword);
+    await reauthenticateWithCredential(user, credential);
+
+    // Firebaseユーザー削除
+    await deleteUser(user);
+
+    return { success: true };
+  } catch (error: unknown) {
+    const firebaseError = error as { code?: string; message?: string };
+    let errorMessage = 'アカウントの削除に失敗しました';
+
+    switch (firebaseError.code) {
+      case 'auth/wrong-password':
+        errorMessage = '現在のパスワードが正しくありません';
+        break;
+      case 'auth/requires-recent-login':
+        errorMessage = 'セキュリティのため、再ログインが必要です';
+        break;
+      default:
+        errorMessage = firebaseError.message || errorMessage;
+    }
+
+    return { success: false, error: errorMessage };
+  }
+};
+
 // 認証状態の監視
 export const onAuthStateChange = (callback: (user: User | null) => void) => {
   return onAuthStateChanged(auth, callback);
@@ -304,6 +393,11 @@ export const onAuthStateChange = (callback: (user: User | null) => void) => {
 // 現在のユーザーを取得
 export const getCurrentUser = (): User | null => {
   return auth?.currentUser || null;
+};
+
+export const getUserCustomClaims = async (user: User): Promise<Record<string, unknown>> => {
+  const tokenResult = await getIdTokenResult(user, true);
+  return tokenResult.claims;
 };
 
 // Authインスタンスをエクスポート

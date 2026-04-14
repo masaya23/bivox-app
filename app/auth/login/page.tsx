@@ -2,10 +2,27 @@
 
 import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { Capacitor } from '@capacitor/core';
 import Image from 'next/image';
 import HardNavLink from '@/components/HardNavLink';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAppRouter } from '@/hooks/useAppRouter';
+import { useHideNativeBanner } from '@/hooks/useHideNativeBanner';
+
+const ANDROID_INTENT_LOGIN_DEEP_LINK =
+  'intent:#Intent;package=com.shunkan.eikaiwa;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;end';
+
+function isAndroidBrowser(): boolean {
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
+
+  return /Android/i.test(navigator.userAgent);
+}
+
+function getPreferredAppOpenUrl(): string {
+  return ANDROID_INTENT_LOGIN_DEEP_LINK;
+}
 
 function LoginPageInner() {
   const router = useAppRouter();
@@ -13,21 +30,50 @@ function LoginPageInner() {
   const { signIn, resendVerification, useFirebase } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [needsVerification, setNeedsVerification] = useState(false);
   const [verificationEmail, setVerificationEmail] = useState('');
   const [resendStatus, setResendStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [verifiedSuccess, setVerifiedSuccess] = useState(false);
+  const [showOpenAppButton, setShowOpenAppButton] = useState(false);
+  const [isExternalBrowserVerified, setIsExternalBrowserVerified] = useState(false);
+
+  useHideNativeBanner();
 
   // メール認証完了後のリダイレクトを検出
   useEffect(() => {
+    let fallbackTimer: number | undefined;
+
     if (searchParams.get('verified') === 'true') {
       setVerifiedSuccess(true);
-      // URLからパラメータを削除（履歴を汚さないようにreplace）
-      router.replace('/auth/login');
+      const isNativePlatform = Capacitor.isNativePlatform();
+      const shouldPromptOpenApp = !isNativePlatform;
+
+      setIsExternalBrowserVerified(shouldPromptOpenApp);
+      setShowOpenAppButton(shouldPromptOpenApp);
+
+      if (shouldPromptOpenApp && isAndroidBrowser() && typeof window !== 'undefined') {
+        fallbackTimer = window.setTimeout(() => {
+          window.location.href = getPreferredAppOpenUrl();
+        }, 500);
+      }
+
+      if (typeof window !== 'undefined') {
+        const nextUrl = new URL(window.location.href);
+        nextUrl.searchParams.delete('verified');
+        const cleanPath = `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`;
+        window.history.replaceState({}, '', cleanPath);
+      }
     }
-  }, [searchParams, router]);
+
+    return () => {
+      if (fallbackTimer) {
+        clearTimeout(fallbackTimer);
+      }
+    };
+  }, [searchParams]);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -234,7 +280,31 @@ function LoginPageInner() {
               </p>
             </div>
             <p className="text-green-600 text-xs text-center mt-1">
-              ログインしてアプリをご利用ください
+              {isExternalBrowserVerified
+                ? 'Bivoxアプリを開いてログインしてください'
+                : 'ログインしてアプリをご利用ください'}
+            </p>
+            {showOpenAppButton && (
+              <>
+                <a
+                  href={getPreferredAppOpenUrl()}
+                  className="mt-3 block w-full py-3 bg-white border border-green-200 text-green-700 rounded-xl font-bold text-sm text-center"
+                >
+                  Bivoxアプリを開く
+                </a>
+                <p className="mt-2 text-[11px] text-green-700 text-center">
+                  開かない場合は上のボタンをもう一度押してください
+                </p>
+              </>
+            )}
+          </div>
+        )}
+
+        {isExternalBrowserVerified && (
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-4">
+            <p className="text-amber-800 text-sm text-center leading-relaxed">
+              認証は完了しています。<br />
+              このブラウザではなく、Bivoxアプリに戻ってログインしてください。
             </p>
           </div>
         )}
@@ -249,7 +319,8 @@ function LoginPageInner() {
         )}
 
         {/* メールログインフォーム */}
-        <form onSubmit={handleEmailLogin} className="space-y-4">
+        {!isExternalBrowserVerified && (
+          <form onSubmit={handleEmailLogin} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[#5D4037] mb-1.5">
               メールアドレス
@@ -259,7 +330,7 @@ function LoginPageInner() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="example@email.com"
-              className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-[#FCC800] focus:bg-white transition-all"
+              className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-[#FCC800] focus:bg-white transition-all text-gray-900 placeholder:text-gray-300"
               disabled={isLoading}
             />
           </div>
@@ -267,14 +338,37 @@ function LoginPageInner() {
             <label className="block text-sm font-medium text-[#5D4037] mb-1.5">
               パスワード
             </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="6文字以上"
-              className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-[#FCC800] focus:bg-white transition-all"
-              disabled={isLoading}
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onFocus={(e) => setTimeout(() => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300)}
+                placeholder="6文字以上"
+                className="w-full px-4 py-3.5 pr-12 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:outline-none focus:border-[#FCC800] focus:bg-white transition-all text-gray-900 placeholder:text-gray-300"
+                disabled={isLoading}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-gray-400 transition-colors hover:text-[#5D4037]"
+                aria-label={showPassword ? 'パスワードを非表示' : 'パスワードを表示'}
+                disabled={isLoading}
+              >
+                {showPassword ? (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3l18 18" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.58 10.58A3 3 0 0012 15a3 3 0 002.42-4.42" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.88 5.09A9.77 9.77 0 0112 4.5c4.77 0 8.73 3.12 9.5 7.5a9.78 9.78 0 01-4.04 5.94M6.1 6.1A9.76 9.76 0 002.5 12c.46 2.61 2.05 4.84 4.28 6.12" />
+                  </svg>
+                ) : (
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.5 12C3.27 7.62 7.23 4.5 12 4.5S20.73 7.62 21.5 12c-.77 4.38-4.73 7.5-9.5 7.5S3.27 16.38 2.5 12z" />
+                    <circle cx="12" cy="12" r="3" strokeWidth={2} />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
 
           {error && (
@@ -291,7 +385,8 @@ function LoginPageInner() {
           >
             {isLoading ? 'ログイン中...' : 'ログイン'}
           </button>
-        </form>
+          </form>
+        )}
 
         {/* 新規登録リンク */}
         <div className="mt-8 text-center">

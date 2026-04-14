@@ -40,7 +40,7 @@ function AuthActionPageInner() {
             setMessage('メール認証が完了しました！');
             // 2秒後にログインページへリダイレクト
             setTimeout(() => {
-              router.push('/auth/login?verified=true');
+              router.push('/auth/verified');
             }, 2000);
             break;
 
