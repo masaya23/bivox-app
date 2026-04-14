@@ -1,0 +1,224 @@
+apply plugin: 'com.android.application'
+
+import java.util.Properties
+import java.util.zip.ZipFile
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { stream ->
+        localProperties.load(stream)
+    }
+}
+
+def releaseStoreFile = keystoreProperties['storeFile'] ?: System.getenv('ANDROID_RELEASE_STORE_FILE')
+def releaseStorePassword = keystoreProperties['storePassword'] ?: System.getenv('ANDROID_RELEASE_STORE_PASSWORD')
+def releaseKeyAlias = keystoreProperties['keyAlias'] ?: System.getenv('ANDROID_RELEASE_KEY_ALIAS')
+def releaseKeyPassword = keystoreProperties['keyPassword'] ?: System.getenv('ANDROID_RELEASE_KEY_PASSWORD')
+def hasReleaseSigning = releaseStoreFile && releaseStorePassword && releaseKeyAlias && releaseKeyPassword
+
+android {
+    namespace = "com.shunkan.eikaiwa"
+    compileSdk = rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.shunkan.eikaiwa"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 11
+        versionName "1.0.10"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        aaptOptions {
+             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
+             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+    }
+    signingConfigs {
+        release {
+            if (hasReleaseSigning) {
+                storeFile file(releaseStoreFile)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
+    buildTypes {
+        release {
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+if (!hasReleaseSigning) {
+    logger.lifecycle("Release signing config not found. Add android/app/key.properties or ANDROID_RELEASE_* environment variables before bundleRelease.")
+}
+
+repositories {
+    flatDir{
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation project(':capacitor-android')
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation project(':capacitor-cordova-android-plugins')
+
+    // Firebase BoM (Bill of Materials)
+    implementation platform('com.google.firebase:firebase-bom:34.8.0')
+    // Firebase Analytics
+    implementation 'com.google.firebase:firebase-analytics'
+}
+
+apply from: 'capacitor.build.gradle'
+
+afterEvaluate {
+    android.applicationVariants.all { variant ->
+        def variantName = variant.name
+        def variantCap = variantName.capitalize()
+        def mergeAssetsTask = tasks.findByName("merge${variantCap}Assets")
+        def compressAssetsTask = tasks.findByName("compress${variantCap}Assets")
+        def packageTask = tasks.findByName("package${variantCap}")
+        def assembleTask = tasks.findByName("assemble${variantCap}")
+
+        if (mergeAssetsTask == null) {
+            return
+        }
+
+        def restoreWebHtmlTask = tasks.register("restore${variantCap}WebHtmlAssets", Copy) {
+            from('src/main/assets/public') {
+                include '**/*.html'
+            }
+            into("$buildDir/intermediates/assets/${variantName}/merge${variantCap}Assets/public")
+        }
+
+        restoreWebHtmlTask.configure {
+            dependsOn mergeAssetsTask
+        }
+
+        if (compressAssetsTask != null) {
+            compressAssetsTask.dependsOn(restoreWebHtmlTask)
+        }
+
+        if (packageTask != null) {
+            def patchApkTask = tasks.register("patch${variantCap}ApkWebHtmlAssets") {
+                dependsOn packageTask
+
+                doLast {
+                    def apkDir = file("$buildDir/outputs/apk/${variantName}")
+                    def apkFiles = apkDir.listFiles()?.findAll { file ->
+                        file.name.toLowerCase().endsWith('.apk')
+                    } ?: []
+                    def assetsDir = file('src/main/assets')
+                    def htmlFilesToPatch = fileTree(dir: assetsDir, includes: ['public/**/*.html'])
+                        .files
+                        .findAll { htmlFile ->
+                            !htmlFile.path.contains("${File.separator}public${File.separator}units${File.separator}")
+                        }
+                        .collect { htmlFile ->
+                            assetsDir.toPath().relativize(htmlFile.toPath()).toString().replace(File.separatorChar, '/' as char)
+                        }
+
+                    apkFiles.each { apkFile ->
+                        if (htmlFilesToPatch.isEmpty()) {
+                            return
+                        }
+
+                        def existingEntries = [] as Set<String>
+                        ZipFile zipFile = null
+
+                        try {
+                            zipFile = new ZipFile(apkFile)
+                            existingEntries.addAll(zipFile.entries().collect { it.name })
+                        } finally {
+                            zipFile?.close()
+                        }
+
+                        def missingHtmlFiles = htmlFilesToPatch.findAll { relativePath ->
+                            !existingEntries.contains(relativePath) && !existingEntries.contains("assets/${relativePath}")
+                        }
+
+                        def sdkDir = localProperties.getProperty('sdk.dir')?.replace('\\:', ':')
+                        def buildToolsDir = sdkDir ? new File(sdkDir, 'build-tools') : null
+                        def latestBuildToolsDir = buildToolsDir?.listFiles()?.findAll { it.isDirectory() }?.sort { a, b ->
+                            b.name <=> a.name
+                        }?.find()
+                        def aapt = latestBuildToolsDir ? new File(latestBuildToolsDir, 'aapt.exe') : null
+
+                        if (aapt?.exists() && !missingHtmlFiles.isEmpty()) {
+                            exec {
+                                workingDir assetsDir
+                                commandLine([aapt.absolutePath, 'add', apkFile.absolutePath] + missingHtmlFiles)
+                            }
+                        }
+
+                        if (variantName == 'debug') {
+                            def zipalign = latestBuildToolsDir ? new File(latestBuildToolsDir, 'zipalign.exe') : null
+                            def apksigner = latestBuildToolsDir ? new File(latestBuildToolsDir, 'apksigner.bat') : null
+                            def debugKeystore = new File(System.getProperty('user.home'), '.android/debug.keystore')
+
+                            if (zipalign?.exists() && apksigner?.exists() && debugKeystore.exists()) {
+                                def alignedApkFile = new File(apkFile.parentFile, "${apkFile.name}.aligned")
+
+                                exec {
+                                    commandLine(
+                                        zipalign.absolutePath,
+                                        '-f',
+                                        '4',
+                                        apkFile.absolutePath,
+                                        alignedApkFile.absolutePath
+                                    )
+                                }
+
+                                apkFile.delete()
+                                alignedApkFile.renameTo(apkFile)
+
+                                exec {
+                                    commandLine(
+                                        apksigner.absolutePath,
+                                        'sign',
+                                        '--ks', debugKeystore.absolutePath,
+                                        '--ks-key-alias', 'androiddebugkey',
+                                        '--ks-pass', 'pass:android',
+                                        '--key-pass', 'pass:android',
+                                        apkFile.absolutePath
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (assembleTask != null) {
+                assembleTask.dependsOn(patchApkTask)
+            }
+        }
+    }
+}
+
+try {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
+        apply plugin: 'com.google.gms.google-services'
+    }
+} catch(Exception e) {
+    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}

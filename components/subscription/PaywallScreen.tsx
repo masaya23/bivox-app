@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
 import {
   useSubscription,
@@ -15,11 +15,34 @@ import {
 } from '@/contexts/SubscriptionContext';
 import { logSubscriptionCancel } from '@/utils/analytics';
 import { useRevenueCat } from '@/hooks/useRevenueCat';
+import { useAdMob } from '@/hooks/useAdMob';
+import { openExternalUrl } from '@/lib/externalNavigation';
 
 interface PaywallScreenProps {
   isOpen: boolean;
   onClose: () => void;
   highlightedMode?: TrainingMode;
+}
+
+const APP_PACKAGE_NAME = 'com.shunkan.eikaiwa';
+const PLAY_STORE_SUBSCRIPTION_IDS: Record<'plus' | 'pro', string> = {
+  plus: 'sokkan_plus',
+  pro: 'sokkan_pro',
+};
+
+function getStoreManagementUrl(tier: SubscriptionTier): string {
+  if (Capacitor.getPlatform() === 'android') {
+    const sku = tier === 'free' ? null : PLAY_STORE_SUBSCRIPTION_IDS[tier];
+    return sku
+      ? `https://play.google.com/store/account/subscriptions?sku=${encodeURIComponent(sku)}&package=${encodeURIComponent(APP_PACKAGE_NAME)}`
+      : 'https://play.google.com/store/account/subscriptions';
+  }
+
+  if (Capacitor.getPlatform() === 'ios') {
+    return 'itms-apps://apps.apple.com/account/subscriptions';
+  }
+
+  return 'https://play.google.com/store/account/subscriptions';
 }
 
 // お客様の声データ
@@ -61,6 +84,7 @@ const CANCELLATION_REASONS = [
 const FEATURE_COMPARISON = [
   { feature: 'チュートリアル', free: true, plus: true, pro: true },
   { feature: 'ベーシックモード', free: true, plus: true, pro: true },
+  { feature: 'ライフ', free: '50（28分で1回復）', plus: '無制限', pro: '無制限' },
   { feature: 'スピーキングモード', free: '-', plus: '50回/日', pro: '無制限' },
   { feature: 'AI応用ドリル', free: '-', plus: '-', pro: '100回/日' },
   { feature: 'AIとフリー英会話', free: '-', plus: '-', pro: '100回/日' },
@@ -90,10 +114,11 @@ export default function PaywallScreen({
   onClose,
   highlightedMode,
 }: PaywallScreenProps) {
-  const { upgradePlan, getEffectiveTier, billingPeriod: currentBillingPeriod } = useSubscription();
+  const { upgradePlan, getEffectiveTier, billingPeriod: currentBillingPeriod, syncNativeSubscription, shouldShowAds } = useSubscription();
   const effectiveTier = getEffectiveTier();
   const revenueCat = useRevenueCat();
   const isNative = Capacitor.isNativePlatform();
+  const { isInitialized, showBanner, hideBanner } = useAdMob();
 
   const [selectedPlan, setSelectedPlan] = useState<SubscriptionTier>(
     highlightedMode ? MODE_REQUIRED_PLAN[highlightedMode] : 'pro'
@@ -106,6 +131,18 @@ export default function PaywallScreen({
   type CancellationStep = 'none' | 'notice' | 'survey' | 'complete';
   const [cancellationStep, setCancellationStep] = useState<CancellationStep>('none');
   const [cancellationReason, setCancellationReason] = useState<string>('');
+
+  useEffect(() => {
+    if (!isOpen || !isNative || !isInitialized) return;
+
+    void hideBanner();
+
+    return () => {
+      if (shouldShowAds()) {
+        void showBanner('BOTTOM');
+      }
+    };
+  }, [hideBanner, isInitialized, isNative, isOpen, shouldShowAds, showBanner]);
 
   if (!isOpen) return null;
 
@@ -177,8 +214,7 @@ export default function PaywallScreen({
         }
 
         if (success) {
-          // 購入成功時、SubscriptionContextも更新
-          upgradePlan(selectedPlan, billingPeriod);
+          await syncNativeSubscription();
           setTimeout(() => onClose(), 500);
         } else {
           // エラーがあれば表示（パッケージ未取得、ストア接続不可など）
@@ -207,9 +243,8 @@ export default function PaywallScreen({
 
     try {
       const success = await revenueCat.restorePurchases();
-      if (success && revenueCat.currentPlan !== 'free') {
-        // 復元時はデフォルトで年額として扱う（実際はRevenueCatから取得）
-        upgradePlan(revenueCat.currentPlan, 'annual');
+      if (success) {
+        await syncNativeSubscription();
         setTimeout(() => onClose(), 500);
       } else if (!success) {
         setPurchaseError('復元する購入がありませんでした');
@@ -219,6 +254,21 @@ export default function PaywallScreen({
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const handleOpenSubscriptionManagement = async () => {
+    const managementUrl = revenueCat.customerInfo?.managementURL || getStoreManagementUrl(effectiveTier);
+
+    setCancellationStep('none');
+    setCancellationReason('');
+    onClose();
+
+    if (Capacitor.getPlatform() === 'android') {
+      await openExternalUrl(managementUrl, 'com.android.vending');
+      return;
+    }
+
+    await openExternalUrl(managementUrl);
   };
 
   const planModes: Record<SubscriptionTier, TrainingMode[]> = {
@@ -705,21 +755,11 @@ export default function PaywallScreen({
 
                 <div className="space-y-3">
                   <button
-                    onClick={() => {
-                      const platform = Capacitor.getPlatform();
-                      if (platform === 'ios') {
-                        window.open('https://apps.apple.com/account/subscriptions', '_blank');
-                      } else if (platform === 'android') {
-                        window.open('https://play.google.com/store/account/subscriptions', '_blank');
-                      } else {
-                        // Web: 手順を案内
-                        window.open('https://support.apple.com/ja-jp/HT202039', '_blank');
-                      }
-                    }}
+                    onClick={handleOpenSubscriptionManagement}
                     className="w-full py-3 bg-red-500 text-white rounded-xl font-bold text-sm active:scale-[0.98] transition-transform"
                   >
-                    {Capacitor.getPlatform() === 'ios' ? 'App Storeの設定を開く' :
-                     Capacitor.getPlatform() === 'android' ? 'Google Playの設定を開く' :
+                    {Capacitor.getPlatform() === 'ios' ? 'App Storeの定期購入を開く' :
+                     Capacitor.getPlatform() === 'android' ? 'Google Playの定期購入を開く' :
                      'サブスクリプション管理を開く'}
                   </button>
                   <button

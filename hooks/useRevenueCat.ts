@@ -3,7 +3,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Capacitor } from '@capacitor/core';
 import type { CustomerInfo, PurchasesPackage, PurchasesOffering } from '@revenuecat/purchases-capacitor';
-import { getAppInstanceId, logSubscriptionStart, logSubscriptionCancel } from '@/utils/analytics';
+import { PRORATION_MODE } from '@revenuecat/purchases-capacitor';
+import { getAppInstanceId, logSubscriptionStart } from '@/utils/analytics';
+import {
+  getCurrentRevenueCatProductIdentifier,
+  getRevenueCatExpirationDate,
+  inferRevenueCatBillingPeriod,
+  inferRevenueCatTier,
+  packageMatchesPlan,
+} from '@/utils/revenueCat';
 
 // RevenueCatの設定
 const REVENUECAT_CONFIG = {
@@ -54,7 +62,11 @@ interface SubscriptionState {
 // フックの戻り値
 interface UseRevenueCatReturn extends SubscriptionState {
   // 購入
-  purchase: (packageToPurchase: PurchasesPackage) => Promise<boolean>;
+  purchase: (
+    packageToPurchase: PurchasesPackage,
+    targetPlan?: 'plus' | 'pro',
+    targetPeriod?: 'monthly' | 'annual'
+  ) => Promise<boolean>;
   purchasePlus: (period?: 'monthly' | 'annual') => Promise<boolean>;
   purchasePro: (period?: 'monthly' | 'annual') => Promise<boolean>;
 
@@ -164,23 +176,8 @@ export function useRevenueCat(): UseRevenueCatReturn {
   const updateStateFromCustomerInfo = useCallback((customerInfo: CustomerInfo) => {
     const hasPlus = !!customerInfo.entitlements.active[REVENUECAT_CONFIG.ENTITLEMENTS.PLUS];
     const hasPro = !!customerInfo.entitlements.active[REVENUECAT_CONFIG.ENTITLEMENTS.PRO];
-
-    let currentPlan: 'free' | 'plus' | 'pro' = 'free';
-    let expirationDate: Date | null = null;
-
-    if (hasPro) {
-      currentPlan = 'pro';
-      const proEntitlement = customerInfo.entitlements.active[REVENUECAT_CONFIG.ENTITLEMENTS.PRO];
-      if (proEntitlement?.expirationDate) {
-        expirationDate = new Date(proEntitlement.expirationDate);
-      }
-    } else if (hasPlus) {
-      currentPlan = 'plus';
-      const plusEntitlement = customerInfo.entitlements.active[REVENUECAT_CONFIG.ENTITLEMENTS.PLUS];
-      if (plusEntitlement?.expirationDate) {
-        expirationDate = new Date(plusEntitlement.expirationDate);
-      }
-    }
+    const currentPlan = inferRevenueCatTier(customerInfo);
+    const expirationDate = getRevenueCatExpirationDate(customerInfo, currentPlan);
 
     setState(prev => ({
       ...prev,
@@ -226,8 +223,39 @@ export function useRevenueCat(): UseRevenueCatReturn {
     }
   }, [isNative, updateStateFromCustomerInfo, fetchOfferings]);
 
+  const getGoogleProrationMode = useCallback((
+    customerInfo: CustomerInfo,
+    targetPlan: 'plus' | 'pro',
+    targetPeriod: 'monthly' | 'annual'
+  ): PRORATION_MODE | null => {
+    const currentPlan = inferRevenueCatTier(customerInfo);
+    const currentPeriod = inferRevenueCatBillingPeriod(customerInfo, currentPlan);
+
+    if (currentPlan === 'free' || currentPeriod === null) {
+      return null;
+    }
+
+    if (currentPlan === 'plus' && targetPlan === 'pro') {
+      return PRORATION_MODE.IMMEDIATE_AND_CHARGE_PRORATED_PRICE;
+    }
+
+    if (currentPlan === targetPlan && currentPeriod === targetPeriod) {
+      return null;
+    }
+
+    if (currentPlan === targetPlan && currentPeriod === 'monthly' && targetPeriod === 'annual') {
+      return PRORATION_MODE.IMMEDIATE_AND_CHARGE_FULL_PRICE;
+    }
+
+    return PRORATION_MODE.IMMEDIATE_WITHOUT_PRORATION;
+  }, []);
+
   // 購入処理
-  const purchase = useCallback(async (packageToPurchase: PurchasesPackage): Promise<boolean> => {
+  const purchase = useCallback(async (
+    packageToPurchase: PurchasesPackage,
+    targetPlan?: 'plus' | 'pro',
+    targetPeriod?: 'monthly' | 'annual'
+  ): Promise<boolean> => {
     if (!isNative) {
       console.warn('Purchase is only available on native platforms');
       return false;
@@ -237,17 +265,39 @@ export function useRevenueCat(): UseRevenueCatReturn {
 
     try {
       const { Purchases } = await import('@revenuecat/purchases-capacitor');
+      let googleProductChangeInfo: {
+        oldProductIdentifier: string;
+        prorationMode?: PRORATION_MODE;
+      } | null = null;
+
+      if (Capacitor.getPlatform() === 'android' && targetPlan && targetPeriod) {
+        const { customerInfo: currentCustomerInfo } = await Purchases.getCustomerInfo();
+        const oldProductIdentifier = getCurrentRevenueCatProductIdentifier(currentCustomerInfo);
+        const prorationMode = getGoogleProrationMode(currentCustomerInfo, targetPlan, targetPeriod);
+
+        if (oldProductIdentifier && oldProductIdentifier !== packageToPurchase.product.identifier) {
+          googleProductChangeInfo = {
+            oldProductIdentifier,
+            ...(prorationMode !== null ? { prorationMode } : {}),
+          };
+        }
+      }
+
       const { customerInfo } = await Purchases.purchasePackage({
         aPackage: packageToPurchase,
+        ...(googleProductChangeInfo ? { googleProductChangeInfo } : {}),
       });
 
       updateStateFromCustomerInfo(customerInfo);
       setState(prev => ({ ...prev, isLoading: false }));
 
       // Analytics: サブスクリプション開始イベント
-      const pkgId = packageToPurchase.identifier;
-      const plan = pkgId.includes('pro') ? 'pro' : 'plus';
-      const period = pkgId.includes('annual') || pkgId === '$rc_annual' ? 'annual' : 'monthly';
+      const productId = packageToPurchase.product.identifier;
+      const inferredPlan = inferRevenueCatTier(customerInfo);
+      const plan: 'plus' | 'pro' = inferredPlan === 'free'
+        ? (productId.includes('pro') ? 'pro' : 'plus')
+        : inferredPlan;
+      const period = inferRevenueCatBillingPeriod(customerInfo, plan) || 'monthly';
       const price = packageToPurchase.product.price;
       logSubscriptionStart(plan, period, price);
 
@@ -269,15 +319,11 @@ export function useRevenueCat(): UseRevenueCatReturn {
       }));
       return false;
     }
-  }, [isNative, updateStateFromCustomerInfo]);
+  }, [getGoogleProrationMode, isNative, updateStateFromCustomerInfo]);
 
   // Plusプランを購入
   const purchasePlus = useCallback(async (period: 'monthly' | 'annual' = 'monthly'): Promise<boolean> => {
-    const packageId = period === 'annual'
-      ? REVENUECAT_CONFIG.PACKAGE_IDS.PLUS_ANNUAL
-      : REVENUECAT_CONFIG.PACKAGE_IDS.PLUS_MONTHLY;
-
-    const plusPackage = state.packages.find(pkg => pkg.identifier === packageId);
+    const plusPackage = state.packages.find((pkg) => packageMatchesPlan(pkg, 'plus', period));
 
     if (!plusPackage) {
       console.error(`Plus ${period} package not found`);
@@ -288,16 +334,12 @@ export function useRevenueCat(): UseRevenueCatReturn {
       return false;
     }
 
-    return purchase(plusPackage);
+    return purchase(plusPackage, 'plus', period);
   }, [state.packages, purchase]);
 
   // Proプランを購入
   const purchasePro = useCallback(async (period: 'monthly' | 'annual' = 'monthly'): Promise<boolean> => {
-    const packageId = period === 'annual'
-      ? REVENUECAT_CONFIG.PACKAGE_IDS.PRO_ANNUAL
-      : REVENUECAT_CONFIG.PACKAGE_IDS.PRO_MONTHLY;
-
-    const proPackage = state.packages.find(pkg => pkg.identifier === packageId);
+    const proPackage = state.packages.find((pkg) => packageMatchesPlan(pkg, 'pro', period));
 
     if (!proPackage) {
       console.error(`Pro ${period} package not found`);
@@ -308,7 +350,7 @@ export function useRevenueCat(): UseRevenueCatReturn {
       return false;
     }
 
-    return purchase(proPackage);
+    return purchase(proPackage, 'pro', period);
   }, [state.packages, purchase]);
 
   // 購入を復元

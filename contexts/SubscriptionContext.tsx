@@ -1,10 +1,16 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { Capacitor } from '@capacitor/core';
 import { TrialStatus, StoreReceipt } from '@/types/auth';
 import { getCurrentTrialStatus } from '@/utils/trialPrevention';
 import { useAuth } from './AuthContext';
 import { setApiUserPlan } from '@/utils/api';
+import {
+  getRevenueCatExpirationDate,
+  inferRevenueCatBillingPeriod,
+  inferRevenueCatTier,
+} from '@/utils/revenueCat';
 
 // サブスクリプションプラン
 export type SubscriptionTier = 'free' | 'plus' | 'pro';
@@ -120,12 +126,24 @@ interface SubscriptionContextType extends SubscriptionState {
   setDebugOverridePlan: (plan: SubscriptionTier | null) => void;
   // デバッグ用：現在有効なプランを取得（オーバーライドを考慮）
   getEffectiveTier: () => SubscriptionTier;
+  // ネイティブストアの購読状態を同期
+  syncNativeSubscription: () => Promise<void>;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'englishapp_subscription';
 const DEBUG_OVERRIDE_KEY = 'englishapp_debug_override_plan';
+const REVENUECAT_ENTITLEMENTS = {
+  PLUS: 'plus',
+  PRO: 'pro',
+} as const;
+const REVENUECAT_API_KEYS = {
+  ios: process.env.NEXT_PUBLIC_REVENUECAT_IOS_KEY || '',
+  android: process.env.NEXT_PUBLIC_REVENUECAT_ANDROID_KEY || '',
+} as const;
+
+let revenueCatConfigured = false;
 
 interface StoredSubscription {
   tier: SubscriptionTier;
@@ -145,7 +163,7 @@ const initialTrialStatus: TrialStatus = {
 
 export function SubscriptionProvider({ children }: { children: ReactNode }) {
   // AuthContextからマスターアカウント情報を取得
-  const { isMaster } = useAuth();
+  const { user, isMaster, isLoading: isAuthLoading } = useAuth();
 
   const [state, setState] = useState<SubscriptionState>({
     tier: 'free',
@@ -243,6 +261,93 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }, []);
 
+  const syncRevenueCatSubscription = useCallback(async () => {
+    if (!Capacitor.isNativePlatform() || !user?.id) {
+      return;
+    }
+
+    const apiKey = Capacitor.getPlatform() === 'ios'
+      ? REVENUECAT_API_KEYS.ios
+      : REVENUECAT_API_KEYS.android;
+
+    if (!apiKey) {
+      return;
+    }
+
+    const trialStatus = getCurrentTrialStatus();
+
+    try {
+      const { Purchases } = await import('@revenuecat/purchases-capacitor');
+
+      if (!revenueCatConfigured) {
+        await Purchases.configure({ apiKey });
+        revenueCatConfigured = true;
+      }
+
+      const loginResult = await Purchases.logIn({ appUserID: user.id });
+      await Purchases.syncPurchases();
+      let customerInfo = loginResult.customerInfo;
+
+      if (
+        !customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PLUS]
+        && !customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PRO]
+      ) {
+        const syncedInfo = await Purchases.getCustomerInfo();
+        customerInfo = syncedInfo.customerInfo;
+      }
+
+      if (
+        !customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PLUS]
+        && !customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PRO]
+      ) {
+        const restoredInfo = await Purchases.restorePurchases();
+        customerInfo = restoredInfo.customerInfo;
+      }
+
+      const hasPlus = !!customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PLUS];
+      const hasPro = !!customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PRO];
+
+      let tier: SubscriptionTier = inferRevenueCatTier(customerInfo);
+      let expiresAt: Date | null = getRevenueCatExpirationDate(customerInfo, tier);
+      let billingPeriod: BillingPeriod | null = inferRevenueCatBillingPeriod(customerInfo, tier);
+
+      if (tier === 'free' && trialStatus.isCurrentlyInTrial) {
+        tier = 'pro';
+        expiresAt = trialStatus.trialEndDate ? new Date(trialStatus.trialEndDate) : null;
+        billingPeriod = null;
+      }
+
+      setState(prev => ({
+        ...prev,
+        tier,
+        expiresAt,
+        isLoading: false,
+        billingPeriod,
+        trialStatus,
+        isTrialPeriod: tier === 'pro' && trialStatus.isCurrentlyInTrial && !hasPro,
+        lastReceipt: prev.lastReceipt,
+      }));
+      saveState(tier, expiresAt, tier === 'pro' && trialStatus.isCurrentlyInTrial && !hasPro, null, billingPeriod);
+      console.warn('RevenueCat subscription synced', {
+        userId: user.id,
+        tier,
+        hasPlus,
+        hasPro,
+        activeSubscriptions: customerInfo.activeSubscriptions,
+        entitlementProducts: {
+          plus: customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PLUS]?.productIdentifier || null,
+          pro: customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PRO]?.productIdentifier || null,
+        },
+      });
+    } catch (error) {
+      console.error('Failed to sync RevenueCat subscription:', error);
+      setState(prev => ({
+        ...prev,
+        isLoading: false,
+      }));
+    }
+  }, [saveState, user?.id]);
+
   // 有効なプランを計算するヘルパー
   const computeEffectiveTier = useCallback((): SubscriptionTier => {
     // デバッグオーバーライドが設定されている場合（マスターアカウントのみ）
@@ -269,6 +374,19 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
   const getRequiredPlanForMode = useCallback((mode: TrainingMode): SubscriptionTier => {
     return MODE_REQUIRED_PLAN[mode];
   }, []);
+
+  useEffect(() => {
+    if (isAuthLoading || isMaster) {
+      return;
+    }
+
+    if (!Capacitor.isNativePlatform() || !user?.id) {
+      return;
+    }
+
+    setState(prev => ({ ...prev, isLoading: true }));
+    void syncRevenueCatSubscription();
+  }, [isAuthLoading, isMaster, syncRevenueCatSubscription, user?.id]);
 
   // プランのアップグレード（開発用・デモ用）
   const upgradePlan = useCallback((newTier: SubscriptionTier, newBillingPeriod: BillingPeriod = 'annual') => {
@@ -430,6 +548,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     isMasterAccount: isMaster,
     setDebugOverridePlan,
     getEffectiveTier,
+    syncNativeSubscription: syncRevenueCatSubscription,
   };
 
   return (
