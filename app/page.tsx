@@ -1,14 +1,28 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import HardNavLink from '@/components/HardNavLink';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAppRouter } from '@/hooks/useAppRouter';
+import { useHideNativeBanner } from '@/hooks/useHideNativeBanner';
 
 export default function WelcomePage() {
   const router = useAppRouter();
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, signInAsGuest } = useAuth();
+  const [guestLoading, setGuestLoading] = useState(false);
+
+  useHideNativeBanner();
+
+  const handleGuestStart = async () => {
+    setGuestLoading(true);
+    const result = await signInAsGuest();
+    if (result.success) {
+      router.push('/home');
+    } else {
+      setGuestLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
@@ -72,6 +86,13 @@ export default function WelcomePage() {
             >
               ログイン
             </HardNavLink>
+            <button
+              onClick={handleGuestStart}
+              disabled={guestLoading}
+              className="block w-full py-4 bg-[#5D4037]/10 text-[#5D4037] text-center font-bold text-lg rounded-2xl border border-[#5D4037]/20 shadow-[0_4px_16px_rgba(93,64,55,0.08)] transition-all active:scale-[0.98] disabled:opacity-60"
+            >
+              {guestLoading ? '読み込み中...' : 'ゲストでスタート'}
+            </button>
           </div>
           <div className="flex items-center justify-center gap-4 text-white/60 text-xs">
             <a href="/terms" className="hover:text-white/90 transition-colors py-2 px-1">
