@@ -92,11 +92,14 @@ function PlanIcon({ tier }: { tier: SubscriptionTier }) {
 export default function PremiumSection() {
   const router = useAppRouter();
   const { user } = useAuth();
-  const { tier, expiresAt, isPremium, billingPeriod } = useSubscription();
+  const { expiresAt, isPremium, billingPeriod, getEffectiveTier } = useSubscription();
   const [showPaywall, setShowPaywall] = useState(false);
   const isGuest = isGuestUser(user);
+  const effectiveTier = getEffectiveTier();
+  const effectiveBillingPeriod = effectiveTier === 'free' ? null : billingPeriod;
+  const isPremiumUser = effectiveTier !== 'free' && isPremium();
 
-  const theme = PLAN_THEMES[tier];
+  const theme = PLAN_THEMES[effectiveTier];
 
   const formatDate = (date: Date | null) => {
     if (!date) return '';
@@ -108,14 +111,14 @@ export default function PremiumSection() {
   };
 
   const getDisplayPrice = () => {
-    if (billingPeriod === 'annual') {
-      return ANNUAL_PLAN_PRICES[tier];
+    if (effectiveBillingPeriod === 'annual') {
+      return ANNUAL_PLAN_PRICES[effectiveTier];
     }
-    return PLAN_PRICES[tier];
+    return PLAN_PRICES[effectiveTier];
   };
 
   const getPriceLabel = () => {
-    if (billingPeriod === 'annual') {
+    if (effectiveBillingPeriod === 'annual') {
       return '/年';
     }
     return '/月';
@@ -123,7 +126,7 @@ export default function PremiumSection() {
 
   return (
     <>
-      {isPremium() ? (
+      {isPremiumUser ? (
         /* ─── プレミアムユーザー向け会員証カード ─── */
         <div className={`rounded-2xl overflow-hidden ${theme.cardBg} ${theme.border} border shadow-sm`}>
           <div className="px-5 pt-5 pb-4">
@@ -131,11 +134,11 @@ export default function PremiumSection() {
             <div className="flex items-start justify-between mb-4">
               <div>
                 <div className="flex items-center gap-1.5 mb-1.5">
-                  <PlanIcon tier={tier} />
+                  <PlanIcon tier={effectiveTier} />
                   <p className={`text-xs ${theme.labelText} font-medium`}>現在のプラン</p>
                 </div>
                 <span className={`inline-block px-3 py-1 ${theme.badgeBg} ${theme.badgeText} text-xs font-bold rounded-full`}>
-                  {PLAN_NAMES[tier]}
+                  {PLAN_NAMES[effectiveTier]}
                 </span>
               </div>
               <div className="text-right">
@@ -144,8 +147,8 @@ export default function PremiumSection() {
                 </p>
                 <p className={`text-xs ${theme.labelText}`}>
                   {getPriceLabel()}
-                  {billingPeriod === 'annual' && tier !== 'free' && (
-                    <span className="ml-1">(月額 ¥{Math.round(ANNUAL_PLAN_PRICES[tier] / 12).toLocaleString()})</span>
+                  {effectiveBillingPeriod === 'annual' && (
+                    <span className="ml-1">(月額 ¥{Math.round(ANNUAL_PLAN_PRICES[effectiveTier] / 12).toLocaleString()})</span>
                   )}
                 </p>
               </div>
@@ -172,7 +175,7 @@ export default function PremiumSection() {
                 </svg>
                 全モード利用可能
               </div>
-              {tier === 'pro' && (
+              {effectiveTier === 'pro' && (
                 <div className={`flex items-center gap-2 text-sm ${theme.itemText}`}>
                   <svg className={`w-4 h-4 ${theme.checkColor} shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />

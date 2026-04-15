@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  color-scheme: only light;
 
   /* iOS Safe Area Insets（Capacitor用） */
   --safe-area-inset-top: env(safe-area-inset-top, 0px);
@@ -27,6 +28,7 @@ body {
 html,
 body {
   color-scheme: light;
+  background: #ffffff;
 }
 
 /* 入力フィールドは常に濃い色で表示（端末のダークモード設定に影響されない） */

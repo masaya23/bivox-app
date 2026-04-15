@@ -330,7 +330,6 @@ export default function SettingsPage() {
 
   // コンテキストフック
   const {
-    tier,
     trialStatus,
     isTrialPeriod,
     isMasterAccount,
@@ -359,6 +358,7 @@ export default function SettingsPage() {
     useFirebase
   } = useAuth();
   const isGuest = isGuestUser(user);
+  const effectiveTier = getEffectiveTier();
   const {
     currentLife,
     secondsToNextRecovery,
@@ -817,7 +817,7 @@ export default function SettingsPage() {
         {/* ──────────────────────────────────── */}
         {/* スタミナ設定（無料プランのみ）       */}
         {/* ──────────────────────────────────── */}
-        {tier === 'free' && (
+        {effectiveTier === 'free' && (
           <>
             <SectionHeader title="スタミナ設定" />
             <SectionCard>
@@ -1087,10 +1087,10 @@ export default function SettingsPage() {
           <div className="px-4 py-3 flex items-center justify-between">
             <span className="text-sm text-gray-800">現在のプラン</span>
             <span className={`text-xs font-medium ${
-              tier === 'pro' ? 'text-[#5D4037]' :
-              tier === 'plus' ? 'text-[#FCC800]' : 'text-gray-400'
+              effectiveTier === 'pro' ? 'text-[#5D4037]' :
+              effectiveTier === 'plus' ? 'text-[#FCC800]' : 'text-gray-400'
             }`}>
-              {PLAN_NAMES[tier]}{isTrialPeriod ? ' (トライアル)' : ''}
+              {PLAN_NAMES[effectiveTier]}{isTrialPeriod ? ' (トライアル)' : ''}
             </span>
           </div>
         </SectionCard>
@@ -1100,18 +1100,18 @@ export default function SettingsPage() {
           <div className="px-4 py-2">
             <BudouXText as="p" text="本日の利用状況" className="text-xs font-medium text-gray-400 mb-1" />
           </div>
-          {tier !== 'free' && (
+          {effectiveTier !== 'free' && (
             <>
               <Divider />
               <div className="px-4 py-3 flex items-center justify-between">
                 <span className="text-sm text-gray-800">スピーキング判定</span>
                 <span className="text-xs text-gray-400">
-                  {dailyUsage.speaking} / {tier === 'pro' ? '∞' : USAGE_LIMITS.PLUS_SPEAKING_DAILY_LIMIT}
+                  {dailyUsage.speaking} / {effectiveTier === 'pro' ? '∞' : USAGE_LIMITS.PLUS_SPEAKING_DAILY_LIMIT}
                 </span>
               </div>
             </>
           )}
-          {tier === 'pro' && (
+          {effectiveTier === 'pro' && (
             <>
               <Divider />
               <div className="px-4 py-3 flex items-center justify-between">

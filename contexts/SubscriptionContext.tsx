@@ -6,6 +6,7 @@ import { TrialStatus, StoreReceipt } from '@/types/auth';
 import { getCurrentTrialStatus } from '@/utils/trialPrevention';
 import { useAuth } from './AuthContext';
 import { setApiUserPlan } from '@/utils/api';
+import { isGuestUser } from '@/utils/guestAccess';
 import {
   getRevenueCatExpirationDate,
   inferRevenueCatBillingPeriod,
@@ -350,6 +351,10 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
   // 有効なプランを計算するヘルパー
   const computeEffectiveTier = useCallback((): SubscriptionTier => {
+    if (!user || isGuestUser(user)) {
+      return 'free';
+    }
+
     // デバッグオーバーライドが設定されている場合（マスターアカウントのみ）
     if (isMaster && state.debugOverridePlan !== null) {
       return state.debugOverridePlan;
@@ -380,7 +385,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    if (!Capacitor.isNativePlatform() || !user?.id) {
+    if (!Capacitor.isNativePlatform() || !user?.id || isGuestUser(user)) {
       return;
     }
 
