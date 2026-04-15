@@ -29,7 +29,10 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#f97316",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FCC800" },
+    { media: "(prefers-color-scheme: dark)", color: "#FCC800" },
+  ],
   // iOS Safari/Capacitor用のviewport-fit設定
   viewportFit: "cover",
 };
@@ -42,7 +45,11 @@ export default function RootLayout({
   const isProd = process.env.NODE_ENV === 'production';
 
   return (
-    <html lang="ja" suppressHydrationWarning>
+    <html
+      lang="ja"
+      suppressHydrationWarning
+      style={{ backgroundColor: '#ffffff', colorScheme: 'light' }}
+    >
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
@@ -52,6 +59,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
+        style={{ backgroundColor: '#ffffff', colorScheme: 'light' }}
       >
         <Providers>
           <CapacitorLinkInterceptor />

@@ -42,6 +42,7 @@ const AUTH_USER_KEY = 'englishapp_auth_user';
 const REGISTERED_EMAILS_KEY = 'englishapp_registered_emails';
 const MASTER_MODE_KEY = 'englishapp_master_mode';
 const GUEST_USER_KEY = 'englishapp_guest_user';
+const SUBSCRIPTION_KEY = 'englishapp_subscription';
 
 interface AuthContextType {
   // ユーザー状態
@@ -139,6 +140,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
           if (fbUser) {
             // Firebaseユーザーがいる場合はゲスト情報をクリア
             localStorage.removeItem(GUEST_USER_KEY);
+            localStorage.removeItem(AUTH_KEY);
+            localStorage.removeItem(AUTH_USER_KEY);
             setFirebaseUser(fbUser);
 
             // キャッシュが古い場合を考慮してサーバーから最新状態を取得
@@ -324,6 +327,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         user: newUser,
         loginAt: new Date().toISOString(),
       };
+      localStorage.removeItem(GUEST_USER_KEY);
       localStorage.setItem(AUTH_KEY, JSON.stringify(authData));
 
       saveLocalUser(newUser);
@@ -369,6 +373,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           linkedProviders: ['email'],
         };
 
+        localStorage.removeItem(GUEST_USER_KEY);
         setFirebaseUser(result.user);
         await syncFirebaseAdminState(result.user, authUser);
 
@@ -413,6 +418,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         user: authUser,
         loginAt: new Date().toISOString(),
       };
+      localStorage.removeItem(GUEST_USER_KEY);
       localStorage.setItem(AUTH_KEY, JSON.stringify(authData));
 
       saveLocalUser(authUser);
@@ -440,6 +446,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       linkedProviders: ['anonymous'],
     };
 
+    localStorage.removeItem(AUTH_KEY);
+    localStorage.removeItem(AUTH_USER_KEY);
+    localStorage.removeItem(SUBSCRIPTION_KEY);
     localStorage.setItem(GUEST_USER_KEY, JSON.stringify(guestUser));
     setUser(guestUser);
     setFirebaseUser(null);

@@ -29,6 +29,22 @@ html,
 body {
   color-scheme: light;
   background: #ffffff;
+  forced-color-adjust: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+    color-scheme: only light;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #171717 !important;
+  }
 }
 
 /* 入力フィールドは常に濃い色で表示（端末のダークモード設定に影響されない） */

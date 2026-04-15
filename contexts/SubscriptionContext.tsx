@@ -152,6 +152,8 @@ interface StoredSubscription {
   billingPeriod?: BillingPeriod | null;
   isTrialPeriod?: boolean;
   lastReceipt?: StoreReceipt | null;
+  userId?: string | null;
+  userProvider?: string | null;
 }
 
 const initialTrialStatus: TrialStatus = {
@@ -258,9 +260,11 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
       billingPeriod,
       isTrialPeriod,
       lastReceipt,
+      userId: user && !isGuestUser(user) ? user.id : null,
+      userProvider: user?.provider ?? null,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  }, []);
+  }, [user]);
 
   const syncRevenueCatSubscription = useCallback(async () => {
     if (!Capacitor.isNativePlatform() || !user?.id) {
@@ -362,6 +366,76 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     // 実際のプランをそのまま使用（マスターアカウントでも特別扱いしない）
     return state.tier;
   }, [isMaster, state.debugOverridePlan, state.tier]);
+
+  useEffect(() => {
+    if (isAuthLoading || state.isLoading) {
+      return;
+    }
+
+    const currentUserId = user && !isGuestUser(user) ? user.id : null;
+    const trialStatus = getCurrentTrialStatus();
+    const storedRaw = localStorage.getItem(STORAGE_KEY);
+
+    if (!storedRaw) {
+      return;
+    }
+
+    let stored: StoredSubscription | null = null;
+    try {
+      stored = JSON.parse(storedRaw) as StoredSubscription;
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+      return;
+    }
+
+    if (!currentUserId) {
+      localStorage.removeItem(STORAGE_KEY);
+      setState(prev => ({
+        ...prev,
+        tier: 'free',
+        expiresAt: null,
+        billingPeriod: null,
+        isTrialPeriod: false,
+        lastReceipt: null,
+        trialStatus,
+      }));
+      return;
+    }
+
+    if (stored.userId && stored.userId !== currentUserId) {
+      localStorage.removeItem(STORAGE_KEY);
+      setState(prev => ({
+        ...prev,
+        tier: 'free',
+        expiresAt: null,
+        billingPeriod: null,
+        isTrialPeriod: false,
+        lastReceipt: null,
+        trialStatus,
+      }));
+      return;
+    }
+
+    if (!stored.userId) {
+      saveState(
+        state.tier,
+        state.expiresAt,
+        state.isTrialPeriod,
+        state.lastReceipt,
+        state.billingPeriod
+      );
+    }
+  }, [
+    isAuthLoading,
+    saveState,
+    state.billingPeriod,
+    state.expiresAt,
+    state.isLoading,
+    state.isTrialPeriod,
+    state.lastReceipt,
+    state.tier,
+    user,
+  ]);
 
   // モードへのアクセス権限チェック
   const canAccessMode = useCallback((mode: TrainingMode): boolean => {
