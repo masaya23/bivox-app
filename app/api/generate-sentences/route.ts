@@ -5,6 +5,9 @@ import { checkRateLimit, RATE_LIMITS } from '@/utils/rateLimit';
 import { getClientId } from '@/utils/clientId';
 import { checkDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 
+// Capacitorビルド（静的エクスポート）時に必要
+export const dynamic = 'force-static';
+
 // OpenAI クライアント
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,

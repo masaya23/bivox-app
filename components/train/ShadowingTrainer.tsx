@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocalAudio } from '@/hooks/useLocalAudio';
+import HardNavLink from '@/components/HardNavLink';
+import { AutoSizeText } from '@/components/AutoSizeText';
 import { updateStreak } from '@/utils/streak';
 import { recordLearningTime } from '@/utils/learningTime';
 import { apiFetch } from '@/utils/api';
@@ -17,6 +19,7 @@ import PlayIcon from '@/components/icons/PlayIcon';
 import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
 import { recordSession } from '@/utils/sessionLog';
 import { useInterstitialOnComplete } from '@/hooks/useInterstitialOnComplete';
+import { useTrainerAdBanner } from '@/hooks/useTrainerAdBanner';
 
 // ダミーデータ（10問）- unit1-p1のセンテンスを使用（MP3ファイルと対応）
 const DUMMY_SENTENCES: Sentence[] = [
@@ -65,7 +68,10 @@ export default function ShadowingTrainer({
   const { isPremium } = useSubscription();
 
   // レッスン完了時インタースティシャル広告
-  const { showLessonCompleteAd } = useInterstitialOnComplete();
+  const { showLessonCompleteAd, resetAdShown } = useInterstitialOnComplete();
+
+  // トレーニング画面ではBottomNavがないので、バナー広告のマージンを0に再設定
+  useTrainerAdBanner();
 
   const formatHeaderTitle = (title?: string, currentPartId?: string) => {
     const partMatch = currentPartId?.match(/-p(\d+)/i);
@@ -192,23 +198,42 @@ export default function ShadowingTrainer({
     return Math.round(words * adjustedTime + punctuationPause + baseLeadIn);
   };
 
-  const clearTimers = () => {
+  const clearTimers = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-  };
+  }, []);
 
-  const cancelPlayback = () => {
+  const completeLesson = useCallback(() => {
+    setIsFinished(true);
+    setPlaybackState('idle');
+    setCurrentPage(0);
+
+    // レッスン完了時に学習記録を保存（問題数を渡す）
+    updateStreak(sentences.length);
+
+    // 学習時間を記録（実際の経過時間を計算）
+    const elapsedMinutes = startTimeRef.current
+      ? Math.max(1, Math.ceil((Date.now() - startTimeRef.current) / 60000))
+      : 1;
+    recordLearningTime(elapsedMinutes);
+    recordSession('ベーシック', sentences.length, { gradeId, partLabel });
+    startTimeRef.current = null;
+
+    void showLessonCompleteAd();
+  }, [gradeId, partLabel, sentences.length, showLessonCompleteAd]);
+
+  const cancelPlayback = useCallback(() => {
     runIdRef.current += 1;
     clearTimers();
     stopJapanese();
     stopEnglish();
     setPlaybackState('idle');
-  };
+  }, [clearTimers, stopEnglish, stopJapanese]);
 
   // シャドーイングシーケンスの実行（1問分）
-  const playSingleQuestion = async (index: number, runId: number) => {
+  const playSingleQuestion = useCallback(async (index: number, runId: number) => {
     if (runIdRef.current !== runId) return;
     const sentence = sentences[index];
     const isLast = index === sentences.length - 1;
@@ -277,19 +302,7 @@ export default function ShadowingTrainer({
         if (runIdRef.current !== runId) return;
         // 6. 次の問題へ、または終了
         if (isLast) {
-            setIsFinished(true);
-            setPlaybackState('idle');
-            // レッスン完了時に学習記録を保存（問題数を渡す）
-            updateStreak(sentences.length);
-            // 学習時間を記録（実際の経過時間を計算）
-            const elapsedMinutes = startTimeRef.current
-              ? Math.max(1, Math.ceil((Date.now() - startTimeRef.current) / 60000))
-              : 1;
-            recordLearningTime(elapsedMinutes);
-            recordSession('ベーシック', sentences.length, { gradeId, partLabel });
-            startTimeRef.current = null; // リセット
-            // インタースティシャル広告を表示
-            showLessonCompleteAd();
+          completeLesson();
         } else {
           // ライフが0になった場合は次の問題に進まずモーダルを表示
           if (!isUnlimited && remainingLifeAfterConsume <= 0) {
@@ -304,7 +317,7 @@ export default function ShadowingTrainer({
         }
       }, intervalDurationRef.current);
     }, actualPauseDuration);
-  };
+  }, [canConsume, cancelPlayback, clearTimers, completeLesson, consumeLife, isUnlimited, sentences, speakEnglish, speakJapanese, stopEnglish]);
 
   // 任意のインデックスから再生を開始
   const startFromIndex = (index: number) => {
@@ -332,15 +345,10 @@ export default function ShadowingTrainer({
     }
     // すでに途中の問題にいる場合はそこから再開、完了後の再開は0から
     const startIndex = isFinished ? 0 : currentIndex;
+    if (isFinished) {
+      resetAdShown();
+    }
     startFromIndex(startIndex);
-  };
-
-  // シャドーイングシーケンスの停止
-  const stopShadowing = () => {
-    cancelPlayback();
-    setIsFinished(false);
-    setCurrentIndex(0);
-    currentIndexRef.current = 0;
   };
 
   // 次の問題へ
@@ -348,7 +356,7 @@ export default function ShadowingTrainer({
     const nextIndex = Math.min(currentIndexRef.current + 1, sentences.length - 1);
     if (nextIndex === currentIndexRef.current) {
       cancelPlayback();
-      setIsFinished(true);
+      completeLesson();
       return;
     }
     startFromIndex(nextIndex);
@@ -383,7 +391,7 @@ export default function ShadowingTrainer({
       stopEnglish();
       clearTimers();
     };
-  }, [stopJapanese, stopEnglish]);
+  }, [clearTimers, stopJapanese, stopEnglish]);
 
   // バックグラウンド再生制御
   useEffect(() => {
@@ -414,7 +422,7 @@ export default function ShadowingTrainer({
     };
     document.addEventListener('visibilitychange', handleVisibility);
     return () => document.removeEventListener('visibilitychange', handleVisibility);
-  }, [playbackState, isPremium]);
+  }, [cancelPlayback, playbackState, isPremium]);
 
   // MediaSession API（ロック画面コントロール）
   useEffect(() => {
@@ -492,21 +500,21 @@ export default function ShadowingTrainer({
             <div className="mb-6 flex flex-col">
               {/* 1. Primary: 次のレッスン */}
               {nextLessonLink ? (
-                <a
+                <HardNavLink
                   href={nextLessonLink}
                   className="flex items-center justify-center gap-2 w-full bg-blue-500 text-white font-bold py-4 rounded-xl active:scale-[0.98] transition-transform text-base"
                 >
                   次のレッスン
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" /></svg>
-                </a>
+                </HardNavLink>
               ) : (
-                <a
+                <HardNavLink
                   href={partSelectLink ?? backLink}
                   className="flex items-center justify-center gap-2 w-full bg-blue-500 text-white font-bold py-4 rounded-xl active:scale-[0.98] transition-transform text-base"
                 >
                   {partSelectLink ? 'Part選択に戻る' : '戻る'}
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" /></svg>
-                </a>
+                </HardNavLink>
               )}
 
               {/* 2. Secondary: もう一度 */}
@@ -520,18 +528,18 @@ export default function ShadowingTrainer({
 
               {/* 3. Tertiary: テキストリンク */}
               <div className="flex items-center justify-around mt-6">
-                <a
+                <HardNavLink
                   href={partSelectLink ?? backLink}
                   className="text-xs text-gray-400 font-semibold active:text-gray-600 transition-colors"
                 >
                   ← Part選択
-                </a>
-                <a
+                </HardNavLink>
+                <HardNavLink
                   href="/home"
                   className="text-xs text-gray-400 font-semibold active:text-gray-600 transition-colors"
                 >
                   ホームに戻る
-                </a>
+                </HardNavLink>
               </div>
             </div>
 
@@ -637,12 +645,12 @@ export default function ShadowingTrainer({
         {/* ヘッダー */}
         <header className="bg-white px-4 py-3 sticky top-0 z-30 border-b border-gray-100">
           <div className="flex items-center justify-between">
-            <a
+            <HardNavLink
               href={backLink}
               className="text-gray-600 font-semibold text-sm min-w-[50px]"
             >
               ← 戻る
-            </a>
+            </HardNavLink>
             <div className="text-center flex-1 px-2">
               {headerTitle.partLabel && (
                 <span className={badgeClass}>
@@ -673,7 +681,7 @@ export default function ShadowingTrainer({
         </header>
 
       {/* メインコンテンツ */}
-      <main className="flex-1 flex flex-col p-4">
+      <main className="flex-1 flex flex-col p-4 pb-[70px]">
         {/* 進捗バー */}
         <div className="mb-4 space-y-1">
           <div className="text-center text-xs font-semibold text-gray-500 tabular-nums">
@@ -720,9 +728,7 @@ export default function ShadowingTrainer({
                 <p className="text-xs text-blue-600 mb-2 text-center font-semibold">
                   日本語を聞いています...
                 </p>
-                <h2 className="text-3xl font-bold text-gray-800 text-center">
-                  {currentSentence.jp}
-                </h2>
+                <AutoSizeText text={currentSentence.jp} maxFontSize={30} className="text-gray-800" />
               </>
             )}
 
@@ -732,9 +738,7 @@ export default function ShadowingTrainer({
                 <p className="text-xs text-orange-600 mb-2 text-center font-semibold">
                   あなたの番！英語で話してください
                 </p>
-                <h2 className="text-3xl font-bold text-gray-800 text-center">
-                  {currentSentence.jp}
-                </h2>
+                <AutoSizeText text={currentSentence.jp} maxFontSize={30} className="text-gray-800" />
               </>
             )}
 
@@ -744,9 +748,7 @@ export default function ShadowingTrainer({
                 <p className="text-xs text-green-600 mb-2 text-center font-semibold">
                   正解の英語を確認しましょう
                 </p>
-                <h2 className="text-3xl font-bold text-gray-800 text-center">
-                  {currentSentence.en}
-                </h2>
+                <AutoSizeText text={currentSentence.en} maxFontSize={30} className="text-gray-800" />
               </>
             )}
 
@@ -769,7 +771,7 @@ export default function ShadowingTrainer({
                 : 'bg-gray-400'
                 }`}
             >
-              {playbackState === 'idle' ? '練習開始' : '停止'}
+              {playbackState === 'idle' ? (currentIndex === 0 ? '練習開始' : '再開') : '停止'}
             </button>
 
             <button
@@ -790,12 +792,6 @@ export default function ShadowingTrainer({
               次の問題 →
             </button>
 
-            <button
-              onClick={stopShadowing}
-              className="col-span-2 py-3 rounded-xl font-bold text-sm bg-red-500 text-white active:scale-[0.98] transition-transform"
-            >
-              練習を終了
-            </button>
           </div>
         </div>
       </main>
@@ -803,7 +799,7 @@ export default function ShadowingTrainer({
       {/* 設定モーダル */}
       {showSettings && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-end justify-center z-50">
-          <div className="bg-white rounded-t-3xl shadow-2xl p-4 w-full max-w-[430px] max-h-[80vh] overflow-y-auto">
+          <div className="bg-white rounded-t-3xl shadow-2xl p-4 pb-[70px] w-full max-w-[430px] max-h-[80vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold text-gray-800">設定</h3>
               <button

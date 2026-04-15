@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
+// Capacitorビルド（静的エクスポート）時に必要
+export const dynamic = 'force-static';
+
 export async function GET() {
   try {
     // 環境変数の確認

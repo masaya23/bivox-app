@@ -7,7 +7,7 @@ export interface SessionLogItem {
   mode: string;
   questions: number;
   // v2 追加フィールド（旧データにはないので optional）
-  grade?: string;     // "中学1年", "中学2年", "中学3年", "全学年"
+  grade?: string;     // "Unit 1", "Unit 2", "Unit 3", "全てのUnit"
   partLabel?: string; // "Part1", "まとめ" など
   unit?: 'minutes' | 'questions'; // "questions" がデフォルト
 }
@@ -23,10 +23,10 @@ const formatLocalDate = (date: Date): string => {
 
 // gradeId → 表示ラベル
 const GRADE_LABELS: Record<string, string> = {
-  'junior-high-1': '中学1年',
-  'junior-high-2': '中学2年',
-  'junior-high-3': '中学3年',
-  'all': '全学年',
+  'junior-high-1': 'Unit 1',
+  'junior-high-2': 'Unit 2',
+  'junior-high-3': 'Unit 3',
+  'all': '全てのUnit',
 };
 
 export function recordSession(

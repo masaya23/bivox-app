@@ -15,6 +15,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
 // ユーザープラン（日次上限チェック用）
 let _userPlan: string = 'free';
+const SUBSCRIPTION_STORAGE_KEY = 'englishapp_subscription';
 
 /**
  * APIリクエストに付与するユーザープランを設定
@@ -40,6 +41,17 @@ function getEffectiveUserPlan(): string {
     try {
       const isMaster = localStorage.getItem('englishapp_master_mode');
       if (isMaster === 'true') return 'master';
+
+      const storedSubscription = localStorage.getItem(SUBSCRIPTION_STORAGE_KEY);
+      if (storedSubscription) {
+        const parsed = JSON.parse(storedSubscription) as { tier?: string; expiresAt?: string | null };
+        const storedTier = parsed.tier;
+        if (storedTier === 'plus' || storedTier === 'pro') {
+          if (!parsed.expiresAt || new Date(parsed.expiresAt) > new Date()) {
+            return storedTier;
+          }
+        }
+      }
     } catch {
       // ignore
     }

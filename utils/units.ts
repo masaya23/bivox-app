@@ -53,9 +53,9 @@ export function getPartById(unitId: string, partId: string): Part | undefined {
  */
 export function getGradeName(grade: string): string {
   const gradeNames: Record<string, string> = {
-    'junior-high-1': '中学1年',
-    'junior-high-2': '中学2年',
-    'junior-high-3': '中学3年',
+    'junior-high-1': 'Unit 1',
+    'junior-high-2': 'Unit 2',
+    'junior-high-3': 'Unit 3',
   };
   return gradeNames[grade] || grade;
 }

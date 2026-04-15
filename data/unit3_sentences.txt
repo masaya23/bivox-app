@@ -267,7 +267,7 @@ JP: 私はだれかが私の名前を呼ぶのを聞きました。
 EN: I heard someone call my name.
 
 unit3-p7-s6 Tags: 原形不定詞①（知覚）
-JP: 彼は彼女が通りを渡るのを見ました。
+JP: 彼は、彼女が道を渡るのを見ました。
 EN: He saw her cross the street.
 
 unit3-p7-s7 Tags: 原形不定詞①（知覚）

@@ -4,6 +4,9 @@ import { checkRateLimit, RATE_LIMITS } from '@/utils/rateLimit';
 import { getClientId } from '@/utils/clientId';
 import { checkDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 
+// Capacitorビルド（静的エクスポート）時に必要
+export const dynamic = 'force-static';
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -188,7 +191,7 @@ PERSPECTIVE C - Information Accuracy（情報の正確さ）:
 
 PERSPECTIVE D - Sophistication（表現の洗練度）:
   エラー例: 不自然な語順、幼稚な表現
-  動的生成: 「この語順は文法的には通じますが、幼い子供のような響きになります。」
+  動的生成: 「この語順は文法的には通じますが、幼い言い回しに聞こえます。」
 
 【OUTPUT PROCESS】
 1. ユーザーの回答と正解の差分を特定

@@ -6,10 +6,10 @@ type GradeTheme = {
 };
 
 export const GRADE_THEMES: Record<TabFilter, GradeTheme> = {
-  'junior-high-1': { label: '中学1年', gradient: 'from-[#1E90FF] to-[#1E90FF]' },
-  'junior-high-2': { label: '中学2年', gradient: 'from-[#2ECC71] to-[#2ECC71]' },
-  'junior-high-3': { label: '中学3年', gradient: 'from-[#FF4757] to-[#FF4757]' },
-  all: { label: '全学年', gradient: 'from-[#3949AB] to-[#3949AB]' },
+  'junior-high-1': { label: 'Unit 1', gradient: 'from-[#1E90FF] to-[#1E90FF]' },
+  'junior-high-2': { label: 'Unit 2', gradient: 'from-[#2ECC71] to-[#2ECC71]' },
+  'junior-high-3': { label: 'Unit 3', gradient: 'from-[#FF4757] to-[#FF4757]' },
+  all: { label: '全てのUnit', gradient: 'from-[#3949AB] to-[#3949AB]' },
 };
 
 export const GRADE_TABS: { id: TabFilter; label: string; gradient: string }[] = [

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Capacitorビルド（静的エクスポート）時に必要
+export const dynamic = 'force-static';
+
 // トライアル検証API
 // 本番環境ではデータベースとの連携が必要
 

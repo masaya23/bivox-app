@@ -111,7 +111,7 @@ export default function LifeOutModal({
                     <span className="text-2xl">⏰</span>
                     <div>
                       <p className="font-semibold text-gray-800 text-sm">自然回復を待つ</p>
-                      <p className="text-xs text-gray-500">48分ごとに1ライフ回復します</p>
+                      <p className="text-xs text-gray-500">28分ごとに1ライフ回復します</p>
                     </div>
                   </div>
                 </div>

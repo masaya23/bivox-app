@@ -10,13 +10,30 @@ type HardNavLinkProps = {
   onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 };
 
-const isNative = (() => {
+function isNativePlatform(): boolean {
   try {
     return typeof window !== 'undefined' && Capacitor.isNativePlatform();
   } catch {
     return false;
   }
-})();
+}
+
+function toCapacitorPath(path: string): string {
+  if (path === '/' || path === '') return '/';
+  if (path.includes('.')) return path;
+
+  const qIndex = path.indexOf('?');
+  if (qIndex !== -1) {
+    return path.substring(0, qIndex) + '.html' + path.substring(qIndex);
+  }
+
+  const hIndex = path.indexOf('#');
+  if (hIndex !== -1) {
+    return path.substring(0, hIndex) + '.html' + path.substring(hIndex);
+  }
+
+  return path + '.html';
+}
 
 /**
  * Next.jsのクライアント遷移（RSC fetch）が失敗する環境でも、
@@ -33,10 +50,7 @@ export default function HardNavLink({ href, className, children, onClick }: Hard
     if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) return;
 
     e.preventDefault();
-    // Capacitor環境では.html拡張子を付与して正しいファイルにルーティング
-    const targetHref = isNative && href !== '/' && !href.includes('.')
-      ? href + '.html'
-      : href;
+    const targetHref = isNativePlatform() ? toCapacitorPath(href) : href;
     window.location.assign(targetHref);
   };
 

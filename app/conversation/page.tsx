@@ -8,10 +8,17 @@ import { useServerTTS } from '@/hooks/useServerTTS';
 import { useWhisperRecognition } from '@/hooks/useWhisperRecognition';
 import { recordLearningTime } from '@/utils/learningTime';
 import { recordSession } from '@/utils/sessionLog';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { useAppRouter } from '@/hooks/useAppRouter';
+import { isGuestUser } from '@/utils/guestAccess';
 
 export default function ConversationPage() {
+  const router = useAppRouter();
   const serverTTS = useServerTTS();
   const whisper = useWhisperRecognition();
+  const { isLoading: isSubscriptionLoading, syncNativeSubscription } = useSubscription();
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [settings, setSettings] = useState<ConversationSettings>({
@@ -22,18 +29,49 @@ export default function ConversationPage() {
   const [error, setError] = useState<string | null>(null);
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editingText, setEditingText] = useState<string>('');
+  const [isSubscriptionReady, setIsSubscriptionReady] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const isInitialized = useRef(false);
   const startTimeRef = useRef<number>(Date.now());
+  const isGuest = isGuestUser(user);
+
+  useEffect(() => {
+    if (isGuest) {
+      router.replace('/auth/register');
+    }
+  }, [isGuest, router]);
 
   // 自動スクロール
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const prepareSubscription = async () => {
+      try {
+        await syncNativeSubscription();
+      } finally {
+        if (!cancelled) {
+          setIsSubscriptionReady(true);
+        }
+      }
+    };
+
+    void prepareSubscription();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [syncNativeSubscription]);
+
   // ユーザーメッセージを処理
   const handleUserMessage = async (content: string) => {
+    if (isSubscriptionLoading || !isSubscriptionReady) {
+      return;
+    }
     setError(null);
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -82,6 +120,9 @@ export default function ConversationPage() {
 
   // 音声認識開始（Whisper API使用）
   const startRecording = () => {
+    if (isSubscriptionLoading || !isSubscriptionReady) {
+      return;
+    }
     // TTS再生中なら停止（初回メッセージ等のスキップ用）
     serverTTS.stop();
     setError(null);
@@ -230,6 +271,10 @@ export default function ConversationPage() {
 
   const isRecording = whisper.isListening;
   const isTranscribing = whisper.isTranscribing;
+
+  if (isGuest) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col max-w-[430px] mx-auto relative shadow-xl">
@@ -448,12 +493,14 @@ export default function ConversationPage() {
         </div>
       )}
 
+      <p className="text-[10px] text-gray-400 text-center py-1">※AIの回答は必ずしも正確ではありません</p>
+
       {/* 音声入力ボタン */}
       <div className="bg-white border-t border-gray-200 px-4 py-4">
         <div className="text-center">
           <button
             onClick={isRecording ? stopRecording : startRecording}
-            disabled={isProcessing || isTranscribing || editingMessageId !== null}
+            disabled={isProcessing || isTranscribing || editingMessageId !== null || isSubscriptionLoading || !isSubscriptionReady}
             className={`w-16 h-16 mx-auto rounded-full font-bold text-white text-xl transition-all transform flex items-center justify-center ${
               isRecording
                 ? 'bg-red-500 animate-pulse scale-110'
@@ -481,7 +528,9 @@ export default function ConversationPage() {
             )}
           </button>
           <p className="mt-2 text-gray-600 font-semibold text-sm">
-            {isRecording
+            {isSubscriptionLoading || !isSubscriptionReady
+              ? 'プラン確認中...'
+              : isRecording
               ? '話してください...'
               : isTranscribing
               ? '文字起こし中...'

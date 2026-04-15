@@ -5,7 +5,7 @@ export const LIFE_CONFIG = {
   // 最大ライフ
   MAX_LIFE: 50,
   // 1ライフ回復にかかる時間（分）
-  RECOVERY_INTERVAL_MINUTES: 48,
+  RECOVERY_INTERVAL_MINUTES: 28,
   // 1問あたりの消費ライフ
   LIFE_PER_QUESTION: 1,
 } as const;
@@ -38,7 +38,7 @@ export function calculateRecoveredLife(
   const elapsedMs = now.getTime() - lastUpdateAt.getTime();
   const elapsedMinutes = elapsedMs / (1000 * 60);
 
-  // 回復量を計算（48分ごとに1ライフ）
+  // 回復量を計算（28分ごとに1ライフ）
   const recoveredLife = Math.floor(elapsedMinutes / LIFE_CONFIG.RECOVERY_INTERVAL_MINUTES);
 
   // 新しいライフ（最大値を超えない）

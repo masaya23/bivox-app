@@ -1,7 +1,7 @@
 {
   "id": "unit3",
   "title": "Unit 3",
-  "description": "中学3年レベルの文法",
+  "description": "Unit 3レベルの文法",
   "grade": "junior-high-3",
   "unitNumber": 3,
   "parts": [
@@ -848,7 +848,7 @@
         },
         {
           "id": "unit3-p7-s6",
-          "jp": "彼は彼女が通りを渡るのを見ました。",
+          "jp": "彼は、彼女が道を渡るのを見ました。",
           "en": "He saw her cross the street.",
           "tags": [
             "原形不定詞①（知覚）"
@@ -1365,7 +1365,7 @@
         {
           "id": "unit3-p11-s6",
           "jp": "私は100年前に建てられた家に住んでいます。",
-          "en": "I live in a house built 100 years ago.",
+          "en": "I live in a house built one hundred years ago.",
           "tags": [
             "過去分詞で名詞を修飾"
           ],
@@ -2385,7 +2385,7 @@
         {
           "id": "unit3-p19-s5",
           "jp": "2018年はあなたがこの町に引っ越した年ですか？",
-          "en": "Was 2018 the year when you moved to this town?",
+          "en": "Was two thousand eighteen the year when you moved to this town?",
           "tags": [
             "関係副詞②・when"
           ],

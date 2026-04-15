@@ -1091,7 +1091,7 @@ JP: この本とあの本では、どちらがより難しいですか？
 EN: Which is more difficult, this book or that one?
 
 unit2-p27-s7 Tags: 比較・最上級の疑問文（Which / Who）
-JP: 誰が一番早く宿題を終えましたか？ ー健（Ken）です。
+JP: 誰が一番早く宿題を終えましたか？ ーケンです。
 EN: Who finished the homework (the) fastest? - Ken did.
 
 unit2-p27-s8 Tags: 比較・最上級の疑問文（Which / Who）

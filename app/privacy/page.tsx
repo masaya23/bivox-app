@@ -1,9 +1,26 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useAppRouter } from '@/hooks/useAppRouter';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useAdMob } from '@/hooks/useAdMob';
 
 export default function PrivacyPage() {
   const router = useAppRouter();
+  const { shouldShowAds } = useSubscription();
+  const { isNative, isInitialized, showBanner, hideBanner } = useAdMob();
+
+  useEffect(() => {
+    if (!isNative || !isInitialized) return;
+
+    void hideBanner();
+
+    return () => {
+      if (shouldShowAds()) {
+        void showBanner('BOTTOM');
+      }
+    };
+  }, [hideBanner, isInitialized, isNative, shouldShowAds, showBanner]);
 
   return (
     <div className="min-h-screen bg-gray-50 max-w-[430px] mx-auto">

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import Image from 'next/image';
 import TutorialOverlay, { TutorialStepConfig } from '@/components/tutorial/TutorialOverlay';
+import { useAdMob } from '@/hooks/useAdMob';
 
 // チュートリアル完了を記録
 const completeTutorial = () => {
@@ -30,7 +31,7 @@ const speakText = (_text: string, lang: 'ja-JP' | 'en-US') => {
 };
 
 // チュートリアルのフェーズ
-type TutorialPhase = 'intro' | 'ready' | 'japanese' | 'pause' | 'english' | 'finish';
+type TutorialPhase = 'intro' | 'ready' | 'japanese' | 'pause' | 'english' | 'settings' | 'finish';
 
 // フェーズごとのマスコット画像パス
 const MASCOT_IMAGES: Record<TutorialPhase, string> = {
@@ -39,6 +40,7 @@ const MASCOT_IMAGES: Record<TutorialPhase, string> = {
   japanese: '/images/mascot/fox_try.png',
   pause: '/images/mascot/fox_practice.png',
   english: '/images/mascot/fox_practice.png',
+  settings: '/images/mascot/fox_try.png',
   finish: '/images/mascot/fox_finish.png',
 };
 
@@ -194,31 +196,49 @@ function Confetti() {
 }
 
 // スポットライトステップ定義
+// 流れ: 練習開始→JP→PAUSE→EN→レベルバッジ→設定ボタン→設定画面→完了
 const SPOTLIGHT_STEPS: TutorialStepConfig[] = [
   {
     target: 'play-button',
     mascotSpeech: '「練習開始」ボタンを押すと\n自動で問題が進んでいくよ！\n実際に押してみて！',
     mascotExpression: 'excited',
-    buttonText: '次へ →',
-    hideNextButton: true, // 練習開始ボタンをクリックで進むので非表示
+    hideNextButton: true, // 練習開始ボタンをクリックで進む
+    mascotPosition: 'above',
   },
   {
     target: 'sentence-display',
     mascotSpeech: '日本語が表示されて\n音声が流れるよ！',
     mascotExpression: 'happy',
     buttonText: '次へ →',
+    mascotPosition: 'above',
   },
   {
     target: 'sentence-display',
     mascotSpeech: 'ポーズの間に\n英語を声に出してみよう！',
     mascotExpression: 'excited',
     buttonText: '次へ →',
+    mascotPosition: 'above',
   },
   {
     target: 'sentence-display',
-    mascotSpeech: '最後に正解の英語が流れるよ、自分で言った言葉が合っていたか確認！\n繰り返し練習しよう！',
+    mascotSpeech: '最後に正解の英語が流れるよ！\n自分の言葉が合っていたか確認！\n繰り返し練習しよう！',
     mascotExpression: 'happy',
-    buttonText: 'わかった！',
+    buttonText: '次へ →',
+    mascotPosition: 'above',
+  },
+  {
+    target: 'level-tags',
+    mascotSpeech: 'A1やB1は難易度レベルだよ！\nA1がやさしくて、B2が難しいよ。\n青いタグは文法テーマだよ！',
+    mascotExpression: 'happy',
+    buttonText: '次へ →',
+    mascotPosition: 'below',
+  },
+  {
+    target: 'settings-button',
+    mascotSpeech: 'この⚙マークで設定画面を\n開けるよ！実際に見てみよう！',
+    mascotExpression: 'happy',
+    buttonText: '見てみる →',
+    mascotPosition: 'below',
   },
 ];
 
@@ -246,7 +266,7 @@ function MockBasicModeUI({
             </div>
             <div className="flex items-center gap-1">
               <span className="text-red-500 text-sm flex items-center gap-0.5"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 5</span>
-              <span className="text-gray-400"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
+              <span id="settings-button" className="text-gray-400"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
             </div>
           </div>
         </header>
@@ -269,7 +289,7 @@ function MockBasicModeUI({
           {/* カード */}
           <div className="flex-1 bg-white rounded-2xl shadow-md p-4 flex flex-col">
             {/* レベルとタグ */}
-            <div className="flex gap-1.5 mb-4 flex-wrap">
+            <div id="level-tags" className="flex gap-1.5 mb-4 flex-wrap">
               <span className="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded font-semibold">
                 {sentence.level}
               </span>
@@ -359,11 +379,6 @@ function MockBasicModeUI({
                 次の問題 →
               </button>
 
-              <button
-                className="col-span-2 py-3 rounded-xl font-bold text-sm bg-red-500 text-white"
-              >
-                練習を終了
-              </button>
             </div>
           </div>
         </main>
@@ -372,8 +387,70 @@ function MockBasicModeUI({
   );
 }
 
+// モック設定画面UI
+function MockSettingsUI() {
+  return (
+    <div className="min-h-screen bg-gray-200 flex justify-center">
+      <div className="w-full max-w-[430px] min-h-screen bg-gray-900/50 relative">
+        {/* 設定ボトムシート */}
+        <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 pb-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-black text-gray-800">設定</h2>
+            <span className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 text-lg">✕</span>
+          </div>
+
+          {/* ポーズの余裕時間 */}
+          <div className="mb-6">
+            <div className="flex justify-between items-center mb-1">
+              <span className="font-bold text-gray-800 text-sm">ポーズの余裕時間</span>
+              <span className="text-blue-600 font-bold text-sm">+0秒</span>
+            </div>
+            <p className="text-[11px] text-gray-400 mb-2">英語音声の長さ ＋ この時間がポーズになります</p>
+            <div className="relative w-full h-2 bg-gray-200 rounded-full">
+              <div className="absolute left-0 top-0 h-2 bg-blue-500 rounded-full" style={{ width: '5%' }} />
+              <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-blue-500 rounded-full shadow" style={{ left: '3%' }} />
+            </div>
+          </div>
+
+          {/* 次の問題までの間隔 */}
+          <div className="mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-bold text-gray-800 text-sm">次の問題までの間隔</span>
+              <span className="text-blue-600 font-bold text-sm">1秒</span>
+            </div>
+            <div className="relative w-full h-2 bg-gray-200 rounded-full">
+              <div className="absolute left-0 top-0 h-2 bg-blue-500 rounded-full" style={{ width: '5%' }} />
+              <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-blue-500 rounded-full shadow" style={{ left: '3%' }} />
+            </div>
+          </div>
+
+          {/* 音声の再生速度 */}
+          <div className="mb-8">
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-bold text-gray-800 text-sm">音声の再生速度</span>
+              <span className="text-blue-600 font-bold text-sm">1.15x</span>
+            </div>
+            <div className="flex rounded-full border-2 border-gray-200 overflow-hidden">
+              <button className="flex-1 py-2.5 text-sm font-bold text-gray-500 bg-white">遅</button>
+              <button className="flex-1 py-2.5 text-sm font-bold text-gray-500 bg-white border-x border-gray-200">等速</button>
+              <button className="flex-1 py-2.5 text-sm font-bold text-white bg-blue-500">速</button>
+            </div>
+          </div>
+
+          {/* ボタン */}
+          <div className="flex gap-3">
+            <button className="flex-1 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl text-sm">保存</button>
+            <button className="flex-1 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl text-sm">キャンセル</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function TutorialPage() {
   const router = useAppRouter();
+  const { isNative } = useAdMob();
   const [phase, setPhase] = useState<TutorialPhase>('intro');
   const [introStep, setIntroStep] = useState(0);
   const [spotlightStep, setSpotlightStep] = useState(0);
@@ -381,6 +458,21 @@ export default function TutorialPage() {
   const [speechComplete, setSpeechComplete] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [mockDisplayState, setMockDisplayState] = useState<'idle' | 'japanese' | 'pause' | 'english'>('idle');
+
+  // チュートリアル画面では広告を非表示にする
+  useEffect(() => {
+    if (!isNative) return;
+
+    const hideAd = async () => {
+      try {
+        const { AdMob } = await import('@capacitor-community/admob');
+        await AdMob.hideBanner();
+      } catch (e) {
+        console.error('Failed to hide banner on tutorial:', e);
+      }
+    };
+    hideAd();
+  }, [isNative]);
 
   // スキップ処理
   const handleSkip = useCallback(() => {
@@ -399,49 +491,56 @@ export default function TutorialPage() {
     }
   }, [introStep]);
 
-  // 練習開始ボタンがクリックされた時（最初のステップ用）
+  // 練習開始ボタンがクリックされた時（step 0用）
   const handlePlayButtonClick = useCallback(() => {
     if (spotlightStep === 0) {
       setSpeechComplete(false);
-      // 練習開始ボタンクリック → JP表示 + 日本語音声再生
       setMockDisplayState('japanese');
       setSpotlightStep(1);
-      // 少し遅延して音声再生（画面遷移後に再生）
-      setTimeout(() => {
-        speakText('私は学生です', 'ja-JP');
-      }, 500);
+      setTimeout(() => speakText('私は学生です', 'ja-JP'), 500);
     }
   }, [spotlightStep]);
 
   // スポットライトステップ完了
+  // 流れ: 0:練習開始→1:JP→2:PAUSE→3:EN→4:レベルバッジ→5:設定ボタン→設定画面→完了
   const handleSpotlightStepComplete = useCallback(() => {
     setSpeechComplete(false);
 
     if (spotlightStep === 0) {
-      // 練習開始ボタン説明後 → JP表示 + 日本語音声再生
+      // 練習開始 → JP表示 + 日本語音声再生
       setMockDisplayState('japanese');
       setSpotlightStep(1);
-      setTimeout(() => {
-        speakText('私は学生です', 'ja-JP');
-      }, 500);
+      setTimeout(() => speakText('私は学生です', 'ja-JP'), 500);
     } else if (spotlightStep === 1) {
-      // JP説明後 → PAUSE表示
+      // JP → PAUSE表示
       setMockDisplayState('pause');
       setSpotlightStep(2);
     } else if (spotlightStep === 2) {
-      // PAUSE説明後 → EN表示 + 英語音声再生
+      // PAUSE → EN表示 + 英語音声再生
       setMockDisplayState('english');
       setSpotlightStep(3);
-      setTimeout(() => {
-        speakText('I am a student.', 'en-US');
-      }, 500);
-    } else {
-      // 完了フェーズへ
-      setPhase('finish');
-      setMascotExpression('excited');
-      setShowConfetti(true);
+      setTimeout(() => speakText('I am a student.', 'en-US'), 500);
+    } else if (spotlightStep === 3) {
+      // EN → レベルバッジ・タグ説明（idle表示に戻す）
+      setMockDisplayState('idle');
+      setSpotlightStep(4);
+    } else if (spotlightStep === 4) {
+      // レベルバッジ → 設定ボタン説明
+      setSpotlightStep(5);
+    } else if (spotlightStep === 5) {
+      // 設定ボタン → 設定画面フェーズへ
+      setPhase('settings');
+      setSpeechComplete(false);
     }
   }, [spotlightStep]);
+
+  // 設定画面フェーズ完了
+  const handleSettingsComplete = useCallback(() => {
+    setPhase('finish');
+    setMascotExpression('excited');
+    setShowConfetti(true);
+    setSpeechComplete(false);
+  }, []);
 
   // 完了処理
   const handleFinish = useCallback(() => {
@@ -493,15 +592,15 @@ export default function TutorialPage() {
 
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 p-3 bg-green-50 rounded-xl">
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
-                    <span className="text-base text-gray-800 font-bold leading-relaxed">中学英語をマスター</span>
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="#22C55E"/></svg>
+                    <span className="text-base text-gray-800 font-bold leading-relaxed">基礎英語を身につける</span>
                   </div>
                   <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl">
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="#3B82F6"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                     <span className="text-base text-gray-800 font-bold leading-relaxed">音声で聞いて、声に出す</span>
                   </div>
                   <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-xl">
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8A5.87 5.87 0 016 12c0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="#A855F7"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8A5.87 5.87 0 016 12c0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
                     <span className="text-base text-gray-800 font-bold leading-relaxed">繰り返しで英語脳を作る</span>
                   </div>
                 </div>
@@ -557,7 +656,7 @@ export default function TutorialPage() {
             <div className="mb-2 ml-3">
               <SpeechBubble
                 text={getIntroSpeech()}
-                isTyping={!speechComplete}
+                isTyping={false}
                 onComplete={() => setSpeechComplete(true)}
               />
             </div>
@@ -621,6 +720,54 @@ export default function TutorialPage() {
     );
   }
 
+  // 設定画面フェーズ
+  if (phase === 'settings') {
+    return (
+      <div className="min-h-screen bg-gray-200 flex justify-center">
+        <div className="w-full max-w-[430px] min-h-screen relative shadow-xl overflow-hidden">
+          {/* モック設定画面 */}
+          <MockSettingsUI />
+
+          {/* スキップボタン */}
+          <button
+            onClick={handleSkip}
+            className="fixed top-4 right-4 z-[110] px-4 py-2 bg-white/30 backdrop-blur-sm text-white text-sm font-bold rounded-full border-[1.5px] border-white hover:bg-white/40 transition-all"
+          >
+            スキップ
+          </button>
+
+          {/* マスコット＋吹き出し（スキップボタンの下に配置） */}
+          <div className="fixed top-14 left-0 right-0 max-w-[430px] mx-auto z-[100] px-4">
+            <div className="flex items-start gap-3">
+              <div className="w-20 h-20 flex-shrink-0">
+                <FoxMascot expression="happy" className="w-full h-full" phase="settings" />
+              </div>
+              <div className="flex-1 mt-1">
+                <SpeechBubble
+                  text={'ここでポーズの時間や\n再生速度を調整できるよ！\n慣れてきたら速度を上げてみてね！\n※ここでは操作できないよ。\n実際のベーシックモードで確認してね！'}
+                  isTyping={false}
+                  onComplete={() => setSpeechComplete(true)}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* わかったボタン（マスコットの下に配置） */}
+          {speechComplete && (
+            <div className="fixed top-[250px] left-0 right-0 max-w-[430px] mx-auto z-[100] px-6">
+              <button
+                onClick={handleSettingsComplete}
+                className="w-full py-3 bg-white text-gray-800 font-bold rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.2)] transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+              >
+                わかった！ →
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   // 完了フェーズ
   if (phase === 'finish') {
     return (
@@ -630,7 +777,7 @@ export default function TutorialPage() {
         <div className="flex-1 flex flex-col items-center justify-center px-4 pt-16 pb-48">
           <div className="bg-white rounded-3xl shadow-2xl p-6 w-full max-w-sm animate-fadeIn">
             <div className="text-center mb-6">
-              <div className="text-5xl mb-4 flex justify-center"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z" fill="%23FFD700" stroke="%23FFD700"/><path d="M5 16l1 3 3-1" stroke="%23FF6B6B" strokeWidth="2"/><path d="M19 16l-1 3-3-1" stroke="%234ECDC4" strokeWidth="2"/><path d="M8 20l.5 2" stroke="%2345B7D1" strokeWidth="2"/><path d="M16 20l-.5 2" stroke="%23DDA0DD" strokeWidth="2"/></svg></div>
+              <div className="text-5xl mb-4 flex justify-center"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" strokeWidth="1.5"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z" fill="#FFD700" stroke="#FFD700"/><path d="M5 16l1 3 3-1" stroke="#FF6B6B" strokeWidth="2"/><path d="M19 16l-1 3-3-1" stroke="#4ECDC4" strokeWidth="2"/><path d="M8 20l.5 2" stroke="#45B7D1" strokeWidth="2"/><path d="M16 20l-.5 2" stroke="#DDA0DD" strokeWidth="2"/></svg></div>
               <h2 className="text-2xl font-black text-gray-800 mb-2">チュートリアル完了！</h2>
               <p className="text-gray-600 text-sm">
                 準備は整ったよ！<br />
@@ -640,7 +787,7 @@ export default function TutorialPage() {
 
             <div className="bg-gradient-to-r from-[#FFF7CC] to-[#FFE8A0] rounded-xl p-4 border border-yellow-200">
               <div className="flex items-start gap-3">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="%23F59E0B"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#F59E0B"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
                 <p className="text-sm text-gray-700">
                   毎日少しずつ続けることが上達のコツ！
                   間違えても気にしないで、どんどん挑戦しよう！
@@ -656,7 +803,7 @@ export default function TutorialPage() {
             <div className="mb-2 ml-3">
               <SpeechBubble
                 text="完璧だね！間違えても大丈夫、毎日続けることが大事だよ。さあ、ホーム画面に戻って実際のトレーニングを始めよう！"
-                isTyping={!speechComplete}
+                isTyping={false}
                 onComplete={() => setSpeechComplete(true)}
               />
             </div>

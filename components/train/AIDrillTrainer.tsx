@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import HardNavLink from '@/components/HardNavLink';
+import { AutoSizeText } from '@/components/AutoSizeText';
 import { apiFetch } from '@/utils/api';
 import { useServerTTS } from '@/hooks/useServerTTS';
 import { useWhisperRecognition } from '@/hooks/useWhisperRecognition';
@@ -16,6 +17,8 @@ import type { AIDrillSession, AIDrillQuestion, AIDrillPhase } from '@/types/aiDr
 import PlayIcon from '@/components/icons/PlayIcon';
 import SpeakerIcon from '@/components/icons/SpeakerIcon';
 import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
+import { useTrainerAdBanner } from '@/hooks/useTrainerAdBanner';
+import { useSubscription } from '@/contexts/SubscriptionContext';
 
 interface AIDrillTrainerProps {
   partSentences: Sentence[];
@@ -153,6 +156,10 @@ export default function AIDrillTrainer({
   partLabel,
   onComplete,
 }: AIDrillTrainerProps) {
+  // トレーニング画面ではBottomNavがないので、バナー広告のマージンを0に再設定
+  useTrainerAdBanner();
+  const { isLoading: isSubscriptionLoading, syncNativeSubscription } = useSubscription();
+
   const [session, setSession] = useState<AIDrillSession>({
     totalQuestions: TOTAL_QUESTIONS,
     currentIndex: 0,
@@ -182,6 +189,7 @@ export default function AIDrillTrainer({
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState<string | null>(null);
   const [apiRetryFn, setApiRetryFn] = useState<(() => void) | null>(null);
+  const [isSubscriptionReady, setIsSubscriptionReady] = useState(false);
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
   const [historyPage, setHistoryPage] = useState(0);
@@ -352,6 +360,26 @@ export default function AIDrillTrainer({
     }, 500);
   }, [speakJapanese, clearQuestionTimers, startWhisperRecording]);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const prepareSubscription = async () => {
+      try {
+        await syncNativeSubscription();
+      } finally {
+        if (!cancelled) {
+          setIsSubscriptionReady(true);
+        }
+      }
+    };
+
+    void prepareSubscription();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [syncNativeSubscription]);
+
   const initializeDrill = useCallback(async () => {
     setPhaseWithRef('loading');
     setError(null);
@@ -485,6 +513,7 @@ export default function AIDrillTrainer({
 
   // 初回問題生成（一度だけ実行）
   useEffect(() => {
+    if (isSubscriptionLoading || !isSubscriptionReady) return;
     if (initializedRef.current) return;
     initializedRef.current = true;
     initializeDrill();
@@ -499,7 +528,7 @@ export default function AIDrillTrainer({
       evaluatingRef.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initializeDrill, clearQuestionTimers, isSubscriptionLoading, isSubscriptionReady]);
 
   // 無音時の自動処理
   useEffect(() => {
@@ -1064,7 +1093,7 @@ export default function AIDrillTrainer({
   const incorrectCount = session.history.filter(q => !q.isCorrect).length;
   const renderInMobileFrame = (content: React.ReactNode) => (
     <div className="min-h-screen bg-gray-100 flex justify-center">
-      <main className="w-full max-w-md bg-white min-h-screen shadow-xl relative overflow-y-auto flex flex-col">
+      <main className="w-full max-w-md bg-white min-h-screen shadow-xl relative overflow-y-auto flex flex-col pb-[70px]">
         {content}
       </main>
     </div>
@@ -1078,6 +1107,18 @@ export default function AIDrillTrainer({
           <h1 className="text-2xl font-bold text-gray-800 mb-3">AI応用ドリル</h1>
           <p className="text-gray-600">このブラウザは音声認識に対応していません。Google Chromeでお試しください。</p>
           <HardNavLink href={backLink} className="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold">← 戻る</HardNavLink>
+        </div>
+      </div>
+    );
+  }
+
+  if (isSubscriptionLoading || !isSubscriptionReady) {
+    return (
+      <div className="min-h-screen bg-[#F4F2F8] flex items-center justify-center">
+        <div className="bg-white rounded-3xl p-8 text-center shadow-lg">
+          <div className="w-14 h-14 border-4 border-purple-200 border-t-purple-500 rounded-full animate-spin mx-auto mb-4" />
+          <h1 className="text-xl font-bold text-gray-800 mb-2">プランを確認中...</h1>
+          <p className="text-sm text-gray-500">購読状態の同期が終わるまで少しお待ちください。</p>
         </div>
       </div>
     );
@@ -1166,21 +1207,21 @@ export default function AIDrillTrainer({
               <div className="flex flex-col">
                 {/* 1. Primary: 次のレッスン */}
                 {nextLessonLink ? (
-                  <a
+                  <HardNavLink
                     href={nextLessonLink}
                     className="flex items-center justify-center gap-2 w-full bg-blue-500 text-white font-bold py-4 rounded-xl active:scale-[0.98] transition-transform text-base"
                   >
                     次のレッスン
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" /></svg>
-                  </a>
+                  </HardNavLink>
                 ) : (
-                  <a
+                  <HardNavLink
                     href={partSelectHref}
                     className="flex items-center justify-center gap-2 w-full bg-blue-500 text-white font-bold py-4 rounded-xl active:scale-[0.98] transition-transform text-base"
                   >
                     {partSelectLink ? 'Part選択に戻る' : '戻る'}
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" /></svg>
-                  </a>
+                  </HardNavLink>
                 )}
 
                 {/* 2. Secondary: もう一度 */}
@@ -1194,12 +1235,12 @@ export default function AIDrillTrainer({
 
                 {/* 3. Tertiary: テキストリンク */}
                 <div className="flex items-center justify-around mt-6">
-                  <a
+                  <HardNavLink
                     href={partSelectHref}
                     className="text-xs text-gray-400 font-semibold active:text-gray-600 transition-colors"
                   >
                     ← Part選択
-                  </a>
+                  </HardNavLink>
                   <HardNavLink
                     href="/home"
                     className="text-xs text-gray-400 font-semibold active:text-gray-600 transition-colors"
@@ -1462,7 +1503,7 @@ export default function AIDrillTrainer({
             {/* 問題 */}
             <div className="text-center mb-6">
               <p className="text-sm text-gray-500 mb-2">並べ替えて英文を作ってください</p>
-              <h2 className="text-2xl font-bold text-gray-800">{currentReviewQuestion.questionJa}</h2>
+              <AutoSizeText text={currentReviewQuestion.questionJa} maxFontSize={24} className="text-gray-800" />
             </div>
 
             {/* 選択済みタイル（回答エリア） */}
@@ -1656,7 +1697,7 @@ export default function AIDrillTrainer({
             <>
               <div className="text-center mb-6">
                 <p className="text-sm text-gray-500 mb-2">問題</p>
-                <h2 className="text-3xl font-bold text-gray-800">{displayQuestion}</h2>
+                <AutoSizeText text={displayQuestion || ''} maxFontSize={30} className="text-gray-800" />
               </div>
 
               <button
@@ -1746,6 +1787,7 @@ export default function AIDrillTrainer({
                 {recognitionError && (
                   <p className="text-sm text-red-500 mt-4 text-center">{recognitionError}</p>
                 )}
+                <p className="text-[10px] text-gray-400 text-center mt-4">※AIが生成した問題は必ずしも正確ではありません</p>
               </div>
             </>
           )}
@@ -1755,7 +1797,7 @@ export default function AIDrillTrainer({
             <>
               <div className="text-center mb-6">
                 <p className="text-sm text-gray-500 mb-2">問題</p>
-                <h2 className="text-3xl font-bold text-gray-800">{displayQuestion}</h2>
+                <AutoSizeText text={displayQuestion || ''} maxFontSize={30} className="text-gray-800" />
                 <button
                   onClick={() => displayQuestion && speakJapanese(displayQuestion)}
                   className="mt-3 inline-flex items-center justify-center gap-2 py-2 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all shadow-md text-sm"
@@ -1798,7 +1840,7 @@ export default function AIDrillTrainer({
                 {/* 正解 */}
                 <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-4">
                   <span className="text-xs text-green-600 font-bold">正解</span>
-                  <p className="mt-1 text-gray-800 font-bold text-lg">{expectedAnswer}</p>
+                  <p className="mt-1 text-gray-800 font-bold text-lg text-center">{expectedAnswer}</p>
                 </div>
 
                 {/* 未回答の解説（スピーキング評価） */}
@@ -1878,7 +1920,7 @@ export default function AIDrillTrainer({
               {/* 問題文と日本語を聞くボタン */}
               <div className="text-center mb-4">
                 <p className="text-sm text-gray-500 mb-2">問題</p>
-                <h2 className="text-2xl font-bold text-gray-800 mb-3">{displayQuestion}</h2>
+                <AutoSizeText text={displayQuestion || ''} maxFontSize={24} className="text-gray-800 mb-3" />
                 <button
                   onClick={() => displayQuestion && speakJapanese(displayQuestion)}
                   className="inline-flex items-center justify-center gap-2 py-2 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all shadow-md text-sm"
@@ -1986,7 +2028,7 @@ export default function AIDrillTrainer({
 
                   <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-3">
                     <span className="text-xs text-green-600 font-bold">正解</span>
-                    <p className="mt-1 text-gray-800 font-bold text-lg">
+                    <p className="mt-1 text-gray-800 font-bold text-lg text-center">
                       {expectedAnswer}
                     </p>
                   </div>
@@ -2165,6 +2207,7 @@ export default function AIDrillTrainer({
                   </button>
                 </div>
               )}
+              <p className="text-[10px] text-gray-400 text-center mt-3">※AIの回答・解説は必ずしも正確ではありません</p>
             </>
           )}
         </div>

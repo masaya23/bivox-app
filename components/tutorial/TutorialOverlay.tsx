@@ -17,6 +17,7 @@ export type TutorialStepConfig = {
   buttonText?: string;
   autoAdvance?: boolean; // 対象をクリックしたら自動で次へ進むか
   hideNextButton?: boolean; // 次へボタンを非表示にするか
+  mascotPosition?: 'above' | 'below'; // マスコットの配置（デフォルト: above）
 };
 
 interface TutorialOverlayProps {
@@ -152,10 +153,9 @@ export default function TutorialOverlay({
     onStepComplete();
   }, [onStepComplete]);
 
-  // ステップ変更時にセリフ完了状態をリセット
-  useEffect(() => {
-    setSpeechComplete(false);
-  }, [currentStep]);
+  // ステップ変更時のリセットはhandleNextで行う
+  // （isTyping=false時に子のonCompleteが先にtrueをセットした後、
+  //  このeffectがfalseに戻す競合を防ぐため）
 
   if (!isActive || !currentConfig) return null;
 
@@ -198,14 +198,16 @@ export default function TutorialOverlay({
         </div>
       )}
 
-      {/* マスコット＋吹き出しエリア（スポットライト対象の下に配置） */}
+      {/* マスコット＋吹き出しエリア */}
       <div
         className="fixed left-0 right-0 max-w-[430px] mx-auto z-[100] px-4"
-        style={{
-          top: spotlightRect
-            ? `${spotlightRect.top + spotlightRect.height + 12}px`
-            : '50%',
-        }}
+        style={
+          spotlightRect
+            ? currentConfig.mascotPosition === 'below'
+              ? { top: `${spotlightRect.top + spotlightRect.height + 16}px` }
+              : { bottom: `${window.innerHeight - spotlightRect.top + 12}px` }
+            : { top: '30%' }
+        }
       >
         <div className="flex items-start gap-3">
           {/* マスコット */}
@@ -217,7 +219,7 @@ export default function TutorialOverlay({
           <div className="flex-1 mt-1">
             <SpotlightSpeechBubble
               text={currentConfig.mascotSpeech}
-              isTyping={!speechComplete}
+              isTyping={false}
               onComplete={handleSpeechComplete}
             />
           </div>
@@ -232,10 +234,10 @@ export default function TutorialOverlay({
         スキップ
       </button>
 
-      {/* 次へボタン（画面最下部に固定） */}
+      {/* 次へボタン（画面下部に配置） */}
       {currentConfig.buttonText && speechComplete && !currentConfig.hideNextButton && (
-        <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto z-[100]">
-          <div className="px-4 pb-4 pt-2">
+        <div className="fixed bottom-4 left-0 right-0 max-w-[430px] mx-auto z-[100]">
+          <div className="px-4 pb-2 pt-2">
             <button
               onClick={handleNext}
               className="w-full py-3 bg-white text-gray-800 font-bold rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.2)] transition-all transform hover:scale-[1.02] active:scale-[0.98]"
@@ -337,7 +339,7 @@ function SpotlightSpeechBubble({
   }, [text, isTyping, onComplete]);
 
   return (
-    <div className="relative bg-white rounded-2xl p-4 shadow-lg border-2 border-gray-100">
+    <div className="relative bg-white rounded-2xl px-3 py-3 shadow-lg border-2 border-gray-100">
       {/* 吹き出しのしっぽ（左向き - キツネの方向へ） */}
       <div
         className="absolute top-1/2 -left-3 -translate-y-1/2"

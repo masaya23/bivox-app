@@ -5,6 +5,9 @@ import { getClientId } from '@/utils/clientId';
 import { checkDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 import { Message, ConversationSettings } from '@/types/conversation';
 
+// Capacitorビルド（静的エクスポート）時に必要
+export const dynamic = 'force-static';
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });

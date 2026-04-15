@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import HardNavLink from '@/components/HardNavLink';
+import { AutoSizeText } from '@/components/AutoSizeText';
 import { useLocalAudio } from '@/hooks/useLocalAudio';
 import { useWhisperRecognition } from '@/hooks/useWhisperRecognition';
 import { updateStreak } from '@/utils/streak';
@@ -15,6 +16,8 @@ import type { Sentence } from '@/types/sentence';
 import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
 import PlayIcon from '@/components/icons/PlayIcon';
 import SpeakerIcon from '@/components/icons/SpeakerIcon';
+import { useTrainerAdBanner } from '@/hooks/useTrainerAdBanner';
+import { useSubscription } from '@/contexts/SubscriptionContext';
 
 // ダミーデータ（10問）- unit1-p1のセンテンスを使用（MP3ファイルと対応）
 const DUMMY_SENTENCES: Sentence[] = [
@@ -164,6 +167,10 @@ export default function SpeakingTrainer({
   isTutorialMode = false,
   autoStart = true,
 }: SpeakingTrainerProps) {
+  // トレーニング画面ではBottomNavがないので、バナー広告のマージンを0に再設定
+  useTrainerAdBanner();
+  const { isLoading: isSubscriptionLoading, syncNativeSubscription } = useSubscription();
+
   const [sentences, setSentences] = useState<Sentence[]>(
     initialSentences && initialSentences.length > 0 ? initialSentences : DUMMY_SENTENCES
   );
@@ -184,6 +191,7 @@ export default function SpeakingTrainer({
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState<string | null>(null);
   const [apiRetryFn, setApiRetryFn] = useState<(() => void) | null>(null);
+  const [isSubscriptionReady, setIsSubscriptionReady] = useState(false);
 
   // 回答例のナビゲーション
   const [answerExampleIndex, setAnswerExampleIndex] = useState(0);
@@ -303,6 +311,26 @@ export default function SpeakingTrainer({
   const shouldAutoRecordRef = useRef<boolean>(false); // 自動録音すべきかのフラグ
   const currentSentence = sentences[currentIndex];
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const prepareSubscription = async () => {
+      try {
+        await syncNativeSubscription();
+      } finally {
+        if (!cancelled) {
+          setIsSubscriptionReady(true);
+        }
+      }
+    };
+
+    void prepareSubscription();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [syncNativeSubscription]);
+
   // 初期化
   useEffect(() => {
     if (initialSentences && initialSentences.length > 0) {
@@ -365,6 +393,7 @@ export default function SpeakingTrainer({
   // 問題が変わった時に日本語を自動再生し、終了後に自動録音開始
   // ※ブラウザのautoplay制限により初回は再生されない場合がある（その場合はエラーを無視）
   useEffect(() => {
+    if (isSubscriptionLoading || !isSubscriptionReady) return;
     // autoStartがfalseの場合は自動再生しない
     if (!autoStart) return;
 
@@ -409,10 +438,11 @@ export default function SpeakingTrainer({
       clearSafetyTimeout();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIndex, currentSentence.id, autoStart]);
+  }, [currentIndex, currentSentence.id, autoStart, isSubscriptionLoading, isSubscriptionReady]);
 
   // 無音時の自動AI解説取得
   useEffect(() => {
+    if (isSubscriptionLoading || !isSubscriptionReady) return;
     if (!isNoSpeech || showAnswer) return;
 
     const getNoSpeechEvaluation = async () => {
@@ -491,7 +521,7 @@ export default function SpeakingTrainer({
     };
 
     getNoSpeechEvaluation();
-  }, [isNoSpeech, showAnswer, currentSentence.jp, currentSentence.en, currentIndex, partTitle]);
+  }, [isNoSpeech, showAnswer, currentSentence.jp, currentSentence.en, currentIndex, partTitle, isSubscriptionLoading, isSubscriptionReady]);
 
   const handlePlayJapanese = () => {
     setHasUserInteracted(true); // ユーザー操作を記録
@@ -501,6 +531,7 @@ export default function SpeakingTrainer({
   };
 
   const handleStartRecording = () => {
+    if (isSubscriptionLoading || !isSubscriptionReady) return;
     if (isListening || isTranscribing) return;
     setHasUserInteracted(true);
     shouldAutoRecordRef.current = false;
@@ -519,6 +550,7 @@ export default function SpeakingTrainer({
   };
 
   const handleJudge = async () => {
+    if (isSubscriptionLoading || !isSubscriptionReady) return;
     if (!editableText.trim()) return;
 
     setHasUserInteracted(true);
@@ -1015,7 +1047,7 @@ export default function SpeakingTrainer({
               {/* 問題 */}
               <div className="text-center mb-6">
                 <p className="text-sm text-gray-500 mb-2">日本語</p>
-                <h1 className="text-2xl font-bold text-gray-800">{currentReviewQuestion.sentence.jp}</h1>
+                <AutoSizeText text={currentReviewQuestion.sentence.jp} maxFontSize={24} className="text-gray-800" as="h1" />
               </div>
 
               {/* 指示 */}
@@ -1199,21 +1231,21 @@ export default function SpeakingTrainer({
               <div className="flex flex-col">
                 {/* 1. Primary: 次のレッスン */}
                 {nextLessonLink ? (
-                  <a
+                  <HardNavLink
                     href={nextLessonLink}
                     className="flex items-center justify-center gap-2 w-full bg-blue-500 text-white font-bold py-4 rounded-xl active:scale-[0.98] transition-transform text-base"
                   >
                     次のレッスン
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" /></svg>
-                  </a>
+                  </HardNavLink>
                 ) : (
-                  <a
+                  <HardNavLink
                     href={partSelectHref}
                     className="flex items-center justify-center gap-2 w-full bg-blue-500 text-white font-bold py-4 rounded-xl active:scale-[0.98] transition-transform text-base"
                   >
                     {partSelectLink ? 'Part選択に戻る' : '戻る'}
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" /></svg>
-                  </a>
+                  </HardNavLink>
                 )}
 
                 {/* 2. Secondary: もう一度 */}
@@ -1227,12 +1259,12 @@ export default function SpeakingTrainer({
 
                 {/* 3. Tertiary: テキストリンク */}
                 <div className="flex items-center justify-around mt-6">
-                  <a
+                  <HardNavLink
                     href={partSelectHref}
                     className="text-xs text-gray-400 font-semibold active:text-gray-600 transition-colors"
                   >
                     ← Part選択
-                  </a>
+                  </HardNavLink>
                   <HardNavLink
                     href="/home"
                     className="text-xs text-gray-400 font-semibold active:text-gray-600 transition-colors"
@@ -1523,9 +1555,21 @@ export default function SpeakingTrainer({
   const headerTitle = formatHeaderTitle(pageTitle, partId);
   const badgeClass = getLessonPartBadgeClassName();
 
+  if (isSubscriptionLoading || !isSubscriptionReady) {
+    return (
+      <div className="min-h-screen bg-gray-200 flex items-center justify-center">
+        <div className="bg-white rounded-3xl p-8 text-center shadow-lg">
+          <div className="w-14 h-14 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin mx-auto mb-4" />
+          <h1 className="text-xl font-bold text-gray-800 mb-2">プランを確認中...</h1>
+          <p className="text-sm text-gray-500">購読状態の同期が終わるまで少しお待ちください。</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-200 flex justify-center">
-      <div className="w-full max-w-[430px] min-h-screen bg-white shadow-xl flex flex-col relative">
+      <div className="w-full max-w-[430px] min-h-screen bg-white shadow-xl flex flex-col relative pb-[70px]">
         {/* ヘッダー */}
         <header className="bg-white px-4 py-3 sticky top-0 z-30 border-b border-gray-100">
           <div className="flex items-center justify-between">
@@ -1560,7 +1604,7 @@ export default function SpeakingTrainer({
         {/* 問題 */}
         <div className="text-center mb-6">
           <p className="text-sm text-gray-500 mb-2">問題</p>
-          <h1 className="text-3xl font-bold text-gray-800">{currentSentence.jp}</h1>
+          <AutoSizeText text={currentSentence.jp} maxFontSize={30} className="text-gray-800" as="h1" />
         </div>
 
         {/* 日本語を聞くボタン */}
@@ -1841,7 +1885,7 @@ export default function SpeakingTrainer({
                 {/* 正解 */}
                 <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-3">
                   <span className="text-xs text-green-600 font-bold">正解</span>
-                  <p className="mt-1 text-gray-800 font-bold text-lg">{aiEvaluation.correction || currentSentence.en}</p>
+                  <p className="mt-1 text-gray-800 font-bold text-lg text-center">{aiEvaluation.correction || currentSentence.en}</p>
                 </div>
 
                 {/* 英語の型 */}
@@ -2042,6 +2086,7 @@ export default function SpeakingTrainer({
                 次へ →
               </button>
             </div>
+            <p className="text-[10px] text-gray-400 text-center mt-3">※AIの回答・解説は必ずしも正確ではありません</p>
           </>
         )}
         </div>
