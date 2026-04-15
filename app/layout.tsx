@@ -70,30 +70,10 @@ export default function RootLayout({
             __html: `
               (function() {
                 if (!('serviceWorker' in navigator)) return;
-                var IS_PROD = ${isProd ? 'true' : 'false'};
-
-                // Capacitor環境ではService Workerを使わない（キャッシュ失敗やナビゲーション干渉を防止）
-                var isCapacitor = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
-
-                // 開発中またはCapacitor環境ではSWとキャッシュを削除する
-                if (!IS_PROD || isCapacitor) {
-                  Promise.all([
-                    navigator.serviceWorker.getRegistrations().then(function(regs) { return Promise.all(regs.map(function(r) { return r.unregister(); })); }),
-                    (self.caches ? caches.keys().then(function(keys) { return Promise.all(keys.map(function(k) { return caches.delete(k); })); }) : Promise.resolve()),
-                  ]).catch(function() {});
-                  return;
-                }
-
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js').then(
-                    function() {
-                      console.log('ServiceWorker registration successful');
-                    },
-                    function(err) {
-                      console.log('ServiceWorker registration failed: ', err);
-                    }
-                  );
-                });
+                Promise.all([
+                  navigator.serviceWorker.getRegistrations().then(function(regs) { return Promise.all(regs.map(function(r) { return r.unregister(); })); }),
+                  (self.caches ? caches.keys().then(function(keys) { return Promise.all(keys.map(function(k) { return caches.delete(k); })); }) : Promise.resolve()),
+                ]).catch(function() {});
               })();
             `,
           }}

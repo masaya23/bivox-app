@@ -17,6 +17,7 @@ import { logSubscriptionCancel } from '@/utils/analytics';
 import { useRevenueCat } from '@/hooks/useRevenueCat';
 import { useAdMob } from '@/hooks/useAdMob';
 import { openExternalUrl } from '@/lib/externalNavigation';
+import { useAppRouter } from '@/hooks/useAppRouter';
 
 interface PaywallScreenProps {
   isOpen: boolean;
@@ -114,7 +115,8 @@ export default function PaywallScreen({
   onClose,
   highlightedMode,
 }: PaywallScreenProps) {
-  const { upgradePlan, getEffectiveTier, billingPeriod: currentBillingPeriod, syncNativeSubscription, shouldShowAds } = useSubscription();
+  const router = useAppRouter();
+  const { getEffectiveTier, billingPeriod: currentBillingPeriod, syncNativeSubscription, shouldShowAds } = useSubscription();
   const effectiveTier = getEffectiveTier();
   const revenueCat = useRevenueCat();
   const isNative = Capacitor.isNativePlatform();
@@ -221,10 +223,7 @@ export default function PaywallScreen({
           setPurchaseError(revenueCat.error || 'ストアに接続できませんでした。しばらくしてからお試しください。');
         }
       } else {
-        // Webの場合はモック処理（デモ用）
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        upgradePlan(selectedPlan, billingPeriod);
-        setTimeout(() => onClose(), 500);
+        setPurchaseError('ブラウザ版ではプレミアム登録できません。Bivoxアプリから登録してください。');
       }
     } catch (error) {
       console.error('Purchase error:', error);
@@ -548,7 +547,7 @@ export default function PaywallScreen({
 
           <button
             onClick={handlePurchase}
-            disabled={isProcessing || (effectiveTier === selectedPlan && currentBillingPeriod === billingPeriod) || revenueCat.isLoading}
+            disabled={isProcessing || (isNative && effectiveTier === selectedPlan && currentBillingPeriod === billingPeriod) || revenueCat.isLoading}
             className={`
               w-full py-4 rounded-2xl font-bold text-lg text-white
               bg-gradient-to-r ${
@@ -568,6 +567,8 @@ export default function PaywallScreen({
                 <span className="animate-spin">⏳</span>
                 処理中...
               </span>
+            ) : !isNative ? (
+              'アプリ版でプレミアム登録'
             ) : effectiveTier === selectedPlan && currentBillingPeriod === billingPeriod ? (
               '利用中のプラン'
             ) : effectiveTier === selectedPlan ? (
@@ -578,8 +579,22 @@ export default function PaywallScreen({
           </button>
 
           <p className="text-center text-xs text-gray-400 mt-3">
-            いつでもキャンセル可能 • 決済はApp Store / Google Playを通じて行われます
+            {isNative
+              ? 'いつでもキャンセル可能 • 決済はApp Store / Google Playを通じて行われます'
+              : 'ブラウザ版では課金できません。Bivoxアプリで登録してください'}
           </p>
+
+          {!isNative && (
+            <button
+              onClick={() => {
+                onClose();
+                router.push('/help');
+              }}
+              className="w-full py-2 text-blue-500 font-medium text-sm mt-2"
+            >
+              アプリ版の利用方法を見る
+            </button>
+          )}
 
           {/* 購入を復元（ネイティブアプリのみ） */}
           {isNative && (
@@ -593,7 +608,7 @@ export default function PaywallScreen({
           )}
 
           {/* 無料プランに戻る */}
-          {effectiveTier !== 'free' && (
+          {isNative && effectiveTier !== 'free' && (
             <button
               onClick={() => setCancellationStep('notice')}
               className="w-full py-2 text-gray-400 text-xs mt-2"

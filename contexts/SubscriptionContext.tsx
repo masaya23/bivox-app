@@ -7,6 +7,7 @@ import { getCurrentTrialStatus } from '@/utils/trialPrevention';
 import { useAuth } from './AuthContext';
 import { setApiUserPlan } from '@/utils/api';
 import { isGuestUser } from '@/utils/guestAccess';
+import { loadSyncedSubscription, saveSyncedSubscription } from '@/lib/subscriptionSync';
 import {
   getRevenueCatExpirationDate,
   inferRevenueCatBillingPeriod,
@@ -166,7 +167,7 @@ const initialTrialStatus: TrialStatus = {
 
 export function SubscriptionProvider({ children }: { children: ReactNode }) {
   // AuthContextからマスターアカウント情報を取得
-  const { user, isMaster, isLoading: isAuthLoading } = useAuth();
+  const { user, isMaster, isLoading: isAuthLoading, useFirebase } = useAuth();
 
   const [state, setState] = useState<SubscriptionState>({
     tier: 'free',
@@ -333,6 +334,14 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
         lastReceipt: prev.lastReceipt,
       }));
       saveState(tier, expiresAt, tier === 'pro' && trialStatus.isCurrentlyInTrial && !hasPro, null, billingPeriod);
+      if (useFirebase && user && !isGuestUser(user)) {
+        await saveSyncedSubscription(user.id, {
+          tier,
+          expiresAt: expiresAt?.toISOString() || null,
+          billingPeriod,
+          isTrialPeriod: tier === 'pro' && trialStatus.isCurrentlyInTrial && !hasPro,
+        });
+      }
       console.warn('RevenueCat subscription synced', {
         userId: user.id,
         tier,
@@ -351,7 +360,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
         isLoading: false,
       }));
     }
-  }, [saveState, user?.id]);
+  }, [saveState, useFirebase, user]);
 
   // 有効なプランを計算するヘルパー
   const computeEffectiveTier = useCallback((): SubscriptionTier => {
@@ -437,6 +446,54 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     user,
   ]);
 
+  useEffect(() => {
+    if (isAuthLoading || !useFirebase || !user?.id || isGuestUser(user)) {
+      return;
+    }
+
+    let cancelled = false;
+
+    void (async () => {
+      const synced = await loadSyncedSubscription(user.id);
+      if (cancelled || !synced) {
+        return;
+      }
+
+      const trialStatus = getCurrentTrialStatus();
+      const expiresAt = synced.expiresAt ? new Date(synced.expiresAt) : null;
+
+      if (expiresAt && expiresAt < new Date()) {
+        setState(prev => ({
+          ...prev,
+          tier: 'free',
+          expiresAt: null,
+          isLoading: false,
+          billingPeriod: null,
+          trialStatus,
+          isTrialPeriod: false,
+          lastReceipt: null,
+        }));
+        saveState('free', null, false, null, null);
+        return;
+      }
+
+      setState(prev => ({
+        ...prev,
+        tier: synced.tier,
+        expiresAt,
+        isLoading: false,
+        billingPeriod: synced.billingPeriod,
+        trialStatus,
+        isTrialPeriod: synced.isTrialPeriod,
+      }));
+      saveState(synced.tier, expiresAt, synced.isTrialPeriod, null, synced.billingPeriod);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isAuthLoading, saveState, useFirebase, user]);
+
   // モードへのアクセス権限チェック
   const canAccessMode = useCallback((mode: TrainingMode): boolean => {
     const effectiveTier = computeEffectiveTier();
@@ -496,7 +553,15 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
       debugOverridePlan: null, // 実際のプラン変更時はデバッグオーバーライドをクリア
     });
     saveState(newTier, expiresAt, false, null, billingPeriod);
-  }, [saveState]);
+    if (useFirebase && user && !isGuestUser(user)) {
+      void saveSyncedSubscription(user.id, {
+        tier: newTier,
+        expiresAt: expiresAt?.toISOString() || null,
+        billingPeriod,
+        isTrialPeriod: false,
+      });
+    }
+  }, [saveState, useFirebase, user]);
 
   // プランのリセット
   const resetPlan = useCallback(() => {
@@ -512,7 +577,15 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
       debugOverridePlan: prev.debugOverridePlan,
     }));
     localStorage.removeItem(STORAGE_KEY);
-  }, []);
+    if (useFirebase && user && !isGuestUser(user)) {
+      void saveSyncedSubscription(user.id, {
+        tier: 'free',
+        expiresAt: null,
+        billingPeriod: null,
+        isTrialPeriod: false,
+      });
+    }
+  }, [useFirebase, user]);
 
   // プレミアムユーザーかどうか
   const isPremium = useCallback((): boolean => {
@@ -579,9 +652,17 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     saveState(tier, expiresAt, isTrialPeriod, receipt, billingPeriod);
     // デバッグオーバーライドもクリア
     localStorage.removeItem(DEBUG_OVERRIDE_KEY);
+    if (useFirebase && user && !isGuestUser(user)) {
+      void saveSyncedSubscription(user.id, {
+        tier,
+        expiresAt: expiresAt?.toISOString() || null,
+        billingPeriod,
+        isTrialPeriod,
+      });
+    }
 
     return true;
-  }, [saveState]);
+  }, [saveState, useFirebase, user]);
 
   // デバッグ用：プランのオーバーライド設定（マスターアカウントのみ）
   const setDebugOverridePlan = useCallback((plan: SubscriptionTier | null) => {
