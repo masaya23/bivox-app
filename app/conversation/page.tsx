@@ -244,6 +244,7 @@ export default function ConversationPage() {
         id: 'welcome',
         role: 'assistant',
         content: "Hi! I'm here to help you practice English. Let's have a casual conversation! What would you like to talk about today?",
+        translation: 'こんにちは！英語の練習をお手伝いします。気軽に会話を楽しみましょう！今日は何について話しますか？',
         timestamp: Date.now(),
       };
       setMessages([welcomeMessage]);

@@ -229,10 +229,11 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
         // 期限切れチェック
         if (expiresAt && expiresAt < new Date()) {
           // 期限切れの場合はfreeにリセット
+          // ネイティブはRevenueCatが最新状態を確認するまでisLoadingを維持
           setState({
             tier: 'free',
             expiresAt: null,
-            isLoading: false,
+            isLoading: Capacitor.isNativePlatform(),
             billingPeriod: null,
             trialStatus,
             isTrialPeriod: false,
@@ -266,9 +267,11 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
             debugOverridePlan,
           });
         } else {
+          // ストレージに購読なし・トライアルなし
+          // ネイティブはRevenueCatが確認するまでisLoadingを維持してペイウォールフラッシュを防ぐ
           setState(prev => ({
             ...prev,
-            isLoading: false,
+            isLoading: Capacitor.isNativePlatform(),
             trialStatus,
             debugOverridePlan,
           }));
@@ -672,6 +675,16 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
     void syncRevenueCatSubscription();
   }, [isAuthLoading, isMaster, syncRevenueCatSubscription, user?.id]);
+
+  // ネイティブでユーザー未ログイン/ゲストの場合、RevenueCatは走らないので
+  // isLoadingが永遠にtrueのままにならないよう解除するフォールバック
+  useEffect(() => {
+    if (isAuthLoading || !Capacitor.isNativePlatform()) return;
+    if (!state.isLoading) return;
+    if (!user?.id || isGuestUser(user)) {
+      setState(prev => ({ ...prev, isLoading: false }));
+    }
+  }, [isAuthLoading, user?.id, state.isLoading]);
 
   useEffect(() => {
     if (isAuthLoading || !isNativePlatform || !user?.id || isGuestUser(user)) {
