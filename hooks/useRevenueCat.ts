@@ -4,7 +4,14 @@ import { useState, useEffect, useCallback } from 'react';
 import { Capacitor } from '@capacitor/core';
 import type { CustomerInfo, PurchasesPackage, PurchasesOffering } from '@revenuecat/purchases-capacitor';
 import { PRORATION_MODE } from '@revenuecat/purchases-capacitor';
+import { useAuth } from '@/contexts/AuthContext';
+import { isGuestUser } from '@/utils/guestAccess';
 import { getAppInstanceId, logSubscriptionStart } from '@/utils/analytics';
+import { appendSubscriptionDebugLog } from '@/utils/subscriptionDebug';
+import {
+  clearNativeSubscriptionSnapshot,
+  writeNativeSubscriptionSnapshot,
+} from '@/utils/nativeSubscriptionSnapshot';
 import {
   getCurrentRevenueCatProductIdentifier,
   getRevenueCatExpirationDate,
@@ -95,12 +102,60 @@ const mockState: SubscriptionState = {
   customerInfo: null,
 };
 
+let revenueCatConfigured = false;
+
+function summarizeCustomerInfo(customerInfo: CustomerInfo | null) {
+  if (!customerInfo) {
+    return null;
+  }
+
+  return {
+    originalAppUserId: customerInfo.originalAppUserId,
+    activeSubscriptions: customerInfo.activeSubscriptions,
+    allPurchasedProductIdentifiers: customerInfo.allPurchasedProductIdentifiers,
+    latestExpirationDate: customerInfo.latestExpirationDate,
+    managementURL: customerInfo.managementURL,
+    entitlements: Object.fromEntries(
+      Object.entries(customerInfo.entitlements.active).map(([key, entitlement]) => [
+        key,
+        {
+          productIdentifier: entitlement.productIdentifier,
+          productPlanIdentifier: entitlement.productPlanIdentifier ?? null,
+          expirationDate: entitlement.expirationDate ?? null,
+        },
+      ])
+    ),
+  };
+}
+
+async function waitForRevenueCatCustomerInfo(
+  Purchases: typeof import('@revenuecat/purchases-capacitor').Purchases,
+  attempts = 5,
+  intervalMs = 1000
+): Promise<CustomerInfo> {
+  await Purchases.invalidateCustomerInfoCache().catch(() => undefined);
+  let customerInfo = (await Purchases.getCustomerInfo()).customerInfo;
+  let tier = inferRevenueCatTier(customerInfo);
+
+  for (let attempt = 0; attempt < attempts && tier === 'free'; attempt += 1) {
+    if (attempt > 0) {
+      await new Promise((resolve) => setTimeout(resolve, intervalMs));
+    }
+    await Purchases.invalidateCustomerInfoCache().catch(() => undefined);
+    customerInfo = (await Purchases.getCustomerInfo()).customerInfo;
+    tier = inferRevenueCatTier(customerInfo);
+  }
+
+  return customerInfo;
+}
+
 /**
  * RevenueCat フック
  *
  * ネイティブアプリでのみ動作し、WebではモックのSubscriptionContextを使用
  */
 export function useRevenueCat(): UseRevenueCatReturn {
+  const { user, isLoading: isAuthLoading } = useAuth();
   const [state, setState] = useState<SubscriptionState>({
     isLoading: true,
     isInitialized: false,
@@ -115,62 +170,6 @@ export function useRevenueCat(): UseRevenueCatReturn {
   });
 
   const isNative = Capacitor.isNativePlatform();
-
-  // RevenueCatの初期化
-  useEffect(() => {
-    if (!isNative) {
-      // Web環境ではモック状態を使用
-      setState(mockState);
-      return;
-    }
-
-    const initializeRevenueCat = async () => {
-      try {
-        // 動的インポート（ネイティブでのみ利用可能）
-        const { Purchases } = await import('@revenuecat/purchases-capacitor');
-
-        // プラットフォームに応じたAPIキーを使用
-        const apiKey = Capacitor.getPlatform() === 'ios'
-          ? REVENUECAT_CONFIG.API_KEY_IOS
-          : REVENUECAT_CONFIG.API_KEY_ANDROID;
-
-        if (!apiKey) {
-          throw new Error('RevenueCat API key is not configured');
-        }
-
-        // RevenueCatを設定
-        await Purchases.configure({
-          apiKey,
-        });
-
-        // Firebase Analytics との連携
-        const firebaseAppInstanceId = await getAppInstanceId();
-        if (firebaseAppInstanceId) {
-          await Purchases.setFirebaseAppInstanceID({
-            firebaseAppInstanceID: firebaseAppInstanceId,
-          });
-        }
-
-        // 初期情報を取得
-        await refresh();
-
-        setState(prev => ({
-          ...prev,
-          isInitialized: true,
-          isLoading: false,
-        }));
-      } catch (error) {
-        console.error('Failed to initialize RevenueCat:', error);
-        setState(prev => ({
-          ...prev,
-          isLoading: false,
-          error: error instanceof Error ? error.message : 'Failed to initialize',
-        }));
-      }
-    };
-
-    initializeRevenueCat();
-  }, [isNative]);
 
   // 顧客情報から状態を更新
   const updateStateFromCustomerInfo = useCallback((customerInfo: CustomerInfo) => {
@@ -187,15 +186,191 @@ export function useRevenueCat(): UseRevenueCatReturn {
       currentPlan,
       expirationDate,
     }));
-  }, []);
+
+    if (user && !isGuestUser(user)) {
+      writeNativeSubscriptionSnapshot({
+        userId: user.id,
+        tier: currentPlan,
+        billingPeriod: inferRevenueCatBillingPeriod(customerInfo, currentPlan),
+        expiresAt: expirationDate?.toISOString() || null,
+        updatedAt: new Date().toISOString(),
+      });
+    }
+
+    appendSubscriptionDebugLog('useRevenueCat', 'customer_info_updated', {
+      currentPlan,
+      expirationDate: expirationDate?.toISOString() || null,
+      customerInfo: summarizeCustomerInfo(customerInfo),
+    });
+  }, [user]);
+
+  const ensurePurchasesReady = useCallback(async () => {
+    if (isAuthLoading) {
+      throw new Error('Authentication is still loading');
+    }
+
+    if (!user || isGuestUser(user)) {
+      throw new Error('Authenticated user is required for RevenueCat');
+    }
+
+    const { Purchases } = await import('@revenuecat/purchases-capacitor');
+
+    const apiKey = Capacitor.getPlatform() === 'ios'
+      ? REVENUECAT_CONFIG.API_KEY_IOS
+      : REVENUECAT_CONFIG.API_KEY_ANDROID;
+
+    if (!apiKey) {
+      appendSubscriptionDebugLog('useRevenueCat', 'configure_missing_api_key');
+      throw new Error('RevenueCat API key is not configured');
+    }
+
+    if (!revenueCatConfigured) {
+      await Purchases.configure({
+        apiKey,
+        appUserID: user.id,
+      });
+      revenueCatConfigured = true;
+      appendSubscriptionDebugLog('useRevenueCat', 'configured', {
+        platform: Capacitor.getPlatform(),
+        userId: user.id,
+      });
+
+      const firebaseAppInstanceId = await getAppInstanceId();
+      if (firebaseAppInstanceId) {
+        await Purchases.setFirebaseAppInstanceID({
+          firebaseAppInstanceID: firebaseAppInstanceId,
+        });
+        appendSubscriptionDebugLog('useRevenueCat', 'firebase_app_instance_id_set', {
+          userId: user.id,
+        });
+      }
+    }
+
+    await Purchases.logIn({ appUserID: user.id });
+    appendSubscriptionDebugLog('useRevenueCat', 'login', { userId: user.id });
+
+    return { Purchases };
+  }, [isAuthLoading, user]);
+
+  // RevenueCatの初期化
+  useEffect(() => {
+    if (!isNative) {
+      // Web環境ではモック状態を使用
+      setState(mockState);
+      return;
+    }
+
+    if (isAuthLoading) {
+      setState(prev => ({
+        ...prev,
+        isLoading: true,
+        isInitialized: false,
+      }));
+      return;
+    }
+
+    if (!user || isGuestUser(user)) {
+      clearNativeSubscriptionSnapshot();
+      setState({
+        ...mockState,
+        isLoading: false,
+        isInitialized: false,
+      });
+      return;
+    }
+
+    let listenerId: string | null = null;
+    let cancelled = false;
+
+    const initializeRevenueCat = async () => {
+      try {
+        const { Purchases } = await ensurePurchasesReady();
+        listenerId = await Purchases.addCustomerInfoUpdateListener((customerInfo) => {
+          if (cancelled) {
+            return;
+          }
+
+          updateStateFromCustomerInfo(customerInfo);
+          setState(prev => ({
+            ...prev,
+            isInitialized: true,
+            isLoading: false,
+          }));
+        });
+        const { customerInfo } = await Purchases.getCustomerInfo();
+        const hasPlus = !!customerInfo.entitlements.active[REVENUECAT_CONFIG.ENTITLEMENTS.PLUS];
+        const hasPro = !!customerInfo.entitlements.active[REVENUECAT_CONFIG.ENTITLEMENTS.PRO];
+        const currentPlan = inferRevenueCatTier(customerInfo);
+        const expirationDate = getRevenueCatExpirationDate(customerInfo, currentPlan);
+
+        setState(prev => ({
+          ...prev,
+          customerInfo,
+          hasPlus,
+          hasPro,
+          currentPlan,
+          expirationDate,
+        }));
+        const offerings = await Purchases.getOfferings();
+        appendSubscriptionDebugLog('useRevenueCat', 'initialized', {
+          userId: user.id,
+          currentPlan,
+          offeringsCount: offerings.current?.availablePackages?.length || 0,
+          customerInfo: summarizeCustomerInfo(customerInfo),
+        });
+
+        if (offerings.current) {
+          setState(prev => ({
+            ...prev,
+            offerings: offerings.current,
+            packages: offerings.current?.availablePackages || [],
+          }));
+        }
+
+        setState(prev => ({
+          ...prev,
+          isInitialized: true,
+          isLoading: false,
+        }));
+      } catch (error) {
+        console.error('Failed to initialize RevenueCat:', error);
+        appendSubscriptionDebugLog('useRevenueCat', 'initialize_failed', error);
+        setState(prev => ({
+          ...prev,
+          isLoading: false,
+          error: error instanceof Error ? error.message : 'Failed to initialize',
+        }));
+      }
+    };
+
+    void initializeRevenueCat();
+    return () => {
+      cancelled = true;
+      if (!listenerId) {
+        return;
+      }
+
+      void (async () => {
+        try {
+          const { Purchases } = await import('@revenuecat/purchases-capacitor');
+          await Purchases.removeCustomerInfoUpdateListener({ listenerToRemove: listenerId });
+        } catch (error) {
+          console.warn('Failed to remove RevenueCat listener:', error);
+        }
+      })();
+    };
+  }, [ensurePurchasesReady, isAuthLoading, isNative, updateStateFromCustomerInfo, user]);
 
   // 購入可能なパッケージを取得
   const fetchOfferings = useCallback(async () => {
     if (!isNative) return;
 
     try {
-      const { Purchases } = await import('@revenuecat/purchases-capacitor');
+      const { Purchases } = await ensurePurchasesReady();
       const offerings = await Purchases.getOfferings();
+      appendSubscriptionDebugLog('useRevenueCat', 'offerings_fetched', {
+        offeringsCount: offerings.current?.availablePackages?.length || 0,
+      });
 
       if (offerings.current) {
         setState(prev => ({
@@ -206,22 +381,27 @@ export function useRevenueCat(): UseRevenueCatReturn {
       }
     } catch (error) {
       console.error('Failed to fetch offerings:', error);
+      appendSubscriptionDebugLog('useRevenueCat', 'offerings_fetch_failed', error);
     }
-  }, [isNative]);
+  }, [ensurePurchasesReady, isNative]);
 
   // 情報を更新
   const refresh = useCallback(async () => {
     if (!isNative) return;
 
     try {
-      const { Purchases } = await import('@revenuecat/purchases-capacitor');
+      const { Purchases } = await ensurePurchasesReady();
       const { customerInfo } = await Purchases.getCustomerInfo();
+      appendSubscriptionDebugLog('useRevenueCat', 'refresh_customer_info', {
+        customerInfo: summarizeCustomerInfo(customerInfo),
+      });
       updateStateFromCustomerInfo(customerInfo);
       await fetchOfferings();
     } catch (error) {
       console.error('Failed to refresh customer info:', error);
+      appendSubscriptionDebugLog('useRevenueCat', 'refresh_failed', error);
     }
-  }, [isNative, updateStateFromCustomerInfo, fetchOfferings]);
+  }, [ensurePurchasesReady, fetchOfferings, isNative, updateStateFromCustomerInfo]);
 
   const getGoogleProrationMode = useCallback((
     customerInfo: CustomerInfo,
@@ -262,9 +442,16 @@ export function useRevenueCat(): UseRevenueCatReturn {
     }
 
     setState(prev => ({ ...prev, isLoading: true, error: null }));
+    appendSubscriptionDebugLog('useRevenueCat', 'purchase_started', {
+      packageIdentifier: packageToPurchase.identifier,
+      productIdentifier: packageToPurchase.product.identifier,
+      targetPlan: targetPlan || null,
+      targetPeriod: targetPeriod || null,
+      userId: user && !isGuestUser(user) ? user.id : null,
+    });
 
     try {
-      const { Purchases } = await import('@revenuecat/purchases-capacitor');
+      const { Purchases } = await ensurePurchasesReady();
       let googleProductChangeInfo: {
         oldProductIdentifier: string;
         prorationMode?: PRORATION_MODE;
@@ -287,6 +474,12 @@ export function useRevenueCat(): UseRevenueCatReturn {
         aPackage: packageToPurchase,
         ...(googleProductChangeInfo ? { googleProductChangeInfo } : {}),
       });
+      appendSubscriptionDebugLog('useRevenueCat', 'purchase_succeeded', {
+        packageIdentifier: packageToPurchase.identifier,
+        productIdentifier: packageToPurchase.product.identifier,
+        currentPlan: inferRevenueCatTier(customerInfo),
+        customerInfo: summarizeCustomerInfo(customerInfo),
+      });
 
       updateStateFromCustomerInfo(customerInfo);
       setState(prev => ({ ...prev, isLoading: false }));
@@ -307,11 +500,20 @@ export function useRevenueCat(): UseRevenueCatReturn {
 
       // ユーザーがキャンセルした場合
       if (errorMessage.includes('cancelled') || errorMessage.includes('canceled')) {
+        appendSubscriptionDebugLog('useRevenueCat', 'purchase_cancelled', {
+          packageIdentifier: packageToPurchase.identifier,
+          productIdentifier: packageToPurchase.product.identifier,
+        });
         setState(prev => ({ ...prev, isLoading: false }));
         return false;
       }
 
       console.error('Purchase failed:', error);
+      appendSubscriptionDebugLog('useRevenueCat', 'purchase_failed', {
+        packageIdentifier: packageToPurchase.identifier,
+        productIdentifier: packageToPurchase.product.identifier,
+        error,
+      });
       setState(prev => ({
         ...prev,
         isLoading: false,
@@ -319,7 +521,7 @@ export function useRevenueCat(): UseRevenueCatReturn {
       }));
       return false;
     }
-  }, [getGoogleProrationMode, isNative, updateStateFromCustomerInfo]);
+  }, [ensurePurchasesReady, getGoogleProrationMode, isNative, updateStateFromCustomerInfo]);
 
   // Plusプランを購入
   const purchasePlus = useCallback(async (period: 'monthly' | 'annual' = 'monthly'): Promise<boolean> => {
@@ -358,15 +560,35 @@ export function useRevenueCat(): UseRevenueCatReturn {
     if (!isNative) return false;
 
     setState(prev => ({ ...prev, isLoading: true, error: null }));
+    appendSubscriptionDebugLog('useRevenueCat', 'restore_started', {
+      userId: user?.id || null,
+    });
 
     try {
-      const { Purchases } = await import('@revenuecat/purchases-capacitor');
-      const { customerInfo } = await Purchases.restorePurchases();
+      const { Purchases } = await ensurePurchasesReady();
+      let { customerInfo } = await Purchases.restorePurchases();
+      let currentPlan = inferRevenueCatTier(customerInfo);
+      appendSubscriptionDebugLog('useRevenueCat', 'restore_result_initial', {
+        currentPlan,
+        customerInfo: summarizeCustomerInfo(customerInfo),
+      });
+
+      if (currentPlan === 'free') {
+        await Purchases.syncPurchases().catch(() => undefined);
+        customerInfo = await waitForRevenueCatCustomerInfo(Purchases, 6, 1200);
+        currentPlan = inferRevenueCatTier(customerInfo);
+        appendSubscriptionDebugLog('useRevenueCat', 'restore_result_after_sync', {
+          currentPlan,
+          customerInfo: summarizeCustomerInfo(customerInfo),
+        });
+      }
+
       updateStateFromCustomerInfo(customerInfo);
       setState(prev => ({ ...prev, isLoading: false }));
-      return true;
+      return currentPlan !== 'free';
     } catch (error) {
       console.error('Failed to restore purchases:', error);
+      appendSubscriptionDebugLog('useRevenueCat', 'restore_failed', error);
       setState(prev => ({
         ...prev,
         isLoading: false,
@@ -374,28 +596,32 @@ export function useRevenueCat(): UseRevenueCatReturn {
       }));
       return false;
     }
-  }, [isNative, updateStateFromCustomerInfo]);
+  }, [ensurePurchasesReady, isNative, updateStateFromCustomerInfo]);
 
   // ユーザーIDを設定
   const setUserId = useCallback(async (userId: string) => {
     if (!isNative) return;
 
     try {
-      const { Purchases } = await import('@revenuecat/purchases-capacitor');
+      const { Purchases } = await ensurePurchasesReady();
       await Purchases.logIn({ appUserID: userId });
+      appendSubscriptionDebugLog('useRevenueCat', 'set_user_id', { userId });
       await refresh();
     } catch (error) {
       console.error('Failed to set user ID:', error);
+      appendSubscriptionDebugLog('useRevenueCat', 'set_user_id_failed', { userId, error });
     }
-  }, [isNative, refresh]);
+  }, [ensurePurchasesReady, isNative, refresh]);
 
   // ログアウト
   const logout = useCallback(async () => {
     if (!isNative) return;
 
     try {
-      const { Purchases } = await import('@revenuecat/purchases-capacitor');
+      const { Purchases } = await ensurePurchasesReady();
       await Purchases.logOut();
+      clearNativeSubscriptionSnapshot();
+      appendSubscriptionDebugLog('useRevenueCat', 'logout');
       setState(prev => ({
         ...prev,
         currentPlan: 'free',
@@ -406,8 +632,9 @@ export function useRevenueCat(): UseRevenueCatReturn {
       }));
     } catch (error) {
       console.error('Failed to logout:', error);
+      appendSubscriptionDebugLog('useRevenueCat', 'logout_failed', error);
     }
-  }, [isNative]);
+  }, [ensurePurchasesReady, isNative]);
 
   return {
     ...state,

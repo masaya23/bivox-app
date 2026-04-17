@@ -13,8 +13,32 @@ import { Capacitor } from '@capacitor/core';
 // 本番時（Capacitor）: 外部サーバーのURLを指定
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
+const MASTER_MODE_KEY = 'englishapp_master_mode';
+const GUEST_USER_KEY = 'englishapp_guest_user';
+const AUTH_USER_KEY = 'englishapp_auth_user';
+const SUBSCRIPTION_KEY = 'englishapp_subscription';
+const NATIVE_SUBSCRIPTION_SNAPSHOT_KEY = 'englishapp_native_subscription_snapshot';
+
 // ユーザープラン（日次上限チェック用）
 let _userPlan: string = 'free';
+let _userId: string | null = null;
+
+interface StoredAuthUser {
+  id?: string;
+  provider?: string;
+}
+
+interface StoredSubscription {
+  tier?: string;
+  expiresAt?: string | null;
+  userId?: string | null;
+}
+
+interface StoredNativeSubscriptionSnapshot {
+  userId?: string;
+  tier?: string;
+  expiresAt?: string | null;
+}
 /**
  * APIリクエストに付与するユーザープランを設定
  * SubscriptionContextから呼び出す
@@ -28,26 +52,152 @@ export function getApiUserPlan() {
 }
 
 /**
+ * APIリクエストに付与するログイン済みユーザーIDを設定
+ * AuthContextから呼び出す
+ */
+export function setApiUserId(userId: string | null) {
+  _userId = userId;
+}
+
+export function getApiUserId() {
+  return _userId;
+}
+
+function canUseLocalStorage(): boolean {
+  return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+}
+
+function safeParseJson<T>(raw: string | null): T | null {
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return null;
+  }
+}
+
+function isUnexpired(expiresAt: string | null | undefined): boolean {
+  if (!expiresAt) {
+    return true;
+  }
+
+  const time = new Date(expiresAt).getTime();
+  if (Number.isNaN(time)) {
+    return false;
+  }
+
+  return time > Date.now();
+}
+
+function normalizePlan(plan: string | null | undefined): string {
+  if (plan === 'master' || plan === 'pro' || plan === 'plus') {
+    return plan;
+  }
+  return 'free';
+}
+
+function getPersistedAuthenticatedUserId(): string | null {
+  if (!canUseLocalStorage()) {
+    return null;
+  }
+
+  if (localStorage.getItem(GUEST_USER_KEY)) {
+    return null;
+  }
+
+  const nativeSnapshot = safeParseJson<StoredNativeSubscriptionSnapshot>(
+    localStorage.getItem(NATIVE_SUBSCRIPTION_SNAPSHOT_KEY)
+  );
+  if (nativeSnapshot?.userId) {
+    return nativeSnapshot.userId;
+  }
+
+  const subscription = safeParseJson<StoredSubscription>(
+    localStorage.getItem(SUBSCRIPTION_KEY)
+  );
+  if (subscription?.userId) {
+    return subscription.userId;
+  }
+
+  const authUser = safeParseJson<StoredAuthUser>(localStorage.getItem(AUTH_USER_KEY));
+  if (authUser?.id && authUser.provider !== 'anonymous') {
+    return authUser.id;
+  }
+
+  return null;
+}
+
+function getPersistedPlanForUser(userId: string): string {
+  if (!canUseLocalStorage()) {
+    return 'free';
+  }
+
+  const nativeSnapshot = safeParseJson<StoredNativeSubscriptionSnapshot>(
+    localStorage.getItem(NATIVE_SUBSCRIPTION_SNAPSHOT_KEY)
+  );
+  if (
+    nativeSnapshot?.userId === userId &&
+    isUnexpired(nativeSnapshot.expiresAt) &&
+    normalizePlan(nativeSnapshot.tier) !== 'free'
+  ) {
+    return normalizePlan(nativeSnapshot.tier);
+  }
+
+  const subscription = safeParseJson<StoredSubscription>(
+    localStorage.getItem(SUBSCRIPTION_KEY)
+  );
+  if (
+    subscription?.userId === userId &&
+    isUnexpired(subscription.expiresAt) &&
+    normalizePlan(subscription.tier) !== 'free'
+  ) {
+    return normalizePlan(subscription.tier);
+  }
+
+  return 'free';
+}
+
+function getEffectiveUserId(): string | null {
+  if (_userId) {
+    return _userId;
+  }
+
+  return getPersistedAuthenticatedUserId();
+}
+
+/**
  * 現在のユーザープランを取得（マスターモード判定を含む）
- * localStorageのマスターモードフラグを直接チェックすることで
+ * localStorageの購読スナップショットも参照し、
  * Reactのステート更新タイミングに依存しない
  */
 function getEffectiveUserPlan(): string {
   if (_userPlan === 'master') return 'master';
-  // フォールバック: localStorageから直接マスターモードを確認
-  if (typeof window !== 'undefined') {
-    try {
-      const isMaster = localStorage.getItem('englishapp_master_mode');
-      if (isMaster === 'true') return 'master';
-    } catch {
-      // ignore
+
+  if (canUseLocalStorage()) {
+    const masterMode = localStorage.getItem(MASTER_MODE_KEY);
+    if (masterMode === 'true' || masterMode === 'firebase-admin') {
+      return 'master';
+    }
+
+    if (localStorage.getItem(GUEST_USER_KEY)) {
+      return 'free';
     }
   }
-  return _userPlan;
-}
 
-// 日次上限アラートのデバウンス用タイムスタンプ
-let _lastDailyLimitAlert = 0;
+  const effectiveUserId = getEffectiveUserId();
+  if (!effectiveUserId) {
+    return 'free';
+  }
+
+  if (_userPlan !== 'free') {
+    return _userPlan;
+  }
+
+  return getPersistedPlanForUser(effectiveUserId);
+}
 
 /**
  * Capacitorネイティブアプリかどうかをチェック
@@ -107,6 +257,7 @@ export async function apiCall<T>(
 ): Promise<T> {
   const url = getApiUrl(endpoint);
   const effectivePlan = getEffectiveUserPlan();
+  const effectiveUserId = getEffectiveUserId();
 
   const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
   const response = await fetch(url, {
@@ -114,22 +265,13 @@ export async function apiCall<T>(
     headers: {
       ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
       'X-User-Plan': effectivePlan,
+      ...(effectiveUserId ? { 'X-App-User-Id': effectiveUserId } : {}),
       ...(options.headers as Record<string, string>),
     },
   });
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ error: 'Unknown error' }));
-    // 日次上限到達時の通知
-    if (response.status === 429 && error.dailyLimitReached && typeof window !== 'undefined') {
-      const now = Date.now();
-      if (now - _lastDailyLimitAlert > 5000) {
-        _lastDailyLimitAlert = now;
-        setTimeout(() => {
-          alert(error.error || '本日の利用上限に達しました。明日またお試しください。');
-        }, 0);
-      }
-    }
     throw new Error(error.error || `API error: ${response.status}`);
   }
 
@@ -146,10 +288,12 @@ export async function apiFetch(
 ): Promise<Response> {
   const url = getApiUrl(endpoint);
   const effectivePlan = getEffectiveUserPlan();
+  const effectiveUserId = getEffectiveUserId();
 
   const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
   const headers: Record<string, string> = {
     'X-User-Plan': effectivePlan,
+    ...(effectiveUserId ? { 'X-App-User-Id': effectiveUserId } : {}),
     ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
     ...(options.headers as Record<string, string>),
   };
@@ -173,26 +317,6 @@ export async function apiFetch(
     });
   } finally {
     if (timeoutId) clearTimeout(timeoutId);
-  }
-
-  // 日次上限到達時の通知
-  if (response.status === 429) {
-    try {
-      const cloned = response.clone();
-      const body = await cloned.json();
-      if (body.dailyLimitReached && typeof window !== 'undefined') {
-        // 短時間に複数回表示しないようにデバウンス
-        const now = Date.now();
-        if (now - _lastDailyLimitAlert > 5000) {
-          _lastDailyLimitAlert = now;
-          setTimeout(() => {
-            alert(body.error || '本日の利用上限に達しました。明日またお試しください。');
-          }, 0);
-        }
-      }
-    } catch {
-      // JSONパース失敗は無視
-    }
   }
 
   return response;

@@ -7,10 +7,15 @@ import { headers } from 'next/headers';
 
 /**
  * リクエストからクライアント識別子を取得
- * IPアドレス + User-Agent のハッシュを使用
+ * ログイン済みユーザーは Firebase UID、ゲスト/未ログインは IP + User-Agent のハッシュを使用
  */
 export async function getClientId(): Promise<string> {
   const headersList = await headers();
+
+  const appUserId = headersList.get('x-app-user-id')?.trim();
+  if (appUserId) {
+    return `user:${appUserId}`;
+  }
 
   // IPアドレスの取得（プロキシ経由の場合も考慮）
   const forwardedFor = headersList.get('x-forwarded-for');

@@ -12,12 +12,13 @@ import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { isGuestUser } from '@/utils/guestAccess';
+import PaywallScreen from '@/components/subscription/PaywallScreen';
 
 export default function ConversationPage() {
   const router = useAppRouter();
   const serverTTS = useServerTTS();
   const whisper = useWhisperRecognition();
-  const { isLoading: isSubscriptionLoading, syncNativeSubscription } = useSubscription();
+  const { isLoading: isSubscriptionLoading, syncNativeSubscription, canAccessMode } = useSubscription();
   const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -30,11 +31,13 @@ export default function ConversationPage() {
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editingText, setEditingText] = useState<string>('');
   const [isSubscriptionReady, setIsSubscriptionReady] = useState(false);
+  const [showPaywall, setShowPaywall] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const isInitialized = useRef(false);
   const startTimeRef = useRef<number>(Date.now());
   const isGuest = isGuestUser(user);
+  const canAccessConversation = canAccessMode('ai-conversation');
 
   useEffect(() => {
     if (isGuest) {
@@ -112,7 +115,7 @@ export default function ConversationPage() {
       speak(data.response);
     } catch (error) {
       console.error('Error:', error);
-      setError('エラーが発生しました。もう一度お試しください。');
+      setError(error instanceof Error ? error.message : 'エラーが発生しました。もう一度お試しください。');
     } finally {
       setIsProcessing(false);
     }
@@ -217,7 +220,7 @@ export default function ConversationPage() {
       speak(data.response);
     } catch (error) {
       console.error('Error:', error);
-      setError('エラーが発生しました。もう一度お試しください。');
+      setError(error instanceof Error ? error.message : 'エラーが発生しました。もう一度お試しください。');
     } finally {
       setIsProcessing(false);
     }
@@ -276,40 +279,85 @@ export default function ConversationPage() {
     return null;
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50 flex flex-col max-w-[430px] mx-auto relative shadow-xl">
-      {/* ヘッダー */}
-      <div className="px-4 py-4 sticky top-0 z-30" style={{ background: 'linear-gradient(to right, #8E4DFF, #D94D9E)' }}>
-        <div className="flex items-center justify-between">
-          <HardNavLink
-            href="/"
-            className="text-white/80 hover:text-white font-semibold text-sm min-w-[60px]"
-            onClick={() => {
-              stopSpeech();
-              recordConversationSession();
-            }}
-          >
-            ← ホーム
-          </HardNavLink>
-          <h1 className="text-xl font-black text-white">
-            AIとフリー英会話
-          </h1>
-          <button
-            onClick={() => setShowSettings(!showSettings)}
-            aria-label="設定"
-            className="w-8 h-8 flex items-center justify-center"
-          >
-            <svg
-              className="w-6 h-6 text-gray-500"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.5.5 0 00.12-.61l-1.92-3.32a.5.5 0 00-.6-.22l-2.39.96a7.42 7.42 0 00-1.62-.94l-.36-2.54a.5.5 0 00-.47-.4h-3.84a.5.5 0 00-.47.4l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 00-.6.22l-1.92 3.32a.5.5 0 00.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.5.5 0 00-.12.61l1.92 3.32a.5.5 0 00.6.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.03.23.23.4.47.4h3.84c.24 0 .44-.17.47-.4l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96a.5.5 0 00.6-.22l1.92-3.32a.5.5 0 00-.12-.61l-2.03-1.58zM12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z" />
-            </svg>
-          </button>
+  if (!isSubscriptionLoading && !canAccessConversation) {
+    return (
+      <>
+        <div className="min-h-screen bg-gray-50 flex flex-col max-w-[430px] mx-auto relative shadow-xl">
+          <div className="px-4 py-4 sticky top-0 z-30" style={{ background: 'linear-gradient(to right, #8E4DFF, #D94D9E)' }}>
+            <div className="flex items-center justify-between">
+              <HardNavLink href="/home" className="text-white/80 hover:text-white font-semibold text-sm min-w-[60px]">
+                ← ホーム
+              </HardNavLink>
+              <h1 className="text-xl font-black text-white">
+                AIとフリー英会話
+              </h1>
+              <div className="min-w-[60px]" />
+            </div>
+          </div>
+
+          <div className="flex-1 px-5 py-8 flex items-center justify-center">
+            <div className="w-full rounded-3xl bg-white shadow-xl border border-purple-100 p-6 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white flex items-center justify-center text-2xl font-black">
+                AI
+              </div>
+              <h2 className="text-xl font-black text-gray-800 mb-3">Proプラン限定機能です</h2>
+              <p className="text-sm text-gray-600 leading-6 mb-5">
+                AIとフリー英会話は Proプランでご利用いただけます。
+              </p>
+              <button
+                onClick={() => setShowPaywall(true)}
+                className="w-full py-3 rounded-2xl font-bold text-white bg-gradient-to-r from-purple-500 to-pink-500 active:scale-[0.98] transition-transform"
+              >
+                プレミアムを見る
+              </button>
+            </div>
+          </div>
         </div>
+
+        <PaywallScreen
+          isOpen={showPaywall}
+          onClose={() => setShowPaywall(false)}
+          highlightedMode="ai-conversation"
+        />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div className="min-h-screen bg-gray-50 flex flex-col max-w-[430px] mx-auto relative shadow-xl">
+        {/* ヘッダー */}
+        <div className="px-4 py-4 sticky top-0 z-30" style={{ background: 'linear-gradient(to right, #8E4DFF, #D94D9E)' }}>
+          <div className="flex items-center justify-between">
+            <HardNavLink
+              href="/"
+              className="text-white/80 hover:text-white font-semibold text-sm min-w-[60px]"
+              onClick={() => {
+                stopSpeech();
+                recordConversationSession();
+              }}
+            >
+              ← ホーム
+            </HardNavLink>
+            <h1 className="text-xl font-black text-white">
+              AIとフリー英会話
+            </h1>
+            <button
+              onClick={() => setShowSettings(!showSettings)}
+              aria-label="設定"
+              className="w-8 h-8 flex items-center justify-center"
+            >
+              <svg
+                className="w-6 h-6 text-gray-500"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.5.5 0 00.12-.61l-1.92-3.32a.5.5 0 00-.6-.22l-2.39.96a7.42 7.42 0 00-1.62-.94l-.36-2.54a.5.5 0 00-.47-.4h-3.84a.5.5 0 00-.47.4l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 00-.6.22l-1.92 3.32a.5.5 0 00.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.5.5 0 00-.12.61l1.92 3.32a.5.5 0 00.6.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.03.23.23.4.47.4h3.84c.24 0 .44-.17.47-.4l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96a.5.5 0 00.6-.22l1.92-3.32a.5.5 0 00-.12-.61l-2.03-1.58zM12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z" />
+              </svg>
+            </button>
+          </div>
 
         {/* 設定パネル */}
         {showSettings && (
@@ -377,25 +425,25 @@ export default function ConversationPage() {
             </button>
           </div>
         )}
-      </div>
+        </div>
 
-      {/* チャットエリア */}
-      <div className="flex-1 overflow-y-auto px-4 py-4">
-        <div className="space-y-3">
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${
-                message.role === 'user' ? 'justify-end' : 'justify-start'
-              }`}
-            >
+        {/* チャットエリア */}
+        <div className="flex-1 overflow-y-auto px-4 py-4">
+          <div className="space-y-3">
+            {messages.map((message) => (
               <div
-                className={`max-w-[85%] rounded-2xl p-3 ${
-                  message.role === 'user'
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white text-gray-800 shadow-md'
+                key={message.id}
+                className={`flex ${
+                  message.role === 'user' ? 'justify-end' : 'justify-start'
                 }`}
               >
+                <div
+                  className={`max-w-[85%] rounded-2xl p-3 ${
+                    message.role === 'user'
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-white text-gray-800 shadow-md'
+                  }`}
+                >
                 {/* 編集モード */}
                 {editingMessageId === message.id ? (
                   <div>
@@ -462,86 +510,93 @@ export default function ConversationPage() {
                     )}
                   </>
                 )}
-              </div>
-            </div>
-          ))}
-          {(isProcessing || isTranscribing) && (
-            <div className="flex justify-start">
-              <div className="bg-white rounded-2xl p-4 shadow-md">
-                <div className="flex gap-1">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div
-                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                    style={{ animationDelay: '0.1s' }}
-                  ></div>
-                  <div
-                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                    style={{ animationDelay: '0.2s' }}
-                  ></div>
                 </div>
               </div>
-            </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-      </div>
-
-      {/* エラー表示 */}
-      {error && (
-        <div className="mx-4 mb-2 bg-red-100 border border-red-300 rounded-xl p-3 text-red-700 text-sm">
-          {error}
-        </div>
-      )}
-
-      <p className="text-[10px] text-gray-400 text-center py-1">※AIの回答は必ずしも正確ではありません</p>
-
-      {/* 音声入力ボタン */}
-      <div className="bg-white border-t border-gray-200 px-4 py-4">
-        <div className="text-center">
-          <button
-            onClick={isRecording ? stopRecording : startRecording}
-            disabled={isProcessing || isTranscribing || editingMessageId !== null || isSubscriptionLoading || !isSubscriptionReady}
-            className={`w-16 h-16 mx-auto rounded-full font-bold text-white text-xl transition-all transform flex items-center justify-center ${
-              isRecording
-                ? 'bg-red-500 animate-pulse scale-110'
-                : 'bg-gradient-to-r from-green-500 to-blue-500 hover:scale-105'
-            } ${
-              isProcessing || isTranscribing || editingMessageId !== null ? 'opacity-50 cursor-not-allowed' : ''
-            } shadow-lg`}
-          >
-            {isRecording ? (
-              <div className="flex items-center justify-center gap-[3px]">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-[3px] bg-white rounded-full"
-                    style={{
-                      animation: 'soundWave 1s ease-in-out infinite',
-                      animationDelay: `${i * 0.15}s`,
-                      height: '8px',
-                    }}
-                  />
-                ))}
+            ))}
+            {(isProcessing || isTranscribing) && (
+              <div className="flex justify-start">
+                <div className="bg-white rounded-2xl p-4 shadow-md">
+                  <div className="flex gap-1">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      style={{ animationDelay: '0.1s' }}
+                    ></div>
+                    <div
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      style={{ animationDelay: '0.2s' }}
+                    ></div>
+                  </div>
+                </div>
               </div>
-            ) : (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="9" y="2" width="6" height="11" rx="3" /><path d="M5 10a7 7 0 0014 0" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M12 17v4M8 21h8" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
             )}
-          </button>
-          <p className="mt-2 text-gray-600 font-semibold text-sm">
-            {isSubscriptionLoading || !isSubscriptionReady
-              ? 'プラン確認中...'
-              : isRecording
-              ? '話してください...'
-              : isTranscribing
-              ? '文字起こし中...'
-              : isProcessing
-              ? 'AIが考えています...'
-              : editingMessageId !== null
-              ? 'メッセージを編集中...'
-              : 'タップして話す'}
-          </p>
+            <div ref={messagesEndRef} />
+          </div>
+        </div>
+
+        {/* エラー表示 */}
+        {error && (
+          <div className="mx-4 mb-2 bg-red-100 border border-red-300 rounded-xl p-3 text-red-700 text-sm">
+            {error}
+          </div>
+        )}
+
+        <p className="text-[10px] text-gray-400 text-center py-1">※AIの回答は必ずしも正確ではありません</p>
+
+        {/* 音声入力ボタン */}
+        <div className="bg-white border-t border-gray-200 px-4 py-4">
+          <div className="text-center">
+            <button
+              onClick={isRecording ? stopRecording : startRecording}
+              disabled={isProcessing || isTranscribing || editingMessageId !== null || isSubscriptionLoading || !isSubscriptionReady}
+              className={`w-16 h-16 mx-auto rounded-full font-bold text-white text-xl transition-all transform flex items-center justify-center ${
+                isRecording
+                  ? 'bg-red-500 animate-pulse scale-110'
+                  : 'bg-gradient-to-r from-green-500 to-blue-500 hover:scale-105'
+              } ${
+                isProcessing || isTranscribing || editingMessageId !== null ? 'opacity-50 cursor-not-allowed' : ''
+              } shadow-lg`}
+            >
+              {isRecording ? (
+                <div className="flex items-center justify-center gap-[3px]">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className="w-[3px] bg-white rounded-full"
+                      style={{
+                        animation: 'soundWave 1s ease-in-out infinite',
+                        animationDelay: `${i * 0.15}s`,
+                        height: '8px',
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="9" y="2" width="6" height="11" rx="3" /><path d="M5 10a7 7 0 0014 0" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M12 17v4M8 21h8" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
+              )}
+            </button>
+            <p className="mt-2 text-gray-600 font-semibold text-sm">
+              {isSubscriptionLoading || !isSubscriptionReady
+                ? 'プラン確認中...'
+                : isRecording
+                ? '話してください...'
+                : isTranscribing
+                ? '文字起こし中...'
+                : isProcessing
+                ? 'AIが考えています...'
+                : editingMessageId !== null
+                ? 'メッセージを編集中...'
+                : 'タップして話す'}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+
+      <PaywallScreen
+        isOpen={showPaywall}
+        onClose={() => setShowPaywall(false)}
+        highlightedMode="ai-conversation"
+      />
+    </>
   );
 }

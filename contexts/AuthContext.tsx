@@ -34,6 +34,7 @@ import {
   resendVerificationEmail,
   getUserCustomClaims,
 } from '@/lib/firebase';
+import { setApiUserId } from '@/utils/api';
 import type { User as FirebaseUser } from 'firebase/auth';
 
 // ローカルストレージキー
@@ -105,6 +106,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     trialEndDate: null,
     daysRemaining: 0,
   });
+
+  useEffect(() => {
+    if (!user || user.provider === 'anonymous') {
+      setApiUserId(null);
+      return;
+    }
+
+    setApiUserId(user.id);
+  }, [user]);
 
   const syncFirebaseAdminState = useCallback(async (fbUser: FirebaseUser, baseUser: AuthUser) => {
     try {

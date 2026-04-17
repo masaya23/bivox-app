@@ -2,11 +2,18 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { Capacitor } from '@capacitor/core';
+import type { CustomerInfo } from '@revenuecat/purchases-capacitor';
 import { TrialStatus, StoreReceipt } from '@/types/auth';
 import { getCurrentTrialStatus } from '@/utils/trialPrevention';
 import { useAuth } from './AuthContext';
 import { setApiUserPlan } from '@/utils/api';
 import { isGuestUser } from '@/utils/guestAccess';
+import { appendSubscriptionDebugLog } from '@/utils/subscriptionDebug';
+import {
+  clearNativeSubscriptionSnapshot,
+  readNativeSubscriptionSnapshot,
+  writeNativeSubscriptionSnapshot,
+} from '@/utils/nativeSubscriptionSnapshot';
 import { loadSyncedSubscription, saveSyncedSubscription } from '@/lib/subscriptionSync';
 import {
   getRevenueCatExpirationDate,
@@ -129,7 +136,7 @@ interface SubscriptionContextType extends SubscriptionState {
   // デバッグ用：現在有効なプランを取得（オーバーライドを考慮）
   getEffectiveTier: () => SubscriptionTier;
   // ネイティブストアの購読状態を同期
-  syncNativeSubscription: () => Promise<void>;
+  syncNativeSubscription: (options?: { forceRestore?: boolean }) => Promise<boolean>;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
@@ -165,9 +172,34 @@ const initialTrialStatus: TrialStatus = {
   daysRemaining: 0,
 };
 
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function summarizeCustomerInfo(customerInfo: CustomerInfo) {
+  return {
+    originalAppUserId: customerInfo.originalAppUserId,
+    activeSubscriptions: customerInfo.activeSubscriptions,
+    allPurchasedProductIdentifiers: customerInfo.allPurchasedProductIdentifiers,
+    latestExpirationDate: customerInfo.latestExpirationDate,
+    managementURL: customerInfo.managementURL,
+    entitlements: Object.fromEntries(
+      Object.entries(customerInfo.entitlements.active).map(([key, entitlement]) => [
+        key,
+        {
+          productIdentifier: entitlement.productIdentifier,
+          productPlanIdentifier: entitlement.productPlanIdentifier ?? null,
+          expirationDate: entitlement.expirationDate ?? null,
+        },
+      ])
+    ),
+  };
+}
+
 export function SubscriptionProvider({ children }: { children: ReactNode }) {
   // AuthContextからマスターアカウント情報を取得
   const { user, isMaster, isLoading: isAuthLoading, useFirebase } = useAuth();
+  const isNativePlatform = Capacitor.isNativePlatform();
 
   const [state, setState] = useState<SubscriptionState>({
     tier: 'free',
@@ -267,9 +299,110 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }, [user]);
 
-  const syncRevenueCatSubscription = useCallback(async () => {
+  const getNativeSnapshotForCurrentUser = useCallback(() => {
+    if (!isNativePlatform || !user || isGuestUser(user)) {
+      return null;
+    }
+
+    const snapshot = readNativeSubscriptionSnapshot();
+    if (!snapshot || snapshot.userId !== user.id) {
+      return null;
+    }
+
+    if (snapshot.expiresAt) {
+      const expiresAt = new Date(snapshot.expiresAt);
+      if (expiresAt < new Date()) {
+        return null;
+      }
+    }
+
+    return snapshot;
+  }, [isNativePlatform, user]);
+
+  const applyRevenueCatCustomerInfo = useCallback(async (
+    customerInfo: CustomerInfo
+  ): Promise<SubscriptionTier> => {
+    const trialStatus = getCurrentTrialStatus();
+    const revenueCatTier = inferRevenueCatTier(customerInfo);
+    const hasPlus = !!customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PLUS];
+    const hasPro = !!customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PRO];
+
+    let tier: SubscriptionTier = revenueCatTier;
+    let expiresAt: Date | null = getRevenueCatExpirationDate(customerInfo, revenueCatTier);
+    let billingPeriod: BillingPeriod | null = inferRevenueCatBillingPeriod(customerInfo, revenueCatTier);
+
+    if (tier === 'free' && trialStatus.isCurrentlyInTrial) {
+      tier = 'pro';
+      expiresAt = trialStatus.trialEndDate ? new Date(trialStatus.trialEndDate) : null;
+      billingPeriod = null;
+    }
+
+    if (user && !isGuestUser(user)) {
+      writeNativeSubscriptionSnapshot({
+        userId: user.id,
+        tier,
+        billingPeriod,
+        expiresAt: expiresAt?.toISOString() || null,
+        updatedAt: new Date().toISOString(),
+      });
+    }
+
+    appendSubscriptionDebugLog('SubscriptionContext', 'apply_customer_info', {
+      userId: user?.id ?? null,
+      revenueCatTier,
+      tier,
+      expiresAt: expiresAt?.toISOString() || null,
+      billingPeriod,
+      customerInfo: summarizeCustomerInfo(customerInfo),
+    });
+
+    setState(prev => ({
+      ...prev,
+      tier,
+      expiresAt,
+      isLoading: false,
+      billingPeriod,
+      trialStatus,
+      isTrialPeriod: tier === 'pro' && trialStatus.isCurrentlyInTrial && !hasPro,
+      lastReceipt: prev.lastReceipt,
+    }));
+    saveState(tier, expiresAt, tier === 'pro' && trialStatus.isCurrentlyInTrial && !hasPro, null, billingPeriod);
+
+    if (useFirebase && user && !isGuestUser(user)) {
+      void saveSyncedSubscription(user.id, {
+        tier,
+        expiresAt: expiresAt?.toISOString() || null,
+        billingPeriod,
+        isTrialPeriod: tier === 'pro' && trialStatus.isCurrentlyInTrial && !hasPro,
+      });
+    }
+
+    console.warn('RevenueCat subscription applied', {
+      userId: user?.id ?? null,
+      revenueCatTier,
+      tier,
+      hasPlus,
+      hasPro,
+      activeSubscriptions: customerInfo.activeSubscriptions,
+      entitlementProducts: {
+        plus: customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PLUS]?.productIdentifier || null,
+        pro: customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PRO]?.productIdentifier || null,
+      },
+    });
+
+    return revenueCatTier;
+  }, [saveState, useFirebase, user]);
+
+  const syncRevenueCatSubscription = useCallback(async (
+    options?: { forceRestore?: boolean }
+  ): Promise<boolean> => {
     if (!Capacitor.isNativePlatform() || !user?.id) {
-      return;
+      appendSubscriptionDebugLog('SubscriptionContext', 'sync_skipped', {
+        reason: 'not_native_or_no_user',
+        isNative: Capacitor.isNativePlatform(),
+        userId: user?.id ?? null,
+      });
+      return false;
     }
 
     const apiKey = Capacitor.getPlatform() === 'ios'
@@ -277,90 +410,99 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
       : REVENUECAT_API_KEYS.android;
 
     if (!apiKey) {
-      return;
+      appendSubscriptionDebugLog('SubscriptionContext', 'sync_skipped', {
+        reason: 'missing_api_key',
+        userId: user.id,
+      });
+      return false;
     }
-
-    const trialStatus = getCurrentTrialStatus();
 
     try {
       const { Purchases } = await import('@revenuecat/purchases-capacitor');
+      appendSubscriptionDebugLog('SubscriptionContext', 'sync_started', {
+        userId: user.id,
+        forceRestore: options?.forceRestore === true,
+      });
 
       if (!revenueCatConfigured) {
-        await Purchases.configure({ apiKey });
+        await Purchases.configure({ apiKey, appUserID: user.id });
         revenueCatConfigured = true;
+        appendSubscriptionDebugLog('SubscriptionContext', 'configured', { userId: user.id });
+      } else {
+        await Purchases.logIn({ appUserID: user.id });
+        appendSubscriptionDebugLog('SubscriptionContext', 'login', { userId: user.id });
       }
 
-      const loginResult = await Purchases.logIn({ appUserID: user.id });
-      await Purchases.syncPurchases();
-      let customerInfo = loginResult.customerInfo;
+      const waitForSubscription = async (attempts: number, intervalMs: number): Promise<CustomerInfo> => {
+        let latestInfo = (await Purchases.getCustomerInfo()).customerInfo;
+        let latestTier = inferRevenueCatTier(latestInfo);
 
-      if (
-        !customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PLUS]
-        && !customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PRO]
-      ) {
-        const syncedInfo = await Purchases.getCustomerInfo();
-        customerInfo = syncedInfo.customerInfo;
-      }
+        for (let attempt = 0; attempt < attempts && latestTier === 'free'; attempt += 1) {
+          if (attempt > 0) {
+            await delay(intervalMs);
+          }
+          await Purchases.invalidateCustomerInfoCache().catch(() => undefined);
+          latestInfo = (await Purchases.getCustomerInfo()).customerInfo;
+          latestTier = inferRevenueCatTier(latestInfo);
+        }
 
-      if (
-        !customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PLUS]
-        && !customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PRO]
-      ) {
-        const restoredInfo = await Purchases.restorePurchases();
-        customerInfo = restoredInfo.customerInfo;
-      }
+        return latestInfo;
+      };
 
-      const hasPlus = !!customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PLUS];
-      const hasPro = !!customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PRO];
-
-      let tier: SubscriptionTier = inferRevenueCatTier(customerInfo);
-      let expiresAt: Date | null = getRevenueCatExpirationDate(customerInfo, tier);
-      let billingPeriod: BillingPeriod | null = inferRevenueCatBillingPeriod(customerInfo, tier);
-
-      if (tier === 'free' && trialStatus.isCurrentlyInTrial) {
-        tier = 'pro';
-        expiresAt = trialStatus.trialEndDate ? new Date(trialStatus.trialEndDate) : null;
-        billingPeriod = null;
-      }
-
-      setState(prev => ({
-        ...prev,
-        tier,
-        expiresAt,
-        isLoading: false,
-        billingPeriod,
-        trialStatus,
-        isTrialPeriod: tier === 'pro' && trialStatus.isCurrentlyInTrial && !hasPro,
-        lastReceipt: prev.lastReceipt,
-      }));
-      saveState(tier, expiresAt, tier === 'pro' && trialStatus.isCurrentlyInTrial && !hasPro, null, billingPeriod);
-      if (useFirebase && user && !isGuestUser(user)) {
-        await saveSyncedSubscription(user.id, {
-          tier,
-          expiresAt: expiresAt?.toISOString() || null,
-          billingPeriod,
-          isTrialPeriod: tier === 'pro' && trialStatus.isCurrentlyInTrial && !hasPro,
-        });
-      }
-      console.warn('RevenueCat subscription synced', {
-        userId: user.id,
-        tier,
-        hasPlus,
-        hasPro,
-        activeSubscriptions: customerInfo.activeSubscriptions,
-        entitlementProducts: {
-          plus: customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PLUS]?.productIdentifier || null,
-          pro: customerInfo.entitlements.active[REVENUECAT_ENTITLEMENTS.PRO]?.productIdentifier || null,
-        },
+      await Purchases.invalidateCustomerInfoCache().catch(() => undefined);
+      await Purchases.syncPurchases().catch((error) => {
+        console.warn('RevenueCat syncPurchases failed', error);
+        appendSubscriptionDebugLog('SubscriptionContext', 'sync_purchases_failed', error);
       });
+
+      let customerInfo = await waitForSubscription(5, 1000);
+      let revenueCatTier = inferRevenueCatTier(customerInfo);
+
+      if (revenueCatTier === 'free' && options?.forceRestore) {
+        try {
+          const restored = await Purchases.restorePurchases();
+          customerInfo = restored.customerInfo;
+          revenueCatTier = inferRevenueCatTier(customerInfo);
+          appendSubscriptionDebugLog('SubscriptionContext', 'force_restore_result', {
+            revenueCatTier,
+            customerInfo: summarizeCustomerInfo(customerInfo),
+          });
+        } catch (error) {
+          console.warn('RevenueCat restorePurchases failed during sync', error);
+          appendSubscriptionDebugLog('SubscriptionContext', 'force_restore_failed', error);
+        }
+
+        if (revenueCatTier === 'free') {
+          await Purchases.syncPurchases().catch(() => undefined);
+          customerInfo = await waitForSubscription(6, 1200);
+          revenueCatTier = inferRevenueCatTier(customerInfo);
+        }
+      }
+
+      const { appUserID } = await Purchases.getAppUserID();
+      console.warn('RevenueCat sync app user', { expectedUserId: user.id, revenueCatAppUserId: appUserID });
+      appendSubscriptionDebugLog('SubscriptionContext', 'sync_app_user', {
+        expectedUserId: user.id,
+        revenueCatAppUserId: appUserID,
+        revenueCatTier,
+        customerInfo: summarizeCustomerInfo(customerInfo),
+      });
+
+      await applyRevenueCatCustomerInfo(customerInfo);
+      return revenueCatTier !== 'free';
     } catch (error) {
       console.error('Failed to sync RevenueCat subscription:', error);
+      appendSubscriptionDebugLog('SubscriptionContext', 'sync_failed', {
+        userId: user.id,
+        error,
+      });
       setState(prev => ({
         ...prev,
         isLoading: false,
       }));
+      return false;
     }
-  }, [saveState, useFirebase, user]);
+  }, [applyRevenueCatCustomerInfo, user]);
 
   // 有効なプランを計算するヘルパー
   const computeEffectiveTier = useCallback((): SubscriptionTier => {
@@ -372,9 +514,15 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     if (isMaster && state.debugOverridePlan !== null) {
       return state.debugOverridePlan;
     }
+
+    const nativeSnapshot = getNativeSnapshotForCurrentUser();
+    if (nativeSnapshot) {
+      return nativeSnapshot.tier;
+    }
+
     // 実際のプランをそのまま使用（マスターアカウントでも特別扱いしない）
     return state.tier;
-  }, [isMaster, state.debugOverridePlan, state.tier]);
+  }, [getNativeSnapshotForCurrentUser, isMaster, state.debugOverridePlan, state.tier, user]);
 
   useEffect(() => {
     if (isAuthLoading || state.isLoading) {
@@ -399,6 +547,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
     if (!currentUserId) {
       localStorage.removeItem(STORAGE_KEY);
+      clearNativeSubscriptionSnapshot();
       setState(prev => ({
         ...prev,
         tier: 'free',
@@ -413,6 +562,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
     if (stored.userId && stored.userId !== currentUserId) {
       localStorage.removeItem(STORAGE_KEY);
+      clearNativeSubscriptionSnapshot();
       setState(prev => ({
         ...prev,
         tier: 'free',
@@ -447,7 +597,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
   ]);
 
   useEffect(() => {
-    if (isAuthLoading || !useFirebase || !user?.id || isGuestUser(user)) {
+    if (isNativePlatform || isAuthLoading || !useFirebase || !user?.id || isGuestUser(user)) {
       return;
     }
 
@@ -492,7 +642,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
-  }, [isAuthLoading, saveState, useFirebase, user]);
+  }, [isAuthLoading, isNativePlatform, saveState, useFirebase, user]);
 
   // モードへのアクセス権限チェック
   const canAccessMode = useCallback((mode: TrainingMode): boolean => {
@@ -523,6 +673,61 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     setState(prev => ({ ...prev, isLoading: true }));
     void syncRevenueCatSubscription();
   }, [isAuthLoading, isMaster, syncRevenueCatSubscription, user?.id]);
+
+  useEffect(() => {
+    if (isAuthLoading || !isNativePlatform || !user?.id || isGuestUser(user)) {
+      return;
+    }
+
+    const apiKey = Capacitor.getPlatform() === 'ios'
+      ? REVENUECAT_API_KEYS.ios
+      : REVENUECAT_API_KEYS.android;
+
+    if (!apiKey) {
+      return;
+    }
+
+    let cancelled = false;
+    let listenerId: string | null = null;
+
+    void (async () => {
+      try {
+        const { Purchases } = await import('@revenuecat/purchases-capacitor');
+
+        if (!revenueCatConfigured) {
+          await Purchases.configure({ apiKey, appUserID: user.id });
+          revenueCatConfigured = true;
+        } else {
+          await Purchases.logIn({ appUserID: user.id });
+        }
+
+        listenerId = await Purchases.addCustomerInfoUpdateListener((customerInfo) => {
+          if (cancelled) {
+            return;
+          }
+          void applyRevenueCatCustomerInfo(customerInfo);
+        });
+      } catch (error) {
+        console.warn('Failed to attach RevenueCat customer info listener', error);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+      if (!listenerId) {
+        return;
+      }
+
+      void (async () => {
+        try {
+          const { Purchases } = await import('@revenuecat/purchases-capacitor');
+          await Purchases.removeCustomerInfoUpdateListener({ listenerToRemove: listenerId });
+        } catch (error) {
+          console.warn('Failed to remove RevenueCat customer info listener', error);
+        }
+      })();
+    };
+  }, [applyRevenueCatCustomerInfo, isAuthLoading, isNativePlatform, user]);
 
   // プランのアップグレード（開発用・デモ用）
   const upgradePlan = useCallback((newTier: SubscriptionTier, newBillingPeriod: BillingPeriod = 'annual') => {
@@ -695,8 +900,18 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     }
   }, [computeEffectiveTier, isMaster]);
 
+  const effectiveTier = computeEffectiveTier();
+  const nativeSnapshot = getNativeSnapshotForCurrentUser();
+  const effectiveBillingPeriod =
+    nativeSnapshot?.billingPeriod ?? (effectiveTier === 'free' ? null : state.billingPeriod);
+  const effectiveExpiresAt =
+    nativeSnapshot?.expiresAt ? new Date(nativeSnapshot.expiresAt) : state.expiresAt;
+
   const value: SubscriptionContextType = {
     ...state,
+    tier: effectiveTier,
+    billingPeriod: effectiveBillingPeriod,
+    expiresAt: effectiveExpiresAt,
     canAccessMode,
     shouldShowAds,
     getRequiredPlanForMode,

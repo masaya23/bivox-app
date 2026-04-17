@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import type { ReactNode, ButtonHTMLAttributes } from 'react';
+import appVersion from '@/app-version.json';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import MobileLayout from '@/components/MobileLayout';
 import { BudouXText } from '@/components/BudouXText';
@@ -25,6 +26,11 @@ import HardNavLink from '@/components/HardNavLink';
 import { changeEmail as firebaseChangeEmail, changePassword as firebaseChangePassword } from '@/lib/firebase';
 import { TRIAL_CONFIG } from '@/types/auth';
 import { LIFE_CONFIG, formatTimeRemaining } from '@/types/life';
+import {
+  clearSubscriptionDebugLogs,
+  getSubscriptionDebugLogs,
+  type SubscriptionDebugEntry,
+} from '@/utils/subscriptionDebug';
 // ────────────────────────────────────────────
 // 共通UIパーツ（落ち着いたカードUI）
 // ────────────────────────────────────────────
@@ -312,9 +318,12 @@ export default function SettingsPage() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
   const [showAccountDeleteConfirm, setShowAccountDeleteConfirm] = useState(false);
+  const [showSubscriptionDebugModal, setShowSubscriptionDebugModal] = useState(false);
   const [accountDeletePassword, setAccountDeletePassword] = useState('');
   const [accountDeleteError, setAccountDeleteError] = useState('');
   const [accountDeleteLoading, setAccountDeleteLoading] = useState(false);
+  const [subscriptionDebugLogs, setSubscriptionDebugLogs] = useState<SubscriptionDebugEntry[]>([]);
+  const [subscriptionDebugCopied, setSubscriptionDebugCopied] = useState(false);
   const [lifeSettings, setLifeSettings] = useState<LifeSettings>(DEFAULT_LIFE_SETTINGS);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -330,6 +339,8 @@ export default function SettingsPage() {
 
   // コンテキストフック
   const {
+    tier,
+    billingPeriod,
     trialStatus,
     isTrialPeriod,
     isMasterAccount,
@@ -371,14 +382,23 @@ export default function SettingsPage() {
     setDebugLifeMode
   } = useLife();
 
-  const { restorePurchases, isLoading: isRestoringPurchase } = useRevenueCat();
-  const { isNative, isInitialized, showBanner, hideBanner } = useAdMob();
+  const {
+    restorePurchases,
+    isLoading: isRestoringPurchase,
+    currentPlan: revenueCatCurrentPlan,
+    customerInfo: revenueCatCustomerInfo,
+    error: revenueCatError,
+    isInitialized: isRevenueCatInitialized,
+    refresh: refreshRevenueCat,
+  } = useRevenueCat();
+  const { isNative, isInitialized: isAdMobInitialized, showBanner, hideBanner } = useAdMob();
   const hideAdsForSensitiveInput =
     showDeleteConfirm ||
     showDeleteSuccess ||
     showAccountDeleteConfirm ||
     showEmailChangeModal ||
-    showPasswordChangeModal;
+    showPasswordChangeModal ||
+    showSubscriptionDebugModal;
 
   // 購入復元のステート
   const [restoreStatus, setRestoreStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -412,7 +432,7 @@ export default function SettingsPage() {
   }, []);
 
   useEffect(() => {
-    if (!isNative || !isInitialized) return;
+    if (!isNative || !isAdMobInitialized) return;
 
     if (hideAdsForSensitiveInput) {
       void hideBanner();
@@ -425,7 +445,7 @@ export default function SettingsPage() {
   }, [
     hideAdsForSensitiveInput,
     hideBanner,
-    isInitialized,
+    isAdMobInitialized,
     isNative,
     shouldShowAds,
     showBanner,
@@ -687,6 +707,62 @@ export default function SettingsPage() {
     setChangeSuccess('');
   };
 
+  const loadSubscriptionDebugLogs = useCallback(() => {
+    setSubscriptionDebugLogs(getSubscriptionDebugLogs().slice().reverse());
+  }, []);
+
+  const handleOpenSubscriptionDebug = async () => {
+    loadSubscriptionDebugLogs();
+    setSubscriptionDebugCopied(false);
+    setShowSubscriptionDebugModal(true);
+  };
+
+  const handleRefreshSubscriptionDebug = async () => {
+    setRestoreStatus('idle');
+    await refreshRevenueCat();
+    await syncNativeSubscription({ forceRestore: false });
+    loadSubscriptionDebugLogs();
+  };
+
+  const handleClearSubscriptionDebugLogs = () => {
+    clearSubscriptionDebugLogs();
+    loadSubscriptionDebugLogs();
+    setSubscriptionDebugCopied(false);
+  };
+
+  const handleCopySubscriptionDebug = async () => {
+    const payload = {
+      userId: user?.id || null,
+      userEmail: user?.email || null,
+      subscriptionTier: tier,
+      subscriptionBillingPeriod: billingPeriod,
+      effectiveTier,
+      revenueCatCurrentPlan,
+      revenueCatError,
+      isRevenueCatInitialized,
+      activeSubscriptions: revenueCatCustomerInfo?.activeSubscriptions || [],
+      allPurchasedProductIdentifiers: revenueCatCustomerInfo?.allPurchasedProductIdentifiers || [],
+      originalAppUserId: revenueCatCustomerInfo?.originalAppUserId || null,
+      latestExpirationDate: revenueCatCustomerInfo?.latestExpirationDate || null,
+      entitlements: revenueCatCustomerInfo
+        ? Object.fromEntries(
+            Object.entries(revenueCatCustomerInfo.entitlements.active).map(([key, entitlement]) => [
+              key,
+              {
+                productIdentifier: entitlement.productIdentifier,
+                productPlanIdentifier: entitlement.productPlanIdentifier ?? null,
+                expirationDate: entitlement.expirationDate ?? null,
+              },
+            ])
+          )
+        : {},
+      logs: subscriptionDebugLogs,
+    };
+
+    await navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
+    setSubscriptionDebugCopied(true);
+  };
+
   return (
     <MobileLayout
       showBottomNav={true}
@@ -893,11 +969,9 @@ export default function SettingsPage() {
           <RowButton
             onClick={async () => {
               setRestoreStatus('idle');
-              const success = await restorePurchases();
-              if (success) {
-                await syncNativeSubscription();
-              }
-              setRestoreStatus(success ? 'success' : 'error');
+              const restored = await restorePurchases();
+              const synced = await syncNativeSubscription({ forceRestore: true });
+              setRestoreStatus(restored || synced ? 'success' : 'error');
             }}
             disabled={isRestoringPurchase}
             className="disabled:opacity-50"
@@ -954,7 +1028,7 @@ export default function SettingsPage() {
               icon={<IconInfo className={ICON_BASE} />}
               title="バージョン"
             />
-            <span className="text-sm text-gray-500">1.0.0</span>
+            <span className="text-sm text-gray-500">{`${appVersion.versionName} (${appVersion.versionCode})`}</span>
           </RowBase>
         </SectionCard>
 
@@ -1253,6 +1327,25 @@ export default function SettingsPage() {
             <div className="px-4 py-3">
               <BudouXText as="p" text="デバッグパネル" className="text-xs font-medium text-gray-400 mb-3" />
 
+              {isNative && isMaster && (
+                <div className="mb-4">
+                  <BudouXText as="p" text="課金同期診断" className="text-xs font-medium text-gray-600 mb-2" />
+                  <button
+                    onClick={handleOpenSubscriptionDebug}
+                    className="w-full flex items-center justify-between rounded-xl border border-gray-200 bg-white px-3 py-3 text-left active:bg-gray-50"
+                  >
+                    <div className="flex items-center gap-3">
+                      <IconInfo className={ICON_BASE} />
+                      <div>
+                        <p className="text-sm font-medium text-gray-800">課金同期診断</p>
+                        <p className="text-xs text-gray-500">RevenueCat と復元状態を確認</p>
+                      </div>
+                    </div>
+                    <ChevronRight />
+                  </button>
+                </div>
+              )}
+
               {/* A. プランの強制上書き */}
               <div className="mb-4">
                 <BudouXText as="p" text="プランの強制上書き" className="text-xs font-medium text-gray-600 mb-2" />
@@ -1453,6 +1546,14 @@ export default function SettingsPage() {
                 <BudouXText as="p" text="全て削除されます" className="text-red-500 font-bold text-sm mt-2" />
               </div>
 
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+                <BudouXText
+                  as="p"
+                  text="プレミアムプランを利用中でも、この操作では定期購入は自動解除されません。継続課金を止める場合は App Store / Google Play で別途解約してください。"
+                  className="text-xs leading-5 text-amber-700"
+                />
+              </div>
+
               <div className="space-y-2">
                 <button
                   onClick={handleDeleteConfirm}
@@ -1523,6 +1624,14 @@ export default function SettingsPage() {
                 {accountDeleteError && (
                   <p className="text-red-500 text-xs mt-1">{accountDeleteError}</p>
                 )}
+              </div>
+
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+                <BudouXText
+                  as="p"
+                  text="プレミアムプランを利用中でも、アカウント削除だけでは定期購入は自動解除されません。継続課金を止める場合は App Store / Google Play で別途解約してください。"
+                  className="text-xs leading-5 text-amber-700"
+                />
               </div>
 
               <div className="flex flex-col gap-3">
@@ -1678,6 +1787,126 @@ export default function SettingsPage() {
                   className="w-full py-3 text-gray-400 font-medium text-sm"
                 >
                   キャンセル
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isMaster && showSubscriptionDebugModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white w-full max-w-[420px] mx-4 rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col">
+            <div className="p-5 border-b border-gray-100">
+              <BudouXText as="h3" text="課金同期診断" className="text-lg font-bold text-gray-800 mb-1" />
+              <BudouXText as="p" text="RevenueCat の現在状態と同期ログ" className="text-gray-400 text-xs" />
+            </div>
+
+            <div className="p-5 overflow-y-auto space-y-4">
+              <div className="bg-gray-50 rounded-xl p-4 space-y-2 text-xs text-gray-700">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-gray-500">ユーザーID</span>
+                  <span className="font-mono text-right break-all">{user?.id || '-'}</span>
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-gray-500">実効プラン</span>
+                  <span>{PLAN_NAMES[effectiveTier]}</span>
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-gray-500">RevenueCat プラン</span>
+                  <span>{PLAN_NAMES[revenueCatCurrentPlan]}</span>
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-gray-500">RevenueCat 初期化</span>
+                  <span>{isRevenueCatInitialized ? '完了' : '未完了'}</span>
+                </div>
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-gray-500">Original App User ID</span>
+                  <span className="font-mono text-right break-all">{revenueCatCustomerInfo?.originalAppUserId || '-'}</span>
+                </div>
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-gray-500">Active Subscriptions</span>
+                  <span className="font-mono text-right break-all">
+                    {revenueCatCustomerInfo?.activeSubscriptions?.length
+                      ? revenueCatCustomerInfo.activeSubscriptions.join(', ')
+                      : '-'}
+                  </span>
+                </div>
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-gray-500">Entitlements</span>
+                  <span className="font-mono text-right break-all">
+                    {revenueCatCustomerInfo && Object.keys(revenueCatCustomerInfo.entitlements.active).length > 0
+                      ? Object.entries(revenueCatCustomerInfo.entitlements.active)
+                          .map(([key, entitlement]) => `${key}:${entitlement.productIdentifier}`)
+                          .join(', ')
+                      : '-'}
+                  </span>
+                </div>
+                {revenueCatError && (
+                  <div className="pt-2 border-t border-gray-200 text-red-500 break-all">
+                    エラー: {revenueCatError}
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <BudouXText as="p" text="同期ログ" className="text-sm font-semibold text-gray-700" />
+                  <span className="text-xs text-gray-400">{subscriptionDebugLogs.length}件</span>
+                </div>
+                <div className="space-y-2">
+                  {subscriptionDebugLogs.length === 0 ? (
+                    <div className="bg-gray-50 rounded-xl p-4 text-xs text-gray-400">
+                      ログはまだありません
+                    </div>
+                  ) : (
+                    subscriptionDebugLogs.map((entry) => (
+                      <div key={entry.id} className="bg-gray-50 rounded-xl p-3">
+                        <div className="flex items-center justify-between gap-3 mb-1">
+                          <span className="text-[11px] font-semibold text-[#5D4037]">{entry.source}</span>
+                          <span className="text-[10px] text-gray-400">{new Date(entry.timestamp).toLocaleString('ja-JP')}</span>
+                        </div>
+                        <p className="text-xs font-medium text-gray-700 mb-2">{entry.event}</p>
+                        <pre className="text-[10px] leading-4 text-gray-500 whitespace-pre-wrap break-all">
+{JSON.stringify(entry.payload, null, 2)}
+                        </pre>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 border-t border-gray-100 space-y-2">
+              {subscriptionDebugCopied && (
+                <p className="text-xs text-green-600 text-center">診断情報をコピーしました</p>
+              )}
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => void handleRefreshSubscriptionDebug()}
+                  className="py-3 bg-[#3E2723] text-white rounded-xl font-bold text-sm active:scale-[0.98] transition-transform"
+                >
+                  再同期
+                </button>
+                <button
+                  onClick={() => void handleCopySubscriptionDebug()}
+                  className="py-3 bg-[#FCC800]/15 text-[#5D4037] rounded-xl font-bold text-sm active:scale-[0.98] transition-transform"
+                >
+                  コピー
+                </button>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={handleClearSubscriptionDebugLogs}
+                  className="py-3 bg-gray-100 text-gray-600 rounded-xl font-medium text-sm active:scale-[0.98] transition-transform"
+                >
+                  ログ削除
+                </button>
+                <button
+                  onClick={() => setShowSubscriptionDebugModal(false)}
+                  className="py-3 text-gray-400 font-medium text-sm"
+                >
+                  閉じる
                 </button>
               </div>
             </div>

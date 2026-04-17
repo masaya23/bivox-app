@@ -19,6 +19,7 @@ import SpeakerIcon from '@/components/icons/SpeakerIcon';
 import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
 import { useTrainerAdBanner } from '@/hooks/useTrainerAdBanner';
 import { useSubscription } from '@/contexts/SubscriptionContext';
+import PaywallScreen from '@/components/subscription/PaywallScreen';
 
 interface AIDrillTrainerProps {
   partSentences: Sentence[];
@@ -158,7 +159,7 @@ export default function AIDrillTrainer({
 }: AIDrillTrainerProps) {
   // トレーニング画面ではBottomNavがないので、バナー広告のマージンを0に再設定
   useTrainerAdBanner();
-  const { isLoading: isSubscriptionLoading, syncNativeSubscription } = useSubscription();
+  const { isLoading: isSubscriptionLoading, syncNativeSubscription, canAccessMode } = useSubscription();
 
   const [session, setSession] = useState<AIDrillSession>({
     totalQuestions: TOTAL_QUESTIONS,
@@ -193,6 +194,7 @@ export default function AIDrillTrainer({
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
   const [historyPage, setHistoryPage] = useState(0);
+  const [showPaywall, setShowPaywall] = useState(false);
   const serverTTS = useServerTTS();
   const isTTSSpeaking = serverTTS.isSpeaking;
   const whisper = useWhisperRecognition();
@@ -1609,6 +1611,48 @@ export default function AIDrillTrainer({
             )}
           </div>
         </div>
+      </>
+    );
+  }
+
+  if (!isSubscriptionLoading && !canAccessMode('ai-drill')) {
+    return (
+      <>
+        <div className="min-h-screen bg-gray-50 flex flex-col max-w-[430px] mx-auto relative shadow-xl">
+          <div className="px-4 py-4 sticky top-0 z-30 bg-gradient-to-r from-purple-500 to-pink-500">
+            <div className="flex items-center justify-between">
+              <HardNavLink href={backLink} className="text-white/80 hover:text-white font-semibold text-sm min-w-[60px]">
+                ← 戻る
+              </HardNavLink>
+              <h1 className="text-xl font-black text-white">AI応用ドリル</h1>
+              <div className="min-w-[60px]" />
+            </div>
+          </div>
+
+          <div className="flex-1 px-5 py-8 flex items-center justify-center">
+            <div className="w-full rounded-3xl bg-white shadow-xl border border-purple-100 p-6 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white flex items-center justify-center text-2xl font-black">
+                AI
+              </div>
+              <h2 className="text-xl font-black text-gray-800 mb-3">Proプラン限定機能です</h2>
+              <p className="text-sm text-gray-600 leading-6 mb-5">
+                AI応用ドリルは Proプランでご利用いただけます。
+              </p>
+              <button
+                onClick={() => setShowPaywall(true)}
+                className="w-full py-3 rounded-2xl font-bold text-white bg-gradient-to-r from-purple-500 to-pink-500 active:scale-[0.98] transition-transform"
+              >
+                プレミアムを見る
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <PaywallScreen
+          isOpen={showPaywall}
+          onClose={() => setShowPaywall(false)}
+          highlightedMode="ai-drill"
+        />
       </>
     );
   }

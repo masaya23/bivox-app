@@ -173,7 +173,7 @@ export default function PremiumSection() {
                 <svg className={`w-4 h-4 ${theme.checkColor} shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
-                全モード利用可能
+                {effectiveTier === 'plus' ? 'スピーキングモード利用可能' : '全モード利用可能'}
               </div>
               {effectiveTier === 'pro' && (
                 <div className={`flex items-center gap-2 text-sm ${theme.itemText}`}>
