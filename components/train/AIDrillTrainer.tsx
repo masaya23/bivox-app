@@ -159,7 +159,7 @@ export default function AIDrillTrainer({
 }: AIDrillTrainerProps) {
   // トレーニング画面ではBottomNavがないので、バナー広告のマージンを0に再設定
   useTrainerAdBanner();
-  const { isLoading: isSubscriptionLoading, syncNativeSubscription, canAccessMode } = useSubscription();
+  const { isLoading: isSubscriptionLoading, canAccessMode } = useSubscription();
 
   const [session, setSession] = useState<AIDrillSession>({
     totalQuestions: TOTAL_QUESTIONS,
@@ -190,7 +190,6 @@ export default function AIDrillTrainer({
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState<string | null>(null);
   const [apiRetryFn, setApiRetryFn] = useState<(() => void) | null>(null);
-  const [isSubscriptionReady, setIsSubscriptionReady] = useState(false);
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
   const [historyPage, setHistoryPage] = useState(0);
@@ -362,26 +361,6 @@ export default function AIDrillTrainer({
     }, 500);
   }, [speakJapanese, clearQuestionTimers, startWhisperRecording]);
 
-  useEffect(() => {
-    let cancelled = false;
-
-    const prepareSubscription = async () => {
-      try {
-        await syncNativeSubscription();
-      } finally {
-        if (!cancelled) {
-          setIsSubscriptionReady(true);
-        }
-      }
-    };
-
-    void prepareSubscription();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [syncNativeSubscription]);
-
   const initializeDrill = useCallback(async () => {
     setPhaseWithRef('loading');
     setError(null);
@@ -515,7 +494,7 @@ export default function AIDrillTrainer({
 
   // 初回問題生成（一度だけ実行）
   useEffect(() => {
-    if (isSubscriptionLoading || !isSubscriptionReady) return;
+    if (isSubscriptionLoading) return;
     if (initializedRef.current) return;
     initializedRef.current = true;
     initializeDrill();
@@ -530,7 +509,7 @@ export default function AIDrillTrainer({
       evaluatingRef.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initializeDrill, clearQuestionTimers, isSubscriptionLoading, isSubscriptionReady]);
+  }, [initializeDrill, clearQuestionTimers, isSubscriptionLoading]);
 
   // 無音時の自動処理
   useEffect(() => {
@@ -1114,7 +1093,7 @@ export default function AIDrillTrainer({
     );
   }
 
-  if (isSubscriptionLoading || !isSubscriptionReady) {
+  if (isSubscriptionLoading) {
     return (
       <div className="min-h-screen bg-[#F4F2F8] flex items-center justify-center">
         <div className="bg-white rounded-3xl p-8 text-center shadow-lg">

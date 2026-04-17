@@ -34,6 +34,14 @@ export interface DailyLimitResult {
   resetTime: number;
 }
 
+interface DailyLimitEvaluation {
+  resetTime: number;
+  limit: number;
+  today: string;
+  key: string;
+  record: DailyRecord | undefined;
+}
+
 /** 現在のJST日付文字列を返す */
 function getJSTDateString(): string {
   const now = new Date();
@@ -55,7 +63,27 @@ function getNextMidnightJST(): number {
 /**
  * 日次上限をチェックし、成功時はカウントを増やす
  */
-export function checkDailyLimit(
+function evaluateDailyLimit(
+  clientId: string,
+  plan: UserPlan,
+  config: DailyLimitConfig
+): DailyLimitEvaluation {
+  const resetTime = getNextMidnightJST();
+  const limit = plan === 'master' ? -1 : config.limits[plan];
+  const today = getJSTDateString();
+  const key = `${clientId}:${config.endpoint}`;
+  const record = store[key];
+
+  return {
+    resetTime,
+    limit,
+    today,
+    key,
+    record,
+  };
+}
+
+export function previewDailyLimit(
   clientId: string,
   plan: UserPlan,
   config: DailyLimitConfig
@@ -73,7 +101,7 @@ export function checkDailyLimit(
     };
   }
 
-  const limit = config.limits[plan];
+  const { limit, record, today } = evaluateDailyLimit(clientId, plan, config);
 
   // 使用不可（0）
   if (limit === 0) {
@@ -97,9 +125,54 @@ export function checkDailyLimit(
     };
   }
 
-  const key = `${clientId}:${config.endpoint}`;
-  const today = getJSTDateString();
-  const record = store[key];
+  if (!record || record.date !== today) {
+    return {
+      success: true,
+      used: 0,
+      limit,
+      remaining: limit,
+      resetTime,
+    };
+  }
+
+  if (record.count >= limit) {
+    return {
+      success: false,
+      used: record.count,
+      limit,
+      remaining: 0,
+      resetTime,
+    };
+  }
+
+  return {
+    success: true,
+    used: record.count,
+    limit,
+    remaining: limit - record.count,
+    resetTime,
+  };
+}
+
+export function consumeDailyLimit(
+  clientId: string,
+  plan: UserPlan,
+  config: DailyLimitConfig
+): DailyLimitResult {
+  const resetTime = getNextMidnightJST();
+
+  // マスターアカウントは常に無制限
+  if (plan === 'master') {
+    return {
+      success: true,
+      used: 0,
+      limit: -1,
+      remaining: -1,
+      resetTime,
+    };
+  }
+
+  const { limit, record, today, key } = evaluateDailyLimit(clientId, plan, config);
 
   // 日付が変わった or 初回
   if (!record || record.date !== today) {
@@ -133,6 +206,14 @@ export function checkDailyLimit(
     remaining: limit - record.count,
     resetTime,
   };
+}
+
+export function checkDailyLimit(
+  clientId: string,
+  plan: UserPlan,
+  config: DailyLimitConfig
+): DailyLimitResult {
+  return consumeDailyLimit(clientId, plan, config);
 }
 
 /**

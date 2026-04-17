@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { checkRateLimit, RATE_LIMITS } from '@/utils/rateLimit';
 import { getClientId } from '@/utils/clientId';
-import { checkDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
+import { previewDailyLimit, consumeDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 import type { JudgeAnswerRequest, JudgeAnswerResponse } from '@/types/aiDrill';
 
 // Capacitorビルド（静的エクスポート）時に必要
@@ -252,7 +252,7 @@ export async function POST(request: NextRequest) {
 
     // 日次上限チェック
     const plan = getPlanFromHeader(request.headers.get('x-user-plan'));
-    const dailyResult = checkDailyLimit(clientId, plan, DAILY_LIMITS.AI_DRILL_JUDGE);
+    const dailyResult = previewDailyLimit(clientId, plan, DAILY_LIMITS.AI_DRILL_JUDGE);
     if (!dailyResult.success) {
       return NextResponse.json(
         {
@@ -277,12 +277,13 @@ export async function POST(request: NextRequest) {
     // 大文字小文字・句読点のみの違いは自動正解（API呼び出し不要）
     const normalize = (s: string) => s.toLowerCase().replace(/[.?!,;:'"]/g, '').replace(/\s+/g, ' ').trim();
     if (normalize(userAnswerEn) === normalize(expectedEn)) {
+      const consumedDailyResult = consumeDailyLimit(clientId, plan, DAILY_LIMITS.AI_DRILL_JUDGE);
       return NextResponse.json({
         success: true,
         isCorrect: true,
         correctEn: expectedEn,
         explanation: '正解です！',
-      });
+      }, { headers: dailyLimitHeaders(consumedDailyResult) });
     }
 
     const grammarContext = grammarTags.length > 0
@@ -340,10 +341,12 @@ export async function POST(request: NextRequest) {
       result.explanation = '正解です！';
     }
 
+    const consumedDailyResult = consumeDailyLimit(clientId, plan, DAILY_LIMITS.AI_DRILL_JUDGE);
+
     return NextResponse.json({
       success: true,
       ...result,
-    });
+    }, { headers: dailyLimitHeaders(consumedDailyResult) });
   } catch (error) {
     console.error('AI判定エラー:', error);
     return NextResponse.json(

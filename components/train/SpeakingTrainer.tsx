@@ -169,7 +169,7 @@ export default function SpeakingTrainer({
 }: SpeakingTrainerProps) {
   // トレーニング画面ではBottomNavがないので、バナー広告のマージンを0に再設定
   useTrainerAdBanner();
-  const { isLoading: isSubscriptionLoading, syncNativeSubscription } = useSubscription();
+  const { isLoading: isSubscriptionLoading } = useSubscription();
 
   const [sentences, setSentences] = useState<Sentence[]>(
     initialSentences && initialSentences.length > 0 ? initialSentences : DUMMY_SENTENCES
@@ -191,7 +191,6 @@ export default function SpeakingTrainer({
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState<string | null>(null);
   const [apiRetryFn, setApiRetryFn] = useState<(() => void) | null>(null);
-  const [isSubscriptionReady, setIsSubscriptionReady] = useState(false);
 
   // 回答例のナビゲーション
   const [answerExampleIndex, setAnswerExampleIndex] = useState(0);
@@ -311,26 +310,6 @@ export default function SpeakingTrainer({
   const shouldAutoRecordRef = useRef<boolean>(false); // 自動録音すべきかのフラグ
   const currentSentence = sentences[currentIndex];
 
-  useEffect(() => {
-    let cancelled = false;
-
-    const prepareSubscription = async () => {
-      try {
-        await syncNativeSubscription();
-      } finally {
-        if (!cancelled) {
-          setIsSubscriptionReady(true);
-        }
-      }
-    };
-
-    void prepareSubscription();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [syncNativeSubscription]);
-
   // 初期化
   useEffect(() => {
     if (initialSentences && initialSentences.length > 0) {
@@ -393,7 +372,7 @@ export default function SpeakingTrainer({
   // 問題が変わった時に日本語を自動再生し、終了後に自動録音開始
   // ※ブラウザのautoplay制限により初回は再生されない場合がある（その場合はエラーを無視）
   useEffect(() => {
-    if (isSubscriptionLoading || !isSubscriptionReady) return;
+    if (isSubscriptionLoading) return;
     // autoStartがfalseの場合は自動再生しない
     if (!autoStart) return;
 
@@ -438,11 +417,11 @@ export default function SpeakingTrainer({
       clearSafetyTimeout();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIndex, currentSentence.id, autoStart, isSubscriptionLoading, isSubscriptionReady]);
+  }, [currentIndex, currentSentence.id, autoStart, isSubscriptionLoading]);
 
   // 無音時の自動AI解説取得
   useEffect(() => {
-    if (isSubscriptionLoading || !isSubscriptionReady) return;
+    if (isSubscriptionLoading) return;
     if (!isNoSpeech || showAnswer) return;
 
     const getNoSpeechEvaluation = async () => {
@@ -521,7 +500,7 @@ export default function SpeakingTrainer({
     };
 
     getNoSpeechEvaluation();
-  }, [isNoSpeech, showAnswer, currentSentence.jp, currentSentence.en, currentIndex, partTitle, isSubscriptionLoading, isSubscriptionReady]);
+  }, [isNoSpeech, showAnswer, currentSentence.jp, currentSentence.en, currentIndex, partTitle, isSubscriptionLoading]);
 
   const handlePlayJapanese = () => {
     setHasUserInteracted(true); // ユーザー操作を記録
@@ -531,7 +510,7 @@ export default function SpeakingTrainer({
   };
 
   const handleStartRecording = () => {
-    if (isSubscriptionLoading || !isSubscriptionReady) return;
+    if (isSubscriptionLoading) return;
     if (isListening || isTranscribing) return;
     setHasUserInteracted(true);
     shouldAutoRecordRef.current = false;
@@ -550,7 +529,7 @@ export default function SpeakingTrainer({
   };
 
   const handleJudge = async () => {
-    if (isSubscriptionLoading || !isSubscriptionReady) return;
+    if (isSubscriptionLoading) return;
     if (!editableText.trim()) return;
 
     setHasUserInteracted(true);
@@ -1555,7 +1534,7 @@ export default function SpeakingTrainer({
   const headerTitle = formatHeaderTitle(pageTitle, partId);
   const badgeClass = getLessonPartBadgeClassName();
 
-  if (isSubscriptionLoading || !isSubscriptionReady) {
+  if (isSubscriptionLoading) {
     return (
       <div className="min-h-screen bg-gray-200 flex items-center justify-center">
         <div className="bg-white rounded-3xl p-8 text-center shadow-lg">

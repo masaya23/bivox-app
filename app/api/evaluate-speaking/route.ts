@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { checkRateLimit, RATE_LIMITS } from '@/utils/rateLimit';
 import { getClientId } from '@/utils/clientId';
-import { checkDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
+import { previewDailyLimit, consumeDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 
 // Capacitorビルド（静的エクスポート）時に必要
 export const dynamic = 'force-static';
@@ -483,7 +483,7 @@ export async function POST(request: NextRequest) {
 
     // 日次上限チェック
     const plan = getPlanFromHeader(request.headers.get('x-user-plan'));
-    const dailyResult = checkDailyLimit(clientId, plan, DAILY_LIMITS.EVALUATE_SPEAKING);
+    const dailyResult = previewDailyLimit(clientId, plan, DAILY_LIMITS.EVALUATE_SPEAKING);
     if (!dailyResult.success) {
       return NextResponse.json(
         {
@@ -607,6 +607,8 @@ Explain why the bestAnswer is correct for this JP sentence.`,
 
       const explanation = JSON.parse(result);
 
+      const consumedDailyResult = consumeDailyLimit(clientId, plan, DAILY_LIMITS.EVALUATE_SPEAKING);
+
       // 未回答モード用のレスポンス形式に変換
       return NextResponse.json(
         {
@@ -638,10 +640,12 @@ Explain why the bestAnswer is correct for this JP sentence.`,
             'X-RateLimit-Limit': rateLimitResult.limit.toString(),
             'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
             'X-RateLimit-Reset': new Date(rateLimitResult.resetTime).toISOString(),
+            ...dailyLimitHeaders(consumedDailyResult),
           },
         }
       );
     } else if (isNormalizedMatch) {
+      const consumedDailyResult = consumeDailyLimit(clientId, plan, DAILY_LIMITS.EVALUATE_SPEAKING);
       // 大文字小文字・句読点・短縮形の違いは自動正解（API呼び出し不要）
       return NextResponse.json(
         {
@@ -676,6 +680,7 @@ Explain why the bestAnswer is correct for this JP sentence.`,
             'X-RateLimit-Limit': rateLimitResult.limit.toString(),
             'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
             'X-RateLimit-Reset': new Date(rateLimitResult.resetTime).toISOString(),
+            ...dailyLimitHeaders(consumedDailyResult),
           },
         }
       );
@@ -778,6 +783,8 @@ Evaluate the learner's answer. Replace {LEARNER_ANSWER} with "${userAnswer}" and
         mistakeAnalysis: graderResult.mistakePointJa || '',
       };
 
+      const consumedDailyResult = consumeDailyLimit(clientId, plan, DAILY_LIMITS.EVALUATE_SPEAKING);
+
       return NextResponse.json(
         {
           success: true,
@@ -789,6 +796,7 @@ Evaluate the learner's answer. Replace {LEARNER_ANSWER} with "${userAnswer}" and
             'X-RateLimit-Limit': rateLimitResult.limit.toString(),
             'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
             'X-RateLimit-Reset': new Date(rateLimitResult.resetTime).toISOString(),
+            ...dailyLimitHeaders(consumedDailyResult),
           },
         }
       );

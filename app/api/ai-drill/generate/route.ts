@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { checkRateLimit, RATE_LIMITS } from '@/utils/rateLimit';
 import { getClientId } from '@/utils/clientId';
-import { checkDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
+import { previewDailyLimit, consumeDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 
 // Capacitorビルド（静的エクスポート）時に必要
 export const dynamic = 'force-static';
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
 
     // 日次上限チェック
     const plan = getPlanFromHeader(request.headers.get('x-user-plan'));
-    const dailyResult = checkDailyLimit(clientId, plan, DAILY_LIMITS.AI_DRILL_GENERATE);
+    const dailyResult = previewDailyLimit(clientId, plan, DAILY_LIMITS.AI_DRILL_GENERATE);
     if (!dailyResult.success) {
       return NextResponse.json(
         {
@@ -178,6 +178,7 @@ ${samplesText}
       temperature: 0.7,
       max_tokens: 1200,
     });
+    const consumedDailyResult = consumeDailyLimit(clientId, plan, DAILY_LIMITS.AI_DRILL_GENERATE);
 
     // NDJSONストリームとして返す（1問ごとに1行）
     const encoder = new TextEncoder();
@@ -218,6 +219,7 @@ ${samplesText}
       headers: {
         'Content-Type': 'application/x-ndjson',
         'Cache-Control': 'no-cache',
+        ...dailyLimitHeaders(consumedDailyResult),
       },
     });
   } catch (error) {

@@ -18,7 +18,7 @@ export default function ConversationPage() {
   const router = useAppRouter();
   const serverTTS = useServerTTS();
   const whisper = useWhisperRecognition();
-  const { isLoading: isSubscriptionLoading, syncNativeSubscription, canAccessMode } = useSubscription();
+  const { isLoading: isSubscriptionLoading, canAccessMode } = useSubscription();
   const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -30,7 +30,6 @@ export default function ConversationPage() {
   const [error, setError] = useState<string | null>(null);
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editingText, setEditingText] = useState<string>('');
-  const [isSubscriptionReady, setIsSubscriptionReady] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -50,29 +49,9 @@ export default function ConversationPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  useEffect(() => {
-    let cancelled = false;
-
-    const prepareSubscription = async () => {
-      try {
-        await syncNativeSubscription();
-      } finally {
-        if (!cancelled) {
-          setIsSubscriptionReady(true);
-        }
-      }
-    };
-
-    void prepareSubscription();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [syncNativeSubscription]);
-
   // ユーザーメッセージを処理
   const handleUserMessage = async (content: string) => {
-    if (isSubscriptionLoading || !isSubscriptionReady) {
+    if (isSubscriptionLoading) {
       return;
     }
     setError(null);
@@ -123,7 +102,7 @@ export default function ConversationPage() {
 
   // 音声認識開始（Whisper API使用）
   const startRecording = () => {
-    if (isSubscriptionLoading || !isSubscriptionReady) {
+    if (isSubscriptionLoading) {
       return;
     }
     // TTS再生中なら停止（初回メッセージ等のスキップ用）
@@ -548,7 +527,7 @@ export default function ConversationPage() {
           <div className="text-center">
             <button
               onClick={isRecording ? stopRecording : startRecording}
-              disabled={isProcessing || isTranscribing || editingMessageId !== null || isSubscriptionLoading || !isSubscriptionReady}
+              disabled={isProcessing || isTranscribing || editingMessageId !== null || isSubscriptionLoading}
               className={`w-16 h-16 mx-auto rounded-full font-bold text-white text-xl transition-all transform flex items-center justify-center ${
                 isRecording
                   ? 'bg-red-500 animate-pulse scale-110'
@@ -576,7 +555,7 @@ export default function ConversationPage() {
               )}
             </button>
             <p className="mt-2 text-gray-600 font-semibold text-sm">
-              {isSubscriptionLoading || !isSubscriptionReady
+              {isSubscriptionLoading
                 ? 'プラン確認中...'
                 : isRecording
                 ? '話してください...'

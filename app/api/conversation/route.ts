@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { checkRateLimit, RATE_LIMITS } from '@/utils/rateLimit';
 import { getClientId } from '@/utils/clientId';
-import { checkDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
+import { previewDailyLimit, consumeDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 import { Message, ConversationSettings } from '@/types/conversation';
 
 // Capacitorビルド（静的エクスポート）時に必要
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
 
     // 日次上限チェック
     const plan = getPlanFromHeader(request.headers.get('x-user-plan'));
-    const dailyResult = checkDailyLimit(clientId, plan, DAILY_LIMITS.CONVERSATION);
+    const dailyResult = previewDailyLimit(clientId, plan, DAILY_LIMITS.CONVERSATION);
     if (!dailyResult.success) {
       return NextResponse.json(
         {
@@ -199,6 +199,8 @@ export async function POST(request: NextRequest) {
     // Correction行を応答テキストから除去（添削は別フィールドで返すため）
     const cleanResponse = aiResponse.replace(/\n?Correction:\s*.+/i, '').trim();
 
+    const consumedDailyResult = consumeDailyLimit(clientId, plan, DAILY_LIMITS.CONVERSATION);
+
     return NextResponse.json(
       {
         success: true,
@@ -210,6 +212,7 @@ export async function POST(request: NextRequest) {
           'X-RateLimit-Limit': rateLimitResult.limit.toString(),
           'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
           'X-RateLimit-Reset': new Date(rateLimitResult.resetTime).toISOString(),
+          ...dailyLimitHeaders(consumedDailyResult),
         },
       }
     );

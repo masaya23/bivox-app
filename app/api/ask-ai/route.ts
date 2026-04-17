@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { checkRateLimit, RATE_LIMITS } from '@/utils/rateLimit';
 import { getClientId } from '@/utils/clientId';
-import { checkDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
+import { previewDailyLimit, consumeDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 
 // Capacitorビルド（静的エクスポート）時に必要
 export const dynamic = 'force-static';
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
 
     // 日次上限チェック
     const plan = getPlanFromHeader(request.headers.get('x-user-plan'));
-    const dailyResult = checkDailyLimit(clientId, plan, DAILY_LIMITS.ASK_AI);
+    const dailyResult = previewDailyLimit(clientId, plan, DAILY_LIMITS.ASK_AI);
     if (!dailyResult.success) {
       return NextResponse.json(
         {
@@ -106,6 +106,8 @@ ${sentencesContext ? `\nユーザーが練習した文章:\n${sentencesContext}\
       throw new Error('AIからの応答が空です');
     }
 
+    const consumedDailyResult = consumeDailyLimit(clientId, plan, DAILY_LIMITS.ASK_AI);
+
     return NextResponse.json(
       {
         success: true,
@@ -116,6 +118,7 @@ ${sentencesContext ? `\nユーザーが練習した文章:\n${sentencesContext}\
           'X-RateLimit-Limit': rateLimitResult.limit.toString(),
           'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
           'X-RateLimit-Reset': new Date(rateLimitResult.resetTime).toISOString(),
+          ...dailyLimitHeaders(consumedDailyResult),
         },
       }
     );
