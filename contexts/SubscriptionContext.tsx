@@ -670,7 +670,6 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    setState(prev => ({ ...prev, isLoading: true }));
     void syncRevenueCatSubscription();
   }, [isAuthLoading, isMaster, syncRevenueCatSubscription, user?.id]);
 
