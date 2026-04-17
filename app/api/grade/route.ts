@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
 // Capacitorビルド（静的エクスポート）時に必要
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 // IMPORTANT: Never commit your OPENAI_API_KEY to Git!
 // Store it in .env.local (for local dev) or Vercel environment variables (for production)

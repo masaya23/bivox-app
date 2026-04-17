@@ -5,7 +5,7 @@ import { getClientId } from '@/utils/clientId';
 import { previewDailyLimit, consumeDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 
 // Capacitorビルド（静的エクスポート）時に必要
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 const NAME_CANDIDATES = [
   'Ken',

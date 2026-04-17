@@ -6,7 +6,7 @@ import { previewDailyLimit, consumeDailyLimit, getPlanFromHeader, dailyLimitHead
 import type { JudgeAnswerRequest, JudgeAnswerResponse } from '@/types/aiDrill';
 
 // Capacitorビルド（静的エクスポート）時に必要
-export const dynamic = 'force-static';
+export const dynamic = 'force-dynamic';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
