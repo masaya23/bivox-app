@@ -121,6 +121,11 @@ CRITICAL HARD RULES (MUST FOLLOW):
 6) alsoAcceptable MUST NOT be empty.
    - alsoAcceptable[0] MUST equal bestAnswer (exact match).
    - Provide 2–3 items when possible (max 3). Remove duplicates.
+   - STRICT VARIATION RULES for alsoAcceptable[1] and [2]:
+     a) PHYSICALLY change the word structure or order — never create a variation that differs ONLY in punctuation (periods, commas, hyphens, question marks) or capitalization.
+     b) Use a synonym (e.g., "soccer player" → "footballer"), a casual spoken form (e.g., "Yeah, he is."), or a structurally different sentence pattern.
+     c) Even for simple sentences with few alternatives, find a natural paraphrase — "Is he a soccer player? Yes, he is." → "Is he a footballer? He is." or "Is he a soccer player? That's right." etc.
+     d) If you cannot find a genuinely different variation, use only 1 item (bestAnswer alone) rather than creating a fake variation.
 4) Scoring (avoid extreme 0–5 when meaning is close):
    - incorrect but meaning is close / almost correct form: score 20–50
    - incorrect and meaning is wrong: score 0–15
@@ -142,8 +147,10 @@ Logical flow rules:
 Field templates (map A–E into the 3 fields):
 
 A+B) mistakePointJa (2–3 sentences):
-- A (導入): Quote the problem (JP or learner English) with 『...』 and declare the theme.
-- B (診断): Quote the learner answer with 『{LEARNER_ANSWER}』 and list 2–3 concrete issues using ①... ②... (③...).
+- MANDATORY FIRST SENTENCE FORMAT: 『{LEARNER_ANSWER}』は[具体的な文法的・語法的な理由]のため不自然な表現です。
+  (Replace {LEARNER_ANSWER} with the learner's actual wrong expression, quoted with 『』)
+- A (導入): The first sentence IS the 導入 — it quotes the learner's wrong expression and states why it's unnatural.
+- B (診断): List 2–3 concrete issues using ①... ②... (③...).
   - Issues must be specific (word choice/form/order/preposition/article/punctuation/capitalization).
   - Quote the wrong parts using "..." (at least one).
 
@@ -157,6 +164,8 @@ C) ruleJa (2–3 sentences + example lines):
 - When helpful, add a mini definition or collocation note (e.g., "draw" は「描く」という意味の動詞).
 
 D+E) nuanceJa (2–3 sentences):
+- MANDATORY FIRST SENTENCE FORMAT: 『{LEARNER_ANSWER}』は[具体的な文法的・語法的な理由、またはネイティブが受け取る印象の違い]のため、不自然で意味が伝わりにくくなります。
+  (Replace {LEARNER_ANSWER} with the learner's actual wrong expression, quoted with 『』)
 - D (置換): MUST include: そのため、最終的な文は『{fix}』になります。
 - MUST include: 『{bestAnswer}』は「...」という意味です。
 - MUST compare bestAnswer vs fix or alsoAcceptable (meaning/nuance/naturalness/politeness).
@@ -185,11 +194,13 @@ CRITICAL QUALITY CHECKS (if ANY fail → needs_regeneration: true):
    - If ReferenceAnswer is provided (non-empty), bestAnswer MUST exactly equal ReferenceAnswer
    - Remove exact duplicates
    - Should have 2-3 items when possible (max 3)
+   - VARIATION CHECK: Any variation beyond [0] MUST physically differ in word choice or structure. If items differ ONLY in punctuation (periods, commas, hyphens) or capitalization → needs_regeneration: true. Replace with a synonym-based or structurally different alternative.
 
 2. grammarFocus:
    - MUST be one of: verb_form / tense_aspect / subject_verb / preposition / article / word_choice / missing_word / capitalization / meaning
 
 3. mistakePointJa:
+   - MANDATORY: First sentence MUST follow this format exactly: 『{learner_answer}』は[grammar reason]のため不自然な表現です。 — if missing → needs_regeneration: true
    - MUST follow A→B order: introduction then diagnosis
    - MUST include at least one quoted problem statement using 『...』
    - MUST include the learner answer quoted with 『...』
@@ -207,6 +218,7 @@ CRITICAL QUALITY CHECKS (if ANY fail → needs_regeneration: true):
    - MUST include at least one connector: しかし / また / そのため / したがって / この場合 / そして
 
 5. nuanceJa:
+   - MANDATORY: First sentence MUST follow this format exactly: 『{learner_answer}』は[grammar/impression reason]のため、不自然で意味が伝わりにくくなります。 — if missing → needs_regeneration: true
    - MUST include: 『{bestAnswer}』は「...」という意味です。
    - MUST compare bestAnswer vs fix or alsoAcceptable (difference/nuance)
    - MUST include: 最終的な文は『{fix}』になります

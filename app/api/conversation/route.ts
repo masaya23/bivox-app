@@ -199,12 +199,30 @@ export async function POST(request: NextRequest) {
     // Correction行を応答テキストから除去（添削は別フィールドで返すため）
     const cleanResponse = aiResponse.replace(/\n?Correction:\s*.+/i, '').trim();
 
+    // 日本語訳を生成（軽量モデルで並列取得）
+    let translation: string | null = null;
+    try {
+      const translationCompletion = await openai.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages: [
+          { role: 'system', content: 'Translate the following English sentence into natural Japanese. Output only the Japanese translation, nothing else.' },
+          { role: 'user', content: cleanResponse },
+        ],
+        temperature: 0.3,
+        max_tokens: 200,
+      });
+      translation = translationCompletion.choices[0]?.message?.content?.trim() || null;
+    } catch {
+      // 翻訳失敗は無視
+    }
+
     const consumedDailyResult = consumeDailyLimit(clientId, plan, DAILY_LIMITS.CONVERSATION);
 
     return NextResponse.json(
       {
         success: true,
         response: cleanResponse,
+        translation,
         correction: needsCorrection ? correction : null,
       },
       {

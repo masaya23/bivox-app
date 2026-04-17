@@ -11,6 +11,8 @@ export interface Message {
   timestamp: number;
   // 音声認識されたユーザーの発話
   transcription?: string;
+  // AIメッセージの日本語訳
+  translation?: string;
   // AIによる添削（文法ミスがある場合）
   correction?: {
     original: string;

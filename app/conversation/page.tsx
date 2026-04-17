@@ -31,6 +31,7 @@ export default function ConversationPage() {
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null);
   const [editingText, setEditingText] = useState<string>('');
   const [showPaywall, setShowPaywall] = useState(false);
+  const [expandedTranslations, setExpandedTranslations] = useState<Set<string>>(new Set());
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const isInitialized = useRef(false);
@@ -84,6 +85,7 @@ export default function ConversationPage() {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: data.response,
+        translation: data.translation ?? undefined,
         timestamp: Date.now(),
         correction: data.correction,
       };
@@ -191,6 +193,7 @@ export default function ConversationPage() {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: data.response,
+        translation: data.translation ?? undefined,
         timestamp: Date.now(),
         correction: data.correction,
       };
@@ -459,12 +462,34 @@ export default function ConversationPage() {
                       </button>
                     )}
                     {message.role === 'assistant' && (
-                      <button
-                        onClick={() => speak(message.content)}
-                        className="mt-2 text-xs opacity-70 hover:opacity-100"
-                      >
-                        もう一度聞く
-                      </button>
+                      <div className="mt-2 flex items-center gap-3 flex-wrap">
+                        <button
+                          onClick={() => speak(message.content)}
+                          className="text-xs opacity-70 hover:opacity-100"
+                        >
+                          もう一度聞く
+                        </button>
+                        {message.translation && (
+                          <button
+                            onClick={() => {
+                              setExpandedTranslations(prev => {
+                                const next = new Set(prev);
+                                if (next.has(message.id)) next.delete(message.id);
+                                else next.add(message.id);
+                                return next;
+                              });
+                            }}
+                            className="text-xs text-purple-600 opacity-80 hover:opacity-100"
+                          >
+                            {expandedTranslations.has(message.id) ? '日本語訳を隠す' : '日本語訳を見る'}
+                          </button>
+                        )}
+                      </div>
+                    )}
+                    {message.role === 'assistant' && message.translation && expandedTranslations.has(message.id) && (
+                      <div className="mt-2 pt-2 border-t border-gray-200 text-xs text-gray-500 leading-relaxed">
+                        {message.translation}
+                      </div>
                     )}
                     {message.correction && (
                       <div className="mt-2 pt-2 border-t border-gray-300 text-xs">
