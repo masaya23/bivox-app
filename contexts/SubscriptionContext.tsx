@@ -510,6 +510,10 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
   // 有効なプランを計算するヘルパー
   const computeEffectiveTier = useCallback((): SubscriptionTier => {
     if (!user || isGuestUser(user)) {
+      // auth loading中はstored tierを返す（user=nullで'free'を返すとペイウォールが誤表示される）
+      if (isAuthLoading) {
+        return state.tier;
+      }
       return 'free';
     }
 
@@ -525,7 +529,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
     // 実際のプランをそのまま使用（マスターアカウントでも特別扱いしない）
     return state.tier;
-  }, [getNativeSnapshotForCurrentUser, isMaster, state.debugOverridePlan, state.tier, user]);
+  }, [getNativeSnapshotForCurrentUser, isAuthLoading, isMaster, state.debugOverridePlan, state.tier, user]);
 
   useEffect(() => {
     if (isAuthLoading || state.isLoading) {
@@ -921,10 +925,9 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
   const value: SubscriptionContextType = {
     ...state,
-    // auth loadingが終わるまでisLoadingをtrueに保つ
-    // user=nullの間はcomputeEffectiveTierが'free'を返すため
-    // ペイウォールやロックアイコンが誤表示されるのを防ぐ
-    isLoading: state.isLoading || isAuthLoading,
+    // computeEffectiveTierがauth loading中にstored tierを返すため、
+    // isAuthLoadingをisLoadingに含める必要はない
+    isLoading: state.isLoading,
     tier: effectiveTier,
     billingPeriod: effectiveBillingPeriod,
     expiresAt: effectiveExpiresAt,

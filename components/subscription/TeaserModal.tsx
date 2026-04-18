@@ -131,7 +131,8 @@ export default function TeaserModal({
         </div>
 
         {/* コンテンツ */}
-        <div className="px-6 pt-6 pb-[70px]">
+        {/* pb-[130px]: ネイティブAdMobバナー(margin:68px + height:50px = 118px)より上にボタンを配置 */}
+        <div className="px-6 pt-6 pb-[130px]">
           {/* 機能の特徴 */}
           <div className="mb-6">
             <h3 className="font-bold text-gray-800 text-sm mb-3">この機能でできること</h3>
