@@ -494,7 +494,6 @@ export default function AIDrillTrainer({
 
   // 初回問題生成（一度だけ実行）
   useEffect(() => {
-    if (isSubscriptionLoading) return;
     if (initializedRef.current) return;
     initializedRef.current = true;
     initializeDrill();
@@ -509,7 +508,7 @@ export default function AIDrillTrainer({
       evaluatingRef.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initializeDrill, clearQuestionTimers, isSubscriptionLoading]);
+  }, [initializeDrill, clearQuestionTimers]);
 
   // 無音時の自動処理
   useEffect(() => {
@@ -1088,18 +1087,6 @@ export default function AIDrillTrainer({
           <h1 className="text-2xl font-bold text-gray-800 mb-3">AI応用ドリル</h1>
           <p className="text-gray-600">このブラウザは音声認識に対応していません。Google Chromeでお試しください。</p>
           <HardNavLink href={backLink} className="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold">← 戻る</HardNavLink>
-        </div>
-      </div>
-    );
-  }
-
-  if (isSubscriptionLoading) {
-    return (
-      <div className="min-h-screen bg-[#F4F2F8] flex items-center justify-center">
-        <div className="bg-white rounded-3xl p-8 text-center shadow-lg">
-          <div className="w-14 h-14 border-4 border-purple-200 border-t-purple-500 rounded-full animate-spin mx-auto mb-4" />
-          <h1 className="text-xl font-bold text-gray-800 mb-2">プランを確認中...</h1>
-          <p className="text-sm text-gray-500">購読状態の同期が終わるまで少しお待ちください。</p>
         </div>
       </div>
     );
