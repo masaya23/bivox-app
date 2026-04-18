@@ -63,14 +63,9 @@ export default function ModeSelectCard({
 }: ModeSelectCardProps) {
   const router = useAppRouter();
   const { user } = useAuth();
-  const { canAccessMode, isLoading } = useSubscription();
+  const { canAccessMode } = useSubscription();
   const [showTeaser, setShowTeaser] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
-
-  // ローディング中はスケルトンを表示
-  if (isLoading) {
-    return <ModeSelectCardSkeleton />;
-  }
 
   const isGuest = isGuestUser(user);
   const guestModeAccess = !isGuest || canGuestAccessMode(mode);
