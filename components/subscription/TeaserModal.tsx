@@ -1,6 +1,9 @@
 'use client';
 
+'use client';
+
 import { useEffect } from 'react';
+import { Capacitor } from '@capacitor/core';
 import {
   useSubscription,
   TrainingMode,
@@ -9,7 +12,6 @@ import {
   PLAN_NAMES,
   PLAN_PRICES,
 } from '@/contexts/SubscriptionContext';
-import { useAd } from '@/contexts/AdContext';
 
 // Material Design風SVGアイコン（白色）
 function IconMic({ size = 48 }: { size?: number }) {
@@ -76,14 +78,15 @@ export default function TeaserModal({
   mode,
 }: TeaserModalProps) {
   const { tier } = useSubscription();
-  const { setBannerHidden } = useAd();
 
-  // モーダル表示中は広告を非表示
+  // モーダル表示中はネイティブバナーを直接非表示
+  // FixedAdBannerがこのページに存在しないため、AdMobプラグインを直接呼び出す
   useEffect(() => {
-    if (!isOpen) return;
-    setBannerHidden(true);
-    return () => { setBannerHidden(false); };
-  }, [isOpen, setBannerHidden]);
+    if (!isOpen || !Capacitor.isNativePlatform()) return;
+    import('@capacitor-community/admob').then(({ AdMob }) => {
+      AdMob.hideBanner().catch(() => {});
+    }).catch(() => {});
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

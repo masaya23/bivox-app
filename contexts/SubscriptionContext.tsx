@@ -276,6 +276,15 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // isLoadingが5秒以上trueのままならタイムアウトで強制解除（RC同期停止対策）
+  useEffect(() => {
+    if (!state.isLoading) return;
+    const timer = setTimeout(() => {
+      setState(prev => ({ ...prev, isLoading: false }));
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [state.isLoading]);
+
   // 状態をローカルストレージに保存
   const saveState = useCallback((
     tier: SubscriptionTier,
