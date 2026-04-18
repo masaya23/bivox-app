@@ -924,6 +924,10 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
   const value: SubscriptionContextType = {
     ...state,
+    // auth loadingが終わるまでisLoadingをtrueに保つ
+    // user=nullの間はcomputeEffectiveTierが'free'を返すため
+    // ペイウォールやロックアイコンが誤表示されるのを防ぐ
+    isLoading: state.isLoading || isAuthLoading,
     tier: effectiveTier,
     billingPeriod: effectiveBillingPeriod,
     expiresAt: effectiveExpiresAt,
