@@ -242,13 +242,10 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
           });
           localStorage.removeItem(STORAGE_KEY);
         } else {
-          // ネイティブ: ストレージがfreeの場合はRevenueCatで確認するまでisLoadingを維持
-          // pro/plusはそのまま信頼して即座に表示（フラッシュなし）
-          const storedIsFree = parsed.tier === 'free';
           setState({
             tier: parsed.tier,
             expiresAt,
-            isLoading: Capacitor.isNativePlatform() && storedIsFree,
+            isLoading: false,
             billingPeriod: parsed.billingPeriod || null,
             trialStatus,
             isTrialPeriod: parsed.isTrialPeriod || false,
