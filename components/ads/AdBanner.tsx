@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useAd } from '@/contexts/AdContext';
 import { Capacitor } from '@capacitor/core';
 import { useAdMob } from '@/hooks/useAdMob';
 import { usePathname } from 'next/navigation';
@@ -77,10 +78,11 @@ interface FixedAdBannerProps {
 
 export function FixedAdBanner({ className = '', visible = true }: FixedAdBannerProps) {
   const { shouldShowAds } = useSubscription();
+  const { isBannerHidden } = useAd();
   const { showBanner, hideBanner, isNative, isInitialized } = useAdMob();
   const pathname = usePathname();
 
-  const showAds = visible && shouldShowAds();
+  const showAds = visible && shouldShowAds() && !isBannerHidden;
 
   // ネイティブ環境：ページ復帰時も含めて毎回BottomNav上に再配置する
   useEffect(() => {

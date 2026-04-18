@@ -201,80 +201,74 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
   const { user, isMaster, isLoading: isAuthLoading, useFirebase } = useAuth();
   const isNativePlatform = Capacitor.isNativePlatform();
 
-  const [state, setState] = useState<SubscriptionState>({
-    tier: 'free',
-    expiresAt: null,
-    isLoading: true,
-    billingPeriod: null,
-    trialStatus: initialTrialStatus,
-    isTrialPeriod: false,
-    lastReceipt: null,
-    debugOverridePlan: null,
-  });
-
-  // ローカルストレージから状態を復元
-  useEffect(() => {
+  // 遅延初期化：初回レンダリング前にLocalStorageを同期読み込みしてスケルトンを排除
+  const [state, setState] = useState<SubscriptionState>(() => {
+    if (typeof window === 'undefined') {
+      return {
+        tier: 'free', expiresAt: null, isLoading: true,
+        billingPeriod: null, trialStatus: initialTrialStatus,
+        isTrialPeriod: false, lastReceipt: null, debugOverridePlan: null,
+      };
+    }
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
+      const debugOverridePlan = (localStorage.getItem(DEBUG_OVERRIDE_KEY) as SubscriptionTier | null);
       const trialStatus = getCurrentTrialStatus();
-
-      // デバッグオーバーライドプランを読み込み（マスターアカウント用）
-      const storedDebugPlan = localStorage.getItem(DEBUG_OVERRIDE_KEY);
-      const debugOverridePlan = storedDebugPlan ? (storedDebugPlan as SubscriptionTier) : null;
 
       if (stored) {
         const parsed: StoredSubscription = JSON.parse(stored);
         const expiresAt = parsed.expiresAt ? new Date(parsed.expiresAt) : null;
-
-        // 期限切れチェック
         if (expiresAt && expiresAt < new Date()) {
-          // 期限切れの場合はfreeにリセット
-          // ネイティブはRevenueCatが最新状態を確認するまでisLoadingを維持
-          setState({
-            tier: 'free',
-            expiresAt: null,
+          // 期限切れ：ネイティブはRC確認まで待機（LocalStorage削除はuseEffectで行う）
+          return {
+            tier: 'free', expiresAt: null,
             isLoading: Capacitor.isNativePlatform(),
-            billingPeriod: null,
-            trialStatus,
-            isTrialPeriod: false,
-            lastReceipt: null,
-            debugOverridePlan,
-          });
-          localStorage.removeItem(STORAGE_KEY);
-        } else {
-          setState({
-            tier: parsed.tier,
-            expiresAt,
-            isLoading: false,
-            billingPeriod: parsed.billingPeriod || null,
-            trialStatus,
-            isTrialPeriod: parsed.isTrialPeriod || false,
-            lastReceipt: parsed.lastReceipt || null,
-            debugOverridePlan,
-          });
+            billingPeriod: null, trialStatus,
+            isTrialPeriod: false, lastReceipt: null, debugOverridePlan,
+          };
         }
-      } else {
-        // トライアル中ならトライアル権限を適用
-        if (trialStatus.isCurrentlyInTrial) {
-          setState({
-            tier: 'pro', // トライアルはProプラン相当
-            expiresAt: trialStatus.trialEndDate ? new Date(trialStatus.trialEndDate) : null,
-            isLoading: false,
-            billingPeriod: null,
-            trialStatus,
-            isTrialPeriod: true,
-            lastReceipt: null,
-            debugOverridePlan,
-          });
-        } else {
-          // ストレージに購読なし・トライアルなし
-          // ネイティブはRevenueCatが確認するまでisLoadingを維持してペイウォールフラッシュを防ぐ
-          setState(prev => ({
-            ...prev,
-            isLoading: Capacitor.isNativePlatform(),
-            trialStatus,
-            debugOverridePlan,
-          }));
+        return {
+          tier: parsed.tier, expiresAt, isLoading: false,
+          billingPeriod: parsed.billingPeriod || null, trialStatus,
+          isTrialPeriod: parsed.isTrialPeriod || false,
+          lastReceipt: parsed.lastReceipt || null, debugOverridePlan,
+        };
+      }
+
+      if (trialStatus.isCurrentlyInTrial) {
+        return {
+          tier: 'pro',
+          expiresAt: trialStatus.trialEndDate ? new Date(trialStatus.trialEndDate) : null,
+          isLoading: false, billingPeriod: null, trialStatus,
+          isTrialPeriod: true, lastReceipt: null, debugOverridePlan,
+        };
+      }
+
+      // LocalStorageなし・トライアルなし：ネイティブはRC確認まで待機
+      return {
+        tier: 'free', expiresAt: null,
+        isLoading: Capacitor.isNativePlatform(),
+        billingPeriod: null, trialStatus,
+        isTrialPeriod: false, lastReceipt: null, debugOverridePlan,
+      };
+    } catch {
+      return {
+        tier: 'free', expiresAt: null, isLoading: false,
+        billingPeriod: null, trialStatus: initialTrialStatus,
+        isTrialPeriod: false, lastReceipt: null, debugOverridePlan: null,
+      };
+    }
+  });
+
+  // LocalStorage後処理（期限切れ削除など）：状態設定は遅延初期化で完了済み
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed: StoredSubscription = JSON.parse(stored);
+        const expiresAt = parsed.expiresAt ? new Date(parsed.expiresAt) : null;
+        if (expiresAt && expiresAt < new Date()) {
+          localStorage.removeItem(STORAGE_KEY);
         }
       }
     } catch {
