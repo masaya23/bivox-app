@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import {
   useSubscription,
   TrainingMode,
@@ -8,6 +9,7 @@ import {
   PLAN_NAMES,
   PLAN_PRICES,
 } from '@/contexts/SubscriptionContext';
+import { useAdMob } from '@/hooks/useAdMob';
 
 // Material Design風SVGアイコン（白色）
 function IconMic({ size = 48 }: { size?: number }) {
@@ -74,6 +76,14 @@ export default function TeaserModal({
   mode,
 }: TeaserModalProps) {
   const { tier } = useSubscription();
+  const { hideBanner, showBanner, isNative } = useAdMob();
+
+  // モーダル表示中は広告を非表示
+  useEffect(() => {
+    if (!isOpen || !isNative) return;
+    void hideBanner();
+    return () => { void showBanner('BOTTOM'); };
+  }, [isOpen, isNative, hideBanner, showBanner]);
 
   if (!isOpen) return null;
 
