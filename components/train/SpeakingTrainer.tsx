@@ -169,7 +169,7 @@ export default function SpeakingTrainer({
 }: SpeakingTrainerProps) {
   // トレーニング画面ではBottomNavがないので、バナー広告のマージンを0に再設定
   useTrainerAdBanner();
-  const { isLoading: isSubscriptionLoading } = useSubscription();
+  useSubscription(); // サブスクリプション同期のみ（ローディング表示はしない）
 
   const [sentences, setSentences] = useState<Sentence[]>(
     initialSentences && initialSentences.length > 0 ? initialSentences : DUMMY_SENTENCES
@@ -372,7 +372,6 @@ export default function SpeakingTrainer({
   // 問題が変わった時に日本語を自動再生し、終了後に自動録音開始
   // ※ブラウザのautoplay制限により初回は再生されない場合がある（その場合はエラーを無視）
   useEffect(() => {
-    if (isSubscriptionLoading) return;
     // autoStartがfalseの場合は自動再生しない
     if (!autoStart) return;
 
@@ -417,11 +416,11 @@ export default function SpeakingTrainer({
       clearSafetyTimeout();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIndex, currentSentence.id, autoStart, isSubscriptionLoading]);
+  }, [currentIndex, currentSentence.id, autoStart]);
 
   // 無音時の自動AI解説取得
   useEffect(() => {
-    if (isSubscriptionLoading) return;
+    
     if (!isNoSpeech || showAnswer) return;
 
     const getNoSpeechEvaluation = async () => {
@@ -500,7 +499,7 @@ export default function SpeakingTrainer({
     };
 
     getNoSpeechEvaluation();
-  }, [isNoSpeech, showAnswer, currentSentence.jp, currentSentence.en, currentIndex, partTitle, isSubscriptionLoading]);
+  }, [isNoSpeech, showAnswer, currentSentence.jp, currentSentence.en, currentIndex, partTitle]);
 
   const handlePlayJapanese = () => {
     setHasUserInteracted(true); // ユーザー操作を記録
@@ -510,7 +509,7 @@ export default function SpeakingTrainer({
   };
 
   const handleStartRecording = () => {
-    if (isSubscriptionLoading) return;
+    
     if (isListening || isTranscribing) return;
     setHasUserInteracted(true);
     shouldAutoRecordRef.current = false;
@@ -529,7 +528,7 @@ export default function SpeakingTrainer({
   };
 
   const handleJudge = async () => {
-    if (isSubscriptionLoading) return;
+    
     if (!editableText.trim()) return;
 
     setHasUserInteracted(true);
@@ -1534,17 +1533,6 @@ export default function SpeakingTrainer({
   const headerTitle = formatHeaderTitle(pageTitle, partId);
   const badgeClass = getLessonPartBadgeClassName();
 
-  if (isSubscriptionLoading) {
-    return (
-      <div className="min-h-screen bg-gray-200 flex items-center justify-center">
-        <div className="bg-white rounded-3xl p-8 text-center shadow-lg">
-          <div className="w-14 h-14 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin mx-auto mb-4" />
-          <h1 className="text-xl font-bold text-gray-800 mb-2">プランを確認中...</h1>
-          <p className="text-sm text-gray-500">購読状態の同期が終わるまで少しお待ちください。</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-200 flex justify-center">
@@ -1597,7 +1585,7 @@ export default function SpeakingTrainer({
         </button>
 
         {/* 回答セクション */}
-        <div className="bg-gradient-to-b from-blue-50 to-green-50 rounded-3xl shadow-lg p-8 mb-4">
+        {!hasJudged && <div className="bg-gradient-to-b from-blue-50 to-green-50 rounded-3xl shadow-lg p-8 mb-4">
           <h2 className="text-center font-bold text-gray-700 mb-6">回答</h2>
 
           {/* 回答入力エリア */}
@@ -1716,7 +1704,7 @@ export default function SpeakingTrainer({
           {recognitionError && (
             <p className="text-sm text-red-500 mt-4 text-center">{recognitionError}</p>
           )}
-        </div>
+        </div>}
 
         {/* ローディング中の表示 */}
         {isAiLoading && (
