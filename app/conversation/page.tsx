@@ -462,7 +462,7 @@ export default function ConversationPage() {
                         編集
                       </button>
                     )}
-                    {message.role === 'assistant' && (
+                    {message.role === 'assistant' && !message.correction && (
                       <div className="mt-2 flex items-center gap-3 flex-wrap">
                         <button
                           onClick={() => speak(message.content)}
@@ -487,7 +487,7 @@ export default function ConversationPage() {
                         )}
                       </div>
                     )}
-                    {message.role === 'assistant' && message.translation && expandedTranslations.has(message.id) && (
+                    {message.role === 'assistant' && !message.correction && message.translation && expandedTranslations.has(message.id) && (
                       <div className="mt-2 pt-2 border-t border-gray-200 text-xs text-gray-500 leading-relaxed">
                         {message.translation}
                       </div>
