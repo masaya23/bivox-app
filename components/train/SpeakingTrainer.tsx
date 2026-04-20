@@ -202,8 +202,11 @@ export default function SpeakingTrainer({
   const [isNoSpeech, setIsNoSpeech] = useState(false);
 
   // 自動判定タイマー
+  const AUTO_JUDGE_SECONDS = 5;
   const autoJudgeTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [isAutoJudgePending, setIsAutoJudgePending] = useState(false);
+  const [autoJudgeCountdown, setAutoJudgeCountdown] = useState(AUTO_JUDGE_SECONDS);
   // handleJudge の latest-ref（stale closure 回避）
   const handleJudgeRef = useRef<() => void>(() => {});
 
@@ -343,14 +346,20 @@ export default function SpeakingTrainer({
         setRecognizedText(text);
         setEditableText(text);
         setIsListening(false);
-        // 文字起こし完了 → 4秒後に自動判定（ユーザーがタップしたらキャンセル）
+        // 文字起こし完了 → 5秒カウントダウン後に自動判定
         if (autoJudgeTimerRef.current) clearTimeout(autoJudgeTimerRef.current);
+        if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
         setIsAutoJudgePending(true);
+        setAutoJudgeCountdown(AUTO_JUDGE_SECONDS);
+        countdownIntervalRef.current = setInterval(() => {
+          setAutoJudgeCountdown(prev => Math.max(0, prev - 1));
+        }, 1000);
         autoJudgeTimerRef.current = setTimeout(() => {
           autoJudgeTimerRef.current = null;
+          if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
           setIsAutoJudgePending(false);
           handleJudgeRef.current();
-        }, 4000);
+        }, AUTO_JUDGE_SECONDS * 1000);
       },
       onNoSpeech: () => {
         setIsListening(false);
@@ -640,7 +649,12 @@ export default function SpeakingTrainer({
       clearTimeout(autoJudgeTimerRef.current);
       autoJudgeTimerRef.current = null;
     }
+    if (countdownIntervalRef.current) {
+      clearInterval(countdownIntervalRef.current);
+      countdownIntervalRef.current = null;
+    }
     setIsAutoJudgePending(false);
+    setAutoJudgeCountdown(AUTO_JUDGE_SECONDS);
   };
 
   const handleRetry = () => {
@@ -1689,11 +1703,20 @@ export default function SpeakingTrainer({
                 {isListening ? '聞き取り中...' : isTranscribing ? '文字起こし中...' : 'タップして録音'}
               </p>
 
-              {/* 自動判定ペンディング中のヒント */}
+              {/* 自動判定カウントダウンバー */}
               {isAutoJudgePending && (
-                <p className="mt-2 text-xs text-green-600 font-medium animate-pulse">
-                  ✏️ 入力欄をタップして修正できます
-                </p>
+                <div className="w-full mt-3">
+                  <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+                    <span className="text-green-600 font-medium">✏️ タップして修正</span>
+                    <span className="font-bold text-gray-700">{autoJudgeCountdown}秒後に自動送信</span>
+                  </div>
+                  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-green-400 to-blue-400 rounded-full transition-all duration-1000 ease-linear"
+                      style={{ width: `${(autoJudgeCountdown / AUTO_JUDGE_SECONDS) * 100}%` }}
+                    />
+                  </div>
+                </div>
               )}
 
               {/* わからない・答えを見るボタン */}
