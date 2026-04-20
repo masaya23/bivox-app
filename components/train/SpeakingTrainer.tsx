@@ -201,17 +201,11 @@ export default function SpeakingTrainer({
   // 無音（未回答）フラグ
   const [isNoSpeech, setIsNoSpeech] = useState(false);
 
-  // マイク設定（localStorageで永続化）
-  const [micEnabled, setMicEnabled] = useState(() => {
-    if (typeof window === 'undefined') return true;
-    const stored = localStorage.getItem('micEnabled');
-    return stored !== null ? stored === 'true' : true;
-  });
-  const toggleMic = () => {
-    const next = !micEnabled;
-    setMicEnabled(next);
-    localStorage.setItem('micEnabled', String(next));
-  };
+  // 自動判定タイマー
+  const autoJudgeTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [isAutoJudgePending, setIsAutoJudgePending] = useState(false);
+  // handleJudge の latest-ref（stale closure 回避）
+  const handleJudgeRef = useRef<() => void>(() => {});
 
   // 各問題の結果を保存
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
@@ -349,6 +343,14 @@ export default function SpeakingTrainer({
         setRecognizedText(text);
         setEditableText(text);
         setIsListening(false);
+        // 文字起こし完了 → 4秒後に自動判定（ユーザーがタップしたらキャンセル）
+        if (autoJudgeTimerRef.current) clearTimeout(autoJudgeTimerRef.current);
+        setIsAutoJudgePending(true);
+        autoJudgeTimerRef.current = setTimeout(() => {
+          autoJudgeTimerRef.current = null;
+          setIsAutoJudgePending(false);
+          handleJudgeRef.current();
+        }, 4000);
       },
       onNoSpeech: () => {
         setIsListening(false);
@@ -393,7 +395,7 @@ export default function SpeakingTrainer({
     stopJapanese();
     stopEnglish();
     setIsNoSpeech(false);
-    shouldAutoRecordRef.current = micEnabled; // マイクOFFの場合は自動録音しない
+    shouldAutoRecordRef.current = true;
 
     const playAndRecord = async () => {
       try {
@@ -627,6 +629,18 @@ export default function SpeakingTrainer({
     setIsAiLoading(false);
     setLoadingMessage(null);
     setApiRetryFn(() => () => handleJudge());
+  };
+
+  // handleJudge の latest-ref を常に最新に保つ
+  handleJudgeRef.current = handleJudge;
+
+  // 自動判定タイマーをキャンセルするヘルパー
+  const clearAutoJudgeTimer = () => {
+    if (autoJudgeTimerRef.current) {
+      clearTimeout(autoJudgeTimerRef.current);
+      autoJudgeTimerRef.current = null;
+    }
+    setIsAutoJudgePending(false);
   };
 
   const handleRetry = () => {
@@ -1560,28 +1574,7 @@ export default function SpeakingTrainer({
                 </span>
               )}
             </div>
-            <button
-              onClick={toggleMic}
-              className="min-w-[50px] flex items-center justify-end"
-              title={micEnabled ? 'マイクをOFFにする' : 'マイクをONにする'}
-            >
-              {micEnabled ? (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                  <line x1="12" y1="19" x2="12" y2="23"/>
-                  <line x1="8" y1="23" x2="16" y2="23"/>
-                </svg>
-              ) : (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="1" y1="1" x2="23" y2="23"/>
-                  <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/>
-                  <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/>
-                  <line x1="12" y1="19" x2="12" y2="23"/>
-                  <line x1="8" y1="23" x2="16" y2="23"/>
-                </svg>
-              )}
-            </button>
+            <span className="min-w-[50px]" />
           </div>
         </header>
 
@@ -1631,13 +1624,21 @@ export default function SpeakingTrainer({
                     <textarea
                       value={editableText}
                       onChange={(e) => setEditableText(e.target.value)}
+                      onFocus={clearAutoJudgeTimer}
+                      disabled={isListening || isTranscribing}
                       placeholder={isListening ? '聞き取り中...' : isTranscribing ? '文字起こし中...' : 'ここに英文を入力または音声入力...'}
-                      className="flex-1 p-3 border-2 border-blue-200 rounded-xl focus:outline-none focus:border-blue-400 resize-none text-gray-800"
+                      className={`flex-1 p-3 border-2 rounded-xl focus:outline-none resize-none text-gray-800 transition-colors ${
+                        isListening || isTranscribing
+                          ? 'border-blue-200 bg-gray-50 text-gray-400 cursor-not-allowed'
+                          : isAutoJudgePending
+                          ? 'border-green-400 bg-green-50 focus:border-green-500'
+                          : 'border-blue-200 focus:border-blue-400'
+                      }`}
                       rows={2}
                     />
                     <button
-                      onClick={handleJudge}
-                      disabled={!editableText.trim() || isAiLoading}
+                      onClick={() => { clearAutoJudgeTimer(); handleJudge(); }}
+                      disabled={!editableText.trim() || isAiLoading || isListening || isTranscribing}
                       className="px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 transition-all flex items-center justify-center"
                       title="判定する"
                     >
@@ -1649,8 +1650,8 @@ export default function SpeakingTrainer({
                 </div>
               )}
 
-              {/* マイクボタン（マイクONの場合のみ表示） */}
-              {micEnabled && <button
+              {/* マイクボタン */}
+              <button
                 onClick={isListening ? handleStopRecording : handleStartRecording}
                 disabled={isAiLoading}
                 className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all transform hover:scale-105 ${
@@ -1682,11 +1683,18 @@ export default function SpeakingTrainer({
                     <div className="w-3.5 h-3.5 bg-white rounded-full" />
                   )}
                 </div>
-              </button>}
+              </button>
 
-              {micEnabled && <p className="text-gray-500 mt-2 text-xs">
-                {isListening ? '聞き取り中...' : 'タップして録音'}
-              </p>}
+              <p className="text-gray-500 mt-2 text-xs">
+                {isListening ? '聞き取り中...' : isTranscribing ? '文字起こし中...' : 'タップして録音'}
+              </p>
+
+              {/* 自動判定ペンディング中のヒント */}
+              {isAutoJudgePending && (
+                <p className="mt-2 text-xs text-green-600 font-medium animate-pulse">
+                  ✏️ 入力欄をタップして修正できます
+                </p>
+              )}
 
               {/* わからない・答えを見るボタン */}
               <button
