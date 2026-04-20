@@ -126,6 +126,7 @@ export default function ShadowingTrainer({
   const startTimeRef = useRef<number | null>(null); // 学習開始時刻
   const currentSentence = sentences[currentIndex];
   const isLastQuestion = currentIndex === sentences.length - 1;
+  const consumedIndicesRef = useRef(new Set<number>());
   const totalQuestions = sentences.length;
 
   // ローカル音声再生
@@ -255,14 +256,17 @@ export default function ShadowingTrainer({
     // ユーザーが日本語を聞き終わった時点で消費（スキップした場合は消費しない）
     let remainingLifeAfterConsume = Infinity;
     if (!isUnlimited) {
-      const result = consumeLife();
-      if (!result.success) {
-        // ライフ不足の場合：停止してモーダル表示（通常ここには来ない）
-        cancelPlayback();
-        setShowLifeOutModal(true);
-        return;
+      // 同じ問題をポーズ後に再開した場合はスタミナを再消費しない
+      if (!consumedIndicesRef.current.has(index)) {
+        const result = consumeLife();
+        if (!result.success) {
+          cancelPlayback();
+          setShowLifeOutModal(true);
+          return;
+        }
+        consumedIndicesRef.current.add(index);
+        remainingLifeAfterConsume = result.remainingLife;
       }
-      remainingLifeAfterConsume = result.remainingLife;
     }
 
     // 2. ポーズ（ユーザーがスピーキングする時間）
@@ -347,6 +351,7 @@ export default function ShadowingTrainer({
     const startIndex = isFinished ? 0 : currentIndex;
     if (isFinished) {
       resetAdShown();
+      consumedIndicesRef.current.clear();
     }
     startFromIndex(startIndex);
   };
