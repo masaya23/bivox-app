@@ -3,6 +3,7 @@ import OpenAI from 'openai';
 import { checkRateLimit, RATE_LIMITS } from '@/utils/rateLimit';
 import { getClientId } from '@/utils/clientId';
 import { previewDailyLimit, consumeDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
+import { createDeterministicThemeFeedback, createPartThemeGuide } from '@/utils/partThemeGuide';
 
 // Capacitorビルド（静的エクスポート）時に必要
 export const dynamic = 'force-dynamic';
@@ -234,6 +235,61 @@ Also:
 - Avoid saying only "英語の文になっていません" without the rule.
 
 ═══════════════════════════════════════════════════════════════
+PART THEME ADVICE FOR CORRECT ALTERNATIVES
+═══════════════════════════════════════════════════════════════
+
+The app has lesson Parts. Each Part practices a specific grammar theme.
+
+Theme precision rule:
+- If the Part Title says 「人称代名詞②（所有格）」, the target pattern is possessive pronouns:
+  "my", "your", "his", "her", "its", "our", "their".
+  A noun possessive using apostrophe-s, such as "the dog's", is grammatically correct English,
+  but it does NOT practice this Part Theme. Do NOT praise it as 「所有格の使い方」.
+  Accept the meaning with score 100 only when natural, then remind the learner to practice the
+  possessive pronoun in the reference answer, especially "its" for animals/things.
+- If the Part Title says 「人称代名詞④（独立所有格）」, the target pattern is independent possessive pronouns:
+  "mine", "yours", "his", "hers", "ours", "theirs".
+- Do not collapse a broad grammar label into a looser related grammar. The reminder must name
+  the exact Part Theme, not just a nearby concept.
+
+If the learner's answer is:
+1. grammatically correct,
+2. natural English,
+3. semantically correct for the Japanese prompt,
+BUT
+4. it does NOT practice the grammar pattern of the Current Part Title,
+
+then DO NOT mark it wrong.
+
+Scoring rule:
+- judgement: "correct"
+- score: 100
+- meaningCorrect should effectively be true
+- correctedUserAnswer may keep the learner's natural answer
+
+Feedback rule:
+- feedback MUST first praise/accept the learner's answer as correct.
+- feedback MUST then add a short lesson-theme reminder:
+  「ただし、このパートでは『[Part Titleから導出した文法テーマ]』を練習しているので、今回は “[reference answer]” の形も声に出して練習してみましょう。」
+
+Examples:
+- Current Part Title: 「人称代名詞②（所有格）」
+  JP: 「その犬の名前はポチです。」
+  Reference: "Its name is Pochi."
+  Learner: "The dog's name is Pochi."
+  → score: 100, judgement: "correct"
+  → feedback: 「"The dog's name is Pochi." も正しい英文です。ただし、このパートでは『人称代名詞の所有格』を練習しているので、今回は "Its name is Pochi." のように "its" を使う形も声に出して練習してみましょう。」
+  → Bad feedback: 「所有格の使い方はとても良いですね。」 because "the dog's" is noun possessive, not the possessive pronoun target of this Part.
+
+- Current Part Title: 「be動詞の否定文」
+  If the learner uses a different natural structure that avoids the target be-verb negative pattern while preserving meaning,
+  accept it with score 100, then remind them to practice the target pattern.
+
+Do NOT put this in mistakePointJa as an error.
+Do NOT reduce score for this situation.
+Keep the advice concise and friendly in feedback.
+
+═══════════════════════════════════════════════════════════════
 MULTI-SENTENCE HANDLING (疑問文+答え形式など)
 ═══════════════════════════════════════════════════════════════
 
@@ -370,6 +426,8 @@ JSON format:
 
 // partTitleを動的に埋め込むための関数
 const createGraderSystemPrompt = (partTitle: string) => {
+  const partThemeGuide = createPartThemeGuide(partTitle);
+
   return `You are a Japanese tutor for English learners (A1–B1).
 Write explanations like a professional language learning app.
 
@@ -379,6 +437,11 @@ Current Part Title: 「${partTitle}」
 - Your ruleJa explanation MUST focus on this grammar theme.
 - Use the Part Title to determine the "Part Theme" in Step 1 of ruleJa.
 - If the learner's error is directly related to this Part, explain it in depth.
+- If the learner's answer is correct and natural but avoids the Part Theme grammar pattern,
+  keep score 100 and add a short reminder in feedback to practice the Part Theme using the reference answer.
+
+【PART THEME PRECISION GUIDE】
+${partThemeGuide}
 
 Return ONLY JSON matching this exact format.
 
@@ -561,7 +624,7 @@ export async function POST(request: NextRequest) {
 
       const stripPunctuation = (text: string) =>
         text
-          .replace(/[.?!,;:"()]/g, '')
+          .replace(/[.?!,;:"()\-\u2013\u2014]/g, '')
           .replace(/'/g, '')
           .replace(/\s+/g, ' ')
           .trim();
@@ -759,14 +822,20 @@ Evaluate the learner's answer. Replace {LEARNER_ANSWER} with "${userAnswer}" and
       const scoreValue = graderResult.score || 0;
       const isCorrect = hasJudgement ? judgement === 'correct' || judgement === 'acceptable' : scoreValue >= 70;
       const meaningCorrect = hasJudgement ? judgement !== 'incorrect' : scoreValue >= 70;
+      const deterministicThemeFeedback = createDeterministicThemeFeedback({
+        partTitle,
+        correctAnswer,
+        userAnswer,
+        isCorrect,
+      });
 
       // 従来形式に変換して返す
       const evaluation = {
         score: scoreValue,
         isCorrect,
         meaningCorrect,
-        grammarCorrect: graderResult.grammarFocus === undefined || ['meaning', 'word_choice'].includes(graderResult.grammarFocus),
-        feedback: graderResult.feedback || '',
+        grammarCorrect: isCorrect || graderResult.grammarFocus === undefined || ['meaning', 'word_choice'].includes(graderResult.grammarFocus),
+        feedback: deterministicThemeFeedback || graderResult.feedback || '',
         correction: graderResult.correctedUserAnswer || graderResult.bestAnswer || correctAnswer,
         correctedUserAnswer: graderResult.correctedUserAnswer || '',
         explanation: '',

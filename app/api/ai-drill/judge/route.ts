@@ -4,6 +4,7 @@ import { checkRateLimit, RATE_LIMITS } from '@/utils/rateLimit';
 import { getClientId } from '@/utils/clientId';
 import { previewDailyLimit, consumeDailyLimit, getPlanFromHeader, dailyLimitHeaders, DAILY_LIMITS } from '@/utils/dailyLimit';
 import type { JudgeAnswerRequest, JudgeAnswerResponse } from '@/types/aiDrill';
+import { createDeterministicThemeFeedback, createPartThemeGuide } from '@/utils/partThemeGuide';
 
 // Capacitorビルド（静的エクスポート）時に必要
 export const dynamic = 'force-dynamic';
@@ -25,6 +26,17 @@ const judgePromptBody = `
 3. 多少の表現の違いは許容（意味が同じであれば正解）
 4. スペルミスは軽微なものなら許容するが指摘する
 5. 冠詞(a/the)や単数/複数の間違いは文脈次第で許容
+
+【重要】Part Themeの厳密な扱い:
+- 学習者の回答が、文法的に正しく、自然で、日本語の意味も正しい場合は正解にしてください。
+- ただし、その回答がCurrent Part Titleの文法パターンを使っていない場合は、解説で
+  「このパートでは〇〇を使う形も練習しましょう」と補足してください。
+- Current Part Titleが「人称代名詞②（所有格）」の場合、練習対象は
+  "my", "your", "his", "her", "its", "our", "their" のような所有格の人称代名詞です。
+  "the dog's" のような名詞の所有格は正しい英文ですが、このPart Themeの練習対象ではありません。
+  「所有格の使い方が良い」と広く褒めず、"Its name is Pochi." のように "its" を使う形も練習するよう補足してください。
+- Current Part Titleが「人称代名詞④（独立所有格）」の場合、練習対象は
+  "mine", "yours", "his", "hers", "ours", "theirs" です。
 
 【重要】音声入力特有の問題への対応:
 - 文頭の大文字/小文字の違いは無視して判定（文法が正しければ正解）
@@ -211,6 +223,8 @@ SECTION D: ANTI-OVERFITTING (完全な動的適応)
 
 // partTitleを動的に埋め込むための関数
 const createJudgeSystemPrompt = (partTitle: string, grammarContext: string) => {
+  const partThemeGuide = createPartThemeGuide(partTitle);
+
   return `あなたは基礎英語の採点官です。
 ユーザーの英語回答を判定し、正誤・修正文・解説を返してください。
 
@@ -219,6 +233,9 @@ Current Part Title: 「${partTitle}」
 - これは学習者が現在学習中の文法トピックです。
 - explanationでは、このPart Themeを中心に解説してください。
 - 学習者のエラーがこのPartに関連する場合は、深く説明してください。
+
+【PART THEME PRECISION GUIDE】
+${partThemeGuide}
 
 ${grammarContext}
 ${judgePromptBody}`;
@@ -339,6 +356,16 @@ export async function POST(request: NextRequest) {
     if (!result.isCorrect && normalize(userAnswerEn) === normalize(result.correctEn || expectedEn)) {
       result.isCorrect = true;
       result.explanation = '正解です！';
+    }
+
+    const deterministicThemeFeedback = createDeterministicThemeFeedback({
+      partTitle,
+      correctAnswer: expectedEn,
+      userAnswer: userAnswerEn,
+      isCorrect: result.isCorrect,
+    });
+    if (deterministicThemeFeedback) {
+      result.explanation = deterministicThemeFeedback;
     }
 
     const consumedDailyResult = consumeDailyLimit(clientId, plan, DAILY_LIMITS.AI_DRILL_JUDGE);
