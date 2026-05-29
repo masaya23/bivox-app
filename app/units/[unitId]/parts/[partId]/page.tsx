@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import ShadowingTrainer from '@/components/train/ShadowingTrainer';
 import SpeakingTrainer from '@/components/train/SpeakingTrainer';
 import AIDrillTrainer from '@/components/train/AIDrillTrainer';
+import ModeAccessGate from '@/components/subscription/ModeAccessGate';
 import { getUnitById, getPartById, getNextPart, shufflePartSentences } from '@/utils/units';
 import { canGuestAccessMode, canGuestAccessPart, isGuestUser } from '@/utils/guestAccess';
 
@@ -36,13 +37,12 @@ function PartPracticePageContent() {
 
   // useMemoでシャッフル結果を安定化（再レンダー時に再シャッフルされるのを防止）
   // Hooksは条件付きreturnの前に呼ぶ必要がある
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const sentences = useMemo(
     () => {
       if (!part) return [];
       return shuffleMode ? shufflePartSentences(part).sentences : part.sentences;
     },
-    [shuffleMode, partId] // partIdが変わった時だけ再シャッフル
+    [shuffleMode, part] // partが変わった時だけ再シャッフル
   );
 
   if (!unit || !part) {
@@ -76,33 +76,37 @@ function PartPracticePageContent() {
       : [];
 
     return (
-      <AIDrillTrainer
-        partSentences={part.sentences}
-        partId={part.id}
-        partTitle={pageTitle}
-        grammarTags={grammarTags}
-        backLink={backLink}
-        partSelectLink={partSelectLink}
-        nextLessonLink={nextLessonLink}
-        gradeId={grade}
-        partLabel={partLabel}
-      />
+      <ModeAccessGate mode="ai-drill" backLink={backLink}>
+        <AIDrillTrainer
+          partSentences={part.sentences}
+          partId={part.id}
+          partTitle={pageTitle}
+          grammarTags={grammarTags}
+          backLink={backLink}
+          partSelectLink={partSelectLink}
+          nextLessonLink={nextLessonLink}
+          gradeId={grade}
+          partLabel={partLabel}
+        />
+      </ModeAccessGate>
     );
   }
 
   if (mode === 'speaking') {
     return (
-      <SpeakingTrainer
-        initialSentences={sentences}
-        pageTitle={pageTitle}
-        backLink={backLink}
-        partSelectLink={partSelectLink}
-        nextLessonLink={nextLessonLink}
-        partId={part.id}
-        partTitle={part.title}
-        gradeId={grade}
-        partLabel={partLabel}
-      />
+      <ModeAccessGate mode="speaking" backLink={backLink}>
+        <SpeakingTrainer
+          initialSentences={sentences}
+          pageTitle={pageTitle}
+          backLink={backLink}
+          partSelectLink={partSelectLink}
+          nextLessonLink={nextLessonLink}
+          partId={part.id}
+          partTitle={part.title}
+          gradeId={grade}
+          partLabel={partLabel}
+        />
+      </ModeAccessGate>
     );
   }
 

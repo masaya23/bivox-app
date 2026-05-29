@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Capacitor } from '@capacitor/core';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { useSubscription } from '@/contexts/SubscriptionContext';
@@ -192,10 +193,13 @@ export default function HomePage() {
         }}
       >
         <div className="relative z-10 text-center">
-          <img
+          <Image
             src="/images/bivox-logo.png"
             alt="Bivox"
-            className="mx-auto w-[300px] sm:w-[320ppx] h-auto mb-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.20)]"
+            width={320}
+            height={120}
+            priority
+            className="mx-auto w-[300px] sm:w-[320px] h-auto mb-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.20)]"
           />
           <h2
             className="text-[24px] font-bold text-white tracking-widest leading-tight"

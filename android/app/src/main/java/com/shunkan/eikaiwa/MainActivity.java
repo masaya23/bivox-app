@@ -1,10 +1,14 @@
 package com.shunkan.eikaiwa;
 
 import android.os.Bundle;
+import android.os.Build;
+import android.graphics.Color;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.core.graphics.Insets;
 import android.view.View;
 import android.Manifest;
@@ -17,10 +21,43 @@ public class MainActivity extends BridgeActivity {
     private static final int PERMISSION_REQUEST_CODE = 1001;
     private PermissionRequest pendingPermissionRequest;
 
+    private void applySystemBarAppearance() {
+        getWindow().setStatusBarColor(Color.WHITE);
+        getWindow().setNavigationBarColor(Color.WHITE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setStatusBarContrastEnforced(false);
+            getWindow().setNavigationBarContrastEnforced(false);
+        }
+
+        View decorView = getWindow().getDecorView();
+        int systemUiVisibility = decorView.getSystemUiVisibility();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            systemUiVisibility |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            systemUiVisibility |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+        }
+
+        decorView.setSystemUiVisibility(systemUiVisibility);
+
+        WindowInsetsControllerCompat insetsController =
+            WindowCompat.getInsetsController(getWindow(), decorView);
+        if (insetsController != null) {
+            insetsController.setAppearanceLightStatusBars(true);
+            insetsController.setAppearanceLightNavigationBars(true);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         registerPlugin(ExternalNavigationPlugin.class);
         super.onCreate(savedInstanceState);
+
+        // 白背景のシステムバーでは黒アイコンを強制する
+        applySystemBarAppearance();
 
         // ステータスバー・ナビゲーションバーとコンテンツの重なりを防止
         View content = findViewById(android.R.id.content);
@@ -54,6 +91,20 @@ public class MainActivity extends BridgeActivity {
                 super.onPermissionRequest(request);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        applySystemBarAppearance();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            applySystemBarAppearance();
+        }
     }
 
     @Override

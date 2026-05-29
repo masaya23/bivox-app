@@ -23,15 +23,15 @@ function SparkleIcon({ className = '' }: { className?: string }) {
 export default function ResultHeader({ message, subMessage }: ResultHeaderProps) {
   return (
     <div
-      className="w-full py-12 flex flex-col items-center justify-center text-white relative"
+      className="w-full py-12 flex flex-col items-center justify-center text-white relative overflow-hidden"
       style={{ background: HEADER_GRADIENT }}
     >
+      <span className="absolute top-4 right-4 rotate-12 opacity-90">
+        <SparkleIcon className="w-10 h-10 text-white" />
+      </span>
       <div className="relative inline-flex items-center justify-center">
         <span className="text-5xl font-black tracking-[0.14em]">
           {message}
-        </span>
-        <span className="absolute left-full ml-3 -top-5 rotate-12">
-          <SparkleIcon className="w-12 h-12 text-white" />
         </span>
       </div>
       {subMessage && (

@@ -23,32 +23,6 @@ interface ModeSelectCardProps {
   accentColor: string;
 }
 
-// スケルトンローダーコンポーネント
-function ModeSelectCardSkeleton() {
-  return (
-    <div className="p-5 rounded-2xl border-2 border-gray-200 bg-gray-50 animate-pulse">
-      <div className="flex items-start gap-2.5">
-        {/* アイコン */}
-        <div className="w-10 h-10 rounded-xl bg-gray-200 flex-shrink-0" />
-        <div className="flex-1 min-w-0">
-          {/* タイトル */}
-          <div className="h-5 bg-gray-200 rounded w-32 mb-2" />
-          {/* 説明 */}
-          <div className="h-3 bg-gray-200 rounded w-48 mb-2" />
-          {/* 機能リスト */}
-          <div className="space-y-1.5">
-            <div className="h-3 bg-gray-200 rounded w-44" />
-            <div className="h-3 bg-gray-200 rounded w-36" />
-            <div className="h-3 bg-gray-200 rounded w-40" />
-          </div>
-        </div>
-        {/* 矢印ボタン */}
-        <div className="w-8 h-8 rounded-full bg-gray-200" />
-      </div>
-    </div>
-  );
-}
-
 export default function ModeSelectCard({
   mode,
   href,
@@ -63,18 +37,23 @@ export default function ModeSelectCard({
 }: ModeSelectCardProps) {
   const router = useAppRouter();
   const { user } = useAuth();
-  const { canAccessMode } = useSubscription();
+  const { canAccessMode, isLoading: isSubscriptionLoading } = useSubscription();
   const [showTeaser, setShowTeaser] = useState(false);
   const [showPaywall, setShowPaywall] = useState(false);
 
   const isGuest = isGuestUser(user);
   const guestModeAccess = !isGuest || canGuestAccessMode(mode);
-  const hasAccess = canAccessMode(mode) && guestModeAccess;
   const requiredPlan = MODE_REQUIRED_PLAN[mode];
+  const isFreeMode = requiredPlan === 'free';
+  const isCheckingAccess = isSubscriptionLoading && !isFreeMode && guestModeAccess;
+  const hasAccess = guestModeAccess && (isFreeMode || (!isSubscriptionLoading && canAccessMode(mode)));
   const lockLabel = isGuest && !guestModeAccess ? GUEST_LOCK_LABEL : PLAN_NAMES[requiredPlan];
 
   const handleClick = (e: React.MouseEvent) => {
     if (!hasAccess) {
+      if (isCheckingAccess) {
+        return;
+      }
       e.preventDefault();
       if (isGuest) {
         router.push('/auth/register');
@@ -92,8 +71,14 @@ export default function ModeSelectCard({
   return (
     <>
       <div className="relative">
-        {/* ロックバッジ */}
-        {!hasAccess && (
+        {/* 確認中/ロックバッジ */}
+        {isCheckingAccess ? (
+          <div className="absolute -top-2 -right-2 z-10">
+            <span className="px-3 py-1.5 bg-blue-500 text-white text-xs font-bold rounded-full shadow-lg">
+              確認中
+            </span>
+          </div>
+        ) : !hasAccess && (
           <div className="absolute -top-2 -right-2 z-10">
             <span className="px-3 py-1.5 bg-gray-800 text-white text-xs font-bold rounded-full shadow-lg flex items-center gap-1">
               <LockIcon size={14} />
@@ -103,13 +88,13 @@ export default function ModeSelectCard({
         )}
 
         <HardNavLink
-          href={hasAccess ? href : '#'}
+          href={hasAccess || isCheckingAccess ? href : '#'}
           onClick={handleClick}
           className={`
             block p-5 rounded-2xl border-2 transition-all
             ${gradient}
-            ${hasAccess ? borderColor : 'border-gray-200'}
-            ${hasAccess ? 'active:scale-[0.98] hover:shadow-lg' : 'opacity-70'}
+            ${hasAccess || isCheckingAccess ? borderColor : 'border-gray-200'}
+            ${hasAccess ? 'active:scale-[0.98] hover:shadow-lg' : isCheckingAccess ? 'opacity-90' : 'opacity-70'}
           `}
         >
           <div>
@@ -122,12 +107,12 @@ export default function ModeSelectCard({
                 <h2 className="text-base font-black text-gray-800">
                   {title}
                 </h2>
-                {!hasAccess && (
+                {!hasAccess && !isCheckingAccess && (
                   <span className="text-gray-400"><LockIcon size={14} /></span>
                 )}
               </div>
-              <div className={`absolute top-0 right-0 w-8 h-8 rounded-full ${hasAccess ? iconBg : 'bg-gray-200'} flex items-center justify-center text-white font-bold text-sm`}>
-                {hasAccess ? '→' : <LockIcon size={14} />}
+              <div className={`absolute top-0 right-0 w-8 h-8 rounded-full ${hasAccess ? iconBg : isCheckingAccess ? 'bg-blue-200' : 'bg-gray-200'} flex items-center justify-center ${hasAccess ? 'text-white' : isCheckingAccess ? 'text-blue-700' : 'text-white'} font-bold text-sm`}>
+                {hasAccess ? '→' : isCheckingAccess ? '…' : <LockIcon size={14} />}
               </div>
             </div>
             {/* 説明文（フル幅） */}

@@ -29,7 +29,7 @@ interface AdContextType extends AdState {
 const AdContext = createContext<AdContextType | undefined>(undefined);
 
 export function AdProvider({ children }: { children: ReactNode }) {
-  const { isMasterAccount, getEffectiveTier, debugOverridePlan } = useSubscription();
+  const { isMasterAccount, getEffectiveTier, debugOverridePlan, isLoading: isSubscriptionLoading } = useSubscription();
 
   // デバッグ用：バナー広告を強制表示
   const [debugForceShowBanner, setDebugForceShowBannerState] = useState(false);
@@ -41,6 +41,8 @@ export function AdProvider({ children }: { children: ReactNode }) {
   const shouldShowAds = (() => {
     // デバッグ強制表示が有効な場合は常に表示
     if (isMasterAccount && debugForceShowBanner) return true;
+    // サブスクリプションロード中は広告を表示しない（Pro/Plusユーザーへの誤表示防止）
+    if (isSubscriptionLoading) return false;
     // デバッグプランオーバーライドが設定されている場合
     if (isMasterAccount && debugOverridePlan !== null) {
       return debugOverridePlan === 'free';

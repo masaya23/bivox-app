@@ -18,6 +18,7 @@ import PlayIcon from '@/components/icons/PlayIcon';
 import SpeakerIcon from '@/components/icons/SpeakerIcon';
 import { useTrainerAdBanner } from '@/hooks/useTrainerAdBanner';
 import { useSubscription } from '@/contexts/SubscriptionContext';
+import { usePartialLessonLog } from '@/hooks/usePartialLessonLog';
 
 // ダミーデータ（10問）- unit1-p1のセンテンスを使用（MP3ファイルと対応）
 const DUMMY_SENTENCES: Sentence[] = [
@@ -314,11 +315,33 @@ export default function SpeakingTrainer({
     }
   };
 
+  const playbackRunIdRef = useRef(0);
+
+  const cancelPlaybackRun = async () => {
+    playbackRunIdRef.current += 1;
+    const playbackRunId = playbackRunIdRef.current;
+    clearSafetyTimeout();
+    stopTTS();
+    await Promise.all([stopJapanese(), stopEnglish()]);
+    return playbackRunId;
+  };
+
   const startTimeRef = useRef<number | null>(null); // 学習開始時刻
   const safetyTimeoutRef = useRef<NodeJS.Timeout | null>(null); // 録音開始保険タイマー
   const shouldAutoRecordRef = useRef<boolean>(false); // 自動録音すべきかのフラグ
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const currentSentence = sentences[currentIndex];
+
+  usePartialLessonLog({
+    mode: 'スピーキング',
+    getCompletedQuestions: () => questionResults.length,
+    getElapsedMinutes: () =>
+      startTimeRef.current
+        ? Math.max(1, Math.ceil((Date.now() - startTimeRef.current) / 60000))
+        : 0,
+    isComplete: () => isCompleted || startTimeRef.current === null,
+    sessionOptions: { gradeId, partLabel },
+  });
 
   // 初期化
   useEffect(() => {
@@ -402,17 +425,20 @@ export default function SpeakingTrainer({
     // 前回のSafety Timeoutをクリア
     clearSafetyTimeout();
 
-    stopJapanese();
-    stopEnglish();
+    const playbackRunId = playbackRunIdRef.current + 1;
+    playbackRunIdRef.current = playbackRunId;
     setIsNoSpeech(false);
     shouldAutoRecordRef.current = true;
 
     const playAndRecord = async () => {
       try {
+        await Promise.all([stopJapanese(), stopEnglish()]);
+        if (playbackRunIdRef.current !== playbackRunId) return;
         await speakJapanese(currentSentence.id, 'ja', undefined, currentSentence.jp);
+        if (playbackRunIdRef.current !== playbackRunId) return;
         // 日本語再生終了後、少し待ってから自動録音開始（重複防止のため遅延）
         setTimeout(() => {
-          if (shouldAutoRecordRef.current && !isPlayingJapanese) {
+          if (playbackRunIdRef.current === playbackRunId && shouldAutoRecordRef.current && !isPlayingJapanese) {
             startAutoRecording();
           }
         }, 800);
@@ -421,6 +447,7 @@ export default function SpeakingTrainer({
         // Safety Timeout: 音声が再生できなかった場合も2秒後に録音を試みる
         safetyTimeoutRef.current = setTimeout(() => {
           if (
+            playbackRunIdRef.current === playbackRunId &&
             shouldAutoRecordRef.current &&
             !isListening &&
             !hasJudged &&
@@ -437,7 +464,10 @@ export default function SpeakingTrainer({
 
     // クリーンアップ
     return () => {
+      playbackRunIdRef.current += 1;
       clearSafetyTimeout();
+      void stopJapanese();
+      void stopEnglish();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, currentSentence.id, autoStart]);
@@ -523,23 +553,22 @@ export default function SpeakingTrainer({
     };
 
     getNoSpeechEvaluation();
-  }, [isNoSpeech, showAnswer, currentSentence.jp, currentSentence.en, currentIndex, partTitle]);
+  }, [isNoSpeech, showAnswer, currentSentence, currentIndex, partTitle]);
 
   const handlePlayJapanese = () => {
     setHasUserInteracted(true); // ユーザー操作を記録
-    stopJapanese();
-    stopEnglish();
+    playbackRunIdRef.current += 1;
+      void stopJapanese();
+      void stopEnglish();
     speakJapanese(currentSentence.id, 'ja', undefined, currentSentence.jp).catch(() => {});
   };
 
   const handleStartRecording = () => {
-    
     if (isListening || isTranscribing) return;
+    clearAutoJudgeTimer();
     setHasUserInteracted(true);
     shouldAutoRecordRef.current = false;
-    clearSafetyTimeout();
-    stopJapanese();
-    stopEnglish();
+    void cancelPlaybackRun();
     setHasJudged(false);
     setAiEvaluation(null);
     setSimilarity(null);
@@ -600,8 +629,17 @@ export default function SpeakingTrainer({
           // 既にこの問題の結果がある場合 → リトライなのでfinalStatusのみ更新
           if (prev.length > currentIndex) {
             const updated = [...prev];
+            const existing = updated[currentIndex];
+            if (existing.isNoSpeech) {
+              updated[currentIndex] = {
+                ...existing,
+                finalStatus: 'incorrect',
+                finalAiEvaluation: existing.finalAiEvaluation || data.evaluation,
+              };
+              return updated;
+            }
             updated[currentIndex] = {
-              ...updated[currentIndex],
+              ...existing,
               finalStatus: currentStatus,
               finalUserAnswer: editableText,
               finalAiEvaluation: data.evaluation,
@@ -659,50 +697,50 @@ export default function SpeakingTrainer({
   };
 
   const handleRetry = () => {
+    window.scrollTo(0, 0);
+
     // 前回のタイマーをクリア
-    clearSafetyTimeout();
-    finishRecording();
+    void (async () => {
+      const playbackRunId = await cancelPlaybackRun();
+      finishRecording();
 
-    // 状態を完全にリセット
-    setRecognizedText('');
-    setEditableText('');
-    setHasJudged(false);
-    setAiEvaluation(null);
-    setSimilarity(null);
-    setAnswerExampleIndex(0);
-    setShowAnswer(false);
-    setIsNoSpeech(false);
+      // 状態を完全にリセット
+      setRecognizedText('');
+      setEditableText('');
+      setHasJudged(false);
+      setAiEvaluation(null);
+      setSimilarity(null);
+      setAnswerExampleIndex(0);
+      setShowAnswer(false);
+      setIsNoSpeech(false);
 
-    // 自動録音フラグをON
-    shouldAutoRecordRef.current = true;
+      // 自動録音フラグをON
+      shouldAutoRecordRef.current = true;
 
-    // 日本語を再生し、終了後に自動録音
-    const playAndRecord = async () => {
+      // 日本語を再生し、終了後に自動録音
       try {
         await speakJapanese(currentSentence.id, 'ja', undefined, currentSentence.jp);
+        if (playbackRunIdRef.current !== playbackRunId) return;
         setTimeout(() => {
-          if (shouldAutoRecordRef.current) {
+          if (playbackRunIdRef.current === playbackRunId && shouldAutoRecordRef.current) {
             startWhisperRecording(currentSentence.en);
           }
         }, 300);
       } catch {
         safetyTimeoutRef.current = setTimeout(() => {
-          if (shouldAutoRecordRef.current) {
+          if (playbackRunIdRef.current === playbackRunId && shouldAutoRecordRef.current) {
             startWhisperRecording(currentSentence.en);
           }
         }, 2000);
       }
-    };
-    playAndRecord();
+    })();
   };
 
   const handleShowAnswer = async () => {
     setHasUserInteracted(true); // ユーザー操作を記録
     shouldAutoRecordRef.current = false; // 答えを見るので自動録音を停止
-    clearSafetyTimeout(); // Safety Timeoutもクリア
+    await cancelPlaybackRun();
     finishRecording(); // 録音中なら停止
-    stopJapanese(); // 日本語音声再生中なら停止
-    stopEnglish(); // 英語音声再生中なら停止
     setShowAnswer(true);
     setIsAiLoading(true);
     setHasJudged(true);
@@ -799,9 +837,9 @@ export default function SpeakingTrainer({
     }
   };
 
-  const handleNext = () => {
-    stopJapanese();
-    stopEnglish();
+  const handleNext = async () => {
+    window.scrollTo(0, 0);
+    await cancelPlaybackRun();
 
     // 結果は既にhandleJudge/handleShowAnswerで保存済み
     // ここでは次の問題への移動のみ行う
@@ -835,55 +873,54 @@ export default function SpeakingTrainer({
   };
 
   const handleReset = () => {
-    // 前回のタイマーをクリア
-    clearSafetyTimeout();
-    finishRecording();
+    void (async () => {
+      // 前回のタイマーをクリア
+      const playbackRunId = await cancelPlaybackRun();
+      finishRecording();
 
-    stopJapanese();
-    stopEnglish();
-    setCurrentIndex(0);
-    setIsCompleted(false);
-    setRecognizedText('');
-    setEditableText('');
-    setHasJudged(false);
-    setAiEvaluation(null);
-    setSimilarity(null);
-    setAnswerExampleIndex(0);
-    setShowAnswer(false);
-    setIsNoSpeech(false);
-    setQuestionResults([]);
-    setIsReviewMode(false);
-    setExpandedCardIndex(null);
-    setHistoryPage(0);
+      setCurrentIndex(0);
+      setIsCompleted(false);
+      setRecognizedText('');
+      setEditableText('');
+      setHasJudged(false);
+      setAiEvaluation(null);
+      setSimilarity(null);
+      setAnswerExampleIndex(0);
+      setShowAnswer(false);
+      setIsNoSpeech(false);
+      setQuestionResults([]);
+      setIsReviewMode(false);
+      setExpandedCardIndex(null);
+      setHistoryPage(0);
 
-    shouldAutoRecordRef.current = true;
+      shouldAutoRecordRef.current = true;
 
-    if (currentIndex === 0) {
-      const playAndRecord = async () => {
+      if (currentIndex === 0) {
         try {
           await speakJapanese(sentences[0].id, 'ja', undefined, sentences[0].jp);
+          if (playbackRunIdRef.current !== playbackRunId) return;
           setTimeout(() => {
-            if (shouldAutoRecordRef.current) {
+            if (playbackRunIdRef.current === playbackRunId && shouldAutoRecordRef.current) {
               startWhisperRecording(sentences[0].en);
             }
           }, 300);
         } catch {
           safetyTimeoutRef.current = setTimeout(() => {
-            if (shouldAutoRecordRef.current) {
+            if (playbackRunIdRef.current === playbackRunId && shouldAutoRecordRef.current) {
               startWhisperRecording(sentences[0].en);
             }
           }, 2000);
         }
-      };
-      playAndRecord();
-    }
+      }
+    })();
   };
 
   const handlePlayAnswer = () => {
-    stopJapanese();
-    stopEnglish();
-    // ローカル音声はsentenceIdで再生するので、回答例は常にcurrentSentence.idを使用
-    speakEnglish(currentSentence.id, 'en', undefined, currentSentence.en).catch(() => {});
+    void (async () => {
+      await Promise.all([stopJapanese(), stopEnglish()]);
+      // ローカル音声はsentenceIdで再生するので、回答例は常にcurrentSentence.idを使用
+      await speakEnglish(currentSentence.id, 'en', undefined, currentSentence.en).catch(() => {});
+    })();
   };
 
   // 回答例の配列を作成（modelAnswersを優先、重複を除去）
@@ -1007,7 +1044,15 @@ export default function SpeakingTrainer({
         <div className="bg-white rounded-3xl shadow-xl p-8 text-center max-w-xl">
           <h1 className="text-2xl font-bold text-gray-800 mb-3">スピーキングモード</h1>
           <p className="text-gray-600">このブラウザは音声認識に対応していません。Google Chromeでお試しください。</p>
-          <HardNavLink href={backLink} className="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold">← 戻る</HardNavLink>
+          <HardNavLink
+            href={backLink}
+            onClick={async () => {
+              await cancelPlaybackRun();
+            }}
+            className="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold"
+          >
+            ← 戻る
+          </HardNavLink>
         </div>
       </div>
     );
@@ -1339,25 +1384,32 @@ export default function SpeakingTrainer({
                       ? getWordDiff(displayAnswer, displayEvaluation.correctedUserAnswer || displayEvaluation.correction || result.sentence.en)
                       : null;
 
-                    // 3状態の判定
+                    // 5状態の判定
                     const isExcellent = result.initialStatus === 'correct' && result.finalStatus === 'correct';
                     const isRecovered = result.initialStatus === 'incorrect' && result.finalStatus === 'correct';
                     const isMissed = result.initialStatus === 'incorrect' && result.finalStatus === 'incorrect';
+                    const isGiveUp = isMissed && (result.userAnswer === '（答えを見る）' || result.finalUserAnswer === '（答えを見る）');
+                    const isTimeout = isMissed && result.isNoSpeech && !isGiveUp;
+                    const isRealMiss = isMissed && !isGiveUp && !isTimeout;
 
                     // スタイル設定
                     const cardStyle = isExcellent
                       ? 'border-green-200 bg-green-50'
                       : isRecovered
                       ? 'border-yellow-200 bg-yellow-50'
+                      : (isGiveUp || isTimeout)
+                      ? 'border-gray-200 bg-gray-50'
                       : 'border-red-200 bg-red-50';
 
                     const badgeStyle = isExcellent
                       ? 'bg-green-500'
                       : isRecovered
                       ? 'bg-yellow-500'
+                      : (isGiveUp || isTimeout)
+                      ? 'bg-gray-400'
                       : 'bg-red-500';
 
-                    const statusLabel = isExcellent ? '一発正解' : isRecovered ? 'リカバリー' : '不正解';
+                    const statusLabel = isExcellent ? '一発正解' : isRecovered ? 'リカバリー' : isGiveUp ? 'ギブアップ' : isTimeout ? 'タイムアウト' : '不正解';
 
                     return (
                       <div
@@ -1376,6 +1428,10 @@ export default function SpeakingTrainer({
                                   <circle cx="12" cy="12" r="9" />
                                 ) : isRecovered ? (
                                   <polygon points="12,3 22,21 2,21" />
+                                ) : isGiveUp ? (
+                                  <line x1="5" y1="12" x2="19" y2="12" />
+                                ) : isTimeout ? (
+                                  <><circle cx="12" cy="12" r="9" /><polyline points="12,7 12,12 15,15" /></>
                                 ) : (
                                   <><line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" /></>
                                 )}
@@ -1403,21 +1459,8 @@ export default function SpeakingTrainer({
                             {/* 初回回答（リカバリー時のみ表示） */}
                             {isRecovered && (
                               <div className="bg-orange-50 rounded-lg p-3 border border-orange-200">
-                                <div className="flex items-center justify-between mb-1">
+                                <div className="mb-1">
                                   <span className="text-xs text-orange-600 font-bold">初回回答（不正解）</span>
-                                  {result.userAnswer && result.userAnswer !== '（未回答）' && (
-                                    <button
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        stopEnglish();
-                                        speakEnglish(result.sentence.id, 'en', undefined, result.userAnswer).catch(() => {});
-                                      }}
-                                      disabled={isPlayingEnglish}
-                                      className="w-7 h-7 min-w-[1.75rem] min-h-[1.75rem] flex-shrink-0 bg-orange-200 text-orange-600 rounded-full flex items-center justify-center hover:bg-orange-300 disabled:opacity-50 text-xs"
-                                    >
-                                      <PlayIcon />
-                                    </button>
-                                  )}
                                 </div>
                                 <p className="text-gray-700 text-sm">{result.userAnswer || '（未回答）'}</p>
                               </div>
@@ -1425,26 +1468,13 @@ export default function SpeakingTrainer({
 
                             {/* 最終回答 */}
                             <div className="bg-white rounded-lg p-3">
-                              <div className="flex items-center justify-between mb-1">
+                              <div className="mb-1">
                                 <span className="text-xs text-gray-500 font-bold">
                                   {isRecovered ? '最終回答（正解）' : 'あなたの回答'}
                                 </span>
-                                {displayAnswer && !result.isNoSpeech && (
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      stopEnglish();
-                                      speakEnglish(result.sentence.id, 'en', undefined, displayAnswer).catch(() => {});
-                                    }}
-                                    disabled={isPlayingEnglish}
-                                    className="w-7 h-7 min-w-[1.75rem] min-h-[1.75rem] flex-shrink-0 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 disabled:opacity-50 text-xs"
-                                  >
-                                    <PlayIcon />
-                                  </button>
-                                )}
                               </div>
                               {result.isNoSpeech && !isRecovered ? (
-                                <p className="text-gray-400 text-sm">（未回答）</p>
+                                <p className="text-gray-400 text-sm">{isGiveUp ? '（答えを見た）' : '（時間切れ）'}</p>
                               ) : resultWordDiff ? (
                                 <p className="text-sm">
                                   {resultWordDiff.userDiff.map((item, idx) => (
@@ -1471,8 +1501,11 @@ export default function SpeakingTrainer({
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     stopEnglish();
-                                    const textToSpeak = displayEvaluation?.correctedUserAnswer || displayEvaluation?.correction || result.sentence.en;
-                                    speakEnglish(result.sentence.id, 'en', undefined, textToSpeak).catch(() => {});
+                                    const textToSpeak = (isExcellent || isRecovered)
+                                      ? result.sentence.en
+                                      : displayEvaluation?.correctedUserAnswer || displayEvaluation?.correction || result.sentence.en;
+                                    const correctSid = textToSpeak === result.sentence.en ? result.sentence.id : `tts-${Date.now()}`;
+                                    speakEnglish(correctSid, 'en', undefined, textToSpeak).catch(() => {});
                                   }}
                                   disabled={isPlayingEnglish}
                                   className="w-7 h-7 min-w-[1.75rem] min-h-[1.75rem] flex-shrink-0 bg-green-100 text-green-600 rounded-full flex items-center justify-center hover:bg-green-200 disabled:opacity-50 text-xs"
@@ -1480,7 +1513,7 @@ export default function SpeakingTrainer({
                                   <PlayIcon />
                                 </button>
                               </div>
-                              {resultWordDiff && !isExcellent ? (
+                              {resultWordDiff && isRealMiss ? (
                                 <p className="text-sm font-semibold">
                                   {resultWordDiff.correctionDiff.map((item, idx) => (
                                     <span
@@ -1493,7 +1526,9 @@ export default function SpeakingTrainer({
                                 </p>
                               ) : (
                                 <p className="text-gray-800 text-sm font-semibold">
-                                  {displayEvaluation?.correctedUserAnswer || displayEvaluation?.correction || result.sentence.en}
+                                  {(isExcellent || isRecovered)
+                                    ? result.sentence.en
+                                    : displayEvaluation?.correctedUserAnswer || displayEvaluation?.correction || result.sentence.en}
                                 </p>
                               )}
                             </div>
@@ -1581,7 +1616,15 @@ export default function SpeakingTrainer({
         {/* ヘッダー */}
         <header className="bg-white px-4 py-3 sticky top-0 z-30 border-b border-gray-100">
           <div className="flex items-center justify-between">
-            <HardNavLink href={backLink} className="text-gray-600 font-semibold text-sm min-w-[50px]">← 戻る</HardNavLink>
+            <HardNavLink
+              href={backLink}
+              onClick={async () => {
+                await cancelPlaybackRun();
+              }}
+              className="text-gray-600 font-semibold text-sm min-w-[50px]"
+            >
+              ← 戻る
+            </HardNavLink>
             <div className="text-center flex-1 px-2">
               {headerTitle.partLabel && (
                 <span className={badgeClass}>
@@ -1590,6 +1633,26 @@ export default function SpeakingTrainer({
               )}
             </div>
             <span className="min-w-[50px]" />
+          </div>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <HardNavLink
+              href={partSelectLink ?? backLink}
+              onClick={async () => {
+                await cancelPlaybackRun();
+              }}
+              className="py-2 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold text-center active:scale-[0.98] transition-transform"
+            >
+              Part選択
+            </HardNavLink>
+            <HardNavLink
+              href="/"
+              onClick={async () => {
+                await cancelPlaybackRun();
+              }}
+              className="py-2 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold text-center active:scale-[0.98] transition-transform"
+            >
+              ホームに戻る
+            </HardNavLink>
           </div>
         </header>
 
@@ -1641,19 +1704,20 @@ export default function SpeakingTrainer({
                         ref={textareaRef}
                         value={editableText}
                         onChange={(e) => setEditableText(e.target.value)}
-                        onFocus={clearAutoJudgeTimer}
-                        disabled={isListening || isTranscribing}
+                        onFocus={() => {
+                          clearAutoJudgeTimer();
+                          shouldAutoRecordRef.current = false;
+                          if (isListening) { whisper.cancelListening(); setIsListening(false); }
+                        }}
                         placeholder={isListening ? '聞き取り中...' : isTranscribing ? '文字起こし中...' : 'ここに英文を入力または音声入力...'}
                         className={`w-full p-3 pr-8 border-2 rounded-xl focus:outline-none resize-none text-gray-800 transition-colors ${
-                          isListening || isTranscribing
-                            ? 'border-blue-200 bg-gray-50 text-gray-400 cursor-not-allowed'
-                            : isAutoJudgePending
+                          isAutoJudgePending
                             ? 'border-green-400 bg-green-50 focus:border-green-500'
                             : 'border-blue-200 focus:border-blue-400'
                         }`}
                         rows={2}
                       />
-                      {!isListening && !isTranscribing && (
+                      {(
                         <button
                           type="button"
                           onClick={() => { clearAutoJudgeTimer(); textareaRef.current?.focus(); }}
@@ -1670,7 +1734,7 @@ export default function SpeakingTrainer({
                     </div>
                     <button
                       onClick={() => { clearAutoJudgeTimer(); handleJudge(); }}
-                      disabled={!editableText.trim() || isAiLoading || isListening || isTranscribing}
+                      disabled={!editableText.trim() || isAiLoading || isTranscribing}
                       className="px-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 transition-all flex items-center justify-center"
                       title="判定する"
                     >
@@ -1682,40 +1746,49 @@ export default function SpeakingTrainer({
                 </div>
               )}
 
-              {/* マイクボタン */}
-              <button
-                onClick={isListening ? handleStopRecording : handleStartRecording}
-                disabled={isAiLoading}
-                className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all transform hover:scale-105 ${
-                  isListening
-                    ? 'bg-red-500 animate-pulse'
-                    : isAiLoading
-                    ? 'bg-gray-400'
-                    : 'bg-red-500 hover:bg-red-600'
-                }`}
-              >
-                <div className={`w-14 h-14 rounded-full border-3 border-white/30 flex items-center justify-center ${
-                  isListening ? 'bg-red-600' : isAiLoading ? 'bg-gray-500' : 'bg-red-600'
-                }`}>
-                  {isListening ? (
-                    <div className="flex items-center justify-center gap-[3px]">
-                      {[0, 1, 2, 3, 4].map((i) => (
-                        <div
-                          key={i}
-                          className="w-[3px] bg-white rounded-full"
-                          style={{
-                            animation: 'soundWave 1s ease-in-out infinite',
-                            animationDelay: `${i * 0.15}s`,
-                            height: '8px',
-                          }}
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="w-3.5 h-3.5 bg-white rounded-full" />
-                  )}
+              {/* マイクボタン（文字起こし中はスピナー表示） */}
+              {isTranscribing ? (
+                <div className="w-16 h-16 rounded-full flex items-center justify-center bg-gray-200 shadow-lg">
+                  <svg className="animate-spin w-8 h-8 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/>
+                  </svg>
                 </div>
-              </button>
+              ) : (
+                <button
+                  onClick={isListening ? handleStopRecording : handleStartRecording}
+                  disabled={isAiLoading}
+                  className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all transform hover:scale-105 ${
+                    isListening
+                      ? 'bg-red-500 animate-pulse'
+                      : isAiLoading
+                      ? 'bg-gray-400'
+                      : 'bg-red-500 hover:bg-red-600'
+                  }`}
+                >
+                  <div className={`w-14 h-14 rounded-full border-3 border-white/30 flex items-center justify-center ${
+                    isListening ? 'bg-red-600' : isAiLoading ? 'bg-gray-500' : 'bg-red-600'
+                  }`}>
+                    {isListening ? (
+                      <div className="flex items-center justify-center gap-[3px]">
+                        {[0, 1, 2, 3, 4].map((i) => (
+                          <div
+                            key={i}
+                            className="w-[3px] bg-white rounded-full"
+                            style={{
+                              animation: 'soundWave 1s ease-in-out infinite',
+                              animationDelay: `${i * 0.15}s`,
+                              height: '8px',
+                            }}
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="w-3.5 h-3.5 bg-white rounded-full" />
+                    )}
+                  </div>
+                </button>
+              )}
 
               <p className="text-gray-500 mt-2 text-xs">
                 {isListening ? '聞き取り中...' : isTranscribing ? '文字起こし中...' : 'タップして録音'}
@@ -1724,9 +1797,8 @@ export default function SpeakingTrainer({
               {/* 自動判定カウントダウンバー */}
               {isAutoJudgePending && (
                 <div className="w-full mt-3">
-                  <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
-                    <span className="text-green-600 font-medium">✏️ タップして修正</span>
-                    <span className="font-bold text-gray-700">{autoJudgeCountdown}秒後に自動送信</span>
+                  <div className="flex items-center justify-center text-xs text-gray-700 font-bold mb-1">
+                    <span>{autoJudgeCountdown}秒後に自動送信</span>
                   </div>
                   <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div
@@ -2068,7 +2140,8 @@ export default function SpeakingTrainer({
                         <button
                           onClick={() => {
                             stopEnglish();
-                            speakEnglish(currentSentence.id, 'en', undefined, correctionTarget).catch(() => {});
+                            const correctionId = correctionTarget === currentSentence.en ? currentSentence.id : `tts-${Date.now()}`;
+                            speakEnglish(correctionId, 'en', undefined, correctionTarget).catch(() => {});
                           }}
                           disabled={isPlayingEnglish}
                           className="ml-3 w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] bg-teal-500 text-white rounded-full flex items-center justify-center hover:bg-teal-600 disabled:opacity-50 transition-all flex-shrink-0"

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import CapacitorLinkInterceptor from "@/components/CapacitorLinkInterceptor";
+import ScrollRestorer from "@/components/ScrollRestorer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,6 +63,7 @@ export default function RootLayout({
         style={{ backgroundColor: '#ffffff', colorScheme: 'light' }}
       >
         <Providers>
+          <ScrollRestorer />
           <CapacitorLinkInterceptor />
           {children}
         </Providers>

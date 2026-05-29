@@ -656,15 +656,17 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 
   // モードへのアクセス権限チェック
   const canAccessMode = useCallback((mode: TrainingMode): boolean => {
+    if (state.isLoading) return PLAN_ACCESS.free.includes(mode);
     const effectiveTier = computeEffectiveTier();
     return PLAN_ACCESS[effectiveTier].includes(mode);
-  }, [computeEffectiveTier]);
+  }, [computeEffectiveTier, state.isLoading]);
 
   // 広告表示が必要か
   const shouldShowAds = useCallback((): boolean => {
+    if (state.isLoading) return false;
     const effectiveTier = computeEffectiveTier();
     return effectiveTier === 'free';
-  }, [computeEffectiveTier]);
+  }, [computeEffectiveTier, state.isLoading]);
 
   // モードに必要なプランを取得
   const getRequiredPlanForMode = useCallback((mode: TrainingMode): SubscriptionTier => {

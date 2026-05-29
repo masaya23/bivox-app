@@ -7,7 +7,7 @@ type HardNavLinkProps = {
   href: string;
   className?: string;
   children: ReactNode;
-  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void | Promise<void>;
 };
 
 function isNativePlatform(): boolean {
@@ -40,16 +40,17 @@ function toCapacitorPath(path: string): string {
  * 常に通常のページ遷移（window.location）で確実に遷移するリンク。
  */
 export default function HardNavLink({ href, className, children, onClick }: HardNavLinkProps) {
-  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    // カスタムonClickがあれば先に実行
-    onClick?.(e);
-
+  const handleClick = async (e: MouseEvent<HTMLAnchorElement>) => {
     // 新規タブ等の通常挙動は維持
-    if (e.defaultPrevented) return;
     if (e.button !== 0) return;
     if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) return;
 
+    const onClickResult = onClick?.(e);
+    if (e.defaultPrevented) return;
+
     e.preventDefault();
+    await onClickResult;
+
     const targetHref = isNativePlatform() ? toCapacitorPath(href) : href;
     window.location.assign(targetHref);
   };

@@ -101,10 +101,13 @@ function PartPracticeModeSelectContent() {
     <div className="min-h-screen bg-gray-200 flex justify-center">
       <div className={`w-full max-w-[430px] min-h-screen shadow-xl bg-gradient-to-br ${colors.bgGradient}`}>
         {/* ヘッダー */}
-        <div className={`p-4 bg-gradient-to-r ${colors.gradient}`}>
+        <div className={`sticky top-0 z-10 p-4 bg-gradient-to-r ${colors.gradient}`}>
           <div className="flex items-center justify-between">
             <HardNavLink href={backLink} className="text-white/80 hover:text-white font-medium text-sm">
               ← 戻る
+            </HardNavLink>
+            <HardNavLink href="/" className="text-white/80 hover:text-white font-medium text-sm">
+              ホームに戻る
             </HardNavLink>
           </div>
           <h1 className="text-2xl font-black text-white text-center mt-2">

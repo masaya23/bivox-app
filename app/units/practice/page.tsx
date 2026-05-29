@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import ShadowingTrainer from '@/components/train/ShadowingTrainer';
 import SpeakingTrainer from '@/components/train/SpeakingTrainer';
 import AIDrillTrainer from '@/components/train/AIDrillTrainer';
+import ModeAccessGate from '@/components/subscription/ModeAccessGate';
 import { getUnitsByFilter, selectSentencesFromMultipleUnits } from '@/utils/units';
 import type { TabFilter } from '@/types/unit';
 import type { Sentence } from '@/types/sentence';
@@ -64,28 +65,33 @@ function AllUnitsPracticePageContent() {
 
   if (mode === 'speaking') {
     return (
-      <SpeakingTrainer
-        initialSentences={selectedSentences}
-        pageTitle="Unit練習"
-        backLink={partSelectLink}
-        gradeId={filter}
-        partLabel="まとめ"
-      />
+      <ModeAccessGate mode="speaking" backLink={modeSelectLink}>
+        <SpeakingTrainer
+          initialSentences={selectedSentences}
+          pageTitle="Unit練習"
+          backLink={partSelectLink}
+          partSelectLink={partSelectLink}
+          gradeId={filter}
+          partLabel="まとめ"
+        />
+      </ModeAccessGate>
     );
   }
 
   if (mode === 'ai-drill') {
     return (
-      <AIDrillTrainer
-        partSentences={selectedSentences}
-        partId={`bundle-${filter}`}
-        partTitle={drillTitle}
-        grammarTags={grammarTags}
-        backLink={modeSelectLink}
-        partSelectLink={partSelectLink}
-        gradeId={filter}
-        partLabel="まとめ"
-      />
+      <ModeAccessGate mode="ai-drill" backLink={modeSelectLink}>
+        <AIDrillTrainer
+          partSentences={selectedSentences}
+          partId={`bundle-${filter}`}
+          partTitle={drillTitle}
+          grammarTags={grammarTags}
+          backLink={modeSelectLink}
+          partSelectLink={partSelectLink}
+          gradeId={filter}
+          partLabel="まとめ"
+        />
+      </ModeAccessGate>
     );
   }
 
@@ -94,6 +100,7 @@ function AllUnitsPracticePageContent() {
       initialSentences={selectedSentences}
       pageTitle="Unit練習"
       backLink={partSelectLink}
+      partSelectLink={partSelectLink}
       gradeId={filter}
       partLabel="まとめ"
     />

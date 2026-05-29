@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import HardNavLink from '@/components/HardNavLink';
 import { Message, ConversationSettings } from '@/types/conversation';
 import { apiFetch } from '@/utils/api';
@@ -13,8 +13,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { isGuestUser } from '@/utils/guestAccess';
 import PaywallScreen from '@/components/subscription/PaywallScreen';
+import ModeAccessGate from '@/components/subscription/ModeAccessGate';
 
-export default function ConversationPage() {
+function ConversationPageContent() {
   const router = useAppRouter();
   const serverTTS = useServerTTS();
   const whisper = useWhisperRecognition();
@@ -36,8 +37,16 @@ export default function ConversationPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const isInitialized = useRef(false);
   const startTimeRef = useRef<number>(Date.now());
+  const speechRunIdRef = useRef(0);
+  const serverTTSSpeakRef = useRef(serverTTS.speak);
+  const serverTTSStopRef = useRef(serverTTS.stop);
   const isGuest = isGuestUser(user);
   const canAccessConversation = canAccessMode('ai-conversation');
+
+  useEffect(() => {
+    serverTTSSpeakRef.current = serverTTS.speak;
+    serverTTSStopRef.current = serverTTS.stop;
+  }, [serverTTS.speak, serverTTS.stop]);
 
   useEffect(() => {
     if (isGuest) {
@@ -108,6 +117,7 @@ export default function ConversationPage() {
       return;
     }
     // TTS再生中なら停止（初回メッセージ等のスキップ用）
+    speechRunIdRef.current += 1;
     serverTTS.stop();
     setError(null);
 
@@ -135,6 +145,7 @@ export default function ConversationPage() {
 
   // テキスト読み上げ（サーバーTTS API使用）
   const speak = (text: string) => {
+    speechRunIdRef.current += 1;
     serverTTS.speak(text, 'en-US');
   };
 
@@ -210,31 +221,35 @@ export default function ConversationPage() {
 
   // 会話をリセット
   const resetConversation = () => {
+    speechRunIdRef.current += 1;
+    serverTTS.stop();
     setMessages([]);
     setError(null);
   };
 
   // 音声再生を停止
   const stopSpeech = () => {
+    speechRunIdRef.current += 1;
     serverTTS.stop();
   };
 
   const sessionRecordedRef = useRef(false);
-  const recordConversationSession = () => {
+  const recordConversationSession = useCallback(() => {
     if (sessionRecordedRef.current) return;
     sessionRecordedRef.current = true;
     const elapsedMinutes = Math.max(1, Math.ceil((Date.now() - startTimeRef.current) / 60000));
     recordLearningTime(elapsedMinutes);
     recordSession('AIとフリー英会話', elapsedMinutes, { unit: 'minutes' });
-  };
+  }, []);
 
   // ページ離脱時に音声再生を停止 & 学習時間を記録
   useEffect(() => {
     return () => {
-      serverTTS.stop();
+      speechRunIdRef.current += 1;
+      serverTTSStopRef.current();
       recordConversationSession();
     };
-  }, []);
+  }, [recordConversationSession]);
 
   // 初回メッセージ（1回のみ実行）
   useEffect(() => {
@@ -249,11 +264,14 @@ export default function ConversationPage() {
       };
       setMessages([welcomeMessage]);
       // 少し遅延して音声再生（API初期化を待つ）
-      setTimeout(() => {
-        serverTTS.speak(welcomeMessage.content, 'en-US');
+      const speechRunId = speechRunIdRef.current;
+      const timeoutId = setTimeout(() => {
+        if (speechRunIdRef.current !== speechRunId) return;
+        serverTTSSpeakRef.current(welcomeMessage.content, 'en-US');
       }, 500);
+      return () => clearTimeout(timeoutId);
     }
-  }, []);
+  }, [messages.length]);
 
   const isRecording = whisper.isListening;
   const isTranscribing = whisper.isTranscribing;
@@ -603,5 +621,13 @@ export default function ConversationPage() {
         highlightedMode="ai-conversation"
       />
     </>
+  );
+}
+
+export default function ConversationPage() {
+  return (
+    <ModeAccessGate mode="ai-conversation" backLink="/home">
+      <ConversationPageContent />
+    </ModeAccessGate>
   );
 }

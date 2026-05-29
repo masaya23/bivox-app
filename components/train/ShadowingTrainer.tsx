@@ -20,6 +20,7 @@ import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
 import { recordSession } from '@/utils/sessionLog';
 import { useInterstitialOnComplete } from '@/hooks/useInterstitialOnComplete';
 import { useTrainerAdBanner } from '@/hooks/useTrainerAdBanner';
+import { usePartialLessonLog } from '@/hooks/usePartialLessonLog';
 
 // ダミーデータ（10問）- unit1-p1のセンテンスを使用（MP3ファイルと対応）
 const DUMMY_SENTENCES: Sentence[] = [
@@ -38,6 +39,20 @@ const DUMMY_SENTENCES: Sentence[] = [
 export const DEFAULT_SHADOWING_SENTENCES = DUMMY_SENTENCES;
 
 type PlaybackState = 'idle' | 'playing-japanese' | 'pause' | 'playing-english' | 'interval';
+
+type PauseSkipContext = {
+  index: number;
+  runId: number;
+  estimatedDuration: number;
+  isLast: boolean;
+  remainingLifeAfterConsume: number;
+};
+
+type QuestionPlaybackContext = {
+  index: number;
+  runId: number;
+  isLast: boolean;
+};
 
 interface TrainPageProps {
   initialSentences?: Sentence[];
@@ -105,10 +120,10 @@ export default function ShadowingTrainer({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [playbackState, setPlaybackState] = useState<PlaybackState>('idle');
-  const [pauseDuration, setPauseDuration] = useState(2000); // 英語音声推定長に加算する余裕時間（デフォルト2秒）
+  const [pauseDuration, setPauseDuration] = useState(1000); // 英語音声推定長に加算する追加時間（デフォルト1秒）
   const [intervalDuration, setIntervalDuration] = useState(2000); // 次の問題までの間隔2秒
   const [showSettings, setShowSettings] = useState(false);
-  const [draftPauseDuration, setDraftPauseDuration] = useState(3000);
+  const [draftPauseDuration, setDraftPauseDuration] = useState(1000);
   const [draftIntervalDuration, setDraftIntervalDuration] = useState(2000);
   const [draftRate, setDraftRate] = useState(1.0);
   const [showAIDialog, setShowAIDialog] = useState(false);
@@ -117,13 +132,20 @@ export default function ShadowingTrainer({
   const [isAiLoading, setIsAiLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [showBgPausedMessage, setShowBgPausedMessage] = useState(false);
+  const [isSwitchingQuestion, setIsSwitchingQuestion] = useState(false);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const runIdRef = useRef(0); // 再生シーケンス識別子（途中スキップ時のキャンセル用）
+  const switchingQuestionRef = useRef(false);
   const isInBackgroundRef = useRef(false); // バックグラウンド状態
   const wasPlayingBeforeBackgroundRef = useRef(false); // BG移行前に再生中だったか
   const currentIndexRef = useRef(0);
+  const playbackStateRef = useRef<PlaybackState>('idle');
   const startTimeRef = useRef<number | null>(null); // 学習開始時刻
+  const pauseSkipContextRef = useRef<PauseSkipContext | null>(null);
+  const japanesePlaybackContextRef = useRef<QuestionPlaybackContext | null>(null);
+  const englishPlaybackContextRef = useRef<PauseSkipContext | null>(null);
+  const englishPlaybackSeqRef = useRef(0);
   const currentSentence = sentences[currentIndex];
   const isLastQuestion = currentIndex === sentences.length - 1;
   const consumedIndicesRef = useRef(new Set<number>());
@@ -143,6 +165,24 @@ export default function ShadowingTrainer({
   const intervalDurationRef = useRef(intervalDuration);
   const currentRateRef = useRef(currentRate);
 
+  usePartialLessonLog({
+    mode: 'ベーシック',
+    getCompletedQuestions: () => Math.min(
+      sentences.length,
+      Math.max(
+        consumedIndicesRef.current.size,
+        currentIndexRef.current,
+        playbackState === 'idle' ? 0 : currentIndexRef.current + 1
+      )
+    ),
+    getElapsedMinutes: () =>
+      startTimeRef.current
+        ? Math.max(1, Math.ceil((Date.now() - startTimeRef.current) / 60000))
+        : 0,
+    isComplete: () => isFinished || startTimeRef.current === null,
+    sessionOptions: { gradeId, partLabel },
+  });
+
   // initialSentencesが更新されたら反映
   useEffect(() => {
     if (initialSentences && initialSentences.length > 0) {
@@ -153,6 +193,10 @@ export default function ShadowingTrainer({
   useEffect(() => {
     currentIndexRef.current = currentIndex;
   }, [currentIndex]);
+
+  useEffect(() => {
+    playbackStateRef.current = playbackState;
+  }, [playbackState]);
 
   useEffect(() => {
     if (!showSettings) return;
@@ -225,116 +269,208 @@ export default function ShadowingTrainer({
     void showLessonCompleteAd();
   }, [gradeId, partLabel, sentences.length, showLessonCompleteAd]);
 
-  const cancelPlayback = useCallback(() => {
+  const cancelPlayback = useCallback(async () => {
     runIdRef.current += 1;
+    pauseSkipContextRef.current = null;
+    japanesePlaybackContextRef.current = null;
+    englishPlaybackContextRef.current = null;
+    englishPlaybackSeqRef.current += 1;
     clearTimers();
-    stopJapanese();
-    stopEnglish();
+    await Promise.all([stopJapanese(), stopEnglish()]);
     setPlaybackState('idle');
   }, [clearTimers, stopEnglish, stopJapanese]);
+
+  const beginThinkingPause = useCallback(async (context: QuestionPlaybackContext) => {
+    if (runIdRef.current !== context.runId) return;
+    const sentence = sentences[context.index];
+    if (!sentence) return;
+
+    if (
+      pauseSkipContextRef.current?.runId === context.runId &&
+      pauseSkipContextRef.current?.index === context.index
+    ) {
+      return;
+    }
+
+    japanesePlaybackContextRef.current = null;
+
+    let remainingLifeAfterConsume = Infinity;
+    if (!isUnlimited && !consumedIndicesRef.current.has(context.index)) {
+      const result = consumeLife();
+      if (!result.success) {
+        await cancelPlayback();
+        setShowLifeOutModal(true);
+        return;
+      }
+      consumedIndicesRef.current.add(context.index);
+      remainingLifeAfterConsume = result.remainingLife;
+    }
+
+    setPlaybackState('pause');
+    const estimatedDuration = estimateEnglishDuration(sentence.en, currentRateRef.current);
+    const actualPauseDuration = estimatedDuration + pauseDurationRef.current;
+    const pauseContext: PauseSkipContext = {
+      index: context.index,
+      runId: context.runId,
+      estimatedDuration,
+      isLast: context.isLast,
+      remainingLifeAfterConsume,
+    };
+    pauseSkipContextRef.current = pauseContext;
+
+    clearTimers();
+    timeoutRef.current = setTimeout(async () => {
+      if (runIdRef.current !== context.runId) return;
+      await playEnglishAndScheduleNextRef.current(pauseContext);
+    }, actualPauseDuration);
+  }, [cancelPlayback, clearTimers, consumeLife, isUnlimited, sentences]);
+
+  const playEnglishAndScheduleNext = useCallback(async (context: PauseSkipContext) => {
+    if (runIdRef.current !== context.runId) return;
+    const sentence = sentences[context.index];
+    if (!sentence) return;
+
+    const playbackSeq = englishPlaybackSeqRef.current + 1;
+    englishPlaybackSeqRef.current = playbackSeq;
+    pauseSkipContextRef.current = null;
+    englishPlaybackContextRef.current = context;
+
+    clearTimers();
+    await stopEnglish();
+    if (runIdRef.current !== context.runId || englishPlaybackSeqRef.current !== playbackSeq) return;
+    setPlaybackState('playing-english');
+    const englishPlayback = speakEnglish(
+      sentence.id,
+      'en',
+      undefined,
+      sentence.en,
+      currentRateRef.current
+    );
+
+    const englishTimeoutMs = Math.max(context.estimatedDuration + 2000, 8000);
+    const playbackTimeout = new Promise<void>((resolve) => {
+      clearTimers();
+      timeoutRef.current = setTimeout(resolve, englishTimeoutMs);
+    });
+    await Promise.race([englishPlayback, playbackTimeout]);
+    await stopEnglish();
+
+    if (runIdRef.current !== context.runId || englishPlaybackSeqRef.current !== playbackSeq) return;
+    englishPlaybackContextRef.current = null;
+    setPlaybackState('interval');
+
+    clearTimers();
+    timeoutRef.current = setTimeout(() => {
+      if (runIdRef.current !== context.runId) return;
+      if (context.isLast) {
+        completeLesson();
+      } else {
+        if (!isUnlimited && context.remainingLifeAfterConsume <= 0) {
+          setPlaybackState('idle');
+          setShowLifeOutModal(true);
+          return;
+        }
+        setCurrentIndex(context.index + 1);
+        setPlaybackState('idle');
+        void playSingleQuestionRef.current(context.index + 1, context.runId);
+      }
+    }, intervalDurationRef.current);
+  }, [clearTimers, completeLesson, isUnlimited, sentences, speakEnglish, stopEnglish]);
+
+  const playSingleQuestionRef = useRef<(index: number, runId: number) => void>(() => {});
+  const playEnglishAndScheduleNextRef = useRef<(context: PauseSkipContext) => void>(() => {});
 
   // シャドーイングシーケンスの実行（1問分）
   const playSingleQuestion = useCallback(async (index: number, runId: number) => {
     if (runIdRef.current !== runId) return;
     const sentence = sentences[index];
     const isLast = index === sentences.length - 1;
+    const questionContext: QuestionPlaybackContext = { index, runId, isLast };
 
     // ★ ライフチェック：音声再生前にライフがあるか確認
     // ライフ0の場合は音声を再生せずにモーダルを表示
     if (!isUnlimited && !canConsume()) {
-      cancelPlayback();
+      await cancelPlayback();
       setShowLifeOutModal(true);
       return;
     }
 
     // 1. 日本語を読み上げ（完了まで待機）- sentenceIdを使用
     setPlaybackState('playing-japanese');
+    japanesePlaybackContextRef.current = questionContext;
     await speakJapanese(sentence.id, 'ja', undefined, sentence.jp, currentRateRef.current);
     if (runIdRef.current !== runId) return;
 
-    // ★ ライフ消費ポイント：日本語再生完了後、ポーズに切り替わる瞬間
-    // ユーザーが日本語を聞き終わった時点で消費（スキップした場合は消費しない）
-    let remainingLifeAfterConsume = Infinity;
-    if (!isUnlimited) {
-      // 同じ問題をポーズ後に再開した場合はスタミナを再消費しない
-      if (!consumedIndicesRef.current.has(index)) {
-        const result = consumeLife();
-        if (!result.success) {
-          cancelPlayback();
-          setShowLifeOutModal(true);
-          return;
-        }
-        consumedIndicesRef.current.add(index);
-        remainingLifeAfterConsume = result.remainingLife;
-      }
-    }
+    // 2. 考える時間へ
+    await beginThinkingPause(questionContext);
+  }, [beginThinkingPause, canConsume, cancelPlayback, isUnlimited, sentences, speakJapanese]);
 
-    // 2. ポーズ（ユーザーがスピーキングする時間）
-    setPlaybackState('pause');
-    const estimatedDuration = estimateEnglishDuration(sentence.en, currentRateRef.current);
-    // ポーズ時間 = 英語音声の推定長さ + ユーザー設定の余裕時間
-    const actualPauseDuration = estimatedDuration + pauseDurationRef.current;
+  useEffect(() => {
+    playSingleQuestionRef.current = (index: number, runId: number) => {
+      void playSingleQuestion(index, runId);
+    };
+  }, [playSingleQuestion]);
 
+  useEffect(() => {
+    playEnglishAndScheduleNextRef.current = (context: PauseSkipContext) => {
+      void playEnglishAndScheduleNext(context);
+    };
+  }, [playEnglishAndScheduleNext]);
+
+  const skipPauseToEnglish = useCallback(() => {
+    if (playbackState !== 'pause' || !pauseSkipContextRef.current) return;
+    const context = pauseSkipContextRef.current;
     clearTimers();
-    timeoutRef.current = setTimeout(async () => {
-      if (runIdRef.current !== runId) return;
-      // 3. 英語の正解音声を読み上げ - sentenceIdを使用
-      setPlaybackState('playing-english');
-      const englishPlayback = speakEnglish(
-        sentence.id,
-        'en',
-        undefined,
-        sentence.en,
-        currentRateRef.current
-      );
+    void playEnglishAndScheduleNext(context);
+  }, [clearTimers, playEnglishAndScheduleNext, playbackState]);
 
-      // 4. 英語の読み上げ完了を待つ（タイムアウト付き）
-      const englishTimeoutMs = Math.max(estimatedDuration + 2000, 8000);
-      const playbackTimeout = new Promise<void>((resolve) => {
-        clearTimers();
-        timeoutRef.current = setTimeout(resolve, englishTimeoutMs);
-      });
-      await Promise.race([englishPlayback, playbackTimeout]);
-      stopEnglish();
+  const skipJapaneseToThinking = useCallback(async () => {
+    if (playbackStateRef.current !== 'playing-japanese' || !japanesePlaybackContextRef.current) return;
+    const context = japanesePlaybackContextRef.current;
+    await stopJapanese();
+    if (runIdRef.current !== context.runId) return;
+    await beginThinkingPause(context);
+  }, [beginThinkingPause, stopJapanese]);
 
-      if (runIdRef.current !== runId) return;
-      // 5. 次の問題までの間隔
-      setPlaybackState('interval');
+  const replayEnglishAnswer = useCallback(() => {
+    if (playbackStateRef.current !== 'playing-english' || !englishPlaybackContextRef.current) return;
+    const context = englishPlaybackContextRef.current;
+    clearTimers();
+    void playEnglishAndScheduleNext(context);
+  }, [clearTimers, playEnglishAndScheduleNext]);
 
-      clearTimers();
-      timeoutRef.current = setTimeout(() => {
-        if (runIdRef.current !== runId) return;
-        // 6. 次の問題へ、または終了
-        if (isLast) {
-          completeLesson();
-        } else {
-          // ライフが0になった場合は次の問題に進まずモーダルを表示
-          if (!isUnlimited && remainingLifeAfterConsume <= 0) {
-            setPlaybackState('idle');
-            setShowLifeOutModal(true);
-            return;
-          }
-          setCurrentIndex(index + 1);
-          setPlaybackState('idle');
-          // 次の問題を自動的に開始
-          playSingleQuestion(index + 1, runId);
-        }
-      }, intervalDurationRef.current);
-    }, actualPauseDuration);
-  }, [canConsume, cancelPlayback, clearTimers, completeLesson, consumeLife, isUnlimited, sentences, speakEnglish, speakJapanese, stopEnglish]);
+  const handleLearningCardClick = useCallback(() => {
+    if (playbackStateRef.current === 'playing-japanese') {
+      void skipJapaneseToThinking();
+      return;
+    }
+    if (playbackStateRef.current === 'pause') {
+      skipPauseToEnglish();
+      return;
+    }
+    if (playbackStateRef.current === 'playing-english') {
+      replayEnglishAnswer();
+    }
+  }, [replayEnglishAnswer, skipJapaneseToThinking, skipPauseToEnglish]);
 
   // 任意のインデックスから再生を開始
-  const startFromIndex = (index: number) => {
-    cancelPlayback();
+  const startFromIndex = async (index: number) => {
+    if (switchingQuestionRef.current) return;
+    switchingQuestionRef.current = true;
+    setIsSwitchingQuestion(true);
+
+    await cancelPlayback();
     const runId = runIdRef.current;
     setIsFinished(false);
     setCurrentIndex(index);
     currentIndexRef.current = index;
-    playSingleQuestion(index, runId);
+    switchingQuestionRef.current = false;
+    setIsSwitchingQuestion(false);
+    void playSingleQuestion(index, runId);
   };
 
   // シャドーイングシーケンスの開始
-  const startShadowing = () => {
+  const startShadowing = async () => {
     if (playbackState !== 'idle') return;
 
     // ライフ0の場合は開始せずにモーダルを表示
@@ -353,47 +489,60 @@ export default function ShadowingTrainer({
       resetAdShown();
       consumedIndicesRef.current.clear();
     }
-    startFromIndex(startIndex);
+    await startFromIndex(startIndex);
   };
 
   // 次の問題へ
-  const nextQuestion = () => {
+  const nextQuestion = async () => {
+    if (switchingQuestionRef.current) return;
+    window.scrollTo(0, 0);
     const nextIndex = Math.min(currentIndexRef.current + 1, sentences.length - 1);
     if (nextIndex === currentIndexRef.current) {
-      cancelPlayback();
+      await cancelPlayback();
       completeLesson();
       return;
     }
-    startFromIndex(nextIndex);
+    await startFromIndex(nextIndex);
   };
 
   // 前の問題へ
-  const prevQuestion = () => {
+  const prevQuestion = async () => {
+    if (switchingQuestionRef.current) return;
     const prevIndex = Math.max(0, currentIndexRef.current - 1);
     if (prevIndex === currentIndexRef.current) return;
-    startFromIndex(prevIndex);
+    await startFromIndex(prevIndex);
   };
 
   // 再生を一時停止
-  const pauseShadowing = () => {
-    cancelPlayback();
+  const pauseShadowing = async () => {
+    await cancelPlayback();
+  };
+
+  const openSettings = async () => {
+    await cancelPlayback();
+    setShowSettings(true);
   };
 
   // 次の問題までスキップ
   const skipToNext = () => {
-    nextQuestion();
+    void nextQuestion();
   };
 
   // 前の問題に戻る
   const skipToPrev = () => {
-    prevQuestion();
+    void prevQuestion();
   };
+
+  const hasStartedCurrentSession = startTimeRef.current !== null || currentIndex > 0 || consumedIndicesRef.current.size > 0;
+  const startButtonLabel = playbackState === 'idle'
+    ? (hasStartedCurrentSession ? 'この問題を再開' : '練習開始')
+    : '停止';
 
   // クリーンアップ
   useEffect(() => {
     return () => {
-      stopJapanese();
-      stopEnglish();
+      void stopJapanese();
+      void stopEnglish();
       clearTimers();
     };
   }, [clearTimers, stopJapanese, stopEnglish]);
@@ -411,7 +560,7 @@ export default function ShadowingTrainer({
 
         // 無料ユーザー：バックグラウンドで再生停止
         if (!isPremium() && wasPlaying) {
-          cancelPlayback();
+          void cancelPlayback();
         }
       } else {
         // フォアグラウンドに復帰
@@ -438,8 +587,8 @@ export default function ShadowingTrainer({
       artist: 'Bivox - 瞬間英会話 -',
     });
 
-    navigator.mediaSession.setActionHandler('play', () => startShadowing());
-    navigator.mediaSession.setActionHandler('pause', () => pauseShadowing());
+    navigator.mediaSession.setActionHandler('play', () => { void startShadowing(); });
+    navigator.mediaSession.setActionHandler('pause', () => { void pauseShadowing(); });
     navigator.mediaSession.setActionHandler('nexttrack', () => skipToNext());
     navigator.mediaSession.setActionHandler('previoustrack', () => skipToPrev());
 
@@ -652,6 +801,7 @@ export default function ShadowingTrainer({
           <div className="flex items-center justify-between">
             <HardNavLink
               href={backLink}
+              onClick={() => cancelPlayback()}
               className="text-gray-600 font-semibold text-sm min-w-[50px]"
             >
               ← 戻る
@@ -667,7 +817,7 @@ export default function ShadowingTrainer({
               {/* ライフインジケーター（タイマーなし） */}
               <LifeIndicator variant="compact" showTimer={false} />
               <button
-                onClick={() => { cancelPlayback(); setShowSettings(true); }}
+                onClick={() => { void openSettings(); }}
                 aria-label="設定"
                 className="w-8 h-8 flex items-center justify-center"
               >
@@ -682,6 +832,22 @@ export default function ShadowingTrainer({
                 </svg>
               </button>
             </div>
+          </div>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <HardNavLink
+              href={partSelectLink ?? backLink}
+              onClick={() => cancelPlayback()}
+              className="py-2 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold text-center active:scale-[0.98] transition-transform"
+            >
+              Part選択
+            </HardNavLink>
+            <HardNavLink
+              href="/"
+              onClick={() => cancelPlayback()}
+              className="py-2 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold text-center active:scale-[0.98] transition-transform"
+            >
+              ホームに戻る
+            </HardNavLink>
           </div>
         </header>
 
@@ -715,11 +881,18 @@ export default function ShadowingTrainer({
           </div>
 
           {/* 状態表示 */}
-          <div className="flex-1 flex flex-col justify-center min-h-[200px]">
+          <div
+            className={`flex-1 flex flex-col justify-center min-h-[200px] ${
+              playbackState === 'playing-japanese' || playbackState === 'pause' || playbackState === 'playing-english'
+                ? 'cursor-pointer active:scale-[0.995] transition-transform'
+                : ''
+            }`}
+            onClick={handleLearningCardClick}
+          >
             {playbackState === 'idle' && (
               <>
                 <p className="text-xs text-gray-500 mb-2 text-center">
-                  日本語を聞いて、英語で答えてください
+                  {hasStartedCurrentSession ? 'この問題から再開できます' : '日本語を聞いて、英語で答えてください'}
                 </p>
                 <h2 className="text-2xl font-bold text-gray-800 text-center">
                   準備完了
@@ -729,31 +902,37 @@ export default function ShadowingTrainer({
 
             {playbackState === 'playing-japanese' && (
               <>
-                <div className="text-sm mb-2 text-center font-black text-blue-700">JP</div>
                 <p className="text-xs text-blue-600 mb-2 text-center font-semibold">
                   日本語を聞いています...
                 </p>
                 <AutoSizeText text={currentSentence.jp} maxFontSize={30} className="text-gray-800" />
+                <p className="text-xs text-gray-400 mt-3 text-center font-semibold">
+                  カードをタップであなたの番へ
+                </p>
               </>
             )}
 
             {playbackState === 'pause' && (
               <>
-                <div className="text-sm mb-2 text-center font-black text-orange-700">PAUSE</div>
+                <div className="text-lg mb-2 text-center font-black text-orange-700">あなたの番です</div>
                 <p className="text-xs text-orange-600 mb-2 text-center font-semibold">
-                  あなたの番！英語で話してください
+                  英語で言ってみましょう
                 </p>
                 <AutoSizeText text={currentSentence.jp} maxFontSize={30} className="text-gray-800" />
+                <p className="text-xs text-gray-400 mt-3 text-center font-semibold leading-relaxed">
+                  まもなく答えが流れます<br />
+                  すぐ確認したい場合はタップ
+                </p>
               </>
             )}
 
             {playbackState === 'playing-english' && (
               <>
-                <div className="text-sm mb-2 text-center font-black text-green-700">EN</div>
-                <p className="text-xs text-green-600 mb-2 text-center font-semibold">
-                  正解の英語を確認しましょう
-                </p>
+                <div className="text-lg mb-2 text-center font-black text-green-700">英語の答え</div>
                 <AutoSizeText text={currentSentence.en} maxFontSize={30} className="text-gray-800" />
+                <p className="text-xs text-gray-400 mt-3 text-center font-semibold">
+                  カードをタップでもう一度聞く
+                </p>
               </>
             )}
 
@@ -771,17 +950,18 @@ export default function ShadowingTrainer({
           <div className="grid grid-cols-2 gap-2 mt-4">
             <button
               onClick={playbackState === 'idle' ? startShadowing : pauseShadowing}
+              disabled={isSwitchingQuestion}
               className={`col-span-2 py-3 rounded-xl text-white font-bold text-base active:scale-[0.98] transition-transform ${playbackState === 'idle'
                 ? 'bg-gradient-to-r from-purple-500 to-blue-500'
                 : 'bg-gray-400'
                 }`}
             >
-              {playbackState === 'idle' ? (currentIndex === 0 ? '練習開始' : '再開') : '停止'}
+              {startButtonLabel}
             </button>
 
             <button
               onClick={skipToPrev}
-              disabled={currentIndex === 0}
+              disabled={currentIndex === 0 || isSwitchingQuestion}
               className={`py-3 rounded-xl font-bold text-sm active:scale-[0.98] transition-transform ${currentIndex === 0
                 ? 'bg-gray-100 text-gray-400'
                 : 'bg-white border-2 border-gray-200 text-gray-700'
@@ -792,6 +972,7 @@ export default function ShadowingTrainer({
 
             <button
               onClick={skipToNext}
+              disabled={isSwitchingQuestion}
               className="py-3 rounded-xl font-bold text-sm bg-white border-2 border-gray-200 text-gray-700 active:scale-[0.98] transition-transform"
             >
               次の問題 →
@@ -818,10 +999,11 @@ export default function ShadowingTrainer({
             <div className="space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="font-semibold text-gray-700 text-sm">ポーズの余裕時間</label>
+                  <label className="font-semibold text-gray-700 text-sm">考える時間</label>
                   <span className="text-xs text-gray-500">+{draftPauseDuration / 1000}秒</span>
                 </div>
-                <p className="text-xs text-gray-400 mb-2">英語音声の長さ + この時間がポーズになります</p>
+                <p className="text-xs text-gray-400 mb-1">英語音声と同じ長さ + 追加時間</p>
+                <p className="text-[11px] text-gray-400 mb-2">例：英語音声が2秒の場合、+1秒なら考える時間は3秒です</p>
                 <input
                   type="range"
                   min="0"

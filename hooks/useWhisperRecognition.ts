@@ -23,6 +23,77 @@ type StartOptions = {
   onError?: (msg: string) => void;
 };
 
+function normalizeHintToken(token: string): string {
+  return token
+    .toLowerCase()
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[^a-z']/g, '');
+}
+
+function addBaseVerbHints(token: string): string[] {
+  const normalized = normalizeHintToken(token);
+  if (!normalized) return [];
+
+  const hints = new Set<string>([normalized]);
+
+  if (normalized.endsWith('ied') && normalized.length > 4) {
+    hints.add(`${normalized.slice(0, -3)}y`);
+  } else if (normalized.endsWith('ed') && normalized.length > 3) {
+    const withoutEd = normalized.slice(0, -2);
+    hints.add(withoutEd);
+
+    if (withoutEd.endsWith('i')) {
+      hints.add(`${withoutEd.slice(0, -1)}y`);
+    }
+
+    if (withoutEd.endsWith('pp') || withoutEd.endsWith('tt') || withoutEd.endsWith('nn')) {
+      hints.add(withoutEd.slice(0, -1));
+    }
+
+    if (!withoutEd.endsWith('e')) {
+      hints.add(`${withoutEd}e`);
+    }
+  }
+
+  return Array.from(hints);
+}
+
+function createExactTranscriptionPrompt(expectedText?: string): string {
+  const basePrompt = [
+    'English speaking practice.',
+    'Verbatim transcription only.',
+    'Write exactly what the learner said, even if it is grammatically wrong.',
+    'Do not infer the correct sentence from context.',
+    'Do not normalize verb tense.',
+    'Do not correct grammar, tense, articles, plurals, or missing words.',
+    'If the audio sounds like finish, write finish, not finished.',
+    'If the audio sounds like finishe, write finishe, not finished.',
+    'If the learner omits a word from the expected sentence, do not add it.',
+  ];
+
+  const hintWords = (expectedText || '')
+    .split(/\s+/)
+    .flatMap(addBaseVerbHints)
+    .filter(Boolean);
+
+  const uniqueHints = Array.from(new Set(hintWords)).slice(0, 40);
+  if (uniqueHints.length > 0) {
+    basePrompt.push(`Possible vocabulary and word forms: ${uniqueHints.join(', ')}.`);
+  }
+
+  return basePrompt.join(' ');
+}
+
+function stripKnownNoSpeechArtifacts(text: string): string {
+  return text
+    .trim()
+    .replace(/\b(thank you for watching|thanks for watching|thank you for listening|thanks for listening)\b\.?/gi, '')
+    .replace(/\b(thank you|thanks)\b\.?/gi, '')
+    .replace(/\b(silence|no speech)\b\.?/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 export function useWhisperRecognition() {
   const [isListening, setIsListening] = useState(false);
   const [isTranscribing, setIsTranscribing] = useState(false);
@@ -50,13 +121,13 @@ export function useWhisperRecognition() {
   }, []);
 
   /** 録音した音声をWhisper APIに送信して文字起こし */
-  const transcribe = useCallback(async (audioBlob: Blob): Promise<string> => {
+  const transcribe = useCallback(async (audioBlob: Blob, expectedText?: string): Promise<string> => {
     const formData = new FormData();
     formData.append('audio', audioBlob, 'recording.webm');
     formData.append('language', 'en');
     formData.append('temperature', '0');
-    // Whisper prompt: 一般的なコンテキストのみ（正解文を含めるとWhisperが補完しすぎる）
-    formData.append('prompt', 'English speaking practice. Short sentences.');
+    // 正解文そのものではなく、文法ミスを直さないための語彙ヒントだけを渡す
+    formData.append('prompt', createExactTranscriptionPrompt(expectedText));
 
     const response = await apiFetch('/api/transcribe', {
       method: 'POST',
@@ -129,7 +200,9 @@ export function useWhisperRecognition() {
   const startListening = useCallback(async (options: StartOptions = {}) => {
     if (isListeningRef.current) return;
 
+    // optionsRefは後方互換のため保持するが、onstopではクロージャで捕捉した値を使う
     optionsRef.current = options;
+    const capturedOptions = options;
     audioChunksRef.current = [];
     hasSpeechRef.current = false;
     cancelledRef.current = false;
@@ -180,7 +253,7 @@ export function useWhisperRecognition() {
         }
 
         const chunks = audioChunksRef.current;
-        const opts = optionsRef.current;
+        const opts = capturedOptions;
 
         if (chunks.length === 0 || !hasSpeechRef.current) {
           if (mountedRef.current) {
@@ -194,7 +267,10 @@ export function useWhisperRecognition() {
 
         if (mountedRef.current) setIsTranscribing(true);
         try {
-          const text = await transcribe(audioBlob);
+          const raw = await transcribe(audioBlob, opts.expectedText);
+          // Whisper hallucination filter: remove known silence artifacts then check if anything real remains
+          const cleaned = stripKnownNoSpeechArtifacts(raw);
+          const text = cleaned.length === 0 ? '' : cleaned;
           if (mountedRef.current) {
             setIsTranscribing(false);
             setIsListening(false);

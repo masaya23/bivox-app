@@ -391,6 +391,19 @@ IMPORTANT - Corrected User Answer (Complete Correction):
     → correctedUserAnswer: "He is not a teacher." (fix BOTH "She→He" AND "a not→not a")
     → NOT "She is not a teacher" (this preserves the wrong subject)
   - The output MUST be grammatically perfect AND convey the exact meaning of the model answer
+  - If the learner made multiple errors, correctedUserAnswer MUST fix every error, not only
+    the final or most visible error.
+  - If the learner's subject, noun, verb form, article, or number differs from the reference
+    meaning, all of those must be corrected together.
+  - Example: Reference "I am a student." + User says "He is a students."
+    → correctedUserAnswer: "I am a student."
+    → NOT "He is a student." (still wrong subject)
+  - Do NOT drop required meaning units from the reference answer. Time expressions and adverbs
+    such as "yesterday", "last week", "every day", "now" must remain in correctedUserAnswer
+    when they are part of the Japanese prompt/reference meaning.
+  - Example: JP="私は昨日、宿題を終えました。" + User says "I finish my homework."
+    → correctedUserAnswer: "I finished my homework yesterday."
+    → NOT "I finished my homework." (missing "yesterday")
 
 ═══════════════════════════════════════════════════════════════
 SCORING RULE: CONTRACTIONS（短縮形）
@@ -510,6 +523,241 @@ function deduplicateModelAnswers(answers: string[]): string[] {
 
   // 異なる表現が含まれている → 全て残す
   return punctDeduped;
+}
+
+function normalizeCorrectionToken(token: string): string {
+  return token
+    .toLowerCase()
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[^a-z0-9']/g, '');
+}
+
+function getCorrectionTokens(text: string): string[] {
+  return text
+    .split(/\s+/)
+    .map(normalizeCorrectionToken)
+    .filter(Boolean);
+}
+
+function getCorrectionRawWords(text: string): string[] {
+  return text.split(/\s+/).filter(Boolean);
+}
+
+function stripTrailingSentencePunctuation(text: string): string {
+  return text.trim().replace(/[.?!。！？]+$/, '');
+}
+
+function ensureReferenceTrailingMeaning(
+  correctedUserAnswer: string,
+  correctAnswer: string
+): string {
+  const corrected = correctedUserAnswer.trim();
+  const reference = correctAnswer.trim();
+
+  if (!corrected || !reference) {
+    return correctedUserAnswer;
+  }
+
+  const correctedTokens = getCorrectionTokens(corrected);
+  const referenceTokens = getCorrectionTokens(reference);
+
+  if (
+    correctedTokens.length === 0 ||
+    referenceTokens.length === 0 ||
+    correctedTokens.length >= referenceTokens.length
+  ) {
+    return correctedUserAnswer;
+  }
+
+  let referenceCursor = 0;
+  const correctedIsReferenceSubsequence = correctedTokens.every((token) => {
+    const matchedIndex = referenceTokens.indexOf(token, referenceCursor);
+    if (matchedIndex === -1) {
+      return false;
+    }
+
+    referenceCursor = matchedIndex + 1;
+    return true;
+  });
+
+  if (correctedIsReferenceSubsequence && correctedTokens.length >= 2) {
+    return reference;
+  }
+
+  const isReferencePrefix = correctedTokens.every(
+    (token, index) => token === referenceTokens[index]
+  );
+
+  if (!isReferencePrefix) {
+    return correctedUserAnswer;
+  }
+
+  const referenceWords = getCorrectionRawWords(reference);
+  const missingWords = referenceWords.slice(correctedTokens.length);
+
+  if (missingWords.length === 0) {
+    return correctedUserAnswer;
+  }
+
+  const correctedWithoutPeriod = stripTrailingSentencePunctuation(corrected);
+  const missingText = missingWords.join(' ');
+
+  return `${correctedWithoutPeriod} ${missingText}`;
+}
+
+function normalizeCorrectionSentence(text: string): string {
+  return getCorrectionTokens(text).join(' ');
+}
+
+function ensureCompleteCorrectionForIncorrectAnswer(
+  correctedUserAnswer: string,
+  correctAnswer: string,
+  judgement: string,
+  score: number
+): string {
+  const corrected = correctedUserAnswer.trim();
+  const reference = correctAnswer.trim();
+
+  if (!corrected || !reference) {
+    return correctedUserAnswer;
+  }
+
+  const isIncorrect = judgement === 'incorrect' || score < 70;
+  if (!isIncorrect) {
+    return correctedUserAnswer;
+  }
+
+  if (normalizeCorrectionSentence(corrected) === normalizeCorrectionSentence(reference)) {
+    return correctedUserAnswer;
+  }
+
+  return reference;
+}
+
+type CorrectionDiffOp =
+  | { type: 'equal'; userWord: string; referenceWord: string }
+  | { type: 'replace'; userWord: string; referenceWord: string }
+  | { type: 'delete'; userWord: string }
+  | { type: 'insert'; referenceWord: string };
+
+function getCorrectionDiffOps(userAnswer: string, referenceAnswer: string): CorrectionDiffOp[] {
+  const userWords = getCorrectionRawWords(userAnswer);
+  const referenceWords = getCorrectionRawWords(referenceAnswer);
+  const userTokens = userWords.map(normalizeCorrectionToken);
+  const referenceTokens = referenceWords.map(normalizeCorrectionToken);
+
+  const dp: number[][] = Array(userTokens.length + 1)
+    .fill(null)
+    .map(() => Array(referenceTokens.length + 1).fill(0));
+
+  for (let i = 0; i <= userTokens.length; i += 1) dp[i][0] = i;
+  for (let j = 0; j <= referenceTokens.length; j += 1) dp[0][j] = j;
+
+  for (let i = 1; i <= userTokens.length; i += 1) {
+    for (let j = 1; j <= referenceTokens.length; j += 1) {
+      if (userTokens[i - 1] === referenceTokens[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = Math.min(
+          dp[i - 1][j - 1] + 1,
+          dp[i - 1][j] + 1,
+          dp[i][j - 1] + 1
+        );
+      }
+    }
+  }
+
+  const ops: CorrectionDiffOp[] = [];
+  let i = userTokens.length;
+  let j = referenceTokens.length;
+
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && userTokens[i - 1] === referenceTokens[j - 1]) {
+      ops.push({ type: 'equal', userWord: userWords[i - 1], referenceWord: referenceWords[j - 1] });
+      i -= 1;
+      j -= 1;
+      continue;
+    }
+
+    if (i > 0 && j > 0 && dp[i][j] === dp[i - 1][j - 1] + 1) {
+      ops.push({ type: 'replace', userWord: userWords[i - 1], referenceWord: referenceWords[j - 1] });
+      i -= 1;
+      j -= 1;
+      continue;
+    }
+
+    if (j > 0 && dp[i][j] === dp[i][j - 1] + 1) {
+      ops.push({ type: 'insert', referenceWord: referenceWords[j - 1] });
+      j -= 1;
+      continue;
+    }
+
+    if (i > 0) {
+      ops.push({ type: 'delete', userWord: userWords[i - 1] });
+      i -= 1;
+    }
+  }
+
+  return ops.reverse();
+}
+
+function joinJapaneseItems(items: string[]): string {
+  if (items.length === 0) return '';
+  if (items.length === 1) return items[0];
+  return `${items.slice(0, -1).join('、')}、${items[items.length - 1]}`;
+}
+
+function appendSentence(base: string, addition: string): string {
+  if (!addition) return base || '';
+  if (!base) return addition;
+  return `${base.replace(/\s+$/g, '')} ${addition}`;
+}
+
+function createDeterministicCorrectionFeedback(
+  userAnswer: string,
+  correctAnswer: string,
+  judgement: string,
+  score: number
+): { mistakePointJa: string; ruleJa: string; nuanceJa: string } | null {
+  const isIncorrect = judgement === 'incorrect' || score < 70;
+  if (!isIncorrect) return null;
+
+  const ops = getCorrectionDiffOps(userAnswer, correctAnswer);
+  const replacements = ops
+    .filter((op): op is Extract<CorrectionDiffOp, { type: 'replace' }> => op.type === 'replace')
+    .map((op) => `『${op.userWord}』→『${op.referenceWord}』`);
+  const inserts = ops
+    .filter((op): op is Extract<CorrectionDiffOp, { type: 'insert' }> => op.type === 'insert')
+    .map((op) => `『${op.referenceWord}』`);
+  const deletes = ops
+    .filter((op): op is Extract<CorrectionDiffOp, { type: 'delete' }> => op.type === 'delete')
+    .map((op) => `『${op.userWord}』`);
+
+  if (replacements.length === 0 && inserts.length === 0 && deletes.length === 0) {
+    return null;
+  }
+
+  const mistakeParts = [
+    replacements.length > 0 ? `${joinJapaneseItems(replacements)}に直す必要があります。` : '',
+    inserts.length > 0 ? `${joinJapaneseItems(inserts)}が抜けています。` : '',
+    deletes.length > 0 ? `${joinJapaneseItems(deletes)}はこの日本語の意味には不要です。` : '',
+  ].filter(Boolean);
+
+  const ruleParts = [
+    replacements.length > 0 ? `訂正後では、語形・主語・be動詞など、正解例と違う部分をすべて直します。` : '',
+    inserts.length > 0 ? `出題の日本語に含まれる時間・場所・頻度などの情報は、英文でも省略せず入れます。` : '',
+  ].filter(Boolean);
+
+  const nuanceParts = [
+    replacements.length > 0 ? `語形や主語がずれると、誰の話か・いつの話かが正しく伝わらなくなります。` : '',
+    inserts.length > 0 ? `${joinJapaneseItems(inserts)}がないと、その情報が相手に伝わりません。` : '',
+  ].filter(Boolean);
+
+  return {
+    mistakePointJa: mistakeParts.join(' '),
+    ruleJa: ruleParts.join(' '),
+    nuanceJa: nuanceParts.join(' '),
+  };
 }
 
 const graderSystemPromptStatic = `You are a Japanese tutor for English learners (A1–B1).
@@ -820,6 +1068,41 @@ Evaluate the learner's answer. Replace {LEARNER_ANSWER} with "${userAnswer}" and
       const judgement = typeof graderResult.judgement === 'string' ? graderResult.judgement.toLowerCase() : '';
       const hasJudgement = judgement === 'correct' || judgement === 'acceptable' || judgement === 'incorrect';
       const scoreValue = graderResult.score || 0;
+
+      if (typeof graderResult.correctedUserAnswer === 'string') {
+        graderResult.correctedUserAnswer = ensureReferenceTrailingMeaning(
+          graderResult.correctedUserAnswer,
+          correctAnswer
+        );
+        graderResult.correctedUserAnswer = ensureCompleteCorrectionForIncorrectAnswer(
+          graderResult.correctedUserAnswer,
+          correctAnswer,
+          judgement,
+          scoreValue
+        );
+      }
+
+      const deterministicCorrectionFeedback = createDeterministicCorrectionFeedback(
+        userAnswer,
+        correctAnswer,
+        judgement,
+        scoreValue
+      );
+      if (deterministicCorrectionFeedback) {
+        graderResult.mistakePointJa = appendSentence(
+          graderResult.mistakePointJa || '',
+          deterministicCorrectionFeedback.mistakePointJa
+        );
+        graderResult.ruleJa = appendSentence(
+          graderResult.ruleJa || '',
+          deterministicCorrectionFeedback.ruleJa
+        );
+        graderResult.nuanceJa = appendSentence(
+          graderResult.nuanceJa || '',
+          deterministicCorrectionFeedback.nuanceJa
+        );
+      }
+
       const isCorrect = hasJudgement ? judgement === 'correct' || judgement === 'acceptable' : scoreValue >= 70;
       const meaningCorrect = hasJudgement ? judgement !== 'incorrect' : scoreValue >= 70;
       const deterministicThemeFeedback = createDeterministicThemeFeedback({

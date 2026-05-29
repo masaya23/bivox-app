@@ -116,7 +116,13 @@ export default function PaywallScreen({
   highlightedMode,
 }: PaywallScreenProps) {
   const router = useAppRouter();
-  const { getEffectiveTier, billingPeriod: currentBillingPeriod, syncNativeSubscription, shouldShowAds } = useSubscription();
+  const {
+    getEffectiveTier,
+    billingPeriod: currentBillingPeriod,
+    syncNativeSubscription,
+    shouldShowAds,
+    upgradePlan,
+  } = useSubscription();
   const effectiveTier = getEffectiveTier();
   const revenueCat = useRevenueCat();
   const isNative = Capacitor.isNativePlatform();
@@ -216,7 +222,8 @@ export default function PaywallScreen({
         }
 
         if (success) {
-          await syncNativeSubscription();
+          upgradePlan(selectedPlan, billingPeriod);
+          void syncNativeSubscription();
           setTimeout(() => onClose(), 500);
         } else {
           // エラーがあれば表示（パッケージ未取得、ストア接続不可など）
@@ -241,11 +248,11 @@ export default function PaywallScreen({
     setPurchaseError(null);
 
     try {
-      const success = await revenueCat.restorePurchases();
-      if (success) {
-        await syncNativeSubscription();
+      const restored = await revenueCat.restorePurchases();
+      const synced = await syncNativeSubscription({ forceRestore: true });
+      if (restored || synced) {
         setTimeout(() => onClose(), 500);
-      } else if (!success) {
+      } else {
         setPurchaseError('復元する購入がありませんでした');
       }
     } catch (error) {

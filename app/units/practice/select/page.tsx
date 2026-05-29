@@ -1,7 +1,5 @@
 'use client';
 
-/* eslint-disable @next/next/no-html-link-for-pages */
-
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { getUnitsByFilter } from '@/utils/units';

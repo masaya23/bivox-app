@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import ShadowingTrainer from '@/components/train/ShadowingTrainer';
 import SpeakingTrainer from '@/components/train/SpeakingTrainer';
 import AIDrillTrainer from '@/components/train/AIDrillTrainer';
+import ModeAccessGate from '@/components/subscription/ModeAccessGate';
 import { getUnitById, selectSentencesWithPriority } from '@/utils/units';
 import type { Sentence } from '@/types/sentence';
 import { isGuestUser } from '@/utils/guestAccess';
@@ -62,28 +63,33 @@ function UnitPracticePageContent() {
 
   if (mode === 'speaking') {
     return (
-      <SpeakingTrainer
-        initialSentences={selectedSentences}
-        pageTitle={`${unit.title} - まとめて練習`}
-        backLink={`/units/${unit.id}/practice/select?shuffle=${shuffleMode}`}
-        gradeId={unit.grade}
-        partLabel="まとめ"
-      />
+      <ModeAccessGate mode="speaking" backLink={modeSelectLink}>
+        <SpeakingTrainer
+          initialSentences={selectedSentences}
+          pageTitle={`${unit.title} - まとめて練習`}
+          backLink={`/units/${unit.id}/practice/select?shuffle=${shuffleMode}`}
+          partSelectLink={partSelectLink}
+          gradeId={unit.grade}
+          partLabel="まとめ"
+        />
+      </ModeAccessGate>
     );
   }
 
   if (mode === 'ai-drill') {
     return (
-      <AIDrillTrainer
-        partSentences={selectedSentences}
-        partId={`bundle-${unit.id}`}
-        partTitle={drillTitle}
-        grammarTags={grammarTags}
-        backLink={modeSelectLink}
-        partSelectLink={partSelectLink}
-        gradeId={unit.grade}
-        partLabel="まとめ"
-      />
+      <ModeAccessGate mode="ai-drill" backLink={modeSelectLink}>
+        <AIDrillTrainer
+          partSentences={selectedSentences}
+          partId={`bundle-${unit.id}`}
+          partTitle={drillTitle}
+          grammarTags={grammarTags}
+          backLink={modeSelectLink}
+          partSelectLink={partSelectLink}
+          gradeId={unit.grade}
+          partLabel="まとめ"
+        />
+      </ModeAccessGate>
     );
   }
 
@@ -92,6 +98,7 @@ function UnitPracticePageContent() {
       initialSentences={selectedSentences}
       pageTitle={`${unit.title} - まとめて練習`}
       backLink={`/units/${unit.id}/practice/select?shuffle=${shuffleMode}`}
+      partSelectLink={partSelectLink}
       gradeId={unit.grade}
       partLabel="まとめ"
     />

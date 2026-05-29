@@ -33,8 +33,14 @@ export async function POST(request: NextRequest) {
     });
 
     const promptText = typeof prompt === 'string' && prompt.trim()
-      ? prompt.toString().slice(0, 800)
-      : undefined;
+      ? prompt.toString().slice(0, 1200)
+      : [
+          'English speaking practice.',
+          'Verbatim transcription only.',
+          'Write exactly what the learner said, even if grammatically wrong.',
+          'Do not correct grammar, tense, articles, plurals, or missing words.',
+          'Do not infer the correct sentence from context.',
+        ].join(' ');
 
     const transcription = await openai.audio.transcriptions.create({
       file,

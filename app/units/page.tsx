@@ -64,7 +64,7 @@ function UnitsPageContent() {
     <div className="min-h-screen bg-gray-200 flex justify-center">
       <div className="w-full max-w-[430px] bg-gray-50 min-h-screen shadow-xl">
         {/* ヘッダー */}
-        <div className={`p-4 bg-gradient-to-r ${currentTabInfo.gradient}`}>
+        <div className={`sticky top-0 z-10 p-4 bg-gradient-to-r ${currentTabInfo.gradient}`}>
           <div className="flex items-center justify-between">
             <HardNavLink href="/" className="text-white/80 hover:text-white font-medium text-sm">
               ← ホーム

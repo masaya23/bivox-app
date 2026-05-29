@@ -20,6 +20,7 @@ import { getLessonPartBadgeClassName } from '@/utils/gradeTheme';
 import { useTrainerAdBanner } from '@/hooks/useTrainerAdBanner';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import PaywallScreen from '@/components/subscription/PaywallScreen';
+import { usePartialLessonLog } from '@/hooks/usePartialLessonLog';
 
 interface AIDrillTrainerProps {
   partSentences: Sentence[];
@@ -238,6 +239,17 @@ export default function AIDrillTrainer({
   const ttsSpeakingRef = useRef(false);
   // 無回答タイムアウト
   const noSpeechTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  // 「答えを見る」ボタンで終了したかのフラグ
+  const isGiveUpRef = useRef(false);
+  const playbackRunIdRef = useRef(0);
+
+  usePartialLessonLog({
+    mode: 'AI応用ドリル',
+    getCompletedQuestions: () => questionResults.length,
+    getElapsedMinutes: () => Math.max(1, Math.ceil((Date.now() - startTimeRef.current) / 60000)),
+    isComplete: () => phaseRef.current === 'finished',
+    sessionOptions: { gradeId, partLabel },
+  });
 
   // serverTTSの関数をrefで保持（依存チェーン防止）
   const serverTTSSpeakRef = useRef(serverTTS.speak);
@@ -342,8 +354,11 @@ export default function AIDrillTrainer({
   }, []);
 
   const startQuestion = useCallback((question: { questionJa: string; expectedEn: string }) => {
+    const playbackRunId = playbackRunIdRef.current + 1;
+    playbackRunIdRef.current = playbackRunId;
     // 前回のタイマーをクリア
     clearQuestionTimers();
+    serverTTSStopRef.current();
     // 進行中の評価をキャンセル
     if (evaluateAbortRef.current) {
       evaluateAbortRef.current.abort();
@@ -361,29 +376,31 @@ export default function AIDrillTrainer({
     setShowAnswer(false);
     setIsNoSpeech(false);
     setIsAiLoading(false);
+    isGiveUpRef.current = false;
     setCurrentQuestion(question);
     setPhaseWithRef('question');
 
     // 日本語TTS再生完了後にマイク開始
     questionTimerRef.current = setTimeout(async () => {
       // タイマー発火時にphaseが変わっていたら何もしない
-      if (phaseRef.current !== 'question') return;
+      if (playbackRunIdRef.current !== playbackRunId || phaseRef.current !== 'question') return;
       try {
         await speakJapanese(question.questionJa);
       } catch { /* ignore TTS errors */ }
+      if (playbackRunIdRef.current !== playbackRunId) return;
 
       // TTS再生完了を確実に待つ（isSpeakingがfalseになるまで）
       let waitCount = 0;
-      while (ttsSpeakingRef.current && waitCount < 50) {
+      while (playbackRunIdRef.current === playbackRunId && ttsSpeakingRef.current && waitCount < 50) {
         await new Promise(r => setTimeout(r, 100));
         waitCount++;
       }
 
       // TTS再生完了後、phaseがまだquestionならマイク開始
-      if (phaseRef.current !== 'question') return;
+      if (playbackRunIdRef.current !== playbackRunId || phaseRef.current !== 'question') return;
       startWhisperRecording(question.expectedEn);
     }, 500);
-  }, [speakJapanese, clearQuestionTimers, startWhisperRecording]);
+  }, [speakJapanese, clearQuestionTimers, startWhisperRecording, setPhaseWithRef]);
 
   const initializeDrill = useCallback(async () => {
     setPhaseWithRef('loading');
@@ -514,7 +531,7 @@ export default function AIDrillTrainer({
     }
     break; // 成功またはリトライ上限に達した場合ループを抜ける
     }
-  }, [getRandomSamples, partTitle, grammarTags, startQuestion]);
+  }, [getRandomSamples, partTitle, grammarTags, startQuestion, setPhaseWithRef]);
 
   // 初回問題生成（一度だけ実行）
   useEffect(() => {
@@ -523,6 +540,8 @@ export default function AIDrillTrainer({
     initializeDrill();
 
     return () => {
+      playbackRunIdRef.current += 1;
+      serverTTSStopRef.current();
       clearQuestionTimers();
       // コンポーネントアンマウント時に全てのAPI呼び出しをキャンセル
       if (evaluateAbortRef.current) {
@@ -531,7 +550,6 @@ export default function AIDrillTrainer({
       }
       evaluatingRef.current = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initializeDrill, clearQuestionTimers]);
 
   // 無音時の自動処理
@@ -638,14 +656,15 @@ export default function AIDrillTrainer({
           return updated;
         }
         // 初回 → 不正解として保存
+        const noSpeechLabel = isGiveUpRef.current ? '（答えを見る）' : '（未回答）';
         const currentResult: QuestionResult = {
           questionJa: currentQuestion.questionJa,
           correctEn: currentQuestion.expectedEn,
-          userAnswer: '（未回答）',
+          userAnswer: noSpeechLabel,
           aiEvaluation: evaluation,
           initialStatus: 'incorrect',
           finalStatus: 'incorrect',
-          finalUserAnswer: '（未回答）',
+          finalUserAnswer: noSpeechLabel,
           finalAiEvaluation: evaluation,
           isNoSpeech: true,
         };
@@ -665,10 +684,12 @@ export default function AIDrillTrainer({
       abortController.abort();
       evaluatingRef.current = false;
     };
-  }, [isNoSpeech, currentQuestion, partTitle]);
+  }, [isNoSpeech, currentQuestion, partTitle, session.currentIndex, setPhaseWithRef]);
 
   const handleStartRecording = () => {
     if (isListening || isTranscribing) return;
+    clearAutoJudgeTimer();
+    playbackRunIdRef.current += 1;
     serverTTSStopRef.current();
     setRecognitionError(null);
     setShowAnswer(false);
@@ -772,8 +793,17 @@ export default function AIDrillTrainer({
           // 既にこの問題の結果がある場合 → リトライなのでfinalStatusのみ更新
           if (prev.length > session.currentIndex) {
             const updated = [...prev];
+            const existing = updated[session.currentIndex];
+            if (existing.isNoSpeech) {
+              updated[session.currentIndex] = {
+                ...existing,
+                finalStatus: 'incorrect',
+                finalAiEvaluation: existing.finalAiEvaluation || evaluation,
+              };
+              return updated;
+            }
             updated[session.currentIndex] = {
-              ...updated[session.currentIndex],
+              ...existing,
               finalStatus: currentStatus,
               finalUserAnswer: answer,
               finalAiEvaluation: evaluation,
@@ -842,6 +872,7 @@ export default function AIDrillTrainer({
   };
 
   const handleShowAnswer = () => {
+    playbackRunIdRef.current += 1;
     finishRecording();
     serverTTS.stop();
     clearQuestionTimers();
@@ -851,6 +882,7 @@ export default function AIDrillTrainer({
       evaluateAbortRef.current.abort();
       evaluateAbortRef.current = null;
     }
+    isGiveUpRef.current = true;
     setShowAnswer(true);
     setIsNoSpeech(true);
     setEditableText('（答えを見る）');
@@ -860,7 +892,12 @@ export default function AIDrillTrainer({
   };
 
   const handleRetry = () => {
+    window.scrollTo(0, 0);
+
+    const playbackRunId = playbackRunIdRef.current + 1;
+    playbackRunIdRef.current = playbackRunId;
     clearQuestionTimers();
+    serverTTSStopRef.current();
     // 進行中の評価をリセット
     evaluatingRef.current = false;
     if (evaluateAbortRef.current) {
@@ -881,12 +918,13 @@ export default function AIDrillTrainer({
 
     if (currentQuestion) {
       questionTimerRef.current = setTimeout(async () => {
-        if (phaseRef.current !== 'question') return;
+        if (playbackRunIdRef.current !== playbackRunId || phaseRef.current !== 'question') return;
         try {
           await speakJapanese(currentQuestion.questionJa);
         } catch { /* ignore */ }
+        if (playbackRunIdRef.current !== playbackRunId) return;
         // TTS完了後にマイク開始
-        if (phaseRef.current !== 'question') return;
+        if (playbackRunIdRef.current !== playbackRunId || phaseRef.current !== 'question') return;
         startWhisperRecording(currentQuestion.expectedEn);
       }, 500);
     }
@@ -894,6 +932,8 @@ export default function AIDrillTrainer({
 
   // 次の問題へ
   const handleNext = () => {
+    window.scrollTo(0, 0);
+    playbackRunIdRef.current += 1;
     serverTTSStopRef.current();
     clearQuestionTimers();
     const nextIndex = session.currentIndex + 1;
@@ -943,6 +983,7 @@ export default function AIDrillTrainer({
   };
 
   const handleReset = () => {
+    playbackRunIdRef.current += 1;
     serverTTSStopRef.current();
     clearQuestionTimers();
     // 進行中の評価をキャンセル
@@ -979,6 +1020,7 @@ export default function AIDrillTrainer({
     setQuestionResults([]);
     setExpandedCardIndex(null);
     setHistoryPage(0);
+    isGiveUpRef.current = false;
     startTimeRef.current = Date.now();
     // initializedRefをリセットしてから再初期化
     initializedRef.current = false;
@@ -1053,7 +1095,10 @@ export default function AIDrillTrainer({
 
     // 正解時のみ英語音声を自動再生（不正解時は▶ボタンで手動再生）
     if (isCorrect) {
+      const playbackRunId = playbackRunIdRef.current + 1;
+      playbackRunIdRef.current = playbackRunId;
       setTimeout(() => {
+        if (playbackRunIdRef.current !== playbackRunId) return;
         speakEnglish(correctAnswer).catch(() => {});
       }, 600);
     }
@@ -1062,6 +1107,7 @@ export default function AIDrillTrainer({
   // 復習モードの次の問題
   const handleReviewNext = () => {
     // 再生中の音声を停止
+    playbackRunIdRef.current += 1;
     serverTTS.stop();
 
     if (reviewIndex + 1 >= reviewQuestions.length) {
@@ -1081,6 +1127,7 @@ export default function AIDrillTrainer({
 
   // 復習問題をやり直す
   const handleReviewRetry = () => {
+    playbackRunIdRef.current += 1;
     serverTTS.stop();
     const currentReviewQuestion = reviewQuestions[reviewIndex];
     setShuffledTiles(shuffleWords(currentReviewQuestion.correctEn));
@@ -1127,7 +1174,17 @@ export default function AIDrillTrainer({
         <div className="bg-white rounded-3xl p-8 text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-3">AI応用ドリル</h1>
           <p className="text-gray-600">このブラウザは音声認識に対応していません。Google Chromeでお試しください。</p>
-          <HardNavLink href={backLink} className="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold">← 戻る</HardNavLink>
+          <HardNavLink
+            href={backLink}
+            onClick={() => {
+              playbackRunIdRef.current += 1;
+              serverTTSStopRef.current();
+              clearQuestionTimers();
+            }}
+            className="inline-block mt-6 text-blue-600 hover:text-blue-800 font-semibold"
+          >
+            ← 戻る
+          </HardNavLink>
         </div>
       </div>
     );
@@ -1304,25 +1361,32 @@ export default function AIDrillTrainer({
                       ? getWordDiff(displayAnswer, displayEvaluation.correctedUserAnswer || displayEvaluation.correction || result.correctEn)
                       : null;
 
-                    // 3状態の判定
+                    // 5状態の判定
                     const isExcellent = result.initialStatus === 'correct' && result.finalStatus === 'correct';
                     const isRecovered = result.initialStatus === 'incorrect' && result.finalStatus === 'correct';
                     const isMissed = result.initialStatus === 'incorrect' && result.finalStatus === 'incorrect';
+                    const isGiveUp = isMissed && (result.userAnswer === '（答えを見る）' || result.finalUserAnswer === '（答えを見る）');
+                    const isTimeout = isMissed && result.isNoSpeech && !isGiveUp;
+                    const isRealMiss = isMissed && !isGiveUp && !isTimeout;
 
                     // スタイル設定
                     const cardStyle = isExcellent
                       ? 'border-green-200 bg-green-50'
                       : isRecovered
                       ? 'border-yellow-200 bg-yellow-50'
+                      : (isGiveUp || isTimeout)
+                      ? 'border-gray-200 bg-gray-50'
                       : 'border-red-200 bg-red-50';
 
-                      const badgeStyle = isExcellent
-                        ? 'bg-green-500'
-                        : isRecovered
-                        ? 'bg-yellow-500'
-                        : 'bg-red-500';
+                    const badgeStyle = isExcellent
+                      ? 'bg-green-500'
+                      : isRecovered
+                      ? 'bg-yellow-500'
+                      : (isGiveUp || isTimeout)
+                      ? 'bg-gray-400'
+                      : 'bg-red-500';
 
-                      const statusLabel = isExcellent ? '一発正解' : isRecovered ? 'リカバリー' : '不正解';
+                    const statusLabel = isExcellent ? '一発正解' : isRecovered ? 'リカバリー' : isGiveUp ? 'ギブアップ' : isTimeout ? 'タイムアウト' : '不正解';
 
                     return (
                       <div
@@ -1340,6 +1404,10 @@ export default function AIDrillTrainer({
                                     <circle cx="12" cy="12" r="9" />
                                   ) : isRecovered ? (
                                     <polygon points="12,3 22,21 2,21" />
+                                  ) : isGiveUp ? (
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                  ) : isTimeout ? (
+                                    <><circle cx="12" cy="12" r="9" /><polyline points="12,7 12,12 15,15" /></>
                                   ) : (
                                     <><line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" /></>
                                   )}
@@ -1364,46 +1432,22 @@ export default function AIDrillTrainer({
                             {/* 初回回答（リカバリー時のみ表示） */}
                             {isRecovered && (
                               <div className="bg-orange-50 rounded-lg p-3 border border-orange-200">
-                                <div className="flex items-center justify-between mb-1">
+                                <div className="mb-1">
                                   <span className="text-xs text-orange-600 font-bold">初回回答（不正解）</span>
-                                  {result.userAnswer && result.userAnswer !== '（未回答）' && (
-                                    <button
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        speakText(result.userAnswer, 'en-US');
-                                      }}
-                                      disabled={isTTSSpeaking}
-                                      className="w-7 h-7 min-w-[1.75rem] min-h-[1.75rem] flex-shrink-0 bg-orange-200 text-orange-600 rounded-full flex items-center justify-center hover:bg-orange-300 disabled:opacity-50 text-xs"
-                                    >
-                                      <PlayIcon />
-                                    </button>
-                                  )}
                                 </div>
                                 <p className="text-gray-700 text-sm">{result.userAnswer || '（未回答）'}</p>
                               </div>
                             )}
 
                             <div className="bg-white rounded-xl p-3">
-                              <div className="flex items-center justify-between mb-1">
+                              <div className="mb-1">
                                 <span className="text-xs text-gray-500">
                                   {isRecovered ? '最終回答（正解）' : 'あなたの回答'}
                                 </span>
-                                {displayAnswer && !result.isNoSpeech && (
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      speakText(displayAnswer, 'en-US');
-                                    }}
-                                    disabled={isTTSSpeaking}
-                                    className="w-7 h-7 min-w-[1.75rem] min-h-[1.75rem] flex-shrink-0 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 disabled:opacity-50 text-xs"
-                                  >
-                                    <PlayIcon />
-                                  </button>
-                                )}
                               </div>
                               <p className="text-sm text-gray-800">
                                 {result.isNoSpeech && !isRecovered ? (
-                                  '（未回答）'
+                                  isGiveUp ? '（答えを見た）' : '（時間切れ）'
                                 ) : resultWordDiff ? (
                                   resultWordDiff.userDiff.map((item, idx) => (
                                     <span
@@ -1424,13 +1468,15 @@ export default function AIDrillTrainer({
                             </div>
                             <div className="bg-white rounded-xl p-3">
                               <div className="flex items-center justify-between mb-1">
-                                <span className="text-xs text-gray-500">
+                                <span className="text-xs text-green-600 font-bold">
                                   {isExcellent || isRecovered ? '正解' : '訂正後'}
                                 </span>
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    const textToSpeak = displayEvaluation?.correctedUserAnswer || displayEvaluation?.correction || result.correctEn;
+                                    const textToSpeak = (isExcellent || isRecovered)
+                                      ? result.correctEn
+                                      : displayEvaluation?.correctedUserAnswer || displayEvaluation?.correction || result.correctEn;
                                     speakText(textToSpeak, 'en-US');
                                   }}
                                   disabled={isTTSSpeaking}
@@ -1440,7 +1486,9 @@ export default function AIDrillTrainer({
                                 </button>
                               </div>
                               <p className="text-sm text-green-700 font-semibold">
-                                {displayEvaluation?.correction || result.correctEn}
+                                {(isExcellent || isRecovered)
+                                  ? result.correctEn
+                                  : displayEvaluation?.correctedUserAnswer || displayEvaluation?.correction || result.correctEn}
                               </p>
                             </div>
                             {displayEvaluation?.feedback && !isExcellent && !isRecovered && (
@@ -1475,6 +1523,7 @@ export default function AIDrillTrainer({
           <div className="flex items-center justify-between">
             <button
               onClick={() => {
+                playbackRunIdRef.current += 1;
                 serverTTS.stop();
                 setShowReviewMode(false);
                 setPhaseWithRef('finished');
@@ -1577,7 +1626,7 @@ export default function AIDrillTrainer({
                         <p className="text-lg font-semibold text-green-700">{currentReviewQuestion.correctEn}</p>
                       </div>
                       <button
-                        onClick={() => { serverTTS.stop(); speakEnglish(currentReviewQuestion.correctEn); }}
+                        onClick={() => { playbackRunIdRef.current += 1; serverTTS.stop(); speakEnglish(currentReviewQuestion.correctEn); }}
                         disabled={isTTSSpeaking}
                         className="w-10 h-10 min-w-[2.5rem] min-h-[2.5rem] flex-shrink-0 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 disabled:opacity-50 transition-all ml-3"
                       >
@@ -1628,7 +1677,15 @@ export default function AIDrillTrainer({
         <div className="min-h-screen bg-gray-50 flex flex-col max-w-[430px] mx-auto relative shadow-xl">
           <div className="px-4 py-4 sticky top-0 z-30 bg-gradient-to-r from-purple-500 to-pink-500">
             <div className="flex items-center justify-between">
-              <HardNavLink href={backLink} className="text-white/80 hover:text-white font-semibold text-sm min-w-[60px]">
+              <HardNavLink
+                href={backLink}
+                onClick={() => {
+                  playbackRunIdRef.current += 1;
+                  serverTTSStopRef.current();
+                  clearQuestionTimers();
+                }}
+                className="text-white/80 hover:text-white font-semibold text-sm min-w-[60px]"
+              >
                 ← 戻る
               </HardNavLink>
               <h1 className="text-xl font-black text-white">AI応用ドリル</h1>
@@ -1698,7 +1755,17 @@ export default function AIDrillTrainer({
       {/* ヘッダー */}
       <header className="bg-white px-4 py-3 sticky top-0 z-30 border-b border-gray-100">
         <div className="flex items-center justify-between">
-          <HardNavLink href={backLink} className="text-gray-600 font-semibold text-sm min-w-[50px]">← 戻る</HardNavLink>
+          <HardNavLink
+            href={backLink}
+            onClick={() => {
+              playbackRunIdRef.current += 1;
+              serverTTSStopRef.current();
+              clearQuestionTimers();
+            }}
+            className="text-gray-600 font-semibold text-sm min-w-[50px]"
+          >
+            ← 戻る
+          </HardNavLink>
           <div className="text-center flex-1 px-2">
             {headerTitle.partLabel && (
               <span className={badgeClass}>
@@ -1707,6 +1774,30 @@ export default function AIDrillTrainer({
             )}
           </div>
           <span className="min-w-[50px]" />
+        </div>
+        <div className="mt-2 grid grid-cols-2 gap-2">
+          <HardNavLink
+            href={partSelectLink ?? backLink}
+            onClick={() => {
+              playbackRunIdRef.current += 1;
+              serverTTSStopRef.current();
+              clearQuestionTimers();
+            }}
+            className="py-2 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold text-center active:scale-[0.98] transition-transform"
+          >
+            Part選択
+          </HardNavLink>
+          <HardNavLink
+            href="/"
+            onClick={() => {
+              playbackRunIdRef.current += 1;
+              serverTTSStopRef.current();
+              clearQuestionTimers();
+            }}
+            className="py-2 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold text-center active:scale-[0.98] transition-transform"
+          >
+            ホームに戻る
+          </HardNavLink>
         </div>
       </header>
 
@@ -1772,19 +1863,19 @@ export default function AIDrillTrainer({
                             ref={textareaRef}
                             value={editableText}
                             onChange={(e) => setEditableText(e.target.value)}
-                            onFocus={clearAutoJudgeTimer}
-                            disabled={isListening || isTranscribing}
+                            onFocus={() => {
+                              clearAutoJudgeTimer();
+                              if (isListening) { whisper.cancelListening(); setIsListening(false); }
+                            }}
                             placeholder={isListening ? '聞き取り中...' : isTranscribing ? '文字起こし中...' : 'ここに英文を入力または音声入力...'}
                             className={`w-full p-3 pr-8 border-2 rounded-xl focus:outline-none resize-none text-gray-800 transition-colors ${
-                              isListening || isTranscribing
-                                ? 'border-purple-200 bg-gray-50 text-gray-400 cursor-not-allowed'
-                                : isAutoJudgePending
+                              isAutoJudgePending
                                 ? 'border-green-400 bg-green-50 focus:border-green-500'
                                 : 'border-purple-200 focus:border-purple-400'
                             }`}
                             rows={2}
                           />
-                          {!isListening && !isTranscribing && (
+                          {(
                             <button
                               type="button"
                               onClick={() => { clearAutoJudgeTimer(); textareaRef.current?.focus(); }}
@@ -1801,7 +1892,7 @@ export default function AIDrillTrainer({
                         </div>
                         <button
                           onClick={() => { clearAutoJudgeTimer(); handleJudge(); }}
-                          disabled={!editableText.trim() || isAiLoading || isListening || isTranscribing}
+                          disabled={!editableText.trim() || isAiLoading || isTranscribing}
                           className="px-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-xl hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 transition-all flex items-center justify-center"
                           title="判定する"
                         >
@@ -1855,9 +1946,8 @@ export default function AIDrillTrainer({
                   {/* 自動判定カウントダウンバー */}
                   {isAutoJudgePending && (
                     <div className="w-full mt-3">
-                      <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
-                        <span className="text-green-600 font-medium">✏️ タップして修正</span>
-                        <span className="font-bold text-gray-700">{autoJudgeCountdown}秒後に自動送信</span>
+                      <div className="flex items-center justify-center text-xs text-gray-700 font-bold mb-1">
+                        <span>{autoJudgeCountdown}秒後に自動送信</span>
                       </div>
                       <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div

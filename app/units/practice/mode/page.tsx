@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { TabFilter } from '@/types/unit';
 import { GRADE_THEMES } from '@/utils/gradeTheme';
 import ModeSelectCard from '@/components/train/ModeSelectCard';
+import HardNavLink from '@/components/HardNavLink';
 import { useAppRouter } from '@/hooks/useAppRouter';
 import { useAuth } from '@/contexts/AuthContext';
 import { isGuestUser } from '@/utils/guestAccess';
@@ -31,13 +32,15 @@ function AllUnitsPracticeModeSelectPageContent() {
       <div className="w-full max-w-[430px] bg-gray-50 min-h-screen shadow-xl">
         <div className={`p-4 bg-gradient-to-r ${GRADE_THEMES[filter].gradient}`}>
           <div className="flex items-center justify-between">
-            <a
+            <HardNavLink
               href={`/units/practice/select?filter=${filter}&shuffle=${shuffleMode}&seed=${seed}`}
               className="text-white/80 hover:text-white font-semibold text-sm"
             >
               &larr;戻る
-            </a>
-            <div className="min-w-[60px]" />
+            </HardNavLink>
+            <HardNavLink href="/" className="text-white/80 hover:text-white font-semibold text-sm">
+              ホームに戻る
+            </HardNavLink>
           </div>
           <h1 className="text-xl font-black text-white text-center mt-2">
             学習モードを選択

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import {
   startOfMonth,
   endOfMonth,
@@ -37,16 +37,32 @@ export default function StreakCalendar({
   const [studiedDates, setStudiedDates] = useState<Date[]>([]);
   const [displayStreak, setDisplayStreak] = useState<number>(0);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  // 初回表示のみアニメーション（sessionStorageで管理）
+  const [todayAnimated, setTodayAnimated] = useState(false);
+  const calendarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // propsで渡された場合はそれを使用、なければLocalStorageから取得
     if (propStudiedDates && propStudiedDates.length > 0) {
       setStudiedDates(propStudiedDates);
     } else {
       setStudiedDates(getStudiedDates());
     }
-    // ストリーク数を計算
     setDisplayStreak(getStreakData().currentStreak);
+
+    // カレンダーがviewport内に入った瞬間にアニメーション開始
+    const el = calendarRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          observer.disconnect();
+          setTimeout(() => setTodayAnimated(true), 50);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [propStudiedDates]);
 
   const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
@@ -87,7 +103,7 @@ export default function StreakCalendar({
   const TODAY_INNER_CIRCLE_SIZE = TODAY_OUTER_CIRCLE_SIZE - 8;
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div ref={calendarRef} className="bg-white rounded-2xl shadow-lg overflow-hidden">
       {/* ストリーク表示ヘッダー */}
       <div className="bg-gradient-to-r from-orange-400 to-amber-400 px-5 py-4">
         <div className="flex items-center justify-center gap-3">
@@ -98,7 +114,7 @@ export default function StreakCalendar({
           </div>
         </div>
         <p className="text-center text-white/80 text-sm mt-1">
-          今日も学習してストリークを継続しよう！
+          今日もレッスンして、連続記録を伸ばそう！
         </p>
       </div>
 
@@ -158,16 +174,33 @@ export default function StreakCalendar({
                   style={{ height: `${CELL_HEIGHT}px` }}
                 >
                   {showLeftBand && (
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[30px] w-1/2 bg-orange-300" />
+                    <div
+                      className="absolute left-0 top-1/2 -translate-y-1/2 h-[30px] bg-orange-300"
+                      style={isTodayDate ? {
+                        width: todayAnimated ? '50%' : '0%',
+                        transition: 'width 0.3s ease 0s',
+                      } : { width: '50%' }}
+                    />
                   )}
                   {showRightBand && (
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[30px] w-1/2 bg-orange-300" />
+                    <div
+                      className="absolute right-0 top-1/2 -translate-y-1/2 h-[30px] bg-orange-300"
+                      style={isTodayDate ? {
+                        width: todayAnimated ? '50%' : '0%',
+                        transition: 'width 0.3s ease 0.5s',
+                      } : { width: '50%' }}
+                    />
                   )}
 
                   {showTodayDoubleCircle ? (
                     <div
                       className="relative z-10 flex items-center justify-center"
-                      style={{ width: `${TODAY_OUTER_CIRCLE_SIZE}px`, height: `${TODAY_OUTER_CIRCLE_SIZE}px` }}
+                      style={{
+                        width: `${TODAY_OUTER_CIRCLE_SIZE}px`,
+                        height: `${TODAY_OUTER_CIRCLE_SIZE}px`,
+                        transform: todayAnimated ? 'scale(1)' : 'scale(0)',
+                        transition: 'transform 0.3s cubic-bezier(0.34,1.56,0.64,1) 0.3s',
+                      }}
                     >
                       <span
                         className="absolute rounded-full bg-orange-500"
